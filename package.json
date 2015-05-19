@@ -1,0 +1,18 @@
+{
+  "name": "Tests",
+  "description": "Project automates the process of tests creation. This process allows users enter all parameters and description of yourself without administrator.",
+  "author": "Matveev Savva",
+
+  "scripts": {
+  	
+  },
+
+  "dependencies": {
+    "react": "^0.13.3",
+    "underscore": "^1.8.3"
+  },
+
+  "devDependencies": {
+
+  }
+}
