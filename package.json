@@ -4,7 +4,8 @@
   "author": "Matveev Savva",
 
   "scripts": {
-  	
+  	"build":"browserify js/main.js -d | uglifyjs -mc > build/js/bundle.js",
+  	"watch": "supervisor --watch js --extensions js --no-restart-on exit --exec 'npm run build'"
   },
 
   "dependencies": {
