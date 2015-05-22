@@ -5,6 +5,7 @@
 
   "scripts": {
   	"build":"browserify js/main.js -d | uglifyjs -mc > build/js/bundle.js",
+    "build-jsx":"jsx js/jsx --extension jsx build/js/jsx",
   	"watch": "supervisor --watch js --extensions js --no-restart-on exit --exec 'npm run build'"
   },
 

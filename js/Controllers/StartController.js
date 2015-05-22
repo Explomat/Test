@@ -5,7 +5,8 @@ function StartController() {
 	React.unmountComponentAtNode(app);
 
 	this.start = function() {
-		React.render(React.createElement('div'), app);
+		var questionView = require('../../build/js/jsx/QuestionView');
+		React.render(React.createElement(questionView), app);
 	}
 }
 

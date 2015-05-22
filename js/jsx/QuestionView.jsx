@@ -1,6 +1,6 @@
 var React = require('React');
 
-var AddQuestionView = React.createClass({
+var QuestionView = React.createClass({
 	render:function () {
 		return (
 			<div>
@@ -9,3 +9,5 @@ var AddQuestionView = React.createClass({
 		);
 	}
 });
+
+module.exports = QuestionView;
