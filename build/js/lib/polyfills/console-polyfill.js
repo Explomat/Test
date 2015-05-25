@@ -1,0 +1,1 @@
+!function(o){"use strict";for(var e,r,i={},t=function(){},n="memory".split(","),p="assert,clear,count,debug,dir,dirxml,error,exception,group,groupCollapsed,groupEnd,info,log,markTimeline,profile,profileEnd,table,time,timeEnd,timeStamp,trace,warn".split(",");e=n.pop();)o[e]=o[e]||i;for(;r=p.pop();)o[r]=o[r]||t}(this.console=this.console||{});
