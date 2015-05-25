@@ -4,6 +4,7 @@
   "author": "Matveev Savva",
 
   "scripts": {
+    "td":"npm run build-jsx & browserify js/main.js -d -o build/js/bundle.js",
     "deploy":"npm run build-jsx && npm run build  && npm run sm",
   	"build":"browserify js/main.js -d | uglifyjs -mc > build/js/bundle.js",
     "sm":"uglifyjs build/js/bundle.js --source-map build/js/bundle.js.map",

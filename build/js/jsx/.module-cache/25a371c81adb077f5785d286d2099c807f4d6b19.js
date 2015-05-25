@@ -4,14 +4,7 @@ var Menu = React.createClass({displayName: "Menu",
 	render:function() {
 		return (
 			React.createElement("div", {className: "menu all"}, 
-				React.createElement("div", null, 
-					React.createElement("i", {className: "fa fa-file-image-o fa-2x menu-item"}), 
-					React.createElement("span", null, "Показывать картинки")
-				), 
-				React.createElement("div", null, 
-					React.createElement("i", {className: "fa fa-cubes fa-2x menu-item"}), 
-					React.createElement("span", null, "Показывать вес")
-				)
+				React.createElement("i", {className: "fa fa-file-image-o"})
 			)
 		);
 	}

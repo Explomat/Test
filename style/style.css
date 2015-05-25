@@ -24,6 +24,56 @@ h1, nav {
     margin: 0px 0px 20px;
 }
 
+textarea {
+    resize: none;
+}
+
+.all {
+    margin-top: 20px;
+}
+
+.menu {
+    width: 10%;
+    float: right;
+}
+
+.menu .menu-item {
+    cursor: pointer;
+    background: #428BCA none repeat scroll 0% 0%;
+    padding: 14px;
+    border-radius: 5px;
+    color: #fff;
+    width:63px;
+}
+
+.menu .menu-item:hover {
+    background-color: #3276B1;
+    border-color: #285E8E;
+}
+
+.menu > div {
+    margin: 0px 0px 30% 30%;
+}
+
+.menu > div > span {
+    display: none;
+    position: absolute;
+}
+
+.menu > div:hover > span {
+    display: block;
+}
+
+.menu .menu-item span {
+    color: #ccc;
+    display: block;
+}
+
+.menu-float {
+    float: left;
+    width: 90%;
+}
+
 #container{
     min-width: 600px;
     font-family:Calibri, Helvetica, serif;
