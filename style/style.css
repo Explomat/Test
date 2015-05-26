@@ -32,36 +32,85 @@ textarea {
     margin-top: 20px;
 }
 
+.side-bar > a {
+    outline: 0;
+}
+
 .menu {
     width: 10%;
     float: right;
 }
 
 .menu .menu-item {
-    cursor: pointer;
     background: #428BCA none repeat scroll 0% 0%;
-    padding: 14px;
-    border-radius: 5px;
+    border:1px solid #3276B1;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    border-radius:5px;
+    display:inline-block;
+    cursor:pointer;
+    padding: 15%;
+    text-decoration:none;
     color: #fff;
-    width:63px;
+}
+
+.menu > div > .menu-item {
+    border:none;
+}
+
+.menu .menu-item:active {
+    position:relative;
+    top:3px;
+    border:none;
 }
 
 .menu .menu-item:hover {
     background-color: #3276B1;
-    border-color: #285E8E;
 }
 
 .menu > div {
     margin: 0px 0px 30% 30%;
+    position: relative;
 }
+
+.menu > div > span:after {
+    left: 100%;
+    top: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(57, 77, 89, 0);
+    border-left-color: #EEA236;//#394d59;
+    border-width: 8px;
+    margin-top: -8px;
+}
+
 
 .menu > div > span {
     display: none;
     position: absolute;
+
+    right: 75px;
+    top: 8px;
+    z-index: 20;
+    padding: 10px;
+    background: #EEA236;//#394d59;
+    opacity: .9;
+    color: #fff;
+    border-radius: 5%;
+    line-height: 1em;
 }
 
 .menu > div:hover > span {
     display: block;
+}
+
+.menu .menu-item i {
+    font-size: 1.5em;
+    width: 1.5em;
 }
 
 .menu .menu-item span {
@@ -72,6 +121,16 @@ textarea {
 .menu-float {
     float: left;
     width: 90%;
+}
+
+.qtype-btn {
+    width:170px;
+}
+
+.qtype-btn:hover {
+    box-shadow: none;
+    background-color: #fff;
+    border-color: #CCC;
 }
 
 #container{
@@ -88,6 +147,23 @@ textarea {
             border-radius:4px;
 }
 
-#container #app-container {
+#container:after{
+    content: '';
+    display:table;
+    clear:both;
+};
+
+#app-container {
     min-width: 500px;
+}
+
+#app-container .list-group {
+    float:left;
+    width: 20%;
+    padding-right: 2px;
+}
+
+#app {
+    width:80%;
+    float:right;
 }

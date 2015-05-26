@@ -3,6 +3,10 @@ function Storage() {
 	var _storage = window.sessionStorage || window.localStorage;
 	var _root = 'tests';
 
+	this.clear = function() {
+		_storage.clear();
+	},
+
 	this.getItems = function(isParse){
 		if (isParse == undefined || isParse == null) 
 			isParse = true;

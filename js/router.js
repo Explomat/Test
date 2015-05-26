@@ -1,6 +1,8 @@
 ﻿
 function Router() {
-    var routes = [{hash:'#settings', controller:'StartController'}];
+    var routes = [{hash:'#settings', controller:'startController'},
+                {hash:'#setting', controller:'startController'},
+                {hash:'#settin', controller:'startController'}];
     var defaultRoute = '#settings';
     var currentHash = '';
     var callBack;
@@ -24,8 +26,8 @@ function Router() {
     
     function loadController(controllerName, callBack){
         if (callBack) callBack();
-        if (controllerName == 'StartController')
-            require('./Controllers/StartController').start();
+        if (controllerName == 'startController')
+            require('./Controllers/startController/startController').start();
 
         /*require(['controllers/' + controllerName], function(controller){
             if (callBack) callBack();
