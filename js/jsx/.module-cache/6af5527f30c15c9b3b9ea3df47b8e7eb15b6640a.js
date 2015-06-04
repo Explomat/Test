@@ -1,5 +1,5 @@
 var React = require('React');
-var quiestionTypes = require('../../utils/QuestionTypes');
+var quiestionTypes = require('../utils/QuestionTypes');
 
 var Menu = React.createClass({displayName: "Menu",
 	render:function() {
@@ -83,7 +83,9 @@ var SelectQuestionType = React.createClass({displayName: "SelectQuestionType",
 		this.handleDisplayTypes();
 	},
 
-	handleBlurTypes:function() {
+	handleBlurTypes:function(e) {
+		console.log(e.target.parentNode);
+		console.log(e.target);
 		//this.setState({isTypeDisplay:false});
 	},
 

@@ -1,28 +1,5 @@
-var React = require('React');
-
-var quiestionTypes = {
-	values:{
-		'multiple_choice':'Единственный выбор',
-		'multiple_response':'Множественный выбор',
-		'order':'Ранжирование',
-		'gap_fill':'Соответствие',
-		'numerical_fill_in_blank':'Текстовый ввод',
-		'match_item':'Цифровой ввод'
-	},
-
-	toArray:function() {
-		return (Object.keys(this.values).map(function(key){
-			var obj = {};
-			Object.defineProperty(obj, key,{
-				value: this.values[key],
-				writable: true,
-				enumerable: true,
-				configurable: true
-			});
-	    	return obj;
-	    }.bind(this)));
-	}
-};
+var React = require('react');
+var quiestionTypes = require('../utils/QuestionTypes');
 
 var Menu = React.createClass({
 	render:function() {
@@ -57,7 +34,7 @@ var Title = React.createClass({
 		return (
 			<div className="input-group all menu-float">
 	            <span className="input-group-addon">Заголовок : *</span>
-	            <input type="text" className="form-control" placeholder='Заголовок вопроса' value={this.state.title} onChane={this.handleChange}/>
+	            <input type="text" className="form-control" placeholder='Заголовок вопроса' value={this.state.title} onChange={this.handleChange}/>
 	        </div>
 		);
 	}
@@ -106,7 +83,11 @@ var SelectQuestionType = React.createClass({
 		this.handleDisplayTypes();
 	},
 
-	handleBlurTypes:function() {
+	handleBlurTypes:function(e) {
+		console.log(e.currentTarget.parentNode);
+		console.log(e.target.parentNode);
+		console.log(e.target);
+		console.log(e.relatedTarget);
 		//this.setState({isTypeDisplay:false});
 	},
 
@@ -122,8 +103,6 @@ var SelectQuestionType = React.createClass({
 	},
 
 	render:function() {
-		console.log(this.state.qType);
-		console.log(this.props.qType);
 		var isTypeDisplayStyle = { display: this.state.isTypeDisplay ? "block":"none" };
 		var list = [];
 		var count = 0;

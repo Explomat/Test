@@ -10,7 +10,7 @@ h1,tr,td,th,span,label,div {
 
 ::selection { background-color: transparent; };
 
-html,body{
+html, body{
     height: 100%;
     overflow: hidden;
 }
@@ -30,10 +30,6 @@ textarea {
 
 .all {
     margin-top: 20px;
-}
-
-.side-bar > a {
-    outline: 0;
 }
 
 .menu {

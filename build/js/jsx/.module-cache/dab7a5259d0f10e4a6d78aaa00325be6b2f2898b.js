@@ -1,5 +1,5 @@
 var React = require('React');
-var quiestionTypes = require('../../utils/QuestionTypes');
+var quiestionTypes = require('../utils/QuiestionTypes');
 
 var Menu = React.createClass({displayName: "Menu",
 	render:function() {
