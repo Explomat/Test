@@ -78,20 +78,28 @@ var QuestionType = React.createClass({
 
 var SelectQuestionType = React.createClass({
 
+	componentWillUnmount: function() {
+		document.removeEventListener('click', this.handleBlurTypes);
+	},
+
+	componentDidMount: function() {
+		document.addEventListener('click', this.handleBlurTypes);
+	},
+
 	handleSelectType:function(key) {
 		this.setState({qType:key});
 		this.handleDisplayTypes();
 	},
 
 	handleBlurTypes:function(e) {
-		console.log(e.currentTarget.parentNode);
-		console.log(e.target.parentNode);
-		console.log(e.target);
-		console.log(e.relatedTarget);
-		//this.setState({isTypeDisplay:false});
+		this.setState({isTypeDisplay:false});
 	},
 
-	handleDisplayTypes:function() {
+	handleDisplayTypes:function(e) {
+		if (e) {
+			e.stopPropagation();
+        	e.nativeEvent.stopImmediatePropagation();
+		}
 		this.setState({isTypeDisplay:!this.state.isTypeDisplay});
 	},
 
@@ -113,11 +121,11 @@ var SelectQuestionType = React.createClass({
 			count++;
 		}.bind(this));
 		return (
-			<div className="btn-group select-qtype" tabIndex="0">
+			<div className="btn-group select-qtype">
 				<button type="button" className="btn btn-default qtype-btn">
 					{quiestionTypes.values[this.state.qType]}
 				</button>
-				<button type="button" className="btn btn-primary dropdown-toggle" onClick={this.handleDisplayTypes} onBlur={this.handleBlurTypes}>
+				<button type="button" className="btn btn-primary dropdown-toggle" onClick={this.handleDisplayTypes}>
 					<span className="caret"></span>
 				</button>
 				<ul className="dropdown-menu" role="menu" style={isTypeDisplayStyle}>
@@ -134,7 +142,7 @@ var QuestionView = React.createClass({
 		return {
 			title: 'A',
 			qText: 'BB',
-			qType: 'multiple_choice'
+			qType: 'gap_fill'
 		}
 	},
 

@@ -4,7 +4,7 @@ function StartController() {
 	var app = document.getElementById('app');
 	React.unmountComponentAtNode(app);
 
-	var QuestionData = require('QuestionData');
+	var QuestionData = require('./QuestionData');
 	var QuestionAPI = require('./utils/QuiestionAPI');
 	var QuestionView = require('../../../js/jsx/QuestionView');
 
@@ -12,7 +12,7 @@ function StartController() {
 	QuestionAPI.getQuestionData();
 
 	this.start = function() {
-		React.render(<QuestionView />, app);
+		React.render(React.createElement(QuestionView), app);
 	}
 }
 
