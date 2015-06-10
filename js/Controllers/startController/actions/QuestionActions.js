@@ -10,6 +10,20 @@ var QuestionActions = {
 		});
 	},
 
+	changeTitle: function(title){
+		AppDispatcher.handleAction({
+			actionType: QuestionConstants.SET_TITLE,
+			title: title
+		});
+	},
+
+	changeText: function(text) {
+		AppDispatcher.handleAction({
+			actionType: QuestionConstants.SET_TEXT,
+			text: text
+		});
+	},
+
 	selectType: function(type) {
 		AppDispatcher.handleAction({
 			actionType: QuestionConstants.SET_TYPE_SELECTED,
@@ -24,24 +38,24 @@ var QuestionActions = {
 		});
 	},
 
-	removeAnswer: function(id) {
+	removeAnswer: function(uuid) {
 		AppDispatcher.handleAction({
 			actionType: QuestionConstants.ANSWER_REMOVE,
-			id: id
+			uuid: uuid
 		});
 	},
 
-	upAnswer: function(id) {
+	shiftUpAnswer: function(uuid) {
 		AppDispatcher.handleAction({
 			actionType: QuestionConstants.ANSWER_UP,
-			id: id
+			uuid: uuid
 		});
 	},
 
-	downAnswer: function(id) {
+	shiftDownAnswer: function(uuid) {
 		AppDispatcher.handleAction({
 			actionType: QuestionConstants.ANSWER_DOWN,
-			id: id
+			uuid: uuid
 		});
 	},
 

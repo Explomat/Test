@@ -1,5 +1,5 @@
 
-function StartController() {
+function QuestionController() {
 	var React = require('react');
 	var app = document.getElementById('app');
 	React.unmountComponentAtNode(app);
@@ -16,4 +16,4 @@ function StartController() {
 	}
 }
 
-module.exports = new StartController();
+module.exports = new QuestionController();

@@ -1,5 +1,18 @@
 var React = require('react');
+var QuestionStore = require('../Controllers/startController/stores/QuestionStore');
+var QuestionActions = require('../Controllers/startController/actions/QuestionActions');
 var quiestionTypes = require('../utils/QuestionTypes');
+
+function getQuestionState() {
+	return {
+		title: QuestionStore.getTitle(),
+		text: QuestionStore.getText(),
+		answers: QuestionStore.getAnswers(),
+		imgVisible: QuestionStore.getImgVisible(),
+		weightVisible: QuestionStore.getWeightVisible(),
+		type: QuestionStore.getTypeSelected()
+	};
+}
 
 var Menu = React.createClass({
 	render:function() {
@@ -21,20 +34,14 @@ var Menu = React.createClass({
 var Title = React.createClass({
 
 	handleChange:function(e) {
-		this.setState({title:e.target.value});
-	},
-
-	getInitialState:function() {
-		return {
-			title:this.props.title || ''
-		}
+		QuestionActions.changeTitle(e.target.value);
 	},
 
 	render:function() {
 		return (
 			<div className="input-group all menu-float">
 	            <span className="input-group-addon">Заголовок : *</span>
-	            <input type="text" className="form-control" placeholder='Заголовок вопроса' value={this.state.title} onChange={this.handleChange}/>
+	            <input type="text" className="form-control" placeholder='Заголовок вопроса' value={this.props.title} onChange={this.handleChange}/>
 	        </div>
 		);
 	}
@@ -43,20 +50,14 @@ var Title = React.createClass({
 var QuestionText = React.createClass({
 
 	handleChange:function(e) {
-		this.setState({qText:e.target.value});
-	},
-
-	getInitialState:function() {
-		return {
-			qText:this.props.qText || ''
-		}
+		QuestionActions.changeText(e.target.value);
 	},
 
 	render:function() {
 		return (
 			<div className="form-group all menu-float">
 				<label>Вопрос : *</label>
-				<textarea className="form-control" rows="2" value={this.state.qText} onChange={this.handleChange}></textarea>
+				<textarea className="form-control" rows="2" value={this.props.text} onChange={this.handleChange}></textarea>
 			</div>
 		);
 	}
@@ -106,7 +107,7 @@ var SelectQuestionType = React.createClass({
 	getInitialState:function() {
 		return {
 			isTypeDisplay:false,
-			qType:this.props.qType
+			type:this.props.type
 		}
 	},
 
@@ -120,15 +121,14 @@ var SelectQuestionType = React.createClass({
 			list.push(<QuestionType key={k} id={k} type={quiestionTypes.values[k]} handleSelectType={this.handleSelectType}/>);
 			count++;
 		}.bind(this));
+		
 		return (
-			<div className="btn-group select-qtype">
-				<button type="button" className="btn btn-default qtype-btn">
-					{quiestionTypes.values[this.state.qType]}
-				</button>
-				<button type="button" className="btn btn-primary dropdown-toggle" onClick={this.handleDisplayTypes}>
+			<div className="btn-group">
+				<button className="btn btn-default dropdown-toggle qtype-btn" type="button" onClick={this.handleDisplayTypes}>
+					<span>{quiestionTypes.values[this.state.type]}&nbsp;&nbsp;</span>
 					<span className="caret"></span>
 				</button>
-				<ul className="dropdown-menu" role="menu" style={isTypeDisplayStyle}>
+				<ul className="dropdown-menu" style={isTypeDisplayStyle}>
 					{list}
 				</ul>
 			</div>
@@ -138,22 +138,31 @@ var SelectQuestionType = React.createClass({
 
 var QuestionView = React.createClass({
 
-	getDefaultProps:function() {
-		return {
-			title: 'A',
-			qText: 'BB',
-			qType: 'gap_fill'
-		}
+	componentDidMount:function() {
+		QuestionStore.addChangeListener(this._onChange);
+	},
+
+	componentWillUnmount:function() {
+		QuestionStore.removeChangeListener(this._onChange);
+	},
+
+	_onChange:function() {
+		this.setState(getQuestionState());
+	},
+
+	getInitialState: function () {
+		return getQuestionState();
 	},
 
 	render:function () {
+		console.log("test");
 		return (
 			<div className="panel panel-default">
 				<div className="panel-body">
 					<Menu />
-					<Title title={this.props.title}/>
-			        <QuestionText qText={this.props.qText}/>
-			        <SelectQuestionType qType={this.props.qType}/>
+					<Title title={this.state.title}/>
+			        <QuestionText text={this.state.text}/>
+			        <SelectQuestionType type={this.state.type}/>
 				</div>
 			</div>
 		);

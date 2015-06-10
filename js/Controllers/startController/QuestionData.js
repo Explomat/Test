@@ -4,9 +4,9 @@ module.exports = {
 	init:function () {
 		storage.clear();
 		storage.setItem('question', {
-			name: 'Temp',
-			qText: 'What\'s the Fuck?',
-			qType: 'multiple_choice',
+			title: 'Temp',
+			text: 'What\'s the Fuck?',
+			type: 'multiple_choice',
 			answers: [
 				{
 					uuid: 'b6363c6e-0c11-41b5-ac2c-3000b87961d2',

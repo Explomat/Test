@@ -38,5 +38,5 @@ function Storage() {
 	}
 }
 
-module.exports = Storage();
+module.exports = new Storage();
 	
