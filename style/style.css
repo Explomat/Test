@@ -15,10 +15,6 @@ html, body{
     overflow: hidden;
 }
 
-body {
-    overflow: scroll;
-}
-
 h1, nav {
     text-align: center;
     margin: 0px 0px 20px;

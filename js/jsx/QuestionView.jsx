@@ -88,8 +88,7 @@ var SelectQuestionType = React.createClass({
 	},
 
 	handleSelectType:function(key) {
-		this.setState({qType:key});
-		this.handleDisplayTypes();
+		QuestionActions.selectType(key);
 	},
 
 	handleBlurTypes:function(e) {
@@ -97,17 +96,14 @@ var SelectQuestionType = React.createClass({
 	},
 
 	handleDisplayTypes:function(e) {
-		if (e) {
-			e.stopPropagation();
-        	e.nativeEvent.stopImmediatePropagation();
-		}
+		e.stopPropagation();
+    	e.nativeEvent.stopImmediatePropagation();
 		this.setState({isTypeDisplay:!this.state.isTypeDisplay});
 	},
 
 	getInitialState:function() {
 		return {
-			isTypeDisplay:false,
-			type:this.props.type
+			isTypeDisplay:false
 		}
 	},
 
@@ -125,7 +121,7 @@ var SelectQuestionType = React.createClass({
 		return (
 			<div className="btn-group">
 				<button className="btn btn-default dropdown-toggle qtype-btn" type="button" onClick={this.handleDisplayTypes}>
-					<span>{quiestionTypes.values[this.state.type]}&nbsp;&nbsp;</span>
+					<span>{quiestionTypes.values[this.props.type]}&nbsp;&nbsp;</span>
 					<span className="caret"></span>
 				</button>
 				<ul className="dropdown-menu" style={isTypeDisplayStyle}>
