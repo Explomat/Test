@@ -4,7 +4,7 @@ var QuestionConstants = require('../constants/QuestionConstants');
 var _ = require('underscore');
 
 
-var _answers = [], _question = {}, _imgVisible = false, _weigthVisible = false, _typeSelected = 'gap_fill';
+var _answers = [], _question = {}, _imgVisible = false, _weigthVisible = false, _displayTypes = false, _typeSelected = 'gap_fill';
 
 function _shift(arr, k) {
 	var n = arr.length;
@@ -57,6 +57,10 @@ function setWeightVisible(weightVisible) {
 	_weigthVisible = weightVisible;
 }
 
+function displayTypes(isDisplay){
+	_displayTypes = isDisplay;
+}
+
 function selectType(type){
 	_typeSelected = type;
 }
@@ -95,6 +99,10 @@ var QuestionStore = _.extend({}, EventEmitter.prototype, {
 		return _weigthVisible;
 	},
 
+	isDisplayTypes: function() {
+		return _displayTypes;
+	},
+
 	getTypeSelected: function() {
 		return _typeSelected;
 	},
@@ -118,6 +126,9 @@ AppDispatcher.register(function(payload) {
 	switch(action.actionType) {
 		case QuestionConstants.RECEIVE_DATA:
 			loadQuestionData(action.data);
+			break;
+		case QuestionConstants.DISPLAY_TYPES:
+			displayTypes(action.isDisplay);
 			break;
 		case QuestionConstants.SET_TYPE_SELECTED:
 			selectType(action.type);

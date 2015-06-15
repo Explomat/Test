@@ -66,8 +66,8 @@ textarea {
 }
 
 .menu > div > span:after {
-    left: 100%;
-    top: 50%;
+    left: 98%;
+    top: 35%;
     border: solid transparent;
     content: " ";
     height: 0;
@@ -84,10 +84,9 @@ textarea {
 .menu > div > span {
     display: none;
     position: absolute;
-
-    right: 75px;
-    top: 8px;
-    z-index: 20;
+    right: 120%;
+    top: 0px;
+    z-index: 3;
     padding: 10px;
     background: #EEA236;//#394d59;
     opacity: .9;

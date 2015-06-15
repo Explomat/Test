@@ -10,6 +10,7 @@ function getQuestionState() {
 		answers: QuestionStore.getAnswers(),
 		imgVisible: QuestionStore.getImgVisible(),
 		weightVisible: QuestionStore.getWeightVisible(),
+		isDisplayTypes: QuestionStore.isDisplayTypes(),
 		type: QuestionStore.getTypeSelected()
 	};
 }
@@ -19,12 +20,8 @@ var Menu = React.createClass({
 		return (
 			<div className="menu all">
 				<div>
-					<button type="button" className="menu-item"><i className="fa fa-file-image-o fa-2x"></i></button>
-					<span>Показывать картинки</span>
-				</div>
-				<div>
-					<button type="button" className="menu-item"><i className="fa fa-cubes fa-2x"></i></button>
-					<span>Показывать вес</span>
+					<button type="button" className="btn btn-default"><span className="glyphicon glyphicon-plus"></span></button>
+					<span>Добавить ответ</span>
 				</div>
 			</div>
 		);
@@ -91,24 +88,18 @@ var SelectQuestionType = React.createClass({
 		QuestionActions.selectType(key);
 	},
 
-	handleBlurTypes:function(e) {
-		this.setState({isTypeDisplay:false});
+	handleBlurTypes:function() {
+		QuestionActions.displayTypes(false);
 	},
 
 	handleDisplayTypes:function(e) {
 		e.stopPropagation();
     	e.nativeEvent.stopImmediatePropagation();
-		this.setState({isTypeDisplay:!this.state.isTypeDisplay});
-	},
-
-	getInitialState:function() {
-		return {
-			isTypeDisplay:false
-		}
+    	QuestionActions.displayTypes(!QuestionStore.isDisplayTypes());
 	},
 
 	render:function() {
-		var isTypeDisplayStyle = { display: this.state.isTypeDisplay ? "block":"none" };
+		var isTypeDisplayStyle = { display: this.props.isDisplayTypes ? "block":"none" };
 		var list = [];
 		var count = 0;
 		Object.keys(quiestionTypes.values).forEach(function(k){
@@ -151,14 +142,13 @@ var QuestionView = React.createClass({
 	},
 
 	render:function () {
-		console.log("test");
 		return (
 			<div className="panel panel-default">
 				<div className="panel-body">
 					<Menu />
 					<Title title={this.state.title}/>
 			        <QuestionText text={this.state.text}/>
-			        <SelectQuestionType type={this.state.type}/>
+			        <SelectQuestionType type={this.state.type} isDisplayTypes={this.state.isDisplayTypes}/>
 				</div>
 			</div>
 		);
