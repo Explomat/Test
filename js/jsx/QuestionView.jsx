@@ -99,7 +99,7 @@ var SelectQuestionType = React.createClass({
 	},
 
 	render:function() {
-		var isTypeDisplayStyle = { display: this.props.isDisplayTypes ? "block":"none" };
+		var isTypeDisplayStyle = { display: this.props.display ? "block":"none" };
 		var list = [];
 		var count = 0;
 		Object.keys(quiestionTypes.values).forEach(function(k){
@@ -148,7 +148,7 @@ var QuestionView = React.createClass({
 					<Menu />
 					<Title title={this.state.title}/>
 			        <QuestionText text={this.state.text}/>
-			        <SelectQuestionType type={this.state.type} isDisplayTypes={this.state.isDisplayTypes}/>
+			        <SelectQuestionType type={this.state.type} display={this.state.isDisplayTypes}/>
 				</div>
 			</div>
 		);
