@@ -1,3 +1,5 @@
+var keyMirror = require('react/lib/keyMirror');
+
 var QuiestionTypes = {
 
 	values:{
@@ -8,6 +10,15 @@ var QuiestionTypes = {
 		'numerical_fill_in_blank':'Текстовый ввод',
 		'match_item':'Цифровой ввод'
 	},
+
+	keys:keyMirror({
+		'multiple_choice':null,
+		'multiple_response':null,
+		'order':null,
+		'gap_fill':null,
+		'numerical_fill_in_blank':null,
+		'match_item':null
+	}),
 
 	toArray:function() {
 		return (Object.keys(this.values).map(function(key){

@@ -1,7 +1,8 @@
 var React = require('react');
 var QuestionStore = require('../Controllers/startController/stores/QuestionStore');
 var QuestionActions = require('../Controllers/startController/actions/QuestionActions');
-var quiestionTypes = require('../utils/QuestionTypes');
+var QuiestionTypes = require('../Controllers/startController/QuestionTypes');
+var ChoiceAnswer = require('./AnswersView').ChoiceAnswer;
 
 function getQuestionState() {
 	return {
@@ -102,17 +103,17 @@ var SelectQuestionType = React.createClass({
 		var isTypeDisplayStyle = { display: this.props.display ? "block":"none" };
 		var list = [];
 		var count = 0;
-		Object.keys(quiestionTypes.values).forEach(function(k){
+		Object.keys(QuiestionTypes.values).forEach(function(k){
 			if (count % 2 == 0 && count != 0)
 				list.push(<li key={"divider"+k} className="divider"></li>);
-			list.push(<QuestionType key={k} id={k} type={quiestionTypes.values[k]} handleSelectType={this.handleSelectType}/>);
+			list.push(<QuestionType key={k} id={k} type={QuiestionTypes.values[k]} handleSelectType={this.handleSelectType}/>);
 			count++;
 		}.bind(this));
 		
 		return (
 			<div className="btn-group">
 				<button className="btn btn-default dropdown-toggle qtype-btn" type="button" onClick={this.handleDisplayTypes}>
-					<span>{quiestionTypes.values[this.props.type]}&nbsp;&nbsp;</span>
+					<span>{QuiestionTypes.values[this.props.type]}&nbsp;&nbsp;</span>
 					<span className="caret"></span>
 				</button>
 				<ul className="dropdown-menu" style={isTypeDisplayStyle}>
@@ -142,13 +143,19 @@ var QuestionView = React.createClass({
 	},
 
 	render:function () {
+		var answers = [];
+		this.state.answers.forEach(function(ans, i){
+			answers.push(<ChoiceAnswer key={ans.uuid} selected={ans.selected} number={i+1} text={ans.text} weight={ans.weight}/>);
+		})
+
 		return (
 			<div className="panel panel-default">
 				<div className="panel-body">
 					<Menu />
-					<Title title={this.state.title}/>
-			        <QuestionText text={this.state.text}/>
-			        <SelectQuestionType type={this.state.type} display={this.state.isDisplayTypes}/>
+					<Title title={this.state.title} />
+			        <QuestionText text={this.state.text} />
+			        <SelectQuestionType type={this.state.type} display={this.state.isDisplayTypes} />
+			        {answers}
 				</div>
 			</div>
 		);
