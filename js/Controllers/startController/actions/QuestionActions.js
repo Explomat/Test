@@ -54,14 +54,14 @@ var QuestionActions = {
 
 	shiftUpAnswer: function(uuid) {
 		AppDispatcher.handleAction({
-			actionType: QuestionConstants.ANSWER_UP,
+			actionType: QuestionConstants.ANSWER_SHIFT_UP,
 			uuid: uuid
 		});
 	},
 
 	shiftDownAnswer: function(uuid) {
 		AppDispatcher.handleAction({
-			actionType: QuestionConstants.ANSWER_DOWN,
+			actionType: QuestionConstants.ANSWER_SHIFT_DOWN,
 			uuid: uuid
 		});
 	},

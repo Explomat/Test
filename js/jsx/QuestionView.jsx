@@ -9,8 +9,6 @@ function getQuestionState() {
 		title: QuestionStore.getTitle(),
 		text: QuestionStore.getText(),
 		answers: QuestionStore.getAnswers(),
-		imgVisible: QuestionStore.getImgVisible(),
-		weightVisible: QuestionStore.getWeightVisible(),
 		isDisplayTypes: QuestionStore.isDisplayTypes(),
 		type: QuestionStore.getTypeSelected()
 	};
@@ -143,7 +141,7 @@ var QuestionView = React.createClass({
 	render:function () {
 		var answers = [];
 		this.state.answers.forEach(function(ans, i){
-			answers.push(<ChoiceAnswer key={ans.uuid} selected={ans.selected} number={i+1} text={ans.text} weight={ans.weight}/>);
+			answers.push(<ChoiceAnswer uuid={ans.uuid} key={ans.uuid} selected={ans.selected} number={i+1} text={ans.text} weight={ans.weight}/>);
 		});
 		return (
 			<div className="panel panel-default">

@@ -21,7 +21,14 @@ module.exports = {
 				{
 					uuid: 'b6363c6e-0c11-41b5-ac2c-3000b87961d1',
 					text: 'Test1',
-					selected: false
+					selected: false,
+					weight: 2,
+				},
+				{
+					uuid: 'b6363c6e-0c11-41b5-ac2c-3000b87961d0',
+					text: 'Test3',
+					selected: false,
+					weight: 3
 				}
 			]
 		});

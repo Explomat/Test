@@ -56,12 +56,14 @@ function selectType(type){
 	_typeSelected = type;
 }
 
-function shiftUp() {
-	
+function shiftUp(uuid) {
+	_shift(_answers, 1);
+	log(uuid);
 }
 
-function shiftDown() {
-	
+function shiftDown(uuid) {
+	_shift(_answers, 1);
+	log(uuid);
 }
 
 function addAnswerCondidtion(uuid, condition) {
@@ -124,6 +126,7 @@ function selectAnswer(uuid){
 }
 
 function changeAnswerText(uuid, text) {
+	//log(text);
 	var ans = _answers.find(function(item){
 		return item.uuid == uuid;
 	});
