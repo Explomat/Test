@@ -1,7 +1,7 @@
 var React = require('react');
 var QuestionStore = require('../Controllers/startController/stores/QuestionStore');
 var QuestionActions = require('../Controllers/startController/actions/QuestionActions');
-var QuiestionTypes = require('../Controllers/startController/QuestionTypes');
+var QuiestionTypes = require('../Controllers/startController/utils/QuestionTypes');
 var ChoiceAnswer = require('./AnswersView').ChoiceAnswer;
 
 function getQuestionState() {
@@ -100,14 +100,12 @@ var SelectQuestionType = React.createClass({
 	},
 
 	render:function() {
-		var isTypeDisplayStyle = { display: this.props.display ? "block":"none" };
+		var isTypeDisplayStyle = { display: QuestionStore.isDisplayTypes() ? "block" : "none" };
 		var list = [];
-		var count = 0;
-		Object.keys(QuiestionTypes.values).forEach(function(k){
+		Object.keys(QuiestionTypes.values).forEach(function(k, count){
 			if (count % 2 == 0 && count != 0)
 				list.push(<li key={"divider"+k} className="divider"></li>);
 			list.push(<QuestionType key={k} id={k} type={QuiestionTypes.values[k]} handleSelectType={this.handleSelectType}/>);
-			count++;
 		}.bind(this));
 		
 		return (
@@ -146,15 +144,14 @@ var QuestionView = React.createClass({
 		var answers = [];
 		this.state.answers.forEach(function(ans, i){
 			answers.push(<ChoiceAnswer key={ans.uuid} selected={ans.selected} number={i+1} text={ans.text} weight={ans.weight}/>);
-		})
-
+		});
 		return (
 			<div className="panel panel-default">
 				<div className="panel-body">
 					<Menu />
 					<Title title={this.state.title} />
 			        <QuestionText text={this.state.text} />
-			        <SelectQuestionType type={this.state.type} display={this.state.isDisplayTypes} />
+			        <SelectQuestionType type={this.state.type}/>
 			        {answers}
 				</div>
 			</div>

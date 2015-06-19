@@ -3,8 +3,7 @@ var EventEmitter = require('events').EventEmitter;
 var QuestionConstants = require('../constants/QuestionConstants');
 var _ = require('underscore');
 
-
-var _answers = [], _question = {}, _imgVisible = false, _weigthVisible = false, _displayTypes = false, _typeSelected = 'gap_fill';
+var _answers = [], _question = {}, _displayTypes = false, _typeSelected = 'gap_fill';
 
 function _shift(arr, k) {
 	var n = arr.length;
@@ -49,14 +48,6 @@ function removeAnswer(uuid) {
 		_answers.splice(ansIndex, 1);
 }
 
-function setImgVisible(imgVisible) {
-	_imgVisible = imgVisible;
-}
-
-function setWeightVisible(weightVisible) {
-	_weigthVisible = weightVisible;
-}
-
 function displayTypes(isDisplay){
 	_displayTypes = isDisplay;
 }
@@ -71,6 +62,89 @@ function shiftUp() {
 
 function shiftDown() {
 	
+}
+
+function addAnswerCondidtion(uuid, condition) {
+	var ans = _answers.find(function(item){
+		return item.uuid == uuid;
+	});
+	if (ans){
+		ans.conditions = ans.conditions || [];
+		ans.conditions.push(condition);
+	}
+}
+
+function removeAnswerCondidtion(uuid, condition) {
+	var ans = _answers.find(function(item){
+		return item.uuid == uuid;
+	});
+	if (ans){
+		var index = null;
+		ans.conditions = ans.conditions || [];
+		var cond = ans.conditions.find(function(cond, i){
+			index = i;
+			return cond.uuid == condition.uuid;
+		});
+		if (cond)
+			ans.conditions.splice(index, 1);
+	}
+}
+
+function addAnswerConformity(uuid, conformity) {
+	var ans = _answers.find(function(item){
+		return item.uuid == uuid;
+	});
+	if (ans){
+		ans.conformitys = ans.conformitys || [];
+		ans.conformitys.push(conformity);
+	}
+}
+
+function removeAnswerConformity(uuid, conformity) {
+	var ans = _answers.find(function(item){
+		return item.uuid == uuid;
+	});
+	if (ans){
+		var index = null;
+		ans.conformitys = ans.conformitys || [];
+		var conf = ans.conformitys.find(function(conf, i){
+			index = i;
+			return conf.uuid == conformity.uuid;
+		});
+		if (conf)
+			ans.conformitys.splice(index, 1);
+	}
+}
+function selectAnswer(uuid){
+	var ans = _answers.find(function(item){
+		return item.uuid == uuid;
+	});
+	if (ans)
+		ans.selected = true;
+}
+
+function changeAnswerText(uuid, text) {
+	var ans = _answers.find(function(item){
+		return item.uuid == uuid;
+	});
+	if (ans)
+		ans.text = text;
+}
+
+function changeAnswerWeight(uuid, weight) {
+	var ans = _answers.find(function(item){
+		return item.uuid == uuid;
+	});
+	if (ans)
+		ans.weight = weight;
+}
+
+function changeAnswerImg(uuid, img) {
+	var ans = _answers.find(function(item){
+		return item.uuid == uuid;
+	});
+	if (ans)
+		ans.img = img;
 }
 
 var QuestionStore = _.extend({}, EventEmitter.prototype, {
@@ -89,14 +163,6 @@ var QuestionStore = _.extend({}, EventEmitter.prototype, {
 
 	getAnswersCount: function() {
 		return _answers.length;
-	},
-
-	getImgVisible: function() {
-		return _imgVisible;
-	},
-
-	getWeightVisible: function() {
-		return _weigthVisible;
 	},
 
 	isDisplayTypes: function() {
@@ -151,11 +217,29 @@ AppDispatcher.register(function(payload) {
 		case QuestionConstants.ANSWER_SHIFT_DOWN:
 			shiftDown(action.uuid);
 			break;
-		case QuestionConstants.IMG_VISIBLE:
-			setImgVisible(action.imgVisible);
+		case QuestionConstants.ANSWER_ADD_CONDITION:
+			addAnswerCondidtion(action.uuid, action.condition);
 			break;
-		case QuestionConstants.WEIGHT_VISIBLE:
-			setWeightVisible(action.weightVisible);
+		case QuestionConstants.ANSWER_REMOVE_CONDITION:
+			removeAnswerCondidtion(action.uuid, action.condition);
+			break;
+		case QuestionConstants.ANSWER_ADD_CONFORMITY:
+			addAnswerConformity(action.uuid, action.conformity);
+			break;
+		case QuestionConstants.ANSWER_REMOVE_CONFORMITY:
+			removeAnswerConformity(action.uuid, action.conformity);
+			break;
+		case QuestionConstants.ANSWER_SELECTED:
+			selectAnswer(action.uuid);
+			break;
+		case QuestionConstants.ANSWER_CHANGE_TEXT:
+			changeAnswerText(action.uuid, action.text);
+			break;
+		case QuestionConstants.ANSWER_CHANGE_WEIGHT:
+			changeAnswerWeight(action.uuid, action.weight);
+			break;
+		case QuestionConstants.ANSWER_CHANGE_IMG:
+			changeAnswerImg(action.uuid, action.img);
 			break;
 		default:
 			return true;

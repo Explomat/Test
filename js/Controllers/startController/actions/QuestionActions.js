@@ -66,19 +66,68 @@ var QuestionActions = {
 		});
 	},
 
-	updateImgVisible: function(imgVisible) {
+	addAnswerCondidtion: function(uuid, condition) {
 		AppDispatcher.handleAction({
-			actionType: QuestionConstants.IMG_VISIBLE,
-			imgVisible: imgVisible
+			actionType: QuestionConstants.ANSWER_ADD_CONDITION,
+			uuid: uuid,
+			condition: condition
 		});
 	},
 
-	updateWeightVisible: function(weightVisible) {
+	removeAnswerCondidtion: function(uuid, condition) {
 		AppDispatcher.handleAction({
-			actionType: QuestionConstants.WEIGHT_VISIBLE,
-			weightVisible: weightVisible
+			actionType: QuestionConstants.ANSWER_REMOVE_CONDITION,
+			uuid: uuid,
+			condition: condition
 		});
-	}
+	},
+
+	addAnswerConformity: function(uuid, conformity) {
+		AppDispatcher.handleAction({
+			actionType: QuestionConstants.ANSWER_ADD_CONDITION,
+			uuid: uuid,
+			conformity: conformity
+		});
+	},
+
+	removeAnswerConformity: function(uuid, conformity) {
+		AppDispatcher.handleAction({
+			actionType: QuestionConstants.ANSWER_REMOVE_CONDITION,
+			uuid: uuid,
+			conformity: conformity
+		});
+	},
+
+	selectAnswer: function(uuid){
+		AppDispatcher.handleAction({
+			actionType: QuestionConstants.ANSWER_SELECTED,
+			uuid: uuid
+		});
+	},
+
+	changeTextAnswer: function(uuid, text){
+		AppDispatcher.handleAction({
+			actionType: QuestionConstants.ANSWER_CHANGE_TEXT,
+			uuid: uuid,
+			text: text
+		});
+	},
+
+	changeWeightAnswer: function(uuid, weight){
+		AppDispatcher.handleAction({
+			actionType: QuestionConstants.ANSWER_CHANGE_WEIGHT,
+			uuid: uuid,
+			weight: weight
+		});
+	},
+
+	changeImgAnswer: function(uuid, img){
+		AppDispatcher.handleAction({
+			actionType: QuestionConstants.ANSWER_CHANGE_IMG,
+			uuid: uuid,
+			img: img
+		});
+	},
 }
 
 module.exports = QuestionActions;
