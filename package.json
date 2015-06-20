@@ -4,6 +4,7 @@
   "author": "Matveev Savva",
   "scripts": {
     "td": "npm run build-jsx & browserify js/main.js -d -o build/js/bundle.js & rm -rf js/jsx/{1,2}/*.js & rm -rf js/jsx/*.js",
+    "temptd": "npm run build-jsx & browserify js/main.js -d -o build/js/bundle.js",
     "deploy": "uglifyjs build/js/bundle.js --source-map build/js/bundle.js.map",
     "build": "browserify js/main.js -d | uglifyjs -mc > build/js/bundle.js",
     "build-jsx": "jsx js/jsx --extension jsx js/jsx",
@@ -16,7 +17,6 @@
   },
   "devDependencies": {
     "browserify": "^10.2.4",
-    "jsx": "^0.9.89",
     "uglify": "^0.1.5",
     "webserver": "^1.1.2",
     "react-tools": "^0.13.3"

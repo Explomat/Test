@@ -38,6 +38,10 @@ var Answer = {
 
 	changeWeight: function(e){
 		QuestionActions.changeWeightAnswer(this.props.uuid, e.target.value);
+	},
+
+	remove: function(){
+		QuestionActions.removeAnswer(this.props.uuid);
 	}
 }
 
@@ -53,11 +57,14 @@ var ChoiceAnswer = React.createClass({
 					<input type="checkbox" checked={this.props.selected}/>
 				</label>
 				<div>
-					<button type="button" className="btn btn-default" onClick={this.shiftUp}>
+					<button type="button" className="btn btn-default btn-xs" onClick={this.shiftUp}>
 					  <span className="glyphicon glyphicon-arrow-up"></span>
 					</button>
-					<button type="button" className="btn btn-default" onClick={this.shiftDown}>
+					<button type="button" className="btn btn-default btn-xs" onClick={this.shiftDown}>
 					  <span className="glyphicon glyphicon-arrow-down"></span>
+					</button>
+					<button type="button" className="btn btn-default btn-xs" onClick={this.remove}>
+					  <span className="glyphicon glyphicon-remove"></span>
 					</button>
 				</div>
 				<div>
@@ -82,11 +89,14 @@ var OrderAnswer = React.createClass({
 					<input type="checkbox" checked={this.props.selected}/>
 				</label>
 				<div>
-					<button type="button" className="btn btn-default" onClick={this.shiftUp}>
+					<button type="button" className="btn btn-default btn-xs" onClick={this.shiftUp}>
 					  <span className="glyphicon glyphicon-arrow-up"></span>
 					</button>
-					<button type="button" className="btn btn-default" onClick={this.shiftDown}>
+					<button type="button" className="btn btn-default btn-xs" onClick={this.shiftDown}>
 					  <span className="glyphicon glyphicon-arrow-down"></span>
+					</button>
+					<button type="button" className="btn btn-default btn-xs" onClick={this.remove}>
+					  <span className="glyphicon glyphicon-remove"></span>
 					</button>
 				</div>
 				<div>
@@ -107,11 +117,14 @@ var MatchItemAnswer = React.createClass({
 		return(
 			<div className="menu-float all">
 				<div>
-					<button type="button" className="btn btn-default" onClick={this.shiftUp}>
+					<button type="button" className="btn btn-default btn-xs" onClick={this.shiftUp}>
 					  <span className="glyphicon glyphicon-arrow-up"></span>
 					</button>
-					<button type="button" className="btn btn-default" onClick={this.shiftDown}>
+					<button type="button" className="btn btn-default btn-xs" onClick={this.shiftDown}>
 					  <span className="glyphicon glyphicon-arrow-down"></span>
+					</button>
+					<button type="button" className="btn btn-default btn-xs" onClick={this.remove}>
+					  <span className="glyphicon glyphicon-remove"></span>
 					</button>
 				</div>
 				<textarea className="form-control" rows="1" value={this.props.text}></textarea>

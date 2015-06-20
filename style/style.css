@@ -29,39 +29,11 @@ textarea {
 }
 
 .menu {
-    width: 10%;
+    width: 40px;
     float: right;
 }
 
-.menu .menu-item {
-    background: #428BCA none repeat scroll 0% 0%;
-    border:1px solid #3276B1;
-    -moz-border-radius:5px;
-    -webkit-border-radius:5px;
-    border-radius:5px;
-    display:inline-block;
-    cursor:pointer;
-    padding: 15%;
-    text-decoration:none;
-    color: #fff;
-}
-
-.menu > div > .menu-item {
-    border:none;
-}
-
-.menu .menu-item:active {
-    position:relative;
-    top:3px;
-    border:none;
-}
-
-.menu .menu-item:hover {
-    background-color: #3276B1;
-}
-
 .menu > div {
-    margin: 0px 0px 30% 30%;
     position: relative;
 }
 
@@ -84,7 +56,7 @@ textarea {
 .menu > div > span {
     display: none;
     position: absolute;
-    right: 120%;
+    right: 115%;
     top: 0px;
     z-index: 3;
     padding: 10px;
@@ -99,23 +71,8 @@ textarea {
     display: block;
 }
 
-.menu .menu-item i {
-    font-size: 1.5em;
-    width: 1.5em;
-}
-
-.menu .menu-item span {
-    color: #ccc;
-    display: block;
-}
-
-.menu-float {
-    float: left;
-    width: 90%;
-}
-
 .qtype-btn {
-    width:180px;
+    width:160px;
 }
 
 .qtype-btn:hover {
@@ -150,11 +107,11 @@ textarea {
 
 #app-container .list-group {
     float:left;
-    width: 20%;
+    width: 26%;
     padding-right: 2px;
 }
 
 #app {
-    width:80%;
+    width:74%;
     float:right;
 }

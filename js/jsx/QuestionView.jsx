@@ -17,9 +17,9 @@ function getQuestionState() {
 var Menu = React.createClass({
 	render:function() {
 		return (
-			<div className="menu all">
+			<div className="menu">
 				<div>
-					<button type="button" className="btn btn-default"><span className="glyphicon glyphicon-plus"></span></button>
+					<button type="button" className="btn btn-default btn-sm"><span className="glyphicon glyphicon-plus"></span></button>
 					<span>Добавить ответ</span>
 				</div>
 			</div>
@@ -108,7 +108,7 @@ var SelectQuestionType = React.createClass({
 		
 		return (
 			<div className="btn-group">
-				<button className="btn btn-default dropdown-toggle qtype-btn" type="button" onClick={this.handleDisplayTypes}>
+				<button className="btn btn-default btn-sm dropdown-toggle qtype-btn" type="button" onClick={this.handleDisplayTypes}>
 					<span>{QuiestionTypes.values[this.props.type]}&nbsp;&nbsp;</span>
 					<span className="caret"></span>
 				</button>
@@ -146,9 +146,9 @@ var QuestionView = React.createClass({
 		return (
 			<div className="panel panel-default">
 				<div className="panel-body">
-					<Menu />
 					<Title title={this.state.title} />
 			        <QuestionText text={this.state.text} />
+			        <Menu />
 			        <SelectQuestionType type={this.state.type}/>
 			        {answers}
 				</div>
