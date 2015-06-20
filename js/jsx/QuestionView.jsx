@@ -162,11 +162,11 @@ var QuestionView = React.createClass({
 				case QuestionTypes.keys.order:
 				answer = <OrderAnswer uuid={ans.uuid} key={ans.uuid} selected={ans.selected} number={i+1} text={ans.text} weight={ans.weight}/>;
 				break;
-				case QuestionTypes.keys.gap_fill:
-				answer = <MatchItemAnswer uuid={ans.uuid} key={ans.uuid} selected={ans.selected} number={i+1} text={ans.text} weight={ans.weight}/>;
+				case QuestionTypes.keys.match_item:
+				answer = <MatchItemAnswer uuid={ans.uuid} key={ans.uuid} number={i+1} text={ans.text} weight={ans.weight} rowsCount={ans.rows} colsCount={ans.cols}/>;
 				break;	
 			}
-			answers.push(<ChoiceAnswer uuid={ans.uuid} key={ans.uuid} selected={ans.selected} number={i+1} text={ans.text} weight={ans.weight}/>);
+			answers.push(answer);
 		});
 		return (
 			<div className="panel panel-default">

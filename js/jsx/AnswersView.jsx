@@ -24,6 +24,25 @@ var SelectImage = React.createClass({
 
 var Answer = {
 
+	getBasicFields: function(){
+		return (
+			<div>
+				<button type="button" className="btn btn-default btn-xs" onClick={this.shiftUp}>
+				  <span className="glyphicon glyphicon-arrow-up"></span>
+				</button>
+				<button type="button" className="btn btn-default btn-xs" onClick={this.shiftDown}>
+				  <span className="glyphicon glyphicon-arrow-down"></span>
+				</button>
+				<button type="button" className="btn btn-default btn-xs" onClick={this.remove}>
+				  <span className="glyphicon glyphicon-remove"></span>
+				</button>
+				<textarea className="form-control" rows="1" value={this.props.text} onChange={this.changeText}></textarea>
+				<input type="text" value={this.props.weight} onChange={this.changeWeight}/>
+				<SelectImage />
+			</div>
+		);
+	},
+
 	shiftUp: function(){
 		QuestionActions.shiftUpAnswer(this.props.uuid);
 	},
@@ -58,24 +77,9 @@ var ChoiceAnswer = React.createClass({
 			<div className="menu-float all">
 				<label>
 					<span>{this.props.number}&nbsp;</span>
-					<input type="checkbox" checked={this.props.selected} onClick={this.handleSelect}/>
+					<input type="checkbox" checked={this.props.selected} onChange={this.handleSelect}/>
 				</label>
-				<div>
-					<button type="button" className="btn btn-default btn-xs" onClick={this.shiftUp}>
-					  <span className="glyphicon glyphicon-arrow-up"></span>
-					</button>
-					<button type="button" className="btn btn-default btn-xs" onClick={this.shiftDown}>
-					  <span className="glyphicon glyphicon-arrow-down"></span>
-					</button>
-					<button type="button" className="btn btn-default btn-xs" onClick={this.remove}>
-					  <span className="glyphicon glyphicon-remove"></span>
-					</button>
-				</div>
-				<div>
-					<textarea className="form-control" rows="1" value={this.props.text} onChange={this.changeText}></textarea>
-					<input type="text" value={this.props.weight} onChange={this.changeWeight}/>
-					<SelectImage />
-				</div>
+				{this.getBasicFields()}
 			</div>
 		);
 	}
@@ -90,24 +94,8 @@ var OrderAnswer = React.createClass({
 			<div className="menu-float all">
 				<label>
 					<span>{this.props.number}&nbsp;</span>
-					<input type="checkbox" checked={this.props.selected}/>
 				</label>
-				<div>
-					<button type="button" className="btn btn-default btn-xs" onClick={this.shiftUp}>
-					  <span className="glyphicon glyphicon-arrow-up"></span>
-					</button>
-					<button type="button" className="btn btn-default btn-xs" onClick={this.shiftDown}>
-					  <span className="glyphicon glyphicon-arrow-down"></span>
-					</button>
-					<button type="button" className="btn btn-default btn-xs" onClick={this.remove}>
-					  <span className="glyphicon glyphicon-remove"></span>
-					</button>
-				</div>
-				<div>
-					<textarea className="form-control" rows="1" value={this.props.text}></textarea>
-					<input type="text" value={this.props.weight}/>
-					<SelectImage />
-				</div>
+				{this.getBasicFields()}
 			</div>
 		);
 	}
@@ -120,20 +108,10 @@ var MatchItemAnswer = React.createClass({
 	render:function() {
 		return(
 			<div className="menu-float all">
-				<div>
-					<button type="button" className="btn btn-default btn-xs" onClick={this.shiftUp}>
-					  <span className="glyphicon glyphicon-arrow-up"></span>
-					</button>
-					<button type="button" className="btn btn-default btn-xs" onClick={this.shiftDown}>
-					  <span className="glyphicon glyphicon-arrow-down"></span>
-					</button>
-					<button type="button" className="btn btn-default btn-xs" onClick={this.remove}>
-					  <span className="glyphicon glyphicon-remove"></span>
-					</button>
-				</div>
-				<textarea className="form-control" rows="1" value={this.props.text}></textarea>
-				<input type="text" value={this.props.weight}/>
-				<SelectImage />
+				<label>
+					<span>{this.props.number}&nbsp;</span>
+				</label>
+				{this.getBasicFields()}
 				<label>
 					<span>Строк</span>
 					<input type="text" value={this.props.rowsCount} />

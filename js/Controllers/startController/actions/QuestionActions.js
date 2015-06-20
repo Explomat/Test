@@ -101,7 +101,7 @@ var QuestionActions = {
 		AppDispatcher.handleAction({
 			actionType: QuestionConstants.ANSWER_SELECTED,
 			uuid: uuid,
-			selected
+			selected: selected
 		});
 	},
 
