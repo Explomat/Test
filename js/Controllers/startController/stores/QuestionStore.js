@@ -39,43 +39,11 @@ function setText(txt) {
 }
 
 function addAnswer(){
-	var answer = {
+	_answers.push({
 		uuid: UUID.generate(),
 		text: '',
 		weight: ''
-	}
-
-	switch(_question.type){
-		case QuestionTypes.keys.multiple_choice:
-			answer.selected = false;
-			break;
-		case QuestionTypes.keys.multiple_response:
-			answer.selected = false;
-			break;
-		case QuestionTypes.keys.order:
-			answer = {
-
-			}
-			break;
-		case QuestionTypes.keys.gap_fill:
-			answer = {
-
-			}
-			break;
-		case QuestionTypes.keys.numerical_fill_in_blank:
-			answer = {
-
-			}
-			break;
-		case QuestionTypes.keys.match_item:
-			answer = {
-
-			}
-			break;
-		default:
-			break;
-	}
-	_answers.push(answer);
+	});
 }
 
 function removeAnswer(uuid) {
