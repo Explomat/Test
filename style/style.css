@@ -29,15 +29,14 @@ textarea {
 }
 
 .menu {
-    width: 40px;
     float: right;
 }
 
-.menu > div {
+/*.menu > div {
     position: relative;
-}
+}*/
 
-.menu > div > span:after {
+/*.menu > div > span:after {
     left: 98%;
     top: 35%;
     border: solid transparent;
@@ -69,7 +68,7 @@ textarea {
 
 .menu > div:hover > span {
     display: block;
-}
+}*/
 
 .qtype-btn {
     width:160px;

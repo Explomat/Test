@@ -19,8 +19,10 @@ var Menu = React.createClass({
 		return (
 			<div className="menu">
 				<div>
-					<button type="button" className="btn btn-default btn-sm"><span className="glyphicon glyphicon-plus"></span></button>
-					<span>Добавить ответ</span>
+					<button type="button" className="btn btn-default btn-sm">
+						<span className="glyphicon glyphicon-plus"></span>
+						<span>&nbsp;Добавить ответ</span>
+					</button>
 				</div>
 			</div>
 		);
