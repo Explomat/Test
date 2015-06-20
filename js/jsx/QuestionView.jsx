@@ -1,8 +1,10 @@
 var React = require('react');
 var QuestionStore = require('../Controllers/startController/stores/QuestionStore');
 var QuestionActions = require('../Controllers/startController/actions/QuestionActions');
-var QuiestionTypes = require('../Controllers/startController/utils/QuestionTypes');
+var QuestionTypes = require('../Controllers/startController/utils/QuestionTypes');
 var ChoiceAnswer = require('./AnswersView').ChoiceAnswer;
+var OrderAnswer = require('./AnswersView').OrderAnswer;
+var MatchItemAnswer = require('./AnswersView').MatchItemAnswer;
 
 function getQuestionState() {
 	return {
@@ -15,11 +17,16 @@ function getQuestionState() {
 }
 
 var Menu = React.createClass({
+
+	handleClick:function() {
+		QuestionActions.addAnswer();
+	},
+
 	render:function() {
 		return (
 			<div className="menu">
 				<div>
-					<button type="button" className="btn btn-default btn-sm">
+					<button type="button" className="btn btn-default btn-sm" onClick={this.handleClick}>
 						<span className="glyphicon glyphicon-plus"></span>
 						<span>&nbsp;Добавить ответ</span>
 					</button>
@@ -102,16 +109,16 @@ var SelectQuestionType = React.createClass({
 	render:function() {
 		var isTypeDisplayStyle = { display: QuestionStore.isDisplayTypes() ? "block" : "none" };
 		var list = [];
-		Object.keys(QuiestionTypes.values).forEach(function(k, count){
+		Object.keys(QuestionTypes.values).forEach(function(k, count){
 			if (count % 2 == 0 && count != 0)
 				list.push(<li key={"divider"+k} className="divider"></li>);
-			list.push(<QuestionType key={k} id={k} type={QuiestionTypes.values[k]} handleSelectType={this.handleSelectType}/>);
+			list.push(<QuestionType key={k} id={k} type={QuestionTypes.values[k]} handleSelectType={this.handleSelectType}/>);
 		}.bind(this));
 		
 		return (
 			<div className="btn-group">
 				<button className="btn btn-default btn-sm dropdown-toggle qtype-btn" type="button" onClick={this.handleDisplayTypes}>
-					<span>{QuiestionTypes.values[this.props.type]}&nbsp;&nbsp;</span>
+					<span>{QuestionTypes.values[this.props.type]}&nbsp;&nbsp;</span>
 					<span className="caret"></span>
 				</button>
 				<ul className="dropdown-menu" style={isTypeDisplayStyle}>
@@ -142,7 +149,23 @@ var QuestionView = React.createClass({
 
 	render:function () {
 		var answers = [];
+		var qType = QuestionStore.getTypeSelected();
 		this.state.answers.forEach(function(ans, i){
+			var answer = null;
+			switch(qType) {
+				case QuestionTypes.keys.multiple_choice:
+				answer = <ChoiceAnswer uuid={ans.uuid} key={ans.uuid} selected={ans.selected} number={i+1} text={ans.text} weight={ans.weight}/>;
+				break;
+				case QuestionTypes.keys.multiple_response:
+				answer = <ChoiceAnswer uuid={ans.uuid} key={ans.uuid} selected={ans.selected} number={i+1} text={ans.text} weight={ans.weight}/>;
+				break;
+				case QuestionTypes.keys.order:
+				answer = <OrderAnswer uuid={ans.uuid} key={ans.uuid} selected={ans.selected} number={i+1} text={ans.text} weight={ans.weight}/>;
+				break;
+				case QuestionTypes.keys.gap_fill:
+				answer = <MatchItemAnswer uuid={ans.uuid} key={ans.uuid} selected={ans.selected} number={i+1} text={ans.text} weight={ans.weight}/>;
+				break;	
+			}
 			answers.push(<ChoiceAnswer uuid={ans.uuid} key={ans.uuid} selected={ans.selected} number={i+1} text={ans.text} weight={ans.weight}/>);
 		});
 		return (

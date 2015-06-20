@@ -1,9 +1,11 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var QuestionConstants = require('../constants/QuestionConstants');
+var UUID = require('../../../utils/UUID');
+var QuestionTypes = require('../utils/QuestionTypes');
 var _ = require('underscore');
 
-var _answers = [], _question = {}, _displayTypes = false, _typeSelected = 'gap_fill';
+var _answers = [], _question = {}, _displayTypes = false;
 
 function _shift(arr, k) {
 	var n = arr.length;
@@ -36,7 +38,43 @@ function setText(txt) {
 	_question.text = txt;
 }
 
-function addAnswer(answer){
+function addAnswer(){
+	var answer = {
+		uuid: UUID.generate(),
+		text: '',
+		weight: ''
+	}
+
+	switch(_question.type){
+		case QuestionTypes.keys.multiple_choice:
+			answer.selected = false;
+			break;
+		case QuestionTypes.keys.multiple_response:
+			answer.selected = false;
+			break;
+		case QuestionTypes.keys.order:
+			answer = {
+
+			}
+			break;
+		case QuestionTypes.keys.gap_fill:
+			answer = {
+
+			}
+			break;
+		case QuestionTypes.keys.numerical_fill_in_blank:
+			answer = {
+
+			}
+			break;
+		case QuestionTypes.keys.match_item:
+			answer = {
+
+			}
+			break;
+		default:
+			break;
+	}
 	_answers.push(answer);
 }
 
@@ -53,7 +91,7 @@ function displayTypes(isDisplay){
 }
 
 function selectType(type){
-	_typeSelected = type;
+	_question.type = type;
 }
 
 function shiftUp(uuid) {
@@ -115,12 +153,12 @@ function removeAnswerConformity(uuid, conformity) {
 			ans.conformitys.splice(index, 1);
 	}
 }
-function selectAnswer(uuid){
+function selectAnswer(uuid, selected){
 	var ans = _answers.find(function(item){
 		return item.uuid == uuid;
 	});
 	if (ans)
-		ans.selected = true;
+		ans.selected = selected || false;
 }
 
 function changeAnswerText(uuid, text) {
@@ -170,7 +208,7 @@ var QuestionStore = _.extend({}, EventEmitter.prototype, {
 	},
 
 	getTypeSelected: function() {
-		return _typeSelected;
+		return _question.type;
 	},
 
 	emitChange: function() {
@@ -206,7 +244,7 @@ AppDispatcher.register(function(payload) {
 			setText(action.text);
 			break;
 		case QuestionConstants.ANSWER_ADD:
-			addAnswer(action.answer);
+			addAnswer();
 			break;
 		case QuestionConstants.ANSWER_REMOVE:
 			removeAnswer(action.uuid);
@@ -230,7 +268,7 @@ AppDispatcher.register(function(payload) {
 			removeAnswerConformity(action.uuid, action.conformity);
 			break;
 		case QuestionConstants.ANSWER_SELECTED:
-			selectAnswer(action.uuid);
+			selectAnswer(action.uuid, action.selected);
 			break;
 		case QuestionConstants.ANSWER_CHANGE_TEXT:
 			changeAnswerText(action.uuid, action.text);

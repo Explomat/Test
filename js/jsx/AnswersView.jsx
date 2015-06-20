@@ -49,12 +49,16 @@ var ChoiceAnswer = React.createClass({
 
 	mixins:[Answer],
 
+	handleSelect: function(e){
+		QuestionActions.selectAnswer(this.props.uuid, e.target.checked);
+	},
+
 	render:function() {
 		return(
 			<div className="menu-float all">
 				<label>
 					<span>{this.props.number}&nbsp;</span>
-					<input type="checkbox" checked={this.props.selected}/>
+					<input type="checkbox" checked={this.props.selected} onClick={this.handleSelect}/>
 				</label>
 				<div>
 					<button type="button" className="btn btn-default btn-xs" onClick={this.shiftUp}>

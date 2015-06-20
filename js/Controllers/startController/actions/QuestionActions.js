@@ -38,10 +38,9 @@ var QuestionActions = {
 		});
 	},
 
-	addAnswer: function(answer) {
+	addAnswer: function() {
 		AppDispatcher.handleAction({
-			actionType: QuestionConstants.ANSWER_ADD,
-			answer: answer
+			actionType: QuestionConstants.ANSWER_ADD
 		});
 	},
 
@@ -98,10 +97,11 @@ var QuestionActions = {
 		});
 	},
 
-	selectAnswer: function(uuid){
+	selectAnswer: function(uuid, selected){
 		AppDispatcher.handleAction({
 			actionType: QuestionConstants.ANSWER_SELECTED,
-			uuid: uuid
+			uuid: uuid,
+			selected
 		});
 	},
 
