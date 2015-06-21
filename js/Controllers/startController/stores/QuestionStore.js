@@ -125,8 +125,14 @@ function selectAnswer(uuid, selected){
 	var ans = _answers.find(function(item){
 		return item.uuid == uuid;
 	});
-	if (ans)
+	if (ans){
+		if (_question.type == QuestionTypes.keys.multiple_choice){
+			_answers.forEach(function(item){
+				item.selected = false;
+			});		
+		}
 		ans.selected = selected || false;
+	}
 }
 
 function changeAnswerText(uuid, text) {
