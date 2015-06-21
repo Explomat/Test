@@ -26,7 +26,7 @@ var Menu = React.createClass({
 		return (
 			<div className="menu">
 				<div>
-					<button type="button" className="btn btn-default btn-sm" onClick={this.handleClick}>
+					<button type="button" className="btn btn-default btn-xs" onClick={this.handleClick}>
 						<span className="glyphicon glyphicon-plus"></span>
 						<span>&nbsp;Добавить ответ</span>
 					</button>
@@ -117,7 +117,7 @@ var SelectQuestionType = React.createClass({
 		
 		return (
 			<div className="btn-group">
-				<button className="btn btn-default btn-sm dropdown-toggle qtype-btn" type="button" onClick={this.handleDisplayTypes}>
+				<button className="btn btn-default btn-xs dropdown-toggle qtype-btn" type="button" onClick={this.handleDisplayTypes}>
 					<span>{QuestionTypes.values[this.props.type]}&nbsp;&nbsp;</span>
 					<span className="caret"></span>
 				</button>

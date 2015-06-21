@@ -50,7 +50,7 @@ function removeAnswer(uuid) {
 	var ansIndex = _answers.findIndex(function(ans){
 		return ans.uuid == uuid;
 	});
-	if (ansIndex != -1)
+	if (ansIndex != -1 && _answers.length > 1)
 		_answers.splice(ansIndex, 1);
 }
 
