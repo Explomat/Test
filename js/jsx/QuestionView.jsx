@@ -44,7 +44,7 @@ var Title = React.createClass({
 
 	render:function() {
 		return (
-			<div className="input-group all menu-float">
+			<div className="input-group all">
 	            <span className="input-group-addon">Заголовок : *</span>
 	            <input type="text" className="form-control" placeholder='Заголовок вопроса' value={this.props.title} onChange={this.handleChange}/>
 	        </div>
@@ -60,7 +60,7 @@ var QuestionText = React.createClass({
 
 	render:function() {
 		return (
-			<div className="form-group all menu-float">
+			<div className="form-group all">
 				<label>Вопрос : *</label>
 				<textarea className="form-control" rows="2" value={this.props.text} onChange={this.handleChange}></textarea>
 			</div>
@@ -116,12 +116,12 @@ var SelectQuestionType = React.createClass({
 		}.bind(this));
 		
 		return (
-			<div className="btn-group">
-				<button className="btn btn-default btn-xs dropdown-toggle qtype-btn" type="button" onClick={this.handleDisplayTypes}>
+			<div className="btn-group btn-group-xs">
+				<button className="btn btn-default dropdown-toggle qtype-btn" type="button" onClick={this.handleDisplayTypes}>
 					<span>{QuestionTypes.values[this.props.type]}&nbsp;&nbsp;</span>
 					<span className="caret"></span>
 				</button>
-				<ul className="dropdown-menu" style={isTypeDisplayStyle}>
+				<ul className="dropdown-menu dropdown-menu-xs" style={isTypeDisplayStyle}>
 					{list}
 				</ul>
 			</div>

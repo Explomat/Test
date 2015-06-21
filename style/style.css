@@ -32,6 +32,10 @@ textarea {
     float: right;
 }
 
+.dropdown-menu-xs {
+    font-size: 12px;
+}
+
 /*.menu > div {
     position: relative;
 }*/

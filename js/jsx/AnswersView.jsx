@@ -27,17 +27,19 @@ var Answer = {
 	getBasicFields: function(){
 		return (
 			<div>
-				<button type="button" className="btn btn-default btn-xs" onClick={this.shiftUp}>
-				  <span className="glyphicon glyphicon-arrow-up"></span>
-				</button>
-				<button type="button" className="btn btn-default btn-xs" onClick={this.shiftDown}>
-				  <span className="glyphicon glyphicon-arrow-down"></span>
-				</button>
-				<button type="button" className="btn btn-default btn-xs" onClick={this.remove}>
-				  <span className="glyphicon glyphicon-remove"></span>
-				</button>
+				<div className="btn-group btn-group-xs">
+					<button type="button" className="btn btn-default" onClick={this.shiftUp}>
+					  <span className="glyphicon glyphicon-arrow-up"></span>
+					</button>
+					<button type="button" className="btn btn-default" onClick={this.shiftDown}>
+					  <span className="glyphicon glyphicon-arrow-down"></span>
+					</button>
+					<button type="button" className="btn btn-default" onClick={this.remove}>
+					  <span className="glyphicon glyphicon-remove"></span>
+					</button>
+				</div>
 				<textarea className="form-control" rows="1" value={this.props.text} onChange={this.changeText}></textarea>
-				<input type="text" value={this.props.weight} onChange={this.changeWeight}/>
+				<input className="form-control" type="text" value={this.props.weight} onChange={this.changeWeight}/>
 				<SelectImage />
 			</div>
 		);
@@ -74,7 +76,7 @@ var ChoiceAnswer = React.createClass({
 
 	render:function() {
 		return(
-			<div className="menu-float all">
+			<div className="all">
 				<label>
 					<span>{this.props.number}&nbsp;</span>
 					<input type="checkbox" checked={this.props.selected} onChange={this.handleSelect}/>
@@ -91,7 +93,7 @@ var OrderAnswer = React.createClass({
 
 	render:function() {
 		return(
-			<div className="menu-float all">
+			<div className="all">
 				<label>
 					<span>{this.props.number}&nbsp;</span>
 				</label>
@@ -107,7 +109,7 @@ var MatchItemAnswer = React.createClass({
 
 	render:function() {
 		return(
-			<div className="menu-float all">
+			<div className="all">
 				<label>
 					<span>{this.props.number}&nbsp;</span>
 				</label>
