@@ -24,13 +24,11 @@ var Menu = React.createClass({
 
 	render:function() {
 		return (
-			<div className="menu">
-				<div>
-					<button type="button" className="btn btn-default btn-xs" onClick={this.handleClick}>
-						<span className="glyphicon glyphicon-plus"></span>
-						<span>&nbsp;Добавить ответ</span>
-					</button>
-				</div>
+			<div className="pull-right">
+				<button type="button" className="btn btn-default btn-sm" onClick={this.handleClick}>
+					<span className="glyphicon glyphicon-plus"></span>
+					<span>&nbsp;Добавить ответ</span>
+				</button>
 			</div>
 		);
 	}
@@ -116,12 +114,12 @@ var SelectQuestionType = React.createClass({
 		}.bind(this));
 		
 		return (
-			<div className="btn-group btn-group-xs">
+			<div className="btn-group btn-group-sm">
 				<button className="btn btn-default dropdown-toggle qtype-btn" type="button" onClick={this.handleDisplayTypes}>
 					<span>{QuestionTypes.values[this.props.type]}&nbsp;&nbsp;</span>
 					<span className="caret"></span>
 				</button>
-				<ul className="dropdown-menu dropdown-menu-xs" style={isTypeDisplayStyle}>
+				<ul className="dropdown-menu" style={isTypeDisplayStyle}>
 					{list}
 				</ul>
 			</div>
@@ -152,29 +150,24 @@ var QuestionView = React.createClass({
 		var qType = QuestionStore.getTypeSelected();
 		this.state.answers.forEach(function(ans, i){
 			var answer = null;
-			switch(qType) {
-				case QuestionTypes.keys.multiple_choice:
+			if (qType == QuestionTypes.keys.multiple_choice || qType == QuestionTypes.keys.multiple_response)
 				answer = <ChoiceAnswer uuid={ans.uuid} key={ans.uuid} selected={ans.selected} number={i+1} text={ans.text} weight={ans.weight}/>;
-				break;
-				case QuestionTypes.keys.multiple_response:
-				answer = <ChoiceAnswer uuid={ans.uuid} key={ans.uuid} selected={ans.selected} number={i+1} text={ans.text} weight={ans.weight}/>;
-				break;
-				case QuestionTypes.keys.order:
-				answer = <OrderAnswer uuid={ans.uuid} key={ans.uuid} selected={ans.selected} number={i+1} text={ans.text} weight={ans.weight}/>;
-				break;
-				case QuestionTypes.keys.match_item:
+			else if (qType == QuestionTypes.keys.order)
+				answer = <OrderAnswer uuid={ans.uuid} key={ans.uuid} number={i+1} text={ans.text} weight={ans.weight}/>;
+			else if (qType == QuestionTypes.keys.match_item)
 				answer = <MatchItemAnswer uuid={ans.uuid} key={ans.uuid} number={i+1} text={ans.text} weight={ans.weight} rowsCount={ans.rows} colsCount={ans.cols}/>;
-				break;	
-			}
-			answers.push(answer);
+			if (answer)
+				answers.push(answer);
 		});
 		return (
 			<div className="panel panel-default">
-				<div className="panel-body">
+				<div className="panel-heading">
 					<Title title={this.state.title} />
 			        <QuestionText text={this.state.text} />
 			        <Menu />
 			        <SelectQuestionType type={this.state.type}/>
+				</div>
+				<div className="panel-body">
 			        {answers}
 				</div>
 			</div>

@@ -1,5 +1,8 @@
 var React = require('react');
 var QuestionActions = require('../Controllers/startController/actions/QuestionActions');
+var QuestionStore = require('../Controllers/startController/stores/QuestionStore');
+var SubAnswer = require('../Controllers/startController/utils/SubAnswer');
+var CONDITION_DEFAULT = 'equal';
 
 var SelectImage = React.createClass({
 		
@@ -24,23 +27,32 @@ var SelectImage = React.createClass({
 
 var Answer = {
 
+	getIcons: function(){
+		return (
+			<div className="btn-group btn-group-xs pull-right">
+				<button type="button" className="btn btn-default" onClick={this.shiftUp}>
+				  <span className="glyphicon glyphicon-arrow-up"></span>
+				</button>
+				<button type="button" className="btn btn-default" onClick={this.shiftDown}>
+				  <span className="glyphicon glyphicon-arrow-down"></span>
+				</button>
+				<button type="button" className="btn btn-default" onClick={this.remove}>
+				  <span className="glyphicon glyphicon-remove"></span>
+				</button>
+			</div>
+		);
+	},
+
 	getBasicFields: function(){
 		return (
-			<div>
-				<div className="btn-group btn-group-xs">
-					<button type="button" className="btn btn-default" onClick={this.shiftUp}>
-					  <span className="glyphicon glyphicon-arrow-up"></span>
-					</button>
-					<button type="button" className="btn btn-default" onClick={this.shiftDown}>
-					  <span className="glyphicon glyphicon-arrow-down"></span>
-					</button>
-					<button type="button" className="btn btn-default" onClick={this.remove}>
-					  <span className="glyphicon glyphicon-remove"></span>
-					</button>
-				</div>
+			<div className="form-group">
+				<label>Ответ : *</label>
 				<textarea className="form-control" rows="1" value={this.props.text} onChange={this.changeText}></textarea>
-				<input className="form-control" type="text" value={this.props.weight} onChange={this.changeWeight}/>
 				<SelectImage />
+				<label>
+					<span>Вес :</span>
+					<input className="form-control" type="text" value={this.props.weight} onChange={this.changeWeight}/>
+				</label>
 			</div>
 		);
 	},
@@ -66,6 +78,87 @@ var Answer = {
 	}
 }
 
+var Condition = React.createClass({
+
+	componentWillUnmount: function() {
+		document.removeEventListener('click', this.handleBlur);
+	},
+
+	componentDidMount: function() {
+		document.addEventListener('click', this.handleBlur);
+	},
+
+	handleBlur: function () {
+		this.setState({display: false});
+	},
+
+	handleDisplay: function(e) {
+		if (e){
+			e.stopPropagation();
+    		e.nativeEvent.stopImmediatePropagation();
+		}
+		this.setState({display: !this.state.display})
+	},
+
+	handleSelect:function () {
+		if (this.props.handleSelect)
+			this.props.handleSelect(this.props.id, this.props.type);
+	},
+
+	getInitialState: function() {
+		return {
+			display: false
+		}
+	},
+
+	render: function() {
+		var isDisplayStyle = { display: this.state.display ? "block" : "none" };
+		var list = [];
+		Object.keys(SubAnswer.conditions.keys).forEach(function(c){
+			list.push(<li key={c}><a href='#'>{SubAnswer.conditions.values[c]}</a></li>);
+		}.bind(this));
+
+		return(
+			<div className="input-group input-group-sm">
+				<div className="input-group-btn">
+					<button className="btn btn-default dropdown-toggle" type="button" onClick={this.handleDisplay}>
+						<span>{SubAnswer.conditions.values[this.props.type]}&nbsp;&nbsp;</span>
+						<span className="caret"></span>
+					</button>
+					<ul className="dropdown-menu" style={isDisplayStyle}>
+						{list}
+					</ul>
+					
+				</div>
+				<input type="text" className="form-control" value={this.props.text} />
+			</div>
+		);
+	}
+});
+
+var Conditions = React.createClass({
+
+	handleSelect: function(uuid, type) {
+		log(uuid, type);
+	},
+
+	render: function() {
+		var conditions = [];
+		this.props.conditions.forEach(function(c){
+			conditions.push(<Condition key={c.uuid} id={c.uuid} type={c.condition} text={c.text} handleSelect={this.handleSelect}/>);
+		}.bind(this));
+		return (
+			<div className="conditions">
+				<button type="button" className="btn btn-default btn-sm" onClick={this.handleClick}>
+					<span className="glyphicon glyphicon-plus"></span>
+					<span>&nbsp;Добавить условие</span>
+				</button>
+				{conditions}
+			</div>
+		);
+	}
+});
+
 var ChoiceAnswer = React.createClass({
 
 	mixins:[Answer],
@@ -77,6 +170,7 @@ var ChoiceAnswer = React.createClass({
 	render:function() {
 		return(
 			<div className="all">
+				{this.getIcons()}
 				<label>
 					<span>{this.props.number}&nbsp;</span>
 					<input type="checkbox" checked={this.props.selected} onChange={this.handleSelect}/>
@@ -94,6 +188,7 @@ var OrderAnswer = React.createClass({
 	render:function() {
 		return(
 			<div className="all">
+				{this.getIcons()}
 				<label>
 					<span>{this.props.number}&nbsp;</span>
 				</label>
@@ -110,20 +205,21 @@ var MatchItemAnswer = React.createClass({
 	render:function() {
 		return(
 			<div className="all">
+				{this.getIcons()}
 				<label>
 					<span>{this.props.number}&nbsp;</span>
 				</label>
 				{this.getBasicFields()}
 				<label>
-					<span>Строк</span>
-					<input type="text" value={this.props.rowsCount} />
+					<span>Высота</span>
+					<input type="text" className="form-control" value={this.props.rowsCount} />
 				</label>
 				<label>
-					<span>Стобцов</span>
-					<input type="text" value={this.props.colsCount} />
+					<span>Ширина</span>
+					<input type="text" className="form-control" value={this.props.colsCount} />
 				</label>
 				<div className="a-conditions">
-
+					<Conditions type={CONDITION_DEFAULT} conditions={QuestionStore.getConditions(this.props.uuid)} />
 				</div>
 			</div>
 		);

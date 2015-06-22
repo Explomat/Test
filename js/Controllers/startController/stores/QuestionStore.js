@@ -59,6 +59,11 @@ function displayTypes(isDisplay){
 }
 
 function selectType(type){
+	if (type == QuestionTypes.keys.multiple_choice){
+		_answers.forEach(function(item){
+			item.selected = false;
+		});	
+	}
 	_question.type = type;
 }
 
@@ -183,6 +188,15 @@ var QuestionStore = _.extend({}, EventEmitter.prototype, {
 
 	getTypeSelected: function() {
 		return _question.type;
+	},
+
+	getConditions: function(uuid) {
+		var ans = _answers.find(function(item){
+			return item.uuid == uuid;
+		});
+		if (ans)
+			return ans.conditions || [];
+		return [];
 	},
 
 	emitChange: function() {
