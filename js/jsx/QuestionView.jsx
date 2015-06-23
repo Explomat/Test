@@ -148,6 +148,7 @@ var QuestionView = React.createClass({
 	},
 
 	render:function () {
+		log(123);
 		var answers = [];
 		var qType = QuestionStore.getTypeSelected();
 		this.state.answers.forEach(function(ans, i){

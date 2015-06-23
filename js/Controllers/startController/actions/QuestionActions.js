@@ -86,6 +86,13 @@ var QuestionActions = {
 			uuid: uuid,
 			conditionUuid: conditionUuid,
 			text: text
+		})
+	},
+	
+	addAnswerConformity: function(uuid) {
+		AppDispatcher.handleAction({
+			actionType: QuestionConstants.ANSWER_ADD_CONDITION,
+			uuid: uuid
 		});
 	},
 
