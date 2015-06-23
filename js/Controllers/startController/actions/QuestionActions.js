@@ -65,35 +65,60 @@ var QuestionActions = {
 		});
 	},
 
-	addAnswerCondidtion: function(uuid, condition) {
+	addAnswerCondidtion: function(uuid) {
 		AppDispatcher.handleAction({
 			actionType: QuestionConstants.ANSWER_ADD_CONDITION,
-			uuid: uuid,
-			condition: condition
+			uuid: uuid
 		});
 	},
 
-	removeAnswerCondidtion: function(uuid, condition) {
+	removeAnswerCondidtion: function(uuid, conditionUuid) {
 		AppDispatcher.handleAction({
 			actionType: QuestionConstants.ANSWER_REMOVE_CONDITION,
 			uuid: uuid,
-			condition: condition
+			conditionUuid: conditionUuid
 		});
 	},
 
-	addAnswerConformity: function(uuid, conformity) {
+	changeAnswerCondidtionText: function(uuid, conditionUuid, text) {
+		AppDispatcher.handleAction({
+			actionType: QuestionConstants.ANSWER_CHANGE_CONDITION_TEXT,
+			uuid: uuid,
+			conditionUuid: conditionUuid,
+			text: text
+		});
+	},
+
+	changeAnswerCondidtionType: function(uuid, conditionUuid, type) {
+		AppDispatcher.handleAction({
+			actionType: QuestionConstants.ANSWER_CHANGE_CONDITION_TYPE,
+			uuid: uuid,
+			conditionUuid: conditionUuid,
+			type: type
+		});
+	},
+	
+	addAnswerConformity: function(uuid) {
 		AppDispatcher.handleAction({
 			actionType: QuestionConstants.ANSWER_ADD_CONDITION,
-			uuid: uuid,
-			conformity: conformity
+			uuid: uuid
 		});
 	},
 
-	removeAnswerConformity: function(uuid, conformity) {
+	removeAnswerConformity: function(uuid, conformityUuid) {
 		AppDispatcher.handleAction({
 			actionType: QuestionConstants.ANSWER_REMOVE_CONDITION,
 			uuid: uuid,
-			conformity: conformity
+			conformityUuid: conformityUuid
+		});
+	},
+
+	changeAnswerConformityText: function(uuid, conformityUuid, text) {
+		AppDispatcher.handleAction({
+			actionType: QuestionConstants.ANSWER_CHANGE_CONFORMITY_TEXT,
+			uuid: uuid,
+			conformityUuid: conformityUuid,
+			text: text
 		});
 	},
 

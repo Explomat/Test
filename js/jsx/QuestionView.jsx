@@ -75,7 +75,9 @@ var QuestionType = React.createClass({
 
 	render:function() {
 		return (
-			<li onClick={this.handleSelectType}><a href="#">{this.props.type}</a></li>
+			<li onClick={this.handleSelectType}>
+				<span>{this.props.type}</span>
+			</li>
 		);
 	}
 });

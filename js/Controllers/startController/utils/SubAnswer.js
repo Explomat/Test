@@ -3,6 +3,7 @@ var keyMirror = require('react/lib/keyMirror');
 var SubAnswer = {
 
 	conditions: {
+		
 		values: {
 			equal: '=',
 			more: '>',
@@ -20,7 +21,7 @@ var SubAnswer = {
 		})
 	},
 
-	conformities: {
+	conditionsText: {
 		values: {
 			equal: 'равен',
 			contains: 'содержит'
@@ -30,6 +31,10 @@ var SubAnswer = {
 			equal: null,
 			contains: null
 		})
+	},
+
+	conformities: {
+
 	}
 };
 
