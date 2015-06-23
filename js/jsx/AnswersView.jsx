@@ -19,6 +19,7 @@ var SelectImage = React.createClass({
 	render:function(){
 		return (
 			<form ecntype="multipart/form-data" method="POST" onSubmit={this.handleSubmit} ref="form">
+				<div>A</div>
 				<input type="file" className="file" onChange={this.handleChange} />
 			</form>
 		);	
