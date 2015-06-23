@@ -3,6 +3,7 @@ var EventEmitter = require('events').EventEmitter;
 var QuestionConstants = require('../constants/QuestionConstants');
 var UUID = require('../../../utils/UUID');
 var QuestionTypes = require('../utils/QuestionTypes');
+var SubAnswer = require('../utils/SubAnswer');
 var _ = require('underscore');
 
 var _answers = [], _question = {}, _displayTypes = false;
@@ -75,17 +76,21 @@ function shiftDown(uuid) {
 	_shift(_answers, _answers.length - 1);
 }
 
-function addAnswerCondidtion(uuid, condition) {
+function addAnswerCondidtion(uuid) {
 	var ans = _answers.find(function(item){
 		return item.uuid == uuid;
 	});
 	if (ans){
 		ans.conditions = ans.conditions || [];
-		ans.conditions.push(condition);
+		ans.conditions.push({
+			uuid: UUID.generate(),
+			text: '',
+			condition: SubAnswer.conditions.keys.equal
+		});
 	}
 }
 
-function removeAnswerCondidtion(uuid, condition) {
+function removeAnswerCondidtion(uuid, conditionUuid) {
 	var ans = _answers.find(function(item){
 		return item.uuid == uuid;
 	});
@@ -94,36 +99,40 @@ function removeAnswerCondidtion(uuid, condition) {
 		ans.conditions = ans.conditions || [];
 		var cond = ans.conditions.find(function(cond, i){
 			index = i;
-			return cond.uuid == condition.uuid;
+			return cond.uuid == conditionUuid;
 		});
-		if (cond)
+		if (cond && ans.conditions.length > 1)
 			ans.conditions.splice(index, 1);
 	}
 }
 
-function addAnswerConformity(uuid, conformity) {
+function addAnswerConformity(uuid) {
 	var ans = _answers.find(function(item){
 		return item.uuid == uuid;
 	});
 	if (ans){
-		ans.conformitys = ans.conformitys || [];
-		ans.conformitys.push(conformity);
+		ans.conformities = ans.conformities || [];
+		ans.conformities.push({
+			uuid: UUID.generate(),
+			text: '',
+			conformity: SubAnswer.conformities.keys.equal
+		});
 	}
 }
 
-function removeAnswerConformity(uuid, conformity) {
+function removeAnswerConformity(uuid, conformityUuid) {
 	var ans = _answers.find(function(item){
 		return item.uuid == uuid;
 	});
 	if (ans){
 		var index = null;
-		ans.conformitys = ans.conformitys || [];
-		var conf = ans.conformitys.find(function(conf, i){
+		ans.conformities = ans.conformities || [];
+		var conf = ans.conformities.find(function(conf, i){
 			index = i;
-			return conf.uuid == conformity.uuid;
+			return conf.uuid == conformityUuid;
 		});
-		if (conf)
-			ans.conformitys.splice(index, 1);
+		if (conf && ans.conformities.length > 1)
+			ans.conformities.splice(index, 1);
 	}
 }
 function selectAnswer(uuid, selected){
@@ -244,13 +253,13 @@ AppDispatcher.register(function(payload) {
 			shiftDown(action.uuid);
 			break;
 		case QuestionConstants.ANSWER_ADD_CONDITION:
-			addAnswerCondidtion(action.uuid, action.condition);
+			addAnswerCondidtion(action.uuid);
 			break;
 		case QuestionConstants.ANSWER_REMOVE_CONDITION:
-			removeAnswerCondidtion(action.uuid, action.condition);
+			removeAnswerCondidtion(action.uuid, action.conditionUuid);
 			break;
 		case QuestionConstants.ANSWER_ADD_CONFORMITY:
-			addAnswerConformity(action.uuid, action.conformity);
+			addAnswerConformity(action.uuid);
 			break;
 		case QuestionConstants.ANSWER_REMOVE_CONFORMITY:
 			removeAnswerConformity(action.uuid, action.conformity);

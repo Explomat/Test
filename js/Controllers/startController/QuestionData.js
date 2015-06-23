@@ -20,8 +20,7 @@ module.exports = {
 						{
 							uuid: 'b6363c6e-0c11-41b5-ac2re',
 							text: 'condition0',
-							condition: 'equal',
-							selected: true
+							condition: 'equal'
 						}
 					]
 				},
@@ -33,8 +32,7 @@ module.exports = {
 						{
 							uuid: 'b6363c6e-0c11-41b5-ac2s',
 							text: 'condition2',
-							condition: 'moreOrEqual',
-							selected: true
+							condition: 'moreOrEqual'
 						},
 
 						{
@@ -52,8 +50,7 @@ module.exports = {
 						{
 							uuid: 'b6363c6e-0c11-41b5-ac2c',
 							text: 'condition4',
-							condition: 'more',
-							selected: true
+							condition: 'more'
 						},
 
 						{

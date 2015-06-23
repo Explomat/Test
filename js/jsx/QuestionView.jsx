@@ -75,7 +75,9 @@ var QuestionType = React.createClass({
 
 	render:function() {
 		return (
-			<li onClick={this.handleSelectType}><a href="#">{this.props.type}</a></li>
+			<li onClick={this.handleSelectType}>
+				<span>{this.props.type}</span>
+			</li>
 		);
 	}
 });
@@ -146,6 +148,7 @@ var QuestionView = React.createClass({
 	},
 
 	render:function () {
+		log(123);
 		var answers = [];
 		var qType = QuestionStore.getTypeSelected();
 		this.state.answers.forEach(function(ans, i){

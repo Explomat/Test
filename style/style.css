@@ -15,6 +15,10 @@ html, body{
     overflow: hidden;
 }
 
+body {
+    overflow-y:scroll;
+}
+
 h1, nav {
     text-align: center;
     margin: 0px 0px 20px;
@@ -31,6 +35,24 @@ textarea {
 .dropdown-menu-xs {
     font-size: 12px;
 }
+
+.dropdown-menu > li > span:focus, .dropdown-menu > li > span:hover {
+    color: #262626;
+    text-decoration: none;
+    background-color: #F5F5F5;
+}
+
+.dropdown-menu > li > span {
+    cursor: pointer;
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: 400;
+    line-height: 1.42857;
+    color: #333;
+    white-space: nowrap;
+}
+
 
 /*.menu > div {
     position: relative;

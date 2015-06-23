@@ -102,7 +102,12 @@ var Condition = React.createClass({
 
 	handleSelect:function () {
 		if (this.props.handleSelect)
-			this.props.handleSelect(this.props.id, this.props.type);
+			this.props.handleSelect(this.props.uuid, this.props.type);
+	},
+
+	handleRemove: function(){
+		if (this.props.handleRemove)
+			this.props.handleRemove(this.props.uuid);
 	},
 
 	getInitialState: function() {
@@ -115,7 +120,7 @@ var Condition = React.createClass({
 		var isDisplayStyle = { display: this.state.display ? "block" : "none" };
 		var list = [];
 		Object.keys(SubAnswer.conditions.keys).forEach(function(c){
-			list.push(<li key={c}><a href='#'>{SubAnswer.conditions.values[c]}</a></li>);
+			list.push(<li key={c}><span>{SubAnswer.conditions.values[c]}</span></li>);
 		}.bind(this));
 
 		return(
@@ -128,9 +133,13 @@ var Condition = React.createClass({
 					<ul className="dropdown-menu" style={isDisplayStyle}>
 						{list}
 					</ul>
-					
 				</div>
 				<input type="text" className="form-control" value={this.props.text} />
+				<div className="input-group-btn">
+					<button type="button" className="btn btn-default" onClick={this.handleRemove}>
+					  <span className="glyphicon glyphicon-remove"></span>
+					</button>
+				</div>
 			</div>
 		);
 	}
@@ -139,13 +148,21 @@ var Condition = React.createClass({
 var Conditions = React.createClass({
 
 	handleSelect: function(uuid, type) {
-		log(uuid, type);
+		
+	},
+
+	handleClick: function () {
+		QuestionActions.addAnswerCondidtion(this.props.uuid);
+	},
+
+	handleRemove: function(conditionUuid){
+		QuestionActions.removeAnswerCondidtion(this.props.uuid, conditionUuid);
 	},
 
 	render: function() {
 		var conditions = [];
 		this.props.conditions.forEach(function(c){
-			conditions.push(<Condition key={c.uuid} id={c.uuid} type={c.condition} text={c.text} handleSelect={this.handleSelect}/>);
+			conditions.push(<Condition key={c.uuid} uuid={c.uuid} type={c.condition} text={c.text} handleSelect={this.handleSelect} handleRemove={this.handleRemove}/>);
 		}.bind(this));
 		return (
 			<div className="conditions">
@@ -219,7 +236,7 @@ var MatchItemAnswer = React.createClass({
 					<input type="text" className="form-control" value={this.props.colsCount} />
 				</label>
 				<div className="a-conditions">
-					<Conditions type={CONDITION_DEFAULT} conditions={QuestionStore.getConditions(this.props.uuid)} />
+					<Conditions type={CONDITION_DEFAULT} uuid={this.props.uuid} conditions={QuestionStore.getConditions(this.props.uuid)} />
 				</div>
 			</div>
 		);

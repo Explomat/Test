@@ -65,27 +65,25 @@ var QuestionActions = {
 		});
 	},
 
-	addAnswerCondidtion: function(uuid, condition) {
+	addAnswerCondidtion: function(uuid) {
 		AppDispatcher.handleAction({
 			actionType: QuestionConstants.ANSWER_ADD_CONDITION,
-			uuid: uuid,
-			condition: condition
+			uuid: uuid
 		});
 	},
 
-	removeAnswerCondidtion: function(uuid, condition) {
+	removeAnswerCondidtion: function(uuid, conditionUuid) {
 		AppDispatcher.handleAction({
 			actionType: QuestionConstants.ANSWER_REMOVE_CONDITION,
 			uuid: uuid,
-			condition: condition
+			conditionUuid: conditionUuid
 		});
 	},
 
-	addAnswerConformity: function(uuid, conformity) {
+	addAnswerConformity: function(uuid) {
 		AppDispatcher.handleAction({
 			actionType: QuestionConstants.ANSWER_ADD_CONDITION,
-			uuid: uuid,
-			conformity: conformity
+			uuid: uuid
 		});
 	},
 
