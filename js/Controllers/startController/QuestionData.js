@@ -12,13 +12,16 @@ module.exports = {
 					uuid: 'b6363c6e-0c11-41b5-ac2c-3000b87961d2',
 					text: 'Test',
 					weight: 1,
-					img: {
-						id: '6156139271573955688',
-						name: 'canvas.png',
-					},
 					conditions: [
 						{
 							uuid: 'b6363c6e-0c11-41b5-ac2re',
+							text: 'condition0',
+							condition: 'equal'
+						}
+					],
+					conditionsText: [
+						{
+							uuid: 'b6363c6e-0c11-41b5-ac2r',
 							text: 'condition0',
 							condition: 'equal'
 						}
@@ -40,23 +43,18 @@ module.exports = {
 							text: 'condition3',
 							condition: 'lessOrEqual'
 						}
-					]
-				},
-				{
-					uuid: 'b6363c6e-0c11-41b5-ac2c-3000b87961d0',
-					text: 'Test3',
-					weight: 3,
-					conditions: [
+					],
+					conditionsText: [
 						{
-							uuid: 'b6363c6e-0c11-41b5-ac2c',
-							text: 'condition4',
-							condition: 'more'
+							uuid: 'b6363c6e-0c11-41b5-ac2',
+							text: 'condition2',
+							condition: 'equal'
 						},
 
 						{
-							uuid: 'b6363c6e-0c11-41b5-ac2f',
-							text: 'condition5s',
-							condition: 'less'
+							uuid: 'b6363c6e-0c11-41b5-ac2',
+							text: 'condition3',
+							condition: 'contains'
 						}
 					]
 				}

@@ -46,14 +46,10 @@ function addAnswer(){
 		weight: ''
 	}
 
-	if (_question.type == QuestionTypes.keys.match_item){
-		ans.conditions = ans.conditions || [];
-		ans.conditions.push({
-			uuid: UUID.generate(),
-			text: '',
-			condition: SubAnswer.conditions.keys.equal
-		});
-	}
+	ans.conditions = ans.conditions || [];
+	ans.conditionsText = ans.conditionsText || [];
+	ans.conditions.push({ uuid: UUID.generate(), text: '', condition: 'equal'});
+	ans.conditionsText.push({ uuid: UUID.generate(), text: '', condition: 'equal' });
 	_answers.push(ans);
 }
 
@@ -113,6 +109,36 @@ function removeAnswerCondidtion(uuid, conditionUuid) {
 		});
 		if (cond && ans.conditions.length > 1)
 			ans.conditions.splice(index, 1);
+	}
+}
+
+function removeAnswerCondidtionText(uuid, conditionUuid) {
+	var ans = _answers.find(function(item){
+		return item.uuid == uuid;
+	});
+	if (ans){
+		var index = null;
+		ans.conditionsText = ans.conditionsText || [];
+		var cond = ans.conditionsText.find(function(cond, i){
+			index = i;
+			return cond.uuid == conditionUuid;
+		});
+		if (cond && ans.conditionsText.length > 1)
+			ans.conditionsText.splice(index, 1);
+	}
+}
+
+function addAnswerConditionText(uuid, conditionUiid){
+	var ans = _answers.find(function(item){
+		return item.uuid == uuid;
+	});
+	if (ans){
+		ans.conditionsText = ans.conditionsText || [];
+		ans.conditionsText.push({
+			uuid: UUID.generate(),
+			text: '',
+			condition: SubAnswer.conditionsText.keys.equal
+		});
 	}
 }
 
@@ -246,6 +272,15 @@ var QuestionStore = _.extend({}, EventEmitter.prototype, {
 		return [];
 	},
 
+	getConditionsText: function(uuid) {
+		var ans = _answers.find(function(item){
+			return item.uuid == uuid;
+		});
+		if (ans)
+			return ans.conditionsText || [];
+		return [];
+	},
+
 	emitChange: function() {
 		this.emit('change');
 	},
@@ -295,6 +330,12 @@ AppDispatcher.register(function(payload) {
 			break;
 		case QuestionConstants.ANSWER_REMOVE_CONDITION:
 			removeAnswerCondidtion(action.uuid, action.conditionUuid);
+			break;
+		case QuestionConstants.ANSWER_ADD_CONDITIONTEXT:
+			addAnswerCondidtionText(action.uuid);
+			break;
+		case QuestionConstants.ANSWER_REMOVE_CONDITIONTEXT:
+			removeAnswerCondidtionText(action.uuid, action.conditionUuid);
 			break;
 		case QuestionConstants.ANSWER_CHANGE_CONDITION_TEXT:
 			changeAnswerCondidtionText(action.uuid, action.conditionUuid, action.text);

@@ -5,6 +5,7 @@ var QuestionTypes = require('../Controllers/startController/utils/QuestionTypes'
 var ChoiceAnswer = require('./AnswersView').ChoiceAnswer;
 var OrderAnswer = require('./AnswersView').OrderAnswer;
 var MatchItemAnswer = require('./AnswersView').MatchItemAnswer;
+var NumericalFillAnswer = require('./AnswersView').NumericalFillAnswer;
 
 function getQuestionState() {
 	return {
@@ -158,6 +159,8 @@ var QuestionView = React.createClass({
 				answer = <OrderAnswer uuid={ans.uuid} key={ans.uuid} number={i+1} text={ans.text} weight={ans.weight}/>;
 			else if (qType == QuestionTypes.keys.match_item)
 				answer = <MatchItemAnswer uuid={ans.uuid} key={ans.uuid} number={i+1} text={ans.text} weight={ans.weight} rowsCount={ans.rows} colsCount={ans.cols}/>;
+			else if (qType == QuestionTypes.keys.numerical_fill_in_blank)
+				answer = <NumericalFillAnswer uuid={ans.uuid} key={ans.uuid} number={i+1} text={ans.text} weight={ans.weight} rowsCount={ans.rows} colsCount={ans.cols}/>;
 			if (answer)
 				answers.push(answer);
 		});
