@@ -235,11 +235,12 @@ var Conditions = React.createClass({
 	}
 });
 
+
 var MatchItemAnswer = React.createClass({
 
 	mixins:[Answer],
-
-	render:function() {
+	
+	render: function() {
 		return(
 			<div className="all">
 				{this.getIcons()}
