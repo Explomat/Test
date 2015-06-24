@@ -2,7 +2,6 @@ var React = require('react');
 var QuestionActions = require('../Controllers/startController/actions/QuestionActions');
 var QuestionStore = require('../Controllers/startController/stores/QuestionStore');
 var SubAnswer = require('../Controllers/startController/utils/SubAnswer');
-var CONDITION_DEFAULT = 'equal';
 
 var SelectImage = React.createClass({
 		
@@ -19,7 +18,6 @@ var SelectImage = React.createClass({
 	render:function(){
 		return (
 			<form ecntype="multipart/form-data" method="POST" onSubmit={this.handleSubmit} ref="form">
-				<div>A</div>
 				<input type="file" className="file" onChange={this.handleChange} />
 			</form>
 		);	
@@ -93,7 +91,7 @@ var ConditionType = React.createClass({
 	}
 });
 
-var Condition = React.createClass({
+var Condition = {
 
 	componentWillUnmount: function() {
 		document.removeEventListener('click', this.handleBlur);
@@ -130,19 +128,24 @@ var Condition = React.createClass({
 			this.props.handleChangeText(this.props.uuid, e.target.value);
 	},
 
-	getInitialState: function() {
-		return {
-			display: false
-		}
-	},
-
-	render: function() {
-		var isDisplayStyle = { display: this.state.display ? "block" : "none" };
+	getConditions: function(){
 		var list = [];
 		Object.keys(SubAnswer.conditions.keys).forEach(function(c){
 			list.push(<ConditionType key={this.props.uuid + c} type={c} handleSelect={this.handleSelect}/>);
 		}.bind(this));
+		return list;
+	},
 
+	getConditionsText: function(){
+		var list = [];
+		Object.keys(SubAnswer.conditionsText.keys).forEach(function(c){
+			list.push(<ConditionType key={this.props.uuid + c} type={c} handleSelect={this.handleSelect}/>);
+		}.bind(this));
+		return list;
+	},
+
+	getMark: function(conditions){
+		var isDisplayStyle = { display: this.state.display ? "block" : "none" };
 		return(
 			<div className="input-group input-group-sm">
 				<div className="input-group-btn">
@@ -151,7 +154,7 @@ var Condition = React.createClass({
 						<span className="caret"></span>
 					</button>
 					<ul className="dropdown-menu" style={isDisplayStyle}>
-						{list}
+						{conditions}
 					</ul>
 				</div>
 				<input type="text" className="form-control" value={this.props.text} onChange={this.handleChangeText}/>
@@ -160,6 +163,38 @@ var Condition = React.createClass({
 					  <span className="glyphicon glyphicon-remove"></span>
 					</button>
 				</div>
+			</div>
+		);
+	},
+
+	getInitialState: function() {
+		return {
+			display: false
+		}
+	}
+}
+
+var ConditionText = React.createClass({
+
+	mixins: [Condition],
+
+	render: function() {
+		return(
+			<div>
+				{this.getMark(this.getConditionsText())}
+			</div>
+		);
+	}
+});
+
+var ConditionNumber = React.createClass({
+
+	mixins: [Condition],
+
+	render: function() {
+		return(
+			<div>
+				{this.getMark(this.getConditions())}
 			</div>
 		);
 	}
@@ -171,7 +206,7 @@ var Conditions = React.createClass({
 		QuestionActions.changeAnswerCondidtionType(this.props.uuid, uuid, type);
 	},
 
-	handleClick: function () {
+	handleAdd: function () {
 		QuestionActions.addAnswerCondidtion(this.props.uuid);
 	},
 
@@ -186,15 +221,43 @@ var Conditions = React.createClass({
 	render: function() {
 		var conditions = [];
 		this.props.conditions.forEach(function(c){
-			conditions.push(<Condition key={c.uuid} uuid={c.uuid} type={c.condition} text={c.text} handleSelect={this.handleSelect} handleRemove={this.handleRemove} handleChangeText={this.handleChangeText}/>);
+			conditions.push(<ConditionNumber key={c.uuid} uuid={c.uuid} type={c.condition} text={c.text} handleSelect={this.handleSelect} handleRemove={this.handleRemove} handleChangeText={this.handleChangeText}/>);
 		}.bind(this));
 		return (
 			<div className="conditions">
-				<button type="button" className="btn btn-default btn-sm" onClick={this.handleClick}>
+				<button type="button" className="btn btn-default btn-sm" onClick={this.handleAdd}>
 					<span className="glyphicon glyphicon-plus"></span>
 					<span>&nbsp;Добавить условие</span>
 				</button>
 				{conditions}
+			</div>
+		);
+	}
+});
+
+var MatchItemAnswer = React.createClass({
+
+	mixins:[Answer],
+
+	render:function() {
+		return(
+			<div className="all">
+				{this.getIcons()}
+				<label>
+					<span>{this.props.number}&nbsp;</span>
+				</label>
+				{this.getBasicFields()}
+				<label>
+					<span>Высота</span>
+					<input type="text" className="form-control" value={this.props.rowsCount} />
+				</label>
+				<label>
+					<span>Ширина</span>
+					<input type="text" className="form-control" value={this.props.colsCount} />
+				</label>
+				<div className="a-conditions">
+					<Conditions uuid={this.props.uuid} conditions={QuestionStore.getConditions(this.props.uuid)} />
+				</div>
 			</div>
 		);
 	}
@@ -234,34 +297,6 @@ var OrderAnswer = React.createClass({
 					<span>{this.props.number}&nbsp;</span>
 				</label>
 				{this.getBasicFields()}
-			</div>
-		);
-	}
-});
-
-var MatchItemAnswer = React.createClass({
-
-	mixins:[Answer],
-
-	render:function() {
-		return(
-			<div className="all">
-				{this.getIcons()}
-				<label>
-					<span>{this.props.number}&nbsp;</span>
-				</label>
-				{this.getBasicFields()}
-				<label>
-					<span>Высота</span>
-					<input type="text" className="form-control" value={this.props.rowsCount} />
-				</label>
-				<label>
-					<span>Ширина</span>
-					<input type="text" className="form-control" value={this.props.colsCount} />
-				</label>
-				<div className="a-conditions">
-					<Conditions type={CONDITION_DEFAULT} uuid={this.props.uuid} conditions={QuestionStore.getConditions(this.props.uuid)} />
-				</div>
 			</div>
 		);
 	}

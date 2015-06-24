@@ -148,7 +148,6 @@ var QuestionView = React.createClass({
 	},
 
 	render:function () {
-		log(123);
 		var answers = [];
 		var qType = QuestionStore.getTypeSelected();
 		this.state.answers.forEach(function(ans, i){
@@ -162,6 +161,7 @@ var QuestionView = React.createClass({
 			if (answer)
 				answers.push(answer);
 		});
+
 		return (
 			<div className="panel panel-default">
 				<div className="panel-heading">
@@ -170,7 +170,7 @@ var QuestionView = React.createClass({
 			        <Menu />
 			        <SelectQuestionType type={this.state.type}/>
 				</div>
-				<div className="panel-body">
+				<div className="panel-body answers">
 			        {answers}
 				</div>
 			</div>
