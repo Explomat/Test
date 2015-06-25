@@ -65,14 +65,14 @@ var QuestionActions = {
 		});
 	},
 
-	addAnswerCondidtion: function(uuid) {
+	addAnswerCondition: function(uuid) {
 		AppDispatcher.handleAction({
 			actionType: QuestionConstants.ANSWER_ADD_CONDITION,
 			uuid: uuid
 		});
 	},
 
-	removeAnswerCondidtion: function(uuid, conditionUuid) {
+	removeAnswerCondition: function(uuid, conditionUuid) {
 		AppDispatcher.handleAction({
 			actionType: QuestionConstants.ANSWER_REMOVE_CONDITION,
 			uuid: uuid,
@@ -80,29 +80,39 @@ var QuestionActions = {
 		});
 	},
 
-	changeAnswerCondidtionText: function(uuid, conditionUuid, text) {
+	changeAnswerCondition: function(uuid, conditionUuid, text, type) {
 		AppDispatcher.handleAction({
-			actionType: QuestionConstants.ANSWER_CHANGE_CONDITION_TEXT,
+			actionType: QuestionConstants.ANSWER_CHANGE_CONDITION,
 			uuid: uuid,
 			conditionUuid: conditionUuid,
-			text: text
+			text: text, 
+			type: type
 		})
 	},
-	
-	addAnswerConformity: function(uuid) {
+
+	addAnswerConditionText: function(uuid) {
 		AppDispatcher.handleAction({
-			actionType: QuestionConstants.ANSWER_ADD_CONDITION,
+			actionType: QuestionConstants.ANSWER_ADD_CONDITIONTEXT,
 			uuid: uuid
 		});
 	},
 
-	changeAnswerCondidtionType: function(uuid, conditionUuid, type) {
+	removeAnswerConditionText: function(uuid, conditionUuid) {
 		AppDispatcher.handleAction({
-			actionType: QuestionConstants.ANSWER_CHANGE_CONDITION_TYPE,
+			actionType: QuestionConstants.ANSWER_REMOVE_CONDITIONTEXT,
+			uuid: uuid,
+			conditionUuid: conditionUuid
+		});
+	},
+
+	changeAnswerConditionText: function(uuid, conditionUuid, text, type) {
+		AppDispatcher.handleAction({
+			actionType: QuestionConstants.ANSWER_CHANGE_CONDITIONTEXT,
 			uuid: uuid,
 			conditionUuid: conditionUuid,
+			text: text,
 			type: type
-		});
+		})
 	},
 	
 	addAnswerConformity: function(uuid) {
@@ -120,9 +130,9 @@ var QuestionActions = {
 		});
 	},
 
-	changeAnswerConformityText: function(uuid, conformityUuid, text) {
+	changeAnswerConformity: function(uuid, conformityUuid, text) {
 		AppDispatcher.handleAction({
-			actionType: QuestionConstants.ANSWER_CHANGE_CONFORMITY_TEXT,
+			actionType: QuestionConstants.ANSWER_CHANGE_CONFORMITY,
 			uuid: uuid,
 			conformityUuid: conformityUuid,
 			text: text

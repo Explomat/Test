@@ -82,7 +82,7 @@ function shiftDown(uuid) {
 	_shift(_answers, _answers.length - 1);
 }
 
-function addAnswerCondidtion(uuid) {
+function addAnswerCondition(uuid) {
 	var ans = _answers.find(function(item){
 		return item.uuid == uuid;
 	});
@@ -96,7 +96,7 @@ function addAnswerCondidtion(uuid) {
 	}
 }
 
-function removeAnswerCondidtion(uuid, conditionUuid) {
+function removeAnswerCondition(uuid, conditionUuid) {
 	var ans = _answers.find(function(item){
 		return item.uuid == uuid;
 	});
@@ -112,19 +112,19 @@ function removeAnswerCondidtion(uuid, conditionUuid) {
 	}
 }
 
-function removeAnswerCondidtionText(uuid, conditionUuid) {
+function changeAnswerCondition(uuid, conditionUuid, text, condition){
 	var ans = _answers.find(function(item){
 		return item.uuid == uuid;
 	});
 	if (ans){
-		var index = null;
-		ans.conditionsText = ans.conditionsText || [];
-		var cond = ans.conditionsText.find(function(cond, i){
-			index = i;
+		ans.conditions = ans.conditions || [];
+		var cond = ans.conditions.find(function(cond){
 			return cond.uuid == conditionUuid;
 		});
-		if (cond && ans.conditionsText.length > 1)
-			ans.conditionsText.splice(index, 1);
+		if (cond){
+			cond.text = text || cond.text;
+			cond.condition = condition || cond.condition;
+		}
 	}
 }
 
@@ -142,31 +142,36 @@ function addAnswerConditionText(uuid, conditionUiid){
 	}
 }
 
-function changeAnswerCondidtionText(uuid, conditionUuid, text){
+
+function removeAnswerConditionText(uuid, conditionUuid) {
 	var ans = _answers.find(function(item){
 		return item.uuid == uuid;
 	});
 	if (ans){
-		ans.conditions = ans.conditions || [];
-		var cond = ans.conditions.find(function(cond){
+		var index = null;
+		ans.conditionsText = ans.conditionsText || [];
+		var cond = ans.conditionsText.find(function(cond, i){
+			index = i;
 			return cond.uuid == conditionUuid;
 		});
-		if (cond)
-			cond.text = text;
+		if (cond && ans.conditionsText.length > 1)
+			ans.conditionsText.splice(index, 1);
 	}
 }
 
-function changeAnswerCondidtionType(uuid, conditionUuid, type){
+function changeAnswerConditionText(uuid, conditionUuid, text, condition){
 	var ans = _answers.find(function(item){
 		return item.uuid == uuid;
 	});
 	if (ans){
-		ans.conditions = ans.conditions || [];
-		var cond = ans.conditions.find(function(cond){
+		ans.conditionsText = ans.conditionsText || [];
+		var cond = ans.conditionsText.find(function(cond){
 			return cond.uuid == conditionUuid;
 		});
-		if (cond)
-			cond.condition = type;
+		if (cond){
+			cond.text = text || cond.text;
+			cond.condition = condition || cond.condition;
+		}
 	}
 }
 
@@ -199,6 +204,21 @@ function removeAnswerConformity(uuid, conformityUuid) {
 			ans.conformities.splice(index, 1);
 	}
 }
+
+function changeAnswerConformity(uuid, conformityUuid, text) {
+	var ans = _answers.find(function(item){
+		return item.uuid == uuid;
+	});
+	if (ans){
+		ans.conditionsText = ans.conditionsText || [];
+		var cond = ans.conditionsText.find(function(cond){
+			return cond.uuid == conditionUuid;
+		});
+		if (cond)
+			cond.text = text || cond.text;
+	}
+}
+
 function selectAnswer(uuid, selected){
 	var ans = _answers.find(function(item){
 		return item.uuid == uuid;
@@ -298,6 +318,7 @@ AppDispatcher.register(function(payload) {
 	var action = payload.action;
 
 	switch(action.actionType) {
+
 		case QuestionConstants.RECEIVE_DATA:
 			loadQuestionData(action.data);
 			break;
@@ -313,45 +334,51 @@ AppDispatcher.register(function(payload) {
 		case QuestionConstants.SET_TEXT:
 			setText(action.text);
 			break;
+
 		case QuestionConstants.ANSWER_ADD:
 			addAnswer();
 			break;
 		case QuestionConstants.ANSWER_REMOVE:
 			removeAnswer(action.uuid);
 			break;
+
 		case QuestionConstants.ANSWER_SHIFT_UP:
 			shiftUp(action.uuid);
 			break;
 		case QuestionConstants.ANSWER_SHIFT_DOWN:
 			shiftDown(action.uuid);
 			break;
+
 		case QuestionConstants.ANSWER_ADD_CONDITION:
-			addAnswerCondidtion(action.uuid);
+			addAnswerCondition(action.uuid);
 			break;
 		case QuestionConstants.ANSWER_REMOVE_CONDITION:
-			removeAnswerCondidtion(action.uuid, action.conditionUuid);
+			removeAnswerCondition(action.uuid, action.conditionUuid);
 			break;
+		case QuestionConstants.ANSWER_CHANGE_CONDITION:
+			changeAnswerCondition(action.uuid, action.conditionUuid, action.text, action.type);
+			break;
+
 		case QuestionConstants.ANSWER_ADD_CONDITIONTEXT:
-			addAnswerCondidtionText(action.uuid);
+			addAnswerConditionText(action.uuid);
 			break;
 		case QuestionConstants.ANSWER_REMOVE_CONDITIONTEXT:
-			removeAnswerCondidtionText(action.uuid, action.conditionUuid);
+			removeAnswerConditionText(action.uuid, action.conditionUuid);
 			break;
-		case QuestionConstants.ANSWER_CHANGE_CONDITION_TEXT:
-			changeAnswerCondidtionText(action.uuid, action.conditionUuid, action.text);
+		case QuestionConstants.ANSWER_CHANGE_CONDITIONTEXT:
+			changeAnswerConditionText(action.uuid, action.conditionUuid, action.text, action.type);
 			break;
-		case QuestionConstants.ANSWER_CHANGE_CONDITION_TYPE:
-			changeAnswerCondidtionType(action.uuid, action.conditionUuid, action.type);
-			break;
+
 		case QuestionConstants.ANSWER_ADD_CONFORMITY:
 			addAnswerConformity(action.uuid);
 			break;
 		case QuestionConstants.ANSWER_REMOVE_CONFORMITY:
 			removeAnswerConformity(action.uuid, action.conformityUuid);
 			break;
-		case QuestionConstants.ANSWER_CHANGE_CONFORMITY_TEXT:
-			changeAnswerConformityText(action.uuid, action.conformityUuid, action.text);
+		case QuestionConstants.ANSWER_CHANGE_CONFORMITY:
+			changeAnswerConformity(action.uuid, action.conformityUuid, action.text);
 			break;
+			
 		case QuestionConstants.ANSWER_SELECTED:
 			selectAnswer(action.uuid, action.selected);
 			break;

@@ -249,20 +249,20 @@ var ConditionsText = React.createClass({
 
 	mixins: [BaseConditions],
 
-	handleSelect: function(uuid, type) {
-		QuestionActions.changeAnswerCondidtionTextType(this.props.uuid, uuid, type);
+	handleSelect: function(conditionUuid, type) {
+		QuestionActions.changeAnswerConditionText(this.props.uuid, conditionUuid, null, type);
 	},
 
 	handleAdd: function () {
-		QuestionActions.addAnswerCondidtionText(this.props.uuid);
+		QuestionActions.addAnswerConditionText(this.props.uuid);
 	},
 
 	handleRemove: function(conditionUuid) {
-		QuestionActions.removeAnswerCondidtionText(this.props.uuid, conditionUuid);
+		QuestionActions.removeAnswerConditionText(this.props.uuid, conditionUuid);
 	},
 
 	handleChangeText: function(conditionUuid, text) {
-		QuestionActions.changeAnswerCondidtionText(this.props.uuid, conditionUuid, text);
+		QuestionActions.changeAnswerConditionText(this.props.uuid, conditionUuid, text);
 	},
 
 	render: function() {
@@ -279,19 +279,19 @@ var Conditions = React.createClass({
 	mixins: [BaseConditions],
 
 	handleSelect: function(uuid, type) {
-		QuestionActions.changeAnswerCondidtionType(this.props.uuid, uuid, type);
+		QuestionActions.changeAnswerCondition(this.props.uuid, uuid, null, type);
 	},
 
 	handleAdd: function () {
-		QuestionActions.addAnswerCondidtion(this.props.uuid);
+		QuestionActions.addAnswerCondition(this.props.uuid);
 	},
 
 	handleRemove: function(conditionUuid){
-		QuestionActions.removeAnswerCondidtion(this.props.uuid, conditionUuid);
+		QuestionActions.removeAnswerCondition(this.props.uuid, conditionUuid);
 	},
 
 	handleChangeText: function(conditionUuid, text){
-		QuestionActions.changeAnswerCondidtion(this.props.uuid, conditionUuid, text);
+		QuestionActions.changeAnswerCondition(this.props.uuid, conditionUuid, text);
 	},
 
 	render: function() {
@@ -302,7 +302,6 @@ var Conditions = React.createClass({
 		);
 	}
 });
-
 
 var NumericalFillAnswer = React.createClass({
 
@@ -327,6 +326,23 @@ var NumericalFillAnswer = React.createClass({
 				<div className="a-conditions">
 					<ConditionsText uuid={this.props.uuid} conditions={QuestionStore.getConditionsText(this.props.uuid)} />
 				</div>
+			</div>
+		);
+	}
+});
+
+var GapFillAnswer = React.createClass({
+
+	mixins:[Answer],
+
+	render:function() {
+		return(
+			<div className="all">
+				{this.getIcons()}
+				<label>
+					<span>{this.props.number}&nbsp;</span>
+				</label>
+				{this.getBasicFields()}
 			</div>
 		);
 	}

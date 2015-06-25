@@ -52,7 +52,7 @@ module.exports = {
 						},
 
 						{
-							uuid: 'b6363c6e-0c11-41b5-ac2',
+							uuid: 'b6363c6e-0c11-41b5-ac',
 							text: 'condition3',
 							condition: 'contains'
 						}
