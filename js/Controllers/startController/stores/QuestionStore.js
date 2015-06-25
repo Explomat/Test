@@ -48,8 +48,10 @@ function addAnswer(){
 
 	ans.conditions = ans.conditions || [];
 	ans.conditionsText = ans.conditionsText || [];
+	ans.conformities = ans.conformities || [];
 	ans.conditions.push({ uuid: UUID.generate(), text: '', condition: 'equal'});
 	ans.conditionsText.push({ uuid: UUID.generate(), text: '', condition: 'equal' });
+	ans.conformities.push({ uuid: UUID.generate(), text: '' });
 	_answers.push(ans);
 }
 
@@ -183,8 +185,7 @@ function addAnswerConformity(uuid) {
 		ans.conformities = ans.conformities || [];
 		ans.conformities.push({
 			uuid: UUID.generate(),
-			text: '',
-			conformity: SubAnswer.conformities.keys.equal
+			text: ''
 		});
 	}
 }
@@ -210,9 +211,9 @@ function changeAnswerConformity(uuid, conformityUuid, text) {
 		return item.uuid == uuid;
 	});
 	if (ans){
-		ans.conditionsText = ans.conditionsText || [];
-		var cond = ans.conditionsText.find(function(cond){
-			return cond.uuid == conditionUuid;
+		ans.conformities = ans.conformities || [];
+		var cond = ans.conformities.find(function(cond){
+			return cond.uuid == conformityUuid;
 		});
 		if (cond)
 			cond.text = text || cond.text;
@@ -298,6 +299,15 @@ var QuestionStore = _.extend({}, EventEmitter.prototype, {
 		});
 		if (ans)
 			return ans.conditionsText || [];
+		return [];
+	},
+
+	getConformities: function(uuid) {
+		var ans = _answers.find(function(item){
+			return item.uuid == uuid;
+		});
+		if (ans)
+			return ans.conformities || [];
 		return [];
 	},
 

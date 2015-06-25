@@ -25,6 +25,12 @@ module.exports = {
 							text: 'condition0',
 							condition: 'equal'
 						}
+					],
+					conformities: [
+						{
+							uuid: 'b6363c6e',
+							text: ''
+						}
 					]
 				},
 				{
@@ -56,6 +62,17 @@ module.exports = {
 							text: 'condition3',
 							condition: 'contains'
 						}
+					],
+
+					conformities: [
+						{
+							uuid: 'b6363c6',
+							text: ''
+						},
+						{
+							uuid: 'b6363c5',
+							text: ''
+						},
 					]
 				}
 			]

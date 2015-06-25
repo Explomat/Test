@@ -117,14 +117,14 @@ var QuestionActions = {
 	
 	addAnswerConformity: function(uuid) {
 		AppDispatcher.handleAction({
-			actionType: QuestionConstants.ANSWER_ADD_CONDITION,
+			actionType: QuestionConstants.ANSWER_ADD_CONFORMITY,
 			uuid: uuid
 		});
 	},
 
 	removeAnswerConformity: function(uuid, conformityUuid) {
 		AppDispatcher.handleAction({
-			actionType: QuestionConstants.ANSWER_REMOVE_CONDITION,
+			actionType: QuestionConstants.ANSWER_REMOVE_CONFORMITY,
 			uuid: uuid,
 			conformityUuid: conformityUuid
 		});
