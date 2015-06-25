@@ -4,3 +4,5 @@ npm-debug.log
 node_modules/
 js/jsx/.module-cache/
 js/jsx/*.js
+build/js/bundle.js
+build/js/bundle.js.map
