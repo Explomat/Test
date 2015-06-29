@@ -148,6 +148,14 @@ var QuestionActions = {
 		});
 	},
 
+	changeAnswerImg: function(uuid, img){
+		AppDispatcher.handleAction({
+			actionType: QuestionConstants.ANSWER_CHANGE_IMG,
+			uuid: uuid,
+			img: img
+		});
+	},
+
 	selectAnswer: function(uuid, selected){
 		AppDispatcher.handleAction({
 			actionType: QuestionConstants.ANSWER_SELECTED,
@@ -170,15 +178,7 @@ var QuestionActions = {
 			uuid: uuid,
 			weight: weight
 		});
-	},
-
-	changeImgAnswer: function(uuid, img){
-		AppDispatcher.handleAction({
-			actionType: QuestionConstants.ANSWER_CHANGE_IMG,
-			uuid: uuid,
-			img: img
-		});
-	},
+	}
 }
 
 module.exports = QuestionActions;

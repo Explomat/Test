@@ -12,6 +12,9 @@ module.exports = {
 					uuid: 'b6363c6e-0c11-41b5-ac2c-3000b87961d2',
 					text: 'Test',
 					weight: 1,
+					height: 20,
+					width: 1,
+					img: null,
 					conditions: [
 						{
 							uuid: 'b6363c6e-0c11-41b5-ac2re',
@@ -37,6 +40,12 @@ module.exports = {
 					uuid: 'b6363c6e-0c11-41b5-ac2c-3000b87961d1',
 					text: 'Test1',
 					weight: 2,
+					height: 20,
+					width: 1,
+					img: {
+						name:'canvas.png',
+						id:'6156139271573955688'
+					},
 					conditions: [
 						{
 							uuid: 'b6363c6e-0c11-41b5-ac2s',

@@ -231,6 +231,14 @@ function changeAnswerSize(uuid, width, height) {
 	}
 }
 
+function changeAnswerImg(uuid, img) {
+	var ans = _answers.find(function(item){
+		return item.uuid == uuid;
+	});
+	if (ans)
+		ans.img = img;
+}
+
 function selectAnswer(uuid, selected){
 	var ans = _answers.find(function(item){
 		return item.uuid == uuid;
@@ -261,13 +269,6 @@ function changeAnswerWeight(uuid, weight) {
 		ans.weight = weight;
 }
 
-function changeAnswerImg(uuid, img) {
-	var ans = _answers.find(function(item){
-		return item.uuid == uuid;
-	});
-	if (ans)
-		ans.img = img;
-}
 
 var QuestionStore = _.extend({}, EventEmitter.prototype, {
 
@@ -320,6 +321,14 @@ var QuestionStore = _.extend({}, EventEmitter.prototype, {
 		if (ans)
 			return ans.conformities || [];
 		return [];
+	},
+
+	getAnswerImg: function(uuid) {
+		var ans = _answers.find(function(item){
+			return item.uuid == uuid;
+		});
+		if (ans)
+			return ans.img;
 	},
 
 	emitChange: function() {
@@ -399,9 +408,11 @@ AppDispatcher.register(function(payload) {
 		case QuestionConstants.ANSWER_CHANGE_CONFORMITY:
 			changeAnswerConformity(action.uuid, action.conformityUuid, action.text);
 			break;
-		
 		case QuestionConstants.ANSWER_CHANGE_SIZE:
 			changeAnswerSize(action.uuid, action.width, action.height);
+			break;
+		case QuestionConstants.ANSWER_CHANGE_IMG: 
+			changeAnswerImg(action.uuid, action.img);
 			break;
 		case QuestionConstants.ANSWER_SELECTED:
 			selectAnswer(action.uuid, action.selected);
@@ -411,9 +422,6 @@ AppDispatcher.register(function(payload) {
 			break;
 		case QuestionConstants.ANSWER_CHANGE_WEIGHT:
 			changeAnswerWeight(action.uuid, action.weight);
-			break;
-		case QuestionConstants.ANSWER_CHANGE_IMG:
-			changeAnswerImg(action.uuid, action.img);
 			break;
 		default:
 			return true;

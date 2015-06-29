@@ -1,32 +1,16 @@
 var React = require('react');
 var TextView = require('./Components/Text').TextView;
+var ImageSelect = require('./Components/ImageSelect');
 var QuestionActions = require('../Controllers/startController/actions/QuestionActions');
 var QuestionStore = require('../Controllers/startController/stores/QuestionStore');
 var SubAnswer = require('../Controllers/startController/utils/SubAnswer');
 var Validation = require('../utils/Validation');
 
-var SelectImage = React.createClass({
-		
-	handleChange:function(e) {
-		//React.findDOMNode(this.refs.form).submit();
-	},
-
-	handleSubmit:function(e) {
-		e.preventDefault();
-		alert("submit");
-		return;
-	},
-
-	render:function(){
-		return (
-			<form ecntype="multipart/form-data" method="POST" onSubmit={this.handleSubmit} ref="form">
-				<input type="file" className="file" onChange={this.handleChange} />
-			</form>
-		);	
-	}
-});
-
 var Answer = {
+
+	changeImg: function(img) {
+		QuestionActions.changeAnswerImg(this.props.uuid, img);
+	},
 
 	getIcons: function(){
 		return (
@@ -49,7 +33,7 @@ var Answer = {
 			<div className="form-group">
 				<label>Ответ : *</label>
 				<textarea className="form-control" rows="1" value={this.props.text} onChange={this.changeText}></textarea>
-				<SelectImage />
+				<ImageSelect img={QuestionStore.getAnswerImg(this.props.uuid)} changeImg={this.changeImg}/>
 				<label>
 					<span>Вес :</span>
 					<TextView value={this.props.weight} onBlur={this.changeWeight} isValid={Validation.isNumberOrReal}/>
