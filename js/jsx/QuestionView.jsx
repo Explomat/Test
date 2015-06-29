@@ -7,6 +7,7 @@ var OrderAnswer = require('./AnswersView').OrderAnswer;
 var MatchItemAnswer = require('./AnswersView').MatchItemAnswer;
 var NumericalFillAnswer = require('./AnswersView').NumericalFillAnswer;
 var ConformityAnswer = require('./AnswersView').ConformityAnswer;
+var TextView = require('./Components/Text');
 
 function getQuestionState() {
 	return {
@@ -38,15 +39,15 @@ var Menu = React.createClass({
 
 var Title = React.createClass({
 
-	handleChange:function(e) {
-		QuestionActions.changeTitle(e.target.value);
+	handleChange:function(val) {
+		QuestionActions.changeTitle(val);
 	},
 
 	render:function() {
 		return (
 			<div className="input-group all">
 	            <span className="input-group-addon">Заголовок : *</span>
-	            <input type="text" className="form-control" placeholder='Заголовок вопроса' value={this.props.title} onChange={this.handleChange}/>
+	            <TextView value={this.props.title} onBlur={this.handleChange} placeholder='Заголовок вопроса'/>
 	        </div>
 		);
 	}

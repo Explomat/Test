@@ -29,6 +29,7 @@ var TextView = React.createClass({
 	getDefaultProps: function() {
 		return {
 			value: '',
+			placeholder: '',
 			isValid: function() {
 				return true;
 			}
@@ -43,7 +44,7 @@ var TextView = React.createClass({
 	
 	render:function() {
 		return (
-			<input ref="txt" className="form-control" type="text" value={this.state.value} onChange={this.handleChange} onBlur={this.handleBlur}/>
+			<input ref="txt" className="form-control" type="text" value={this.state.value} onChange={this.handleChange} onBlur={this.handleBlur} placeholder={this.props.placeholder}/>
 		);
 	}
 });
