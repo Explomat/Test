@@ -20,7 +20,19 @@ var SelectImage = React.createClass({
 	render:function(){
 		return (
 			<form ecntype="multipart/form-data" method="POST" onSubmit={this.handleSubmit} ref="form">
-				<input type="file" className="file" onChange={this.handleChange} />
+				<div className="input-group ">
+				   <div tabIndex={"-1"} className="form-control file-caption kv-fileinput-caption">
+				   		<span className="file-caption-ellipsis">…</span>
+				   		<div className="file-caption-name"></div>
+					</div>
+				    <div className="input-group-btn">
+				       <div style={{"overflow": "hidden"}} className="btn btn-primary btn-file"> 
+					       	<i className="glyphicon glyphicon-folder-open"></i>
+					       	<span>&nbsp;Browse … </span>
+					       	<input className="file" type="file"/>
+				       </div>
+				   </div>
+				</div>
 			</form>
 		);	
 	}
