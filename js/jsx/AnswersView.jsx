@@ -52,7 +52,7 @@ var Answer = {
 				<SelectImage />
 				<label>
 					<span>Вес :</span>
-					<TextView value={this.props.weight} onBlur={this.changeWeight} isValid={Validation.isNumber}/>
+					<TextView value={this.props.weight} onBlur={this.changeWeight} isValid={Validation.isNumberOrReal}/>
 				</label>
 			</div>
 		);
