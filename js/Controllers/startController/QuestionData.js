@@ -15,7 +15,7 @@ module.exports = {
 					conditions: [
 						{
 							uuid: 'b6363c6e-0c11-41b5-ac2re',
-							text: 'condition0',
+							text: '1',
 							condition: 'equal'
 						}
 					],
@@ -40,7 +40,7 @@ module.exports = {
 					conditions: [
 						{
 							uuid: 'b6363c6e-0c11-41b5-ac2s',
-							text: 'condition2',
+							text: '2',
 							condition: 'moreOrEqual'
 						},
 

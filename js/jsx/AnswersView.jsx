@@ -1,7 +1,9 @@
 var React = require('react');
+var TextView = require('./Components/Text');
 var QuestionActions = require('../Controllers/startController/actions/QuestionActions');
 var QuestionStore = require('../Controllers/startController/stores/QuestionStore');
 var SubAnswer = require('../Controllers/startController/utils/SubAnswer');
+var Validation = require('../utils/Validation');
 
 var SelectImage = React.createClass({
 		
@@ -50,7 +52,7 @@ var Answer = {
 				<SelectImage />
 				<label>
 					<span>Вес :</span>
-					<input className="form-control" type="text" value={this.props.weight} onChange={this.changeWeight}/>
+					<TextView value={this.props.weight} onBlur={this.changeWeight} isValid={Validation.isNumber}/>
 				</label>
 			</div>
 		);
@@ -68,8 +70,8 @@ var Answer = {
 		QuestionActions.changeTextAnswer(this.props.uuid, e.target.value);
 	},
 
-	changeWeight: function(e){
-		QuestionActions.changeWeightAnswer(this.props.uuid, e.target.value);
+	changeWeight: function(val){
+		QuestionActions.changeWeightAnswer(this.props.uuid, val);
 	},
 
 	remove: function(){
@@ -137,9 +139,9 @@ var Condition = {
 			this.props.handleRemove(this.props.uuid);
 	},
 
-	handleChangeText: function(e) {
+	handleChangeText: function(val) {
 		if (this.props.handleChangeText)
-			this.props.handleChangeText(this.props.uuid, e.target.value);
+			this.props.handleChangeText(this.props.uuid, val);
 	},
 
 	getConditionsType: function(){
@@ -158,7 +160,7 @@ var Condition = {
 		return list;
 	},
 
-	getMark: function(conditions, type){
+	getMark: function(conditions, type, validate){
 		var isDisplayStyle = { display: this.state.display ? "block" : "none" };
 		return(
 			<div className="input-group input-group-sm">
@@ -171,7 +173,8 @@ var Condition = {
 						{conditions}
 					</ul>
 				</div>
-				<input type="text" className="form-control" value={this.props.text} onChange={this.handleChangeText}/>
+				<TextView value={this.props.text} onBlur={this.handleChangeText} isValid={validate}/>
+				
 				<div className="input-group-btn">
 					<button type="button" className="btn btn-default" onClick={this.handleRemove}>
 					  <span className="glyphicon glyphicon-remove"></span>
@@ -194,9 +197,7 @@ var ConditionText = React.createClass({
 
 	render: function() {
 		return(
-			<div>
-				{this.getMark(this.getConditionsTypeText(), SubAnswer.conditionsText.values[this.props.type])}
-			</div>
+			this.getMark(this.getConditionsTypeText(), SubAnswer.conditionsText.values[this.props.type])
 		);
 	}
 });
@@ -207,9 +208,7 @@ var ConditionNumber = React.createClass({
 
 	render: function() {
 		return(
-			<div>
-				{this.getMark(this.getConditionsType(), SubAnswer.conditions.values[this.props.type])}
-			</div>
+			this.getMark(this.getConditionsType(), SubAnswer.conditions.values[this.props.type], Validation.isNumber)
 		);
 	}
 });
@@ -263,9 +262,7 @@ var ConditionsText = React.createClass({
 
 	render: function() {
 		return (
-			<div>
-				{this.getMark(this.getConditionsText())}
-			</div>
+			this.getMark(this.getConditionsText())
 		);
 	}
 });
@@ -292,9 +289,7 @@ var Conditions = React.createClass({
 
 	render: function() {
 		return (
-			<div>
-				{this.getMark(this.getConditions())}
-			</div>
+			this.getMark(this.getConditions())
 		);
 	}
 });
@@ -327,8 +322,6 @@ var Conformity = React.createClass({
 
 var Conformities = React.createClass({
 
-	mixins: [BaseConditions],
-
 	handleAdd: function () {
 		QuestionActions.addAnswerConformity(this.props.uuid);
 	},
@@ -357,6 +350,67 @@ var Conformities = React.createClass({
 	}
 });
 
+
+var FillAnswer = {
+
+	changeHeight: function(val){
+		QuestionActions.changeAnswerSize(this.props.uuid, null, val);
+	},
+
+	changeWidth: function(val){
+		QuestionActions.changeAnswerSize(this.props.uuid, val, null);
+	},
+
+	getMark: function(conditions){
+		return(
+			<div className="all">
+				{this.getIcons()}
+				<label>
+					<span>{this.props.number}&nbsp;</span>
+				</label>
+				{this.getBasicFields()}
+				<label>
+					<span>Высота</span>
+					<TextView value={this.props.height} onBlur={this.changeHeight} isValid={Validation.isNumber}/>
+				</label>
+				<label>
+					<span>Ширина</span>
+					<TextView value={this.props.width} onBlur={this.changeWidth} isValid={Validation.isNumber}/>
+				</label>
+				<div className="a-conditions">
+					{conditions}
+				</div>
+			</div>
+		);
+	}
+}
+
+//текстовый ввод
+var NumericalFillAnswer = React.createClass({
+
+	mixins: [Answer, FillAnswer],
+
+	render: function() {
+		return(
+			this.getMark(<ConditionsText uuid={this.props.uuid} conditions={QuestionStore.getConditionsText(this.props.uuid)} />)
+		);
+	}
+});
+
+
+//цифровой ввод
+var MatchItemAnswer = React.createClass({
+
+	mixins:[Answer, FillAnswer],
+
+	render: function() { 
+		return(
+			this.getMark(<Conditions uuid={this.props.uuid} conditions={QuestionStore.getConditions(this.props.uuid)} />)
+		);
+	}
+});
+
+//соответствие
 var ConformityAnswer = React.createClass({
 
 	mixins:[Answer],
@@ -377,79 +431,7 @@ var ConformityAnswer = React.createClass({
 	}
 });
 
-var NumericalFillAnswer = React.createClass({
-
-	mixins:[Answer],
-
-	render: function() {
-		return(
-			<div className="all">
-				{this.getIcons()}
-				<label>
-					<span>{this.props.number}&nbsp;</span>
-				</label>
-				{this.getBasicFields()}
-				<label>
-					<span>Высота</span>
-					<input type="text" className="form-control" value={this.props.rowsCount} />
-				</label>
-				<label>
-					<span>Ширина</span>
-					<input type="text" className="form-control" value={this.props.colsCount} />
-				</label>
-				<div className="a-conditions">
-					<ConditionsText uuid={this.props.uuid} conditions={QuestionStore.getConditionsText(this.props.uuid)} />
-				</div>
-			</div>
-		);
-	}
-});
-
-var GapFillAnswer = React.createClass({
-
-	mixins:[Answer],
-
-	render:function() {
-		return(
-			<div className="all">
-				{this.getIcons()}
-				<label>
-					<span>{this.props.number}&nbsp;</span>
-				</label>
-				{this.getBasicFields()}
-			</div>
-		);
-	}
-});
-
-var MatchItemAnswer = React.createClass({
-
-	mixins:[Answer],
-
-	render: function() { 
-		return(
-			<div className="all">
-				{this.getIcons()}
-				<label>
-					<span>{this.props.number}&nbsp;</span>
-				</label>
-				{this.getBasicFields()}
-				<label>
-					<span>Высота</span>
-					<input type="text" className="form-control" value={this.props.rowsCount} />
-				</label>
-				<label>
-					<span>Ширина</span>
-					<input type="text" className="form-control" value={this.props.colsCount} />
-				</label>
-				<div className="a-conditions">
-					<Conditions uuid={this.props.uuid} conditions={QuestionStore.getConditions(this.props.uuid)} />
-				</div>
-			</div>
-		);
-	}
-});
-
+//единственный, множественный выбор
 var ChoiceAnswer = React.createClass({
 
 	mixins:[Answer],
@@ -472,6 +454,7 @@ var ChoiceAnswer = React.createClass({
 	}
 });
 
+//ранжирование
 var OrderAnswer = React.createClass({
 
 	mixins:[Answer],

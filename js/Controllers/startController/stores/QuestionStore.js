@@ -26,7 +26,7 @@ function _shift(arr, k) {
 	}
 }
 
-function loadQuestionData(data) {
+function loadQuestionData(data) {http://localhost:8003/#settings
 	_question = data;
 	_answers = data.answers;
 }
@@ -220,6 +220,17 @@ function changeAnswerConformity(uuid, conformityUuid, text) {
 	}
 }
 
+function changeAnswerSize(uuid, width, height) {
+	var ans = _answers.find(function(item){
+		return item.uuid == uuid;
+	});
+	if (ans){
+		console.log(ans);
+		ans.width = width || ans.width;
+		ans.height = height || ans.height;
+	}
+}
+
 function selectAnswer(uuid, selected){
 	var ans = _answers.find(function(item){
 		return item.uuid == uuid;
@@ -388,7 +399,10 @@ AppDispatcher.register(function(payload) {
 		case QuestionConstants.ANSWER_CHANGE_CONFORMITY:
 			changeAnswerConformity(action.uuid, action.conformityUuid, action.text);
 			break;
-			
+		
+		case QuestionConstants.ANSWER_CHANGE_SIZE:
+			changeAnswerSize(action.uuid, action.width, action.height);
+			break;
 		case QuestionConstants.ANSWER_SELECTED:
 			selectAnswer(action.uuid, action.selected);
 			break;

@@ -31,10 +31,6 @@ var SubAnswer = {
 			equal: null,
 			contains: null
 		})
-	},
-
-	conformities: {
-
 	}
 };
 

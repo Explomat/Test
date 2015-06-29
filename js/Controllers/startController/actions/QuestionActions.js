@@ -139,6 +139,15 @@ var QuestionActions = {
 		});
 	},
 
+	changeAnswerSize: function(uuid, width, height) {
+		AppDispatcher.handleAction({
+			actionType: QuestionConstants.ANSWER_CHANGE_SIZE,
+			uuid: uuid,
+			width: width,
+			height: height
+		});
+	},
+
 	selectAnswer: function(uuid, selected){
 		AppDispatcher.handleAction({
 			actionType: QuestionConstants.ANSWER_SELECTED,
