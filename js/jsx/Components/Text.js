@@ -1,6 +1,6 @@
 var React = require('react');
 
-var TextView = React.createClass({displayName: "TextView",
+var TextBase = {
 
 	componentDidMount: function() {
 		this.validClass = 'not-valid';
@@ -41,12 +41,31 @@ var TextView = React.createClass({displayName: "TextView",
 			value: this.props.value
 		}
 	},
+}
+
+var TextView = React.createClass({displayName: "TextView",
+
+	mixins: [TextBase],
 	
 	render:function() {
 		return (
-			React.createElement("input", {ref: "txt", className: "form-control", type: "text", value: this.state.value, onChange: this.handleChange, onBlur: this.handleBlur, placeholder: this.props.placeholder})
+			React.createElement("input", {className: "form-control", type: "text", value: this.state.value, onChange: this.handleChange, onBlur: this.handleBlur, placeholder: this.props.placeholder})
 		);
 	}
 });
 
-module.exports = TextView;
+var TextAreaView = React.createClass({displayName: "TextAreaView",
+
+	mixins: [TextBase],
+
+	render:function() {
+		return (
+			React.createElement("textarea", {className: "form-control", rows: this.props.rows || 2, value: this.state.value, onChange: this.handleChange, onBlur: this.handleBlur, placeholder: this.props.placeholder})
+		);
+	}
+});
+
+module.exports = {
+	TextView: TextView,
+	TextAreaView: TextAreaView
+}

@@ -1,5 +1,5 @@
 var React = require('react');
-var TextView = require('./Components/Text');
+var TextView = require('./Components/Text').TextView;
 var QuestionActions = require('../Controllers/startController/actions/QuestionActions');
 var QuestionStore = require('../Controllers/startController/stores/QuestionStore');
 var SubAnswer = require('../Controllers/startController/utils/SubAnswer');

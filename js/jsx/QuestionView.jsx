@@ -7,7 +7,8 @@ var OrderAnswer = require('./AnswersView').OrderAnswer;
 var MatchItemAnswer = require('./AnswersView').MatchItemAnswer;
 var NumericalFillAnswer = require('./AnswersView').NumericalFillAnswer;
 var ConformityAnswer = require('./AnswersView').ConformityAnswer;
-var TextView = require('./Components/Text');
+var TextView = require('./Components/Text').TextView;
+var TextAreaView = require('./Components/Text').TextAreaView;
 
 function getQuestionState() {
 	return {
@@ -55,15 +56,15 @@ var Title = React.createClass({
 
 var QuestionText = React.createClass({
 
-	handleChange:function(e) {
-		QuestionActions.changeText(e.target.value);
+	handleChange:function(val) {
+		QuestionActions.changeText(val);
 	},
 
 	render:function() {
 		return (
 			<div className="form-group all">
 				<label>Вопрос : *</label>
-				<textarea className="form-control" rows="2" value={this.props.text} onChange={this.handleChange}></textarea>
+				<TextAreaView value={this.props.text} onBlur={this.handleChange} placeholder='Введите вопрос' />
 			</div>
 		);
 	}
