@@ -25,12 +25,6 @@ var ImageSelect = React.createClass({displayName: "ImageSelect",
 		//this.setState({name:''});
 	},
 
-	getDefaultProps: function(){
-		return {
-			img: { name: ''}
-		}
-	},
-
 	render:function(){
 		var imgName = this.props.img ? this.props.img.name : '';
 		var isDisplayIcon = { display: (!this.props.img || this.props.img.name.trim() == "") ? "none" : "inline-block" }

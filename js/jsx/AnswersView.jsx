@@ -6,6 +6,7 @@ var QuestionStore = require('../Controllers/startController/stores/QuestionStore
 var SubAnswer = require('../Controllers/startController/utils/SubAnswer');
 var Validation = require('../utils/Validation');
 
+
 var Answer = {
 
 	changeImg: function(img) {
