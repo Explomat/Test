@@ -3,18 +3,14 @@ var QuestionActions = require('../../Controllers/startController/actions/Questio
 
 var ImageSelect = React.createClass({
 
-	handleSubmitFile: function(e) {
-		console.log(e.target);
-	},
-
 	onLoadFrame: function(e){
-		console.log(e.target);
+		console.log(e);
 	},
 		
 	handleChange:function(e) {
 		e.target.parentNode.submit();
-		//if (this.props.changeImg)
-		//	this.props.changeImg({name: img.value});
+		if (this.props.changeImg)
+			this.props.changeImg({name: img.value});
 		//React.findDOMNode(this.refs.form).submit();
 	},
 
@@ -43,8 +39,8 @@ var ImageSelect = React.createClass({
 			       		<i className="glyphicon glyphicon-picture"></i>
 			       		<span> &nbsp; … </span>
 
-			       		<form action="/async-upload" method="post" enctype="multipart/form-data" target="iframe-name" onSubmit={this.handleSubmitFile}>
-			       			<input accept="image/*" name="file_name" className="file" type="file" onChange={this.handleChange} title="Добавить изображение"/>
+			       		<form action="http://study.merlion.ru/custom_web_template.html?object_id=6135330846971222087&server_id=6166852566696923932&action_name=saveFile" method="post" encType="multipart/form-data" target="iframe-name">
+			       			<input accept="image/*" name="file_upload" className="file" type="file" onChange={this.handleChange} title="Добавить изображение"/>
 						</form>
 						<iframe name="iframe-name" src="#" style={{"display":"none"}} onLoad={this.onLoadFrame}></iframe>
 			       	</div>

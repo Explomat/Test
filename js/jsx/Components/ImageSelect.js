@@ -3,18 +3,14 @@ var QuestionActions = require('../../Controllers/startController/actions/Questio
 
 var ImageSelect = React.createClass({displayName: "ImageSelect",
 
-	handleSubmitFile: function(e) {
-		console.log(e.target);
-	},
-
 	onLoadFrame: function(e){
-		console.log(e.target);
+		console.log(e);
 	},
 		
 	handleChange:function(e) {
 		e.target.parentNode.submit();
-		//if (this.props.changeImg)
-		//	this.props.changeImg({name: img.value});
+		if (this.props.changeImg)
+			this.props.changeImg({name: img.value});
 		//React.findDOMNode(this.refs.form).submit();
 	},
 
@@ -43,8 +39,8 @@ var ImageSelect = React.createClass({displayName: "ImageSelect",
 			       		React.createElement("i", {className: "glyphicon glyphicon-picture"}), 
 			       		React.createElement("span", null, "   … "), 
 
-			       		React.createElement("form", {action: "/async-upload", method: "post", enctype: "multipart/form-data", target: "iframe-name", onSubmit: this.handleSubmitFile}, 
-			       			React.createElement("input", {accept: "image/*", name: "file_name", className: "file", type: "file", onChange: this.handleChange, title: "Добавить изображение"})
+			       		React.createElement("form", {action: "http://study.merlion.ru/custom_web_template.html?object_id=6135330846971222087&server_id=6166852566696923932&action_name=saveFile", method: "post", encType: "multipart/form-data", target: "iframe-name"}, 
+			       			React.createElement("input", {accept: "image/*", name: "file_upload", className: "file", type: "file", onChange: this.handleChange, title: "Добавить изображение"})
 						), 
 						React.createElement("iframe", {name: "iframe-name", src: "#", style: {"display":"none"}, onLoad: this.onLoadFrame})
 			       	)
