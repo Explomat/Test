@@ -4,13 +4,17 @@ var QuestionActions = require('../../Controllers/startController/actions/Questio
 var ImageSelect = React.createClass({displayName: "ImageSelect",
 
 	onLoadFrame: function(e){
-		console.log(e);
+		var content;
+		var iFrame = e.target;
+		var iFrameDocument = iFrame.contentDocument || iFrame.contentWindow.document;
+		try { content = JSON.parse(iFrameDocument.body.textContent || iFrameDocument.body.innerText) }
+		catch(e){ console.log(e); }
+		if (this.props.changeImg && content)
+			this.props.changeImg(content);
 	},
 		
 	handleChange:function(e) {
 		e.target.parentNode.submit();
-		if (this.props.changeImg)
-			this.props.changeImg({name: img.value});
 		//React.findDOMNode(this.refs.form).submit();
 	},
 

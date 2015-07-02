@@ -24,5 +24,4 @@ module.exports = keyMirror({
 	ANSWER_SELECTED: null,
 	ANSWER_CHANGE_TEXT: null,
 	ANSWER_CHANGE_WEIGHT: null,
-	ANSWER_CHANGE_IMG: null
 });

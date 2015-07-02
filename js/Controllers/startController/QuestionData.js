@@ -43,8 +43,8 @@ module.exports = {
 					height: 20,
 					width: 1,
 					img: {
-						name:'canvas.png',
-						id:'6156139271573955688'
+						name:'blue.png',
+						id:'6166916040804028637'
 					},
 					conditions: [
 						{
