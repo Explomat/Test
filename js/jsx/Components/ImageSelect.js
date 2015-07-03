@@ -5,6 +5,7 @@ var ImageSelect = React.createClass({displayName: "ImageSelect",
 
 	onLoadFrame: function(e){
 		var content;
+		console.log(window.frames[0]);
 		var iFrame = e.target;
 		var iFrameDocument = iFrame.contentDocument || iFrame.contentWindow.document;
 		try { content = JSON.parse(iFrameDocument.body.textContent || iFrameDocument.body.innerText) }
@@ -14,8 +15,19 @@ var ImageSelect = React.createClass({displayName: "ImageSelect",
 	},
 		
 	handleChange:function(e) {
-		e.target.parentNode.submit();
+		//e.target.parentNode.submit();
 		//React.findDOMNode(this.refs.form).submit();
+
+		var files = FileAPI.getFiles(e);
+		FileAPI.upload({
+			url: 'http://study.merlion.ru/custom_web_template.html?object_id=6135330846971222087&server_id=6166852566696923932&action_name=saveFile',
+			files: { file_upload: files },
+			complete: function (err, xhr){
+				console.log(err);
+				console.log(xhr);
+			}
+		});
+		console.log(files.length);
 	},
 
 	handleRemove: function(e) {
@@ -43,10 +55,9 @@ var ImageSelect = React.createClass({displayName: "ImageSelect",
 			       		React.createElement("i", {className: "glyphicon glyphicon-picture"}), 
 			       		React.createElement("span", null, "   … "), 
 
-			       		React.createElement("form", {action: "http://study.merlion.ru/custom_web_template.html?object_id=6135330846971222087&server_id=6166852566696923932&action_name=saveFile", method: "post", encType: "multipart/form-data", target: "iframe-name"}, 
-			       			React.createElement("input", {accept: "image/*", name: "file_upload", className: "file", type: "file", onChange: this.handleChange, title: "Добавить изображение"})
-						), 
-						React.createElement("iframe", {name: "iframe-name", src: "#", style: {"display":"none"}, onLoad: this.onLoadFrame})
+			       		React.createElement("div", {className: "js-fileapi-wrapper upload-btn"}, 
+			       			React.createElement("input", {accept: "image/*", name: "files", className: "file", type: "file", onChange: this.handleChange, title: "Добавить изображение"})
+						)
 			       	)
 			   	)
 			)
