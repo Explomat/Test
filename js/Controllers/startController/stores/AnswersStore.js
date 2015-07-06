@@ -6,7 +6,7 @@ var QuestionTypes = require('../utils/QuestionTypes');
 var SubAnswer = require('../utils/SubAnswer');
 var _ = require('underscore');
 
-var _answers = [];
+var _answers = [], _questionType = '';
 
 function _shift(arr, k) {
 	var n = arr.length;
@@ -217,7 +217,7 @@ function selectAnswer(uuid, selected){
 		return item.uuid == uuid;
 	});
 	if (ans){
-		if (_question.type == QuestionTypes.keys.multiple_choice){
+		if (_questionType == QuestionTypes.keys.multiple_choice){
 			_answers.forEach(function(item){
 				item.selected = false;
 			});		
@@ -230,10 +230,8 @@ function changeAnswerText(uuid, text) {
 	var ans = _answers.find(function(item){
 		return item.uuid == uuid;
 	});
-	if (ans){
+	if (ans)
 		ans.text = text;
-		console.log(uuid, text);
-	}
 }
 
 function changeAnswerWeight(uuid, weight) {
@@ -298,6 +296,10 @@ var AnswersStore = _.extend({}, EventEmitter.prototype, {
 		});
 		if (ans)
 			return ans.img;
+	},
+
+	setQuestionType: function(qType){
+		_questionType = qType;
 	},
 
 	emitChange: function() {

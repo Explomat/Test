@@ -29,6 +29,7 @@ function selectType(type){
 	if (type == QuestionTypes.keys.multiple_choice){
 		AnswersStore.resetSelected();
 	}
+	AnswersStore.setQuestionType(type);
 	_question.type = type;
 }
 

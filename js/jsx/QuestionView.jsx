@@ -171,9 +171,6 @@ var QuestionView = React.createClass({
 			if (answer)
 				answers.push(answer);
 		});
-		console.log(answers.map(function(ans){
-			return ans.props.text;
-		}));
 		return (
 			<div className="panel panel-default">
 				<div className="panel-heading">
