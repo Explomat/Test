@@ -1,7 +1,7 @@
 var storage = require('../../utils/Storage');
 
 module.exports = {
-	init:function () {
+	init: function () {
 		storage.clear();
 		storage.setItem('question', {
 			title: 'Temp',

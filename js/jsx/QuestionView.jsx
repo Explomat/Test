@@ -1,6 +1,8 @@
 var React = require('react');
 var QuestionStore = require('../Controllers/startController/stores/QuestionStore');
+var AnswersStore = require('../Controllers/startController/stores/AnswersStore');
 var QuestionActions = require('../Controllers/startController/actions/QuestionActions');
+var AnswerActions = require('../Controllers/startController/actions/AnswerActions');
 var QuestionTypes = require('../Controllers/startController/utils/QuestionTypes');
 var ChoiceAnswer = require('./AnswersView').ChoiceAnswer;
 var OrderAnswer = require('./AnswersView').OrderAnswer;
@@ -14,7 +16,7 @@ function getQuestionState() {
 	return {
 		title: QuestionStore.getTitle(),
 		text: QuestionStore.getText(),
-		answers: QuestionStore.getAnswers(),
+		answers: AnswersStore.getAnswers(),
 		isDisplayTypes: QuestionStore.isDisplayTypes(),
 		type: QuestionStore.getTypeSelected()
 	};
@@ -23,7 +25,7 @@ function getQuestionState() {
 var Menu = React.createClass({
 
 	handleClick:function() {
-		QuestionActions.addAnswer();
+		AnswerActions.addAnswer();
 	},
 
 	render:function() {
@@ -169,7 +171,9 @@ var QuestionView = React.createClass({
 			if (answer)
 				answers.push(answer);
 		});
-
+		console.log(answers.map(function(ans){
+			return ans.props.text;
+		}));
 		return (
 			<div className="panel panel-default">
 				<div className="panel-heading">

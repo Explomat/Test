@@ -1,8 +1,10 @@
 var React = require('react');
 var TextView = require('./Components/Text').TextView;
+var TextAreaView = require('./Components/Text').TextAreaView;
 var ImageSelect = require('./Components/ImageSelect');
-var QuestionActions = require('../Controllers/startController/actions/QuestionActions');
+var AnswerActions = require('../Controllers/startController/actions/AnswerActions');
 var QuestionStore = require('../Controllers/startController/stores/QuestionStore');
+var AnswersStore = require('../Controllers/startController/stores/AnswersStore');
 var SubAnswer = require('../Controllers/startController/utils/SubAnswer');
 var Validation = require('../utils/Validation');
 
@@ -10,7 +12,7 @@ var Validation = require('../utils/Validation');
 var Answer = {
 
 	changeImg: function(img) {
-		QuestionActions.changeAnswerImg(this.props.uuid, img);
+		AnswerActions.changeAnswerImg(this.props.uuid, img);
 	},
 
 	getIcons: function(){
@@ -33,8 +35,8 @@ var Answer = {
 		return (
 			<div className="form-group">
 				<label>Ответ : *</label>
-				<textarea className="form-control" rows="1" value={this.props.text} onChange={this.changeText}></textarea>
-				<ImageSelect img={QuestionStore.getAnswerImg(this.props.uuid)} changeImg={this.changeImg}/>
+				<TextAreaView className="form-control" rows="1" value={this.props.text} onBlur={this.changeText} />
+				<ImageSelect img={AnswersStore.getAnswerImg(this.props.uuid)} changeImg={this.changeImg}/>
 				<label>
 					<span>Вес :</span>
 					<TextView value={this.props.weight} onBlur={this.changeWeight} isValid={Validation.isNumberOrReal}/>
@@ -44,23 +46,23 @@ var Answer = {
 	},
 
 	shiftUp: function(){
-		QuestionActions.shiftUpAnswer(this.props.uuid);
+		AnswerActions.shiftUpAnswer(this.props.uuid);
 	},
 
 	shiftDown: function(){
-		QuestionActions.shiftDownAnswer(this.props.uuid);
+		AnswerActions.shiftDownAnswer(this.props.uuid);
 	},
 
-	changeText: function(e){
-		QuestionActions.changeTextAnswer(this.props.uuid, e.target.value);
+	changeText: function(val){
+		AnswerActions.changeTextAnswer(this.props.uuid, val);
 	},
 
 	changeWeight: function(val){
-		QuestionActions.changeWeightAnswer(this.props.uuid, val);
+		AnswerActions.changeWeightAnswer(this.props.uuid, val);
 	},
 
 	remove: function(){
-		QuestionActions.removeAnswer(this.props.uuid);
+		AnswerActions.removeAnswer(this.props.uuid);
 	}
 }
 
@@ -230,19 +232,19 @@ var ConditionsText = React.createClass({
 	mixins: [BaseConditions],
 
 	handleSelect: function(conditionUuid, type) {
-		QuestionActions.changeAnswerConditionText(this.props.uuid, conditionUuid, null, type);
+		AnswerActions.changeAnswerConditionText(this.props.uuid, conditionUuid, null, type);
 	},
 
 	handleAdd: function () {
-		QuestionActions.addAnswerConditionText(this.props.uuid);
+		AnswerActions.addAnswerConditionText(this.props.uuid);
 	},
 
 	handleRemove: function(conditionUuid) {
-		QuestionActions.removeAnswerConditionText(this.props.uuid, conditionUuid);
+		AnswerActions.removeAnswerConditionText(this.props.uuid, conditionUuid);
 	},
 
 	handleChangeText: function(conditionUuid, text) {
-		QuestionActions.changeAnswerConditionText(this.props.uuid, conditionUuid, text);
+		AnswerActions.changeAnswerConditionText(this.props.uuid, conditionUuid, text);
 	},
 
 	render: function() {
@@ -257,19 +259,19 @@ var Conditions = React.createClass({
 	mixins: [BaseConditions],
 
 	handleSelect: function(uuid, type) {
-		QuestionActions.changeAnswerCondition(this.props.uuid, uuid, null, type);
+		AnswerActions.changeAnswerCondition(this.props.uuid, uuid, null, type);
 	},
 
 	handleAdd: function () {
-		QuestionActions.addAnswerCondition(this.props.uuid);
+		AnswerActions.addAnswerCondition(this.props.uuid);
 	},
 
 	handleRemove: function(conditionUuid){
-		QuestionActions.removeAnswerCondition(this.props.uuid, conditionUuid);
+		AnswerActions.removeAnswerCondition(this.props.uuid, conditionUuid);
 	},
 
 	handleChangeText: function(conditionUuid, text){
-		QuestionActions.changeAnswerCondition(this.props.uuid, conditionUuid, text);
+		AnswerActions.changeAnswerCondition(this.props.uuid, conditionUuid, text);
 	},
 
 	render: function() {
@@ -308,15 +310,15 @@ var Conformity = React.createClass({
 var Conformities = React.createClass({
 
 	handleAdd: function () {
-		QuestionActions.addAnswerConformity(this.props.uuid);
+		AnswerActions.addAnswerConformity(this.props.uuid);
 	},
 
 	handleRemove: function(conditionUuid){
-		QuestionActions.removeAnswerConformity(this.props.uuid, conditionUuid);
+		AnswerActions.removeAnswerConformity(this.props.uuid, conditionUuid);
 	},
 
 	handleChangeText: function(conditionUuid, text){
-		QuestionActions.changeAnswerConformity(this.props.uuid, conditionUuid, text);
+		AnswerActions.changeAnswerConformity(this.props.uuid, conditionUuid, text);
 	},
 
 	render: function() {
@@ -339,11 +341,11 @@ var Conformities = React.createClass({
 var FillAnswer = {
 
 	changeHeight: function(val){
-		QuestionActions.changeAnswerSize(this.props.uuid, null, val);
+		AnswerActions.changeAnswerSize(this.props.uuid, null, val);
 	},
 
 	changeWidth: function(val){
-		QuestionActions.changeAnswerSize(this.props.uuid, val, null);
+		AnswerActions.changeAnswerSize(this.props.uuid, val, null);
 	},
 
 	getMark: function(conditions){
@@ -377,7 +379,7 @@ var NumericalFillAnswer = React.createClass({
 
 	render: function() {
 		return(
-			this.getMark(<ConditionsText uuid={this.props.uuid} conditions={QuestionStore.getConditionsText(this.props.uuid)} />)
+			this.getMark(<ConditionsText uuid={this.props.uuid} conditions={AnswersStore.getConditionsText(this.props.uuid)} />)
 		);
 	}
 });
@@ -390,7 +392,7 @@ var MatchItemAnswer = React.createClass({
 
 	render: function() { 
 		return(
-			this.getMark(<Conditions uuid={this.props.uuid} conditions={QuestionStore.getConditions(this.props.uuid)} />)
+			this.getMark(<Conditions uuid={this.props.uuid} conditions={AnswersStore.getConditions(this.props.uuid)} />)
 		);
 	}
 });
@@ -409,7 +411,7 @@ var ConformityAnswer = React.createClass({
 				</label>
 				{this.getBasicFields()}
 				<div className="a-conditions">
-					<Conformities uuid={this.props.uuid} conformities={QuestionStore.getConformities(this.props.uuid)} />
+					<Conformities uuid={this.props.uuid} conformities={AnswersStore.getConformities(this.props.uuid)} />
 				</div>
 			</div>
 		);
@@ -422,7 +424,7 @@ var ChoiceAnswer = React.createClass({
 	mixins:[Answer],
 
 	handleSelect: function(e){
-		QuestionActions.selectAnswer(this.props.uuid, e.target.checked);
+		AnswerActions.selectAnswer(this.props.uuid, e.target.checked);
 	},
 
 	render:function() {

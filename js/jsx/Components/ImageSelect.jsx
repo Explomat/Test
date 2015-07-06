@@ -14,7 +14,7 @@ var ImageSelect = React.createClass({
 			this.props.changeImg(content);
 	},
 		
-	handleChange:function(e) {
+	handleChange: function(e) {
 		//e.target.parentNode.submit();
 		//React.findDOMNode(this.refs.form).submit();
 
@@ -23,6 +23,7 @@ var ImageSelect = React.createClass({
 			url: 'http://study.merlion.ru/custom_web_template.html?object_id=6135330846971222087&server_id=6166852566696923932&action_name=saveFile',
 			files: { file_upload: files },
 			complete: function (err, xhr){
+				//var data = JSON.parse(xhr);
 				console.log(err);
 				console.log(xhr);
 			}
@@ -36,7 +37,7 @@ var ImageSelect = React.createClass({
 			this.props.changeImg(null);
 	},
 
-	render:function(){
+	render: function(){
 		var imgName = this.props.img ? this.props.img.name : '';
 		var isDisplayIcon = { display: (!this.props.img || this.props.img.name.trim() == "") ? "none" : "inline-block" }
 		return (
