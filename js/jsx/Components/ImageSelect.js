@@ -3,15 +3,9 @@ var QuestionActions = require('../../Controllers/startController/actions/Questio
 
 var ImageSelect = React.createClass({displayName: "ImageSelect",
 
-	onLoadFrame: function(e){
-		var content;
-		console.log(window.frames[0]);
-		var iFrame = e.target;
-		var iFrameDocument = iFrame.contentDocument || iFrame.contentWindow.document;
-		try { content = JSON.parse(iFrameDocument.body.textContent || iFrameDocument.body.innerText) }
-		catch(e){ console.log(e); }
-		if (this.props.changeImg && content)
-			this.props.changeImg(content);
+	changeImg: function(img) {
+		if (this.props.changeImg)
+			this.props.changeImg(img);
 	},
 		
 	handleChange: function(e) {
@@ -19,27 +13,26 @@ var ImageSelect = React.createClass({displayName: "ImageSelect",
 		//React.findDOMNode(this.refs.form).submit();
 
 		var files = FileAPI.getFiles(e);
+		var ctx = this;
 		FileAPI.upload({
 			url: 'http://study.merlion.ru/custom_web_template.html?object_id=6135330846971222087&server_id=6166852566696923932&action_name=saveFile',
 			files: { file_upload: files },
 			complete: function (err, xhr){
-				//var data = JSON.parse(xhr);
-				console.log(err);
-				console.log(xhr);
+				var img = JSON.parse(xhr.responseText);
+				ctx.changeImg(img);
 			}
 		});
-		console.log(files.length);
 	},
 
 	handleRemove: function(e) {
 		e.target.value = '';
-		if (this.props.changeImg)
-			this.props.changeImg(null);
+		this.changeImg(null);
 	},
 
 	render: function(){
 		var imgName = this.props.img ? this.props.img.name : '';
 		var isDisplayIcon = { display: (!this.props.img || this.props.img.name.trim() == "") ? "none" : "inline-block" }
+		console.log(imgName);
 		return (
 			React.createElement("div", {className: "input-group"}, 
 			   	React.createElement("div", {tabIndex: "-1", className: "form-control file-caption  kv-fileinput-caption"}, 

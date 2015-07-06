@@ -112,7 +112,7 @@ var SelectQuestionType = React.createClass({
     	QuestionActions.displayTypes(!QuestionStore.isDisplayTypes());
 	},
 
-	render:function() {
+	render: function() {
 		var isTypeDisplayStyle = { display: QuestionStore.isDisplayTypes() ? "block" : "none" };
 		var list = [];
 		Object.keys(QuestionTypes.values).forEach(function(k, count){
@@ -139,10 +139,12 @@ var QuestionView = React.createClass({
 
 	componentDidMount:function() {
 		QuestionStore.addChangeListener(this._onChange);
+		AnswersStore.addChangeListener(this._onChange);
 	},
 
 	componentWillUnmount:function() {
 		QuestionStore.removeChangeListener(this._onChange);
+		AnswersStore.addChangeListener(this._onChange);
 	},
 
 	_onChange:function() {

@@ -152,7 +152,6 @@ var ChoiceAnswer = React.createClass({
 	mixins:[Answer],
 
 	handleSelect: function(e){
-		console.log(e.target.checked);
 		AnswerActions.selectAnswer(this.props.uuid, e.target.checked);
 	},
 

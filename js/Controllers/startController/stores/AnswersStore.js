@@ -207,8 +207,10 @@ function changeAnswerImg(uuid, img) {
 	var ans = _answers.find(function(item){
 		return item.uuid == uuid;
 	});
-	if (ans)
+	if (ans){
+		console.log(uuid, img);
 		ans.img = img;
+	}
 }
 
 function selectAnswer(uuid, selected){
@@ -302,6 +304,7 @@ var AnswersStore = _.extend({}, EventEmitter.prototype, {
 	},
 
 	emitChange: function() {
+		console.log("TEST");
 		this.emit('change');
 	},
 
