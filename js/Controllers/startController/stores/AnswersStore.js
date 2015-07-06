@@ -198,7 +198,6 @@ function changeAnswerSize(uuid, width, height) {
 		return item.uuid == uuid;
 	});
 	if (ans){
-		console.log(ans);
 		ans.width = width || ans.width;
 		ans.height = height || ans.height;
 	}
