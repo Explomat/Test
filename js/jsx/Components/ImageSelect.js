@@ -32,7 +32,6 @@ var ImageSelect = React.createClass({displayName: "ImageSelect",
 	render: function(){
 		var imgName = this.props.img ? this.props.img.name : '';
 		var isDisplayIcon = { display: (!this.props.img || this.props.img.name.trim() == "") ? "none" : "inline-block" }
-		console.log(imgName);
 		return (
 			React.createElement("div", {className: "input-group"}, 
 			   	React.createElement("div", {tabIndex: "-1", className: "form-control file-caption  kv-fileinput-caption"}, 

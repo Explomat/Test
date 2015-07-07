@@ -1,5 +1,6 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var AnswerConstants = require('../constants/AnswerConstants');
+var QuiestionAPI = require('../utils/QuiestionAPI');
 
 var AnswerActions = {
 
@@ -143,6 +144,16 @@ var AnswerActions = {
 			uuid: uuid,
 			weight: weight
 		});
+	},
+
+	//eventTarget - DOM input for FileAPI
+	uploadImage: function(uuid, eventTarget){
+		QuiestionAPI.loadAnswerImage(eventTarget);
+		/*AppDispatcher.handleAction({
+			actionType: ServerConstants.LOAD_IMAGE,
+			uuid: uuid,
+			event: event
+		});*/
 	}
 }
 

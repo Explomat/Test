@@ -4,13 +4,8 @@ var AnswersStore = require('../Controllers/startController/stores/AnswersStore')
 var QuestionActions = require('../Controllers/startController/actions/QuestionActions');
 var AnswerActions = require('../Controllers/startController/actions/AnswerActions');
 var QuestionTypes = require('../Controllers/startController/utils/QuestionTypes');
-var ChoiceAnswer = require('./AnswersView').ChoiceAnswer;
-var OrderAnswer = require('./AnswersView').OrderAnswer;
-var MatchItemAnswer = require('./AnswersView').MatchItemAnswer;
-var NumericalFillAnswer = require('./AnswersView').NumericalFillAnswer;
-var ConformityAnswer = require('./AnswersView').ConformityAnswer;
-var TextView = require('./Components/Text').TextView;
-var TextAreaView = require('./Components/Text').TextAreaView;
+var Answer = require('./AnswersView');
+var Txt = require('./Components/Text');
 
 function getQuestionState() {
 	return {
@@ -50,7 +45,7 @@ var Title = React.createClass({
 		return (
 			<div className="input-group all">
 	            <span className="input-group-addon">Заголовок : *</span>
-	            <TextView value={this.props.title} onBlur={this.handleChange} placeholder='Заголовок вопроса'/>
+	            <Txt.TextView value={this.props.title} onBlur={this.handleChange} placeholder='Заголовок вопроса'/>
 	        </div>
 		);
 	}
@@ -66,7 +61,7 @@ var QuestionText = React.createClass({
 		return (
 			<div className="form-group all">
 				<label>Вопрос : *</label>
-				<TextAreaView value={this.props.text} onBlur={this.handleChange} placeholder='Введите вопрос' />
+				<Txt.TextAreaView value={this.props.text} onBlur={this.handleChange} placeholder='Введите вопрос' />
 			</div>
 		);
 	}
@@ -161,15 +156,15 @@ var QuestionView = React.createClass({
 		this.state.answers.forEach(function(ans, i){
 			var answer = null;
 			if (qType == QuestionTypes.keys.multiple_choice || qType == QuestionTypes.keys.multiple_response)
-				answer = <ChoiceAnswer uuid={ans.uuid} key={ans.uuid} selected={ans.selected} number={i+1} text={ans.text} weight={ans.weight}/>;
+				answer = <Answer.ChoiceAnswer uuid={ans.uuid} key={ans.uuid} selected={ans.selected} number={i+1} text={ans.text} weight={ans.weight}/>;
 			else if (qType == QuestionTypes.keys.order)
-				answer = <OrderAnswer uuid={ans.uuid} key={ans.uuid} number={i+1} text={ans.text} weight={ans.weight}/>;
+				answer = <Answer.OrderAnswer uuid={ans.uuid} key={ans.uuid} number={i+1} text={ans.text} weight={ans.weight}/>;
 			else if (qType == QuestionTypes.keys.match_item)
-				answer = <MatchItemAnswer uuid={ans.uuid} key={ans.uuid} number={i+1} text={ans.text} weight={ans.weight} height={ans.height} width={ans.width}/>;
+				answer = <Answer.MatchItemAnswer uuid={ans.uuid} key={ans.uuid} number={i+1} text={ans.text} weight={ans.weight} height={ans.height} width={ans.width}/>;
 			else if (qType == QuestionTypes.keys.numerical_fill_in_blank)
-				answer = <NumericalFillAnswer uuid={ans.uuid} key={ans.uuid} number={i+1} text={ans.text} weight={ans.weight} height={ans.height} width={ans.width}/>;
+				answer = <Answer.NumericalFillAnswer uuid={ans.uuid} key={ans.uuid} number={i+1} text={ans.text} weight={ans.weight} height={ans.height} width={ans.width}/>;
 			else if (qType == QuestionTypes.keys.gap_fill)
-				answer = <ConformityAnswer uuid={ans.uuid} key={ans.uuid} number={i+1} text={ans.text} weight={ans.weight}/>;
+				answer = <Answer.ConformityAnswer uuid={ans.uuid} key={ans.uuid} number={i+1} text={ans.text} weight={ans.weight}/>;
 			if (answer)
 				answers.push(answer);
 		});

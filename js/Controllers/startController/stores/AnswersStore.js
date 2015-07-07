@@ -304,7 +304,6 @@ var AnswersStore = _.extend({}, EventEmitter.prototype, {
 	},
 
 	emitChange: function() {
-		console.log("TEST");
 		this.emit('change');
 	},
 

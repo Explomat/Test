@@ -9,10 +9,7 @@ var ImageSelect = React.createClass({
 	},
 		
 	handleChange: function(e) {
-		//e.target.parentNode.submit();
-		//React.findDOMNode(this.refs.form).submit();
-
-		var files = FileAPI.getFiles(e);
+		/*var files = FileAPI.getFiles(e);
 		var ctx = this;
 		FileAPI.upload({
 			url: 'http://study.merlion.ru/custom_web_template.html?object_id=6135330846971222087&server_id=6166852566696923932&action_name=saveFile',
@@ -21,7 +18,7 @@ var ImageSelect = React.createClass({
 				var img = JSON.parse(xhr.responseText);
 				ctx.changeImg(img);
 			}
-		});
+		});*/
 	},
 
 	handleRemove: function(e) {
@@ -32,7 +29,6 @@ var ImageSelect = React.createClass({
 	render: function(){
 		var imgName = this.props.img ? this.props.img.name : '';
 		var isDisplayIcon = { display: (!this.props.img || this.props.img.name.trim() == "") ? "none" : "inline-block" }
-		console.log(imgName);
 		return (
 			<div className="input-group">
 			   	<div tabIndex="-1" className="form-control file-caption  kv-fileinput-caption">
