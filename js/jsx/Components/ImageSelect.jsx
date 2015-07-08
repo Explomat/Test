@@ -1,29 +1,24 @@
 var React = require('React');
-var QuestionActions = require('../../Controllers/startController/actions/QuestionActions');
 
 var ImageSelect = React.createClass({
 
-	changeImg: function(img) {
-		if (this.props.changeImg)
-			this.props.changeImg(img);
+	componentWillReceiveProps: function(nextProps){
+		if (!nextProps.img)
+			console.log(this.refs.test);
+			//React.findDOMNode(this.refs.test).value = '';
+
 	},
 		
 	handleChange: function(e) {
-		/*var files = FileAPI.getFiles(e);
-		var ctx = this;
-		FileAPI.upload({
-			url: 'http://study.merlion.ru/custom_web_template.html?object_id=6135330846971222087&server_id=6166852566696923932&action_name=saveFile',
-			files: { file_upload: files },
-			complete: function (err, xhr){
-				var img = JSON.parse(xhr.responseText);
-				ctx.changeImg(img);
-			}
-		});*/
+		if (this.props.changeImg)
+			this.props.changeImg(e.target);
 	},
 
 	handleRemove: function(e) {
-		e.target.value = '';
-		this.changeImg(null);
+		//e.target.value = '';
+		//React.findDOMNode(this.refs.test).value = '';
+		if (this.props.removeImg)
+			this.props.removeImg({id: this.props.id, name: this.props.name});
 	},
 
 	render: function(){
@@ -46,7 +41,7 @@ var ImageSelect = React.createClass({
 			       		<span> &nbsp; … </span>
 
 			       		<div className="js-fileapi-wrapper upload-btn">
-			       			<input accept="image/*" name="files" className="file" type="file" onChange={this.handleChange} title="Добавить изображение"/>
+			       			<input ref="test" accept="image/*" name="files" className="file" type="file" onChange={this.handleChange} title="Добавить изображение"/>
 						</div>
 			       	</div>
 			   	</div>

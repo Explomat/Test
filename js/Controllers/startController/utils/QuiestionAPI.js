@@ -3,12 +3,13 @@ var QuestionActions = require('../actions/QuestionActions');
 var AnswerActions = require('../actions/AnswerActions');
 var Config = require('../../../config');
 var AppDispatcher = require('../dispatcher/AppDispatcher');
+var AnswerConstants = require('../constants/AnswerConstants');
 
 function uploadFiles(eventTarget, successCallBack, errorCallBack) {
 	var files = FileAPI.getFiles(eventTarget);
 	var ctx = this;
 	FileAPI.upload({
-		url: Config.getPath({action_name: 'uploadFile'}),//'http://study.merlion.ru/custom_web_template.html?object_id=6135330846971222087&server_id=6166852566696923932&action_name=uploadFile',
+		url: Config.url.createPath({action_name: 'uploadFile'}),
 		files: { file_upload: files },
 		complete: function (err, xhr){
 			if (err){
@@ -16,28 +17,29 @@ function uploadFiles(eventTarget, successCallBack, errorCallBack) {
 					errorCallBack(err);
 				return;
 			}
-			//var img = JSON.parse(xhr.responseText);
-			if (successCallBack){
+			else if (successCallBack){
 				successCallBack(JSON.parse(xhr.responseText));
 			}
 		}
 	});
 }
 
-function errorDispatch(_actionType, _err) {
-	return function(){
+function errorDispatch(_actionType) {
+	return function(_err){
 		AppDispatcher.handleData({
-			actionType: _actionType,
+			actionType: _actionType || '',
 			err: _err || ''
 		});
 	}
 }
 
-function successDispatch(_actionType, _success){
-	AppDispatcher.handleData({
-		actionType: _actionType,
-		success: _success || ''
-	});
+function successDispatch(_actionType){
+	return function(_success){
+		AppDispatcher.handleData({
+			actionType: _actionType || '',
+			success: _success || ''
+		});
+	}
 }
 
 module.exports = {
@@ -49,7 +51,7 @@ module.exports = {
 
 	//eventTarget - DOM input for FileAPI
 	uploadAnswerImage: function(eventTarget){
-		uploadFiles(eventTarget, successDispatch(), errorDispatch());
+		uploadFiles(eventTarget, successDispatch(AnswerConstants.ANSWER_UPLOADIMG_SUCCESS), errorDispatch(AnswerConstants.ANSWER_UPLOADIMG_ERROR));
 	},
 
 	//eventTarget - DOM input for FileAPI
