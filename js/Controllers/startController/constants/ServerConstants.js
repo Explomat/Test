@@ -2,5 +2,5 @@ var keyMirror = require('react/lib/keyMirror');
 
 module.exports = keyMirror({
 	RECEIVE_DATA: null,
-	UPLOAD_IMAGE: null
+	UPLOADED_IMAGE: null
 });

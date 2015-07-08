@@ -3,15 +3,13 @@ var React = require('React');
 var ImageSelect = React.createClass({
 
 	componentWillReceiveProps: function(nextProps){
-		if (!nextProps.img)
-			console.log(this.refs.test);
-			//React.findDOMNode(this.refs.test).value = '';
+		//React.findDOMNode(this.refs.test).value = '';
 
 	},
 		
 	handleChange: function(e) {
-		if (this.props.changeImg)
-			this.props.changeImg(e.target);
+		if (this.props.uploadImage)
+			this.props.uploadImage(e.target);
 	},
 
 	handleRemove: function(e) {
@@ -41,7 +39,7 @@ var ImageSelect = React.createClass({
 			       		<span> &nbsp; … </span>
 
 			       		<div className="js-fileapi-wrapper upload-btn">
-			       			<input ref="test" accept="image/*" name="files" className="file" type="file" onChange={this.handleChange} title="Добавить изображение"/>
+			       			<input accept="image/*" name="files" className="file" type="file" onChange={this.handleChange} title="Добавить изображение"/>
 						</div>
 			       	</div>
 			   	</div>

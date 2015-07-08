@@ -10,6 +10,7 @@
     "build-jsx": "jsx js/jsx --extension jsx js/jsx"
   },
   "dependencies": {
+    "es6-promise": "^2.3.0",
     "flux": "^2.0.3",
     "react": "^0.13.3",
     "underscore": "^1.8.3"

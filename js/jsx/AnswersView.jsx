@@ -10,8 +10,8 @@ var ConditionsText = require('./Components/Conditions').ConditionsText;
 
 var Answer = {
 
-	changeImg: function(img) {
-		AnswerActions.changeAnswerImg(this.props.uuid, img);
+	uploadImage: function(eventTarget) {
+		AnswerActions.uploadImage(this.props.uuid, eventTarget);
 	},
 
 	getIcons: function(){
@@ -35,7 +35,7 @@ var Answer = {
 			<div className="form-group">
 				<label>Ответ : *</label>
 				<TextAreaView rows="1" value={this.props.text} onBlur={this.changeText} />
-				<ImageSelect img={AnswersStore.getAnswerImg(this.props.uuid)} changeImg={this.changeImg}/>
+				<ImageSelect img={AnswersStore.getAnswerImg(this.props.uuid)} uploadImage={this.uploadImage}/>
 				<label>
 					<span>Вес :</span>
 					<TextView value={this.props.weight} onBlur={this.changeWeight} isValid={Validation.isNumberOrReal}/>

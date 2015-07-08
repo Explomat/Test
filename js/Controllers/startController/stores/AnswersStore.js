@@ -1,6 +1,7 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var AnswerConstants = require('../constants/AnswerConstants');
+var ServerConstants = require('../constants/ServerConstants');
 var UUID = require('../../../utils/UUID');
 var QuestionTypes = require('../utils/QuestionTypes');
 var SubAnswer = require('../utils/SubAnswer');
@@ -203,7 +204,7 @@ function changeAnswerSize(uuid, width, height) {
 	}
 }
 
-function changeAnswerImg(uuid, img) {
+function uploadedAnswerImg(uuid, img) {
 	var ans = _answers.find(function(item){
 		return item.uuid == uuid;
 	});
@@ -367,9 +368,6 @@ AnswersStore.dispatchToken = AppDispatcher.register(function(payload) {
 		case AnswerConstants.ANSWER_CHANGE_SIZE:
 			changeAnswerSize(action.uuid, action.width, action.height);
 			break;
-		case AnswerConstants.ANSWER_CHANGE_IMG: 
-			changeAnswerImg(action.uuid, action.img);
-			break;
 		case AnswerConstants.ANSWER_SELECTED:
 			selectAnswer(action.uuid, action.selected);
 			break;
@@ -378,6 +376,9 @@ AnswersStore.dispatchToken = AppDispatcher.register(function(payload) {
 			break;
 		case AnswerConstants.ANSWER_CHANGE_WEIGHT:
 			changeAnswerWeight(action.uuid, action.weight);
+			break;
+		case ServerConstants.UPLOADED_IMAGE:
+			uploadedAnswerImg(action.uuid, action.img);
 			break;
 		default:
 			return true;

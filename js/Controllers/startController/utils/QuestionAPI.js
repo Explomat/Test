@@ -1,26 +1,24 @@
 var Storage = require('../../../utils/Storage');
 var QuestionActions = require('../actions/QuestionActions');
-var AnswerActions = require('../actions/AnswerActions');
 var Config = require('../../../config');
 var AppDispatcher = require('../dispatcher/AppDispatcher');
-var AnswerConstants = require('../constants/AnswerConstants');
+var Promise = require('es6-promise').Promise;
 
-function uploadFiles(eventTarget, successCallBack, errorCallBack) {
-	var files = FileAPI.getFiles(eventTarget);
-	var ctx = this;
-	FileAPI.upload({
-		url: Config.url.createPath({action_name: 'uploadFile'}),
-		files: { file_upload: files },
-		complete: function (err, xhr){
-			if (err){
-				if (errorCallBack)
-					errorCallBack(err);
-				return;
+function uploadFiles(eventTarget) {
+	return new Promise(function(resolve, reject){
+		var files = FileAPI.getFiles(eventTarget);
+		FileAPI.upload({
+			url: Config.url.createPath({action_name: 'uploadFile'}),
+			files: { file_upload: files },
+			complete: function (err, xhr){
+				if (err){
+					reject();
+				}
+				else {
+					resolve(JSON.parse(xhr.responseText));
+				}
 			}
-			else if (successCallBack){
-				successCallBack(JSON.parse(xhr.responseText));
-			}
-		}
+		});
 	});
 }
 
@@ -51,11 +49,11 @@ module.exports = {
 
 	//eventTarget - DOM input for FileAPI
 	uploadAnswerImage: function(eventTarget){
-		uploadFiles(eventTarget, successDispatch(AnswerConstants.ANSWER_UPLOADIMG_SUCCESS), errorDispatch(AnswerConstants.ANSWER_UPLOADIMG_ERROR));
+		return uploadFiles(eventTarget);
 	},
 
 	//eventTarget - DOM input for FileAPI
 	uploadQuestionImage: function(event){
-		uploadFiles(eventTarget, successDispatch(), errorDispatch());
+		//uploadFiles(eventTarget, successDispatch(AnswerConstants.ANSWER_UPLOADIMG_SUCCESS), errorDispatch(AnswerConstants.ANSWER_UPLOADIMG_ERROR));
 	}
 }

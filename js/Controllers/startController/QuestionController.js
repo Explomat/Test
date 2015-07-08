@@ -5,7 +5,7 @@ function QuestionController() {
 	React.unmountComponentAtNode(app);
 
 	var QuestionData = require('./QuestionData');
-	var QuestionAPI = require('./utils/QuiestionAPI');
+	var QuestionAPI = require('./utils/QuestionAPI');
 	var QuestionView = require('../../../js/jsx/QuestionView');
 
 	QuestionData.init();

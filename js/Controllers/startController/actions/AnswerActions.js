@@ -1,6 +1,7 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var AnswerConstants = require('../constants/AnswerConstants');
-var QuiestionAPI = require('../utils/QuiestionAPI');
+var ServerConstants = require('../constants/ServerConstants');
+var QuestionAPI = require('../utils/QuestionAPI');
 
 var AnswerActions = {
 
@@ -148,13 +149,35 @@ var AnswerActions = {
 
 	//eventTarget - DOM input for FileAPI
 	uploadImage: function(uuid, eventTarget){
-		QuiestionAPI.loadAnswerImage(eventTarget);
-		/*AppDispatcher.handleAction({
-			actionType: ServerConstants.LOAD_IMAGE,
+		/*AppDispatcher.handleData({
+			actionType: ServerConstants.UPLOADED_IMAGE,
 			uuid: uuid,
-			event: event
+			img: {id:123, name: "TEST"}
 		});*/
+		QuestionAPI.uploadAnswerImage(eventTarget).then(function(img){
+			AppDispatcher.handleData({
+				actionType: ServerConstants.UPLOADED_IMAGE,
+				uuid: uuid,
+				img: img
+			});
+		});
+		
 	}
+
+	/*uploadImageSuccess: function(uuid, img){
+		AppDispatcher.handleAction({
+			actionType: AnswerConstants.ANSWER_IMG_SUCCES_UPLOAD,
+			uuid: uuid,
+			img: img
+		});
+	},
+
+	uploadImageError: function(uuid){
+		AppDispatcher.handleAction({
+			actionType: AnswerConstants.ANSWER_IMG_ERROR_UPLOAD,
+			uuid: uuid
+		});
+	}*/
 }
 
 module.exports = AnswerActions;
