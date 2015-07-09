@@ -1,4 +1,7 @@
-var Ajax = {
+var Promise = require('es6-promise').Promise;
+var AJAX_TIME_OVER = 10000;
+
+module.exports = {
 
     getXmlHttp: function(){
         var xmlHttp;
@@ -12,24 +15,61 @@ var Ajax = {
         return xmlHttp;
     },
 
-    sendRequest: function(url, isSync, callBack, data, xmlHttpRequest, requestType) {
-        if (!url)
-            return;
-        xmlHttp = xmlHttpRequest || this.getXmlHttp();
-        requestType = requestType || 'GET';
-        isSync = isSync || true;
+    uploadFiles: function(eventTarget, url) {
+        return new Promise(function(resolve, reject){
+            if (!url)
+                reject(Error("Unknown url"));
+            var files = FileAPI.getFiles(eventTarget);
+            clearTimeout(timeout);
+            var xxx = FileAPI.upload({
+                url: url,
+                files: { file_upload: files },
+                complete: function (err, xhr){
+                    if (err){
+                        reject(err);
+                    }
+                    else {
+                        resolve(JSON.parse(xhr.responseText));
+                    }
+                }
+            });
+             var timeout = setTimeout( function(){ 
+                //xmlHttp.abort();
+                reject(Error("Upload file time over"));
+            }, AJAX_TIME_OVER);
+        });
+    },
 
-        xmlHttp.open(requestType, url, isSync);
-        xmlHttp.onreadystatechange = function() {
-          if (xmlHttp.readyState == 4) {
-            if(xmlHttp.status == 200 && callBack){
-               callBack(xmlHttp.responseText);
+    sendRequest: function(url, data, isSync, xmlHttpRequest, requestType) {
+        return new Promise(function(resolve, reject){
+            if (!url)
+                reject(Error("Unknown url"));
+            xmlHttp = xmlHttpRequest || this.getXmlHttp();
+            requestType = requestType || 'GET';
+            isSync = isSync || true;
+
+            xmlHttp.open(requestType, url, isSync);
+            xmlHttp.onreadystatechange = function() {
+              if (xmlHttp.readyState == 4) {
+                if (timeout)
+                    clearTimeout(timeout);
+
+                if(xmlHttp.status == 200){
+                   resolve(xmlHttp.responseText);
+                }
+                else{
+                    reject(Error(xmlHttp.statusText));
+                }
+              }
+            };
+            xmlHttp.send(data || null);
+
+            if (isSync){
+                var timeout = setTimeout( function(){ 
+                    xmlHttp.abort();
+                    reject(Error("Ajax request time over"));
+                }, AJAX_TIME_OVER);
             }
-          }
-        };
-        xmlHttp.send(data || null);
+        });
     }
-}
-    
-    
-module.exports = Ajax;        
+}     

@@ -209,8 +209,18 @@ function uploadedAnswerImg(uuid, img) {
 		return item.uuid == uuid;
 	});
 	if (ans){
-		console.log(uuid, img);
 		ans.img = img;
+	}
+}
+
+function removeAnswerImg(uuid, isRemoved){
+	if (isRemoved == false)
+		return;
+	var ans = _answers.find(function(item){
+		return item.uuid == uuid;
+	});
+	if (ans){
+		ans.img = null;
 	}
 }
 
@@ -379,6 +389,9 @@ AnswersStore.dispatchToken = AppDispatcher.register(function(payload) {
 			break;
 		case ServerConstants.UPLOADED_IMAGE:
 			uploadedAnswerImg(action.uuid, action.img);
+			break;
+		case ServerConstants.REMOVE_IMAGE:
+			removeAnswerImg(action.uuid, action.img);
 			break;
 		default:
 			return true;

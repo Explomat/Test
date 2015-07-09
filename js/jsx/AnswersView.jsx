@@ -15,6 +15,10 @@ var Answer = {
 		AnswerActions.uploadImage(this.props.uuid, eventTarget);
 	},
 
+	removeImage: function (img) {
+		AnswerActions.removeImage(this.props.uuid, img);
+	},
+
 	getIcons: function(){
 		return (
 			<div className="btn-group btn-group-xs pull-right">
@@ -36,7 +40,7 @@ var Answer = {
 			<div className="form-group">
 				<label>Ответ : *</label>
 				<TextAreaView rows="1" value={this.props.text} onBlur={this.changeText} />
-				<ImageSelect img={AnswersStore.getAnswerImg(this.props.uuid)} uploadImage={this.uploadImage}/>
+				<ImageSelect img={AnswersStore.getAnswerImg(this.props.uuid)} uploadImage={this.uploadImage} removeImage={this.removeImage}/>
 				<label>
 					<span>Вес :</span>
 					<TextView value={this.props.weight} onBlur={this.changeWeight} isValid={Validation.isNumberOrReal}/>

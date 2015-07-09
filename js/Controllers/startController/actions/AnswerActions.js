@@ -160,8 +160,19 @@ var AnswerActions = {
 				uuid: uuid,
 				img: img
 			});
+		}, function(err) {
+			console.log(err);
 		});
-		
+	},
+
+	removeImage: function(uuid, img){
+		QuestionAPI.removeImage(img).then(function(isRemoved){
+			AppDispatcher.handleData({
+				actionType: ServerConstants.REMOVE_IMAGE,
+				uuid: uuid,
+				isRemoved: isRemoved
+			});
+		});
 	}
 
 	/*uploadImageSuccess: function(uuid, img){

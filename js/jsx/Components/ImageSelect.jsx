@@ -1,11 +1,6 @@
 var React = require('React');
 
 var ImageSelect = React.createClass({
-
-	componentWillReceiveProps: function(nextProps){
-		//React.findDOMNode(this.refs.test).value = '';
-
-	},
 		
 	handleChange: function(e) {
 		if (this.props.uploadImage)
