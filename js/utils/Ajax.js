@@ -21,7 +21,7 @@ module.exports = {
                 reject(Error("Unknown url"));
             var files = FileAPI.getFiles(eventTarget);
             clearTimeout(timeout);
-            var xxx = FileAPI.upload({
+            FileAPI.upload({
                 url: url,
                 files: { file_upload: files },
                 complete: function (err, xhr){

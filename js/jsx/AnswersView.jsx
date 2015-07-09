@@ -16,7 +16,6 @@ var Answer = {
 	},
 
 	removeImage: function (img) {
-		console.log(img);
 		AnswerActions.removeImage(this.props.uuid, img);
 	},
 

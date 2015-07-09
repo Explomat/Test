@@ -8,9 +8,6 @@ var ImageSelect = React.createClass({
 	},
 
 	handleRemove: function(e) {
-		//e.target.value = '';
-		//React.findDOMNode(this.refs.test).value = '';
-				console.log(this.props.img);
 		if (this.props.removeImage)
 			this.props.removeImage(this.props.img);
 	},
@@ -20,7 +17,7 @@ var ImageSelect = React.createClass({
 		var isDisplayIcon = { display: (!this.props.img || this.props.img.name.trim() == "") ? "none" : "inline-block" }
 		return (
 			<div className="input-group">
-			   	<div tabIndex="-1" className="form-control file-caption  kv-fileinput-caption">
+			   	<div className="form-control file-caption kv-fileinput-caption">
 			   		<span title={imgName} className="file-caption-ellipsis">…</span>
 			   		<div title={imgName} className="file-caption-name" style={isDisplayIcon}>
 			   			<span className="glyphicon glyphicon-file kv-caption-icon"> {imgName}</span>
