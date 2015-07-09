@@ -172,6 +172,8 @@ var AnswerActions = {
 				uuid: uuid,
 				isRemoved: isRemoved
 			});
+		}, function(err) {
+			console.log(err);
 		});
 	}
 

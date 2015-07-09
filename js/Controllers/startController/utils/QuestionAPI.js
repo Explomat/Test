@@ -2,27 +2,9 @@ var Storage = require('../../../utils/Storage');
 var QuestionActions = require('../actions/QuestionActions');
 var Config = require('../../../config');
 var AppDispatcher = require('../dispatcher/AppDispatcher');
-var Promise = require('es6-promise').Promise;
+var Ajax = require('../../../utils/Ajax');
 
-function uploadFiles(eventTarget) {
-	return new Promise(function(resolve, reject){
-		var files = FileAPI.getFiles(eventTarget);
-		FileAPI.upload({
-			url: Config.url.createPath({action_name: 'uploadFile'}),
-			files: { file_upload: files },
-			complete: function (err, xhr){
-				if (err){
-					reject();
-				}
-				else {
-					resolve(JSON.parse(xhr.responseText));
-				}
-			}
-		});
-	});
-}
-
-function errorDispatch(_actionType) {
+/*function errorDispatch(_actionType) {
 	return function(_err){
 		AppDispatcher.handleData({
 			actionType: _actionType || '',
@@ -38,7 +20,7 @@ function successDispatch(_actionType){
 			success: _success || ''
 		});
 	}
-}
+}*/
 
 module.exports = {
 
@@ -49,11 +31,16 @@ module.exports = {
 
 	//eventTarget - DOM input for FileAPI
 	uploadAnswerImage: function(eventTarget){
-		return uploadFiles(eventTarget);
+		return Ajax.uploadFiles(eventTarget, Config.url.createPath({action_name: 'uploadFile'}));
+	},
+
+	removeImage: function(img){
+		console.log("DADA");
+		return Ajax.sendRequest(Config.url.createPath({action_name: 'removeImage', id: img.id, name: img.name}));
 	},
 
 	//eventTarget - DOM input for FileAPI
-	uploadQuestionImage: function(event){
-		//uploadFiles(eventTarget, successDispatch(AnswerConstants.ANSWER_UPLOADIMG_SUCCESS), errorDispatch(AnswerConstants.ANSWER_UPLOADIMG_ERROR));
+	uploadQuestionImage: function(eventTarget){
+		
 	}
 }

@@ -10,8 +10,9 @@ var ImageSelect = React.createClass({
 	handleRemove: function(e) {
 		//e.target.value = '';
 		//React.findDOMNode(this.refs.test).value = '';
-		if (this.props.removeImg)
-			this.props.removeImg({id: this.props.id, name: this.props.name});
+				console.log(this.props.img);
+		if (this.props.removeImage)
+			this.props.removeImage(this.props.img);
 	},
 
 	render: function(){

@@ -34,7 +34,6 @@ module.exports = {
                 }
             });
              var timeout = setTimeout( function(){ 
-                //xmlHttp.abort();
                 reject(Error("Upload file time over"));
             }, AJAX_TIME_OVER);
         });
@@ -70,6 +69,6 @@ module.exports = {
                     reject(Error("Ajax request time over"));
                 }, AJAX_TIME_OVER);
             }
-        });
+        }.bind(this));
     }
 }     
