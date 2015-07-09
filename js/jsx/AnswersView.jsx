@@ -7,6 +7,7 @@ var AnswersStore = require('../Controllers/startController/stores/AnswersStore')
 var Validation = require('../utils/Validation');
 var Conditions = require('./Components/Conditions').Conditions;
 var ConditionsText = require('./Components/Conditions').ConditionsText;
+var Conformities = require('./Components/Conformities');
 
 var Answer = {
 

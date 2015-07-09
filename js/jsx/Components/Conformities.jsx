@@ -4,9 +4,9 @@ var TextView = require('./Text').TextView;
 
 var Conformity = React.createClass({
 
-	handleChangeText: function (e) {
+	handleChangeText: function (val) {
 		if (this.props.handleChangeText)
-			this.props.handleChangeText(this.props.uuid, e.target.value);
+			this.props.handleChangeText(this.props.uuid, val);
 	},
 
 	handleRemove: function (e) {
@@ -17,8 +17,7 @@ var Conformity = React.createClass({
 	render: function() {
 		return (
 			<div className="input-group input-group-sm">
-				<TextView value={this.props.text} onBlur={this.handleChangeText} isValid={validate}/>
-				<input type="text" className="form-control" value={this.props.text} onChange={this.handleChangeText}/>
+				<TextView value={this.props.text} onBlur={this.handleChangeText}/>
 				<div className="input-group-btn">
 					<button type="button" className="btn btn-default" onClick={this.handleRemove}>
 					  <span className="glyphicon glyphicon-remove"></span>
