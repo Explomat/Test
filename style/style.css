@@ -75,6 +75,7 @@ textarea {
 
 .error-block {
     font-size: 12px;
+    word-spacing: -7px;
 }
 
 .loading-icon {

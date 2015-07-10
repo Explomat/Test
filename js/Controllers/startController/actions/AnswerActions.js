@@ -149,11 +149,6 @@ var AnswerActions = {
 
 	//eventTarget - DOM input for FileAPI
 	uploadImage: function(uuid, eventTarget){
-		/*AppDispatcher.handleData({
-			actionType: ServerConstants.UPLOADED_IMAGE,
-			uuid: uuid,
-			img: {id:123, name: "TEST"}
-		});*/
 		QuestionAPI.uploadAnswerImage(eventTarget).then(function(img){
 			AppDispatcher.handleData({
 				actionType: ServerConstants.UPLOADED_IMAGE,
@@ -170,31 +165,23 @@ var AnswerActions = {
 	},
 
 	removeImage: function(uuid, img){
-		QuestionAPI.removeImage(img).then(function(isRemoved){
+		QuestionAPI.removeImage(img).then(function(_err){
+			console.log("_err : " + _err);
 			AppDispatcher.handleData({
-				actionType: ServerConstants.REMOVE_IMAGE,
+				actionType: ServerConstants.REMOVE_ERROR_IMAGE,
 				uuid: uuid,
-				isRemoved: isRemoved
+				err: _err
 			});
+			
 		}, function(err) {
-			console.log(err);
+			console.log("err : " + err);
+			AppDispatcher.handleData({
+				actionType: ServerConstants.REMOVE_ERROR_IMAGE,
+				uuid: uuid,
+				err: err
+			});
 		});
 	}
-
-	/*uploadImageSuccess: function(uuid, img){
-		AppDispatcher.handleAction({
-			actionType: AnswerConstants.ANSWER_IMG_SUCCES_UPLOAD,
-			uuid: uuid,
-			img: img
-		});
-	},
-
-	uploadImageError: function(uuid){
-		AppDispatcher.handleAction({
-			actionType: AnswerConstants.ANSWER_IMG_ERROR_UPLOAD,
-			uuid: uuid
-		});
-	}*/
 }
 
 module.exports = AnswerActions;

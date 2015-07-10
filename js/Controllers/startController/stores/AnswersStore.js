@@ -213,7 +213,7 @@ function uploadedAnswerImg(uuid, img) {
 	}
 }
 
-function errorUploadedAnswerImg(uuid, err) {
+function errorAnswerImg(uuid, err) {
 	var ans = _answers.find(function(item){
 		return item.uuid == uuid;
 	});
@@ -404,10 +404,13 @@ AnswersStore.dispatchToken = AppDispatcher.register(function(payload) {
 			uploadedAnswerImg(action.uuid, action.img);
 			break;
 		case ServerConstants.UPLOADED_ERROR_IMAGE:
-			errorUploadedAnswerImg(action.uuid, action.err);
+			errorAnswerImg(action.uuid, action.err);
 			break;
 		case ServerConstants.REMOVE_IMAGE:
 			removeAnswerImg(action.uuid, action.img);
+			break;
+		case ServerConstants.REMOVE_ERROR_IMAGE:
+			errorAnswerImg(action.uuid, action.err);
 			break;
 		default:
 			return true;

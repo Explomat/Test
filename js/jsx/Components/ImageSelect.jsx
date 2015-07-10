@@ -12,6 +12,13 @@ var ImageSelect = React.createClass({
 	componentWillReceiveProps: function(nextProps){
 		this.setState({uploading: false});
 	},
+
+	shouldComponentUpdate: function(nextProps) {
+		/*if (this.props.img == null)
+			return true;
+		var a = JSON.stringify(this.props.img) !== JSON.stringify(nextProps.img);
+		return a;*/
+	},
 		
 	handleChange: function(e) {
 		this.setState({uploading: true});
@@ -20,6 +27,7 @@ var ImageSelect = React.createClass({
 	},
 
 	handleRemove: function(e) {
+		this.setState({uploading: true});
 		if (this.props.removeImage)
 			this.props.removeImage(this.props.img);
 	},

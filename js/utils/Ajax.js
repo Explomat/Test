@@ -58,7 +58,7 @@ module.exports = {
                    resolve(xmlHttp.responseText);
                 }
                 else{
-                    reject(Error(xmlHttp.statusText));
+                    reject(xmlHttp.statusText || "Ajax request time over");
                 }
               }
             };

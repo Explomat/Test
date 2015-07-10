@@ -4,24 +4,6 @@ var Config = require('../../../config');
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var Ajax = require('../../../utils/Ajax');
 
-/*function errorDispatch(_actionType) {
-	return function(_err){
-		AppDispatcher.handleData({
-			actionType: _actionType || '',
-			err: _err || ''
-		});
-	}
-}
-
-function successDispatch(_actionType){
-	return function(_success){
-		AppDispatcher.handleData({
-			actionType: _actionType || '',
-			success: _success || ''
-		});
-	}
-}*/
-
 module.exports = {
 
 	getQuestionData: function() {
@@ -35,7 +17,6 @@ module.exports = {
 	},
 
 	removeImage: function(img){
-		console.log("DADA");
 		return Ajax.sendRequest(Config.url.createPath({action_name: 'removeImage', id: img.id, name: img.name}));
 	},
 
