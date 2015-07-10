@@ -21,7 +21,7 @@ module.exports = {
                 reject(Error("Unknown url"));
             var files = FileAPI.getFiles(eventTarget);
             clearTimeout(timeout);
-            FileAPI.upload({
+            var xmlHttp = FileAPI.upload({
                 url: url,
                 files: { file_upload: files },
                 complete: function (err, xhr){
@@ -34,7 +34,8 @@ module.exports = {
                 }
             });
              var timeout = setTimeout( function(){ 
-                reject(Error("Upload file time over"));
+                xmlHttp.abort();
+                reject("Upload file time over");
             }, AJAX_TIME_OVER);
         });
     },
@@ -66,7 +67,7 @@ module.exports = {
             if (isSync){
                 var timeout = setTimeout( function(){ 
                     xmlHttp.abort();
-                    reject(Error("Ajax request time over"));
+                    reject("Ajax request time over");
                 }, AJAX_TIME_OVER);
             }
         }.bind(this));

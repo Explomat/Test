@@ -1,8 +1,20 @@
 var React = require('React');
+var Config = require('../../config');
 
 var ImageSelect = React.createClass({
+
+	getInitialState: function() {
+		return {
+			uploading: false
+		}
+	},
+
+	componentWillReceiveProps: function(nextProps){
+		this.setState({uploading: false});
+	},
 		
 	handleChange: function(e) {
+		this.setState({uploading: true});
 		if (this.props.uploadImage)
 			this.props.uploadImage(e.target);
 	},
@@ -13,14 +25,25 @@ var ImageSelect = React.createClass({
 	},
 
 	render: function(){
-		var imgName = this.props.img ? this.props.img.name : '';
-		var isDisplayIcon = { display: (!this.props.img || this.props.img.name.trim() == "") ? "none" : "inline-block" }
+		var isDisplayUploading = { display: this.state.uploading ? "inline-block" : "none"}
+		var error = this.props.img ? this.props.img.error : null;
+		isDisplayError = { display : error ? "inline-block" : "none" }
+		var imgName = this.props.img ? this.props.img.name : null;
+		var isDisplayIcon = { display: !imgName ? "none" : "inline-block" }
 		return (
 			<div className="input-group">
 			   	<div className="form-control file-caption kv-fileinput-caption">
 			   		<span title={imgName} className="file-caption-ellipsis">…</span>
 			   		<div title={imgName} className="file-caption-name" style={isDisplayIcon}>
 			   			<span className="glyphicon glyphicon-file kv-caption-icon"> {imgName}</span>
+			   		</div>
+			   		<div title={error} className="file-caption-name error-glyphicon" style={isDisplayError}>
+			   			<span className="glyphicon glyphicon-exclamation-sign kv-caption-icon">
+			   				<span className="error-block">&nbsp;{error}</span>
+			   			</span>
+			   		</div>
+			   		<div className="file-caption-name" style={isDisplayUploading}>
+			   			<img className="loading-icon" src={Config.icons.loading} />
 			   		</div>
 				</div>
 			   	<div className="input-group-btn">

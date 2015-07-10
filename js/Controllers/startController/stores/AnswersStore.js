@@ -213,6 +213,18 @@ function uploadedAnswerImg(uuid, img) {
 	}
 }
 
+function errorUploadedAnswerImg(uuid, err) {
+	var ans = _answers.find(function(item){
+		return item.uuid == uuid;
+	});
+	if (ans){
+		ans.img = ans.img || {};
+		ans.img.error = err;
+		ans.img.name = null;
+		ans.img.id = null;
+	}
+}
+
 function removeAnswerImg(uuid, isRemoved){
 	if (isRemoved == false)
 		return;
@@ -387,8 +399,12 @@ AnswersStore.dispatchToken = AppDispatcher.register(function(payload) {
 		case AnswerConstants.ANSWER_CHANGE_WEIGHT:
 			changeAnswerWeight(action.uuid, action.weight);
 			break;
+
 		case ServerConstants.UPLOADED_IMAGE:
 			uploadedAnswerImg(action.uuid, action.img);
+			break;
+		case ServerConstants.UPLOADED_ERROR_IMAGE:
+			errorUploadedAnswerImg(action.uuid, action.err);
 			break;
 		case ServerConstants.REMOVE_IMAGE:
 			removeAnswerImg(action.uuid, action.img);

@@ -44,7 +44,8 @@ module.exports = {
 					width: 1,
 					img: {
 						name:'blue.png',
-						id:'6166916040804028637'
+						id:'6166916040804028637',
+						error: null
 					},
 					conditions: [
 						{

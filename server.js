@@ -59,7 +59,8 @@ function uploadFile(queryObjects) {
 		
 		return stringifyWT({
 			id: docResource.DocID,
-			name: name
+			name: name,
+			error: null
 		});
 			
 	}

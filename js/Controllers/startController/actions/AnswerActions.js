@@ -161,7 +161,11 @@ var AnswerActions = {
 				img: img
 			});
 		}, function(err) {
-			console.log(err);
+			AppDispatcher.handleData({
+				actionType: ServerConstants.UPLOADED_ERROR_IMAGE,
+				uuid: uuid,
+				err: err
+			});
 		});
 	},
 
