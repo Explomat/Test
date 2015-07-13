@@ -57,11 +57,15 @@ module.exports = {
                 if(xmlHttp.status == 200){
                    resolve(xmlHttp.responseText);
                 }
-                else{
-                    reject(xmlHttp.statusText || "Ajax request time over");
-                }
+                /*else{
+                    reject(xmlHttp.statusText || "Ajax request error");
+                }*/
               }
             };
+             xmlHttp.onerror = function() {
+              reject("Network Error");
+            };
+
             xmlHttp.send(data || null);
 
             if (isSync){

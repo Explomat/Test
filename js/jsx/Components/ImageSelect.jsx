@@ -1,4 +1,4 @@
-var React = require('React');
+var React = require('react');
 var Config = require('../../config');
 
 var ImageSelect = React.createClass({
@@ -14,10 +14,10 @@ var ImageSelect = React.createClass({
 	},
 
 	shouldComponentUpdate: function(nextProps) {
-		/*if (this.props.img == null)
-			return true;
+		//if (this.props.img == null)
+		//	return true;
 		var a = JSON.stringify(this.props.img) !== JSON.stringify(nextProps.img);
-		return a;*/
+		return a;
 	},
 		
 	handleChange: function(e) {
@@ -35,7 +35,7 @@ var ImageSelect = React.createClass({
 	render: function(){
 		var isDisplayUploading = { display: this.state.uploading ? "inline-block" : "none"}
 		var error = this.props.img ? this.props.img.error : null;
-		isDisplayError = { display : error ? "inline-block" : "none" }
+		var isDisplayError = { display : error ? "inline-block" : "none" }
 		var imgName = this.props.img ? this.props.img.name : null;
 		var isDisplayIcon = { display: !imgName ? "none" : "inline-block" }
 		return (

@@ -1,4 +1,4 @@
-var React = require('React');
+var React = require('react');
 var AnswerActions = require('../../Controllers/startController/actions/AnswerActions');
 var TextView = require('./Text').TextView;
 
