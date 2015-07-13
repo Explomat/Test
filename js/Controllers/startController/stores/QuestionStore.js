@@ -33,10 +33,29 @@ function selectType(type){
 	_question.type = type;
 }
 
+function uploadedImg(img) {
+	_question.img = img;
+}
+
+function errorImg(err) {
+	_question.img = _question.img || {};
+	_question.img.error = err;
+	_question.img.name = null;
+	_question.img.id = null;
+}
+
+function removeImg(){
+	_question.img = null;
+}
+
 var QuestionStore = _.extend({}, EventEmitter.prototype, {
 
 	getTitle: function(){
 		return _question.title;
+	},
+
+	getImg: function() {
+		return _question.img;
 	},
 
 	getText: function() {
@@ -83,6 +102,19 @@ QuestionStore.dispatchToken = AppDispatcher.register(function(payload) {
 			break;
 		case QuestionConstants.SET_TEXT:
 			setText(action.text);
+			break;
+
+		case ServerConstants.UPLOADED_QUESTION_IMAGE:
+			uploadedImg(action.img);
+			break;
+		case ServerConstants.UPLOADED_QUESTION_ERROR_IMAGE:
+			errorImg(action.err);
+			break;
+		case ServerConstants.REMOVE_QUESTION_IMAGE:
+			removeImg();
+			break;
+		case ServerConstants.REMOVE_QUESTION_ERROR_IMAGE:
+			errorImg(action.err);
 			break;
 		default:
 			return true;

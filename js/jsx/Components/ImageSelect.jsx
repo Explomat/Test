@@ -11,15 +11,10 @@ var ImageSelect = React.createClass({
 
 	componentWillReceiveProps: function(nextProps){
 		this.setState({uploading: false});
+		if (nextProps.img && nextProps.img.error)
+			React.findDOMNode(this.refs.inputImage).value = '';
 	},
 
-	shouldComponentUpdate: function(nextProps) {
-		//if (this.props.img == null)
-		//	return true;
-		var a = JSON.stringify(this.props.img) !== JSON.stringify(nextProps.img);
-		return a;
-	},
-		
 	handleChange: function(e) {
 		this.setState({uploading: true});
 		if (this.props.uploadImage)
@@ -27,9 +22,10 @@ var ImageSelect = React.createClass({
 	},
 
 	handleRemove: function(e) {
-		this.setState({uploading: true});
-		if (this.props.removeImage)
+		if (this.props.removeImage){
+			React.findDOMNode(this.refs.inputImage).value = '';
 			this.props.removeImage(this.props.img);
+		}
 	},
 
 	render: function(){
@@ -37,7 +33,7 @@ var ImageSelect = React.createClass({
 		var error = this.props.img ? this.props.img.error : null;
 		var isDisplayError = { display : error ? "inline-block" : "none" }
 		var imgName = this.props.img ? this.props.img.name : null;
-		var isDisplayIcon = { display: !imgName ? "none" : "inline-block" }
+		var isDisplayIcon = { display: imgName ? "inline-block" : "none" }
 		return (
 			<div className="input-group">
 			   	<div className="form-control file-caption kv-fileinput-caption">
@@ -63,7 +59,7 @@ var ImageSelect = React.createClass({
 			       		<span> &nbsp; … </span>
 
 			       		<div className="js-fileapi-wrapper upload-btn">
-			       			<input accept="image/*" name="files" className="file" type="file" onChange={this.handleChange} title="Добавить изображение"/>
+			       			<input ref="inputImage" accept="image/*" name="files" className="file" type="file" onChange={this.handleChange} title="Добавить изображение"/>
 						</div>
 			       	</div>
 			   	</div>

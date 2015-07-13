@@ -6,6 +6,7 @@ var AnswerActions = require('../Controllers/startController/actions/AnswerAction
 var QuestionTypes = require('../Controllers/startController/utils/QuestionTypes');
 var Answer = require('./AnswersView');
 var Txt = require('./Components/Text');
+var ImageSelect = require('./Components/ImageSelect');
 
 function getQuestionState() {
 	return {
@@ -47,6 +48,23 @@ var Title = React.createClass({
 	            <span className="input-group-addon">Заголовок : *</span>
 	            <Txt.TextView value={this.props.title} onBlur={this.handleChange} placeholder='Заголовок вопроса'/>
 	        </div>
+		);
+	}
+});
+
+var QuestionImage = React.createClass({
+
+	uploadImage: function(eventTarget) {
+		QuestionActions.uploadImage(eventTarget);
+	},
+
+	removeImage: function (img) {
+		QuestionActions.removeImage(img);
+	},
+
+	render:function() {
+		return (
+			<ImageSelect img={QuestionStore.getImg()} uploadImage={this.uploadImage} removeImage={this.removeImage}/>
 		);
 	}
 });
@@ -112,8 +130,8 @@ var SelectQuestionType = React.createClass({
 		var list = [];
 		Object.keys(QuestionTypes.values).forEach(function(k, count){
 			if (count % 2 == 0 && count != 0)
-				list.push(<li key={"divider"+k} className="divider"></li>);
-			list.push(<QuestionType key={k} id={k} type={QuestionTypes.values[k]} handleSelectType={this.handleSelectType}/>);
+				list.push(<li key={"divider"+k + count} className="divider"></li>);
+			list.push(<QuestionType key={k + count} id={k} type={QuestionTypes.values[k]} handleSelectType={this.handleSelectType}/>);
 		}.bind(this));
 		
 		return (
@@ -172,6 +190,7 @@ var QuestionView = React.createClass({
 			<div className="panel panel-default">
 				<div className="panel-heading">
 					<Title title={this.state.title} />
+					<QuestionImage />
 			        <QuestionText text={this.state.text} />
 			        <Menu />
 			        <SelectQuestionType type={this.state.type}/>

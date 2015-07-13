@@ -1,7 +1,18 @@
 var Promise = require('es6-promise').Promise;
+var QuestionData = require('../Controllers/startController/QuestionData');
+var Storage = require('./Storage');
 var AJAX_TIME_OVER = 10000;
 
 module.exports = {
+
+    getQuestionData: function() {
+        return new Promise(function(resolve, reject){
+            QuestionData.init();
+            setTimeout(function(){
+                resolve(Storage.getItem('question'));
+            }, 100);
+        });
+    },
 
     getXmlHttp: function(){
         var xmlHttp;
@@ -57,9 +68,10 @@ module.exports = {
                 if(xmlHttp.status == 200){
                    resolve(xmlHttp.responseText);
                 }
-                /*else{
+                else {
+                    console.log(xmlHttp.status);
                     reject(xmlHttp.statusText || "Ajax request error");
-                }*/
+                }
               }
             };
              xmlHttp.onerror = function() {

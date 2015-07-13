@@ -7,6 +7,7 @@ module.exports = {
 			title: 'Temp',
 			text: 'What\'s the Fuck?',
 			type: 'match_item',
+			img: null,
 			answers: [
 				{
 					uuid: 'b6363c6e-0c11-41b5-ac2c-3000b87961d2',

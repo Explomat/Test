@@ -1,6 +1,7 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var QuestionConstants = require('../constants/QuestionConstants');
 var ServerConstants = require('../constants/ServerConstants');
+var QuestionAPI = require('../utils/QuestionAPI');
 
 var QuestionActions = {
 
@@ -36,6 +37,35 @@ var QuestionActions = {
 		AppDispatcher.handleAction({
 			actionType: QuestionConstants.SET_TYPE_SELECTED,
 			type: type
+		});
+	},
+
+	//eventTarget - DOM input for FileAPI
+	uploadImage: function(eventTarget){
+		QuestionAPI.uploadImage(eventTarget).then(function(img){
+			AppDispatcher.handleData({
+				actionType: ServerConstants.UPLOADED_QUESTION_IMAGE,
+				img: img
+			});
+		}, function(err) {
+			AppDispatcher.handleData({
+				actionType: ServerConstants.UPLOADED_QUESTION_ERROR_IMAGE,
+				err: err
+			});
+		});
+	},
+
+	removeImage: function(img){
+		QuestionAPI.removeImage(img).then(function(){
+			AppDispatcher.handleData({
+				actionType: ServerConstants.REMOVE_QUESTION_IMAGE
+			});
+			
+		}, function(err) {
+			AppDispatcher.handleData({
+				actionType: ServerConstants.REMOVE_QUESTION_ERROR_IMAGE,
+				err: err
+			});
 		});
 	}
 }

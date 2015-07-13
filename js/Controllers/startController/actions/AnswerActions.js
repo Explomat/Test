@@ -149,15 +149,15 @@ var AnswerActions = {
 
 	//eventTarget - DOM input for FileAPI
 	uploadImage: function(uuid, eventTarget){
-		QuestionAPI.uploadAnswerImage(eventTarget).then(function(img){
+		QuestionAPI.uploadImage(eventTarget).then(function(img){
 			AppDispatcher.handleData({
-				actionType: ServerConstants.UPLOADED_IMAGE,
+				actionType: ServerConstants.UPLOADED_ANSWER_IMAGE,
 				uuid: uuid,
 				img: img
 			});
 		}, function(err) {
 			AppDispatcher.handleData({
-				actionType: ServerConstants.UPLOADED_ERROR_IMAGE,
+				actionType: ServerConstants.UPLOADED_ANSWER_ERROR_IMAGE,
 				uuid: uuid,
 				err: err
 			});
@@ -165,18 +165,15 @@ var AnswerActions = {
 	},
 
 	removeImage: function(uuid, img){
-		QuestionAPI.removeImage(img).then(function(_err){
-			console.log("_err : " + _err);
+		QuestionAPI.removeImage(img).then(function(){
 			AppDispatcher.handleData({
-				actionType: ServerConstants.REMOVE_ERROR_IMAGE,
-				uuid: uuid,
-				err: _err
+				actionType: ServerConstants.REMOVE_ANSWER_IMAGE,
+				uuid: uuid
 			});
 			
 		}, function(err) {
-			console.log("err : " + err);
 			AppDispatcher.handleData({
-				actionType: ServerConstants.REMOVE_ERROR_IMAGE,
+				actionType: ServerConstants.REMOVE_ANSWER_ERROR_IMAGE,
 				uuid: uuid,
 				err: err
 			});

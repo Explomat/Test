@@ -225,9 +225,7 @@ function errorAnswerImg(uuid, err) {
 	}
 }
 
-function removeAnswerImg(uuid, isRemoved){
-	if (isRemoved == false)
-		return;
+function removeAnswerImg(uuid){
 	var ans = _answers.find(function(item){
 		return item.uuid == uuid;
 	});
@@ -400,16 +398,16 @@ AnswersStore.dispatchToken = AppDispatcher.register(function(payload) {
 			changeAnswerWeight(action.uuid, action.weight);
 			break;
 
-		case ServerConstants.UPLOADED_IMAGE:
+		case ServerConstants.UPLOADED_ANSWER_IMAGE:
 			uploadedAnswerImg(action.uuid, action.img);
 			break;
-		case ServerConstants.UPLOADED_ERROR_IMAGE:
+		case ServerConstants.UPLOADED_ANSWER_ERROR_IMAGE:
 			errorAnswerImg(action.uuid, action.err);
 			break;
-		case ServerConstants.REMOVE_IMAGE:
-			removeAnswerImg(action.uuid, action.img);
+		case ServerConstants.REMOVE_ANSWER_IMAGE:
+			removeAnswerImg(action.uuid);
 			break;
-		case ServerConstants.REMOVE_ERROR_IMAGE:
+		case ServerConstants.REMOVE_ANSWER_ERROR_IMAGE:
 			errorAnswerImg(action.uuid, action.err);
 			break;
 		default:
