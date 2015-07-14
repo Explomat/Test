@@ -1,7 +1,4 @@
 node_modules/
-'npm
-npm-debug.log
-node_modules/
 js/jsx/.module-cache/
 js/jsx/*.js
 build/js/bundle.js

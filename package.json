@@ -1,0 +1,24 @@
+{
+  "name": "Tests",
+  "description": "Project automates the process of tests creation. This process allows users enter all parameters and description of yourself without administrator.",
+  "author": "Matveev Savva",
+  "scripts": {
+    "td": "npm run build-jsx & browserify js/main.js -d -o build/js/bundle.js & rm -rf js/jsx/{Components}/*.js & rm -rf js/jsx/*.js",
+    "temptd": "npm run build-jsx & browserify js/main.js -d -o build/js/bundle.js",
+    "deploy": "uglifyjs build/js/bundle.js --source-map build/js/bundle.js.map",
+    "build": "browserify js/main.js -d | uglifyjs -mc > build/js/bundle.js",
+    "build-jsx": "jsx js/jsx --extension jsx js/jsx"
+  },
+  "dependencies": {
+    "es6-promise": "^2.3.0",
+    "flux": "^2.0.3",
+    "react": "^0.13.3",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "browserify": "^10.2.4",
+    "uglify": "^0.1.5",
+    "webserver": "^1.1.2",
+    "react-tools": "^0.13.3"
+  }
+}
