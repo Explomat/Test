@@ -3,15 +3,13 @@ function QuestionController() {
 	var app = document.getElementById('app');
 	React.unmountComponentAtNode(app);
 
-	//var QuestionData = require('./QuestionData');
 	var QuestionActions = require('./actions/QuestionActions');
 	var QuestionAPI = require('./utils/QuestionAPI');
 	var QuestionView = require('../../../js/jsx/QuestionView');
 
-	//QuestionData.init();
 	QuestionAPI.getQuestionData().then(function(data){
 		QuestionActions.receiveQuestion(data);
-	}.bind(this));
+	});
 
 	this.start = function() {
 		React.render(React.createElement(QuestionView), app);
