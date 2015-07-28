@@ -13,7 +13,6 @@ function getQuestionState() {
 		title: QuestionStore.getTitle(),
 		text: QuestionStore.getText(),
 		answers: AnswersStore.getAnswers(),
-		isDisplayTypes: QuestionStore.isDisplayTypes(),
 		type: QuestionStore.getTypeSelected()
 	};
 }
@@ -111,22 +110,36 @@ var SelectQuestionType = React.createClass({
 		document.addEventListener('click', this.handleBlurTypes);
 	},
 
+	getInitialState: function() {
+		return {
+			display: false
+		}
+	},
+
 	handleSelectType:function(key) {
 		QuestionActions.selectType(key);
 	},
 
 	handleBlurTypes:function() {
-		QuestionActions.displayTypes(false);
+		if (this.state.display === true)
+			this.setState({display: false});
+		//QuestionActions.displayTypes(false);
 	},
 
 	handleDisplayTypes:function(e) {
-		e.stopPropagation();
+		if (e){
+			e.stopPropagation();
+    		e.nativeEvent.stopImmediatePropagation();
+		}
+		this.setState({display: !this.state.display});
+		/*e.stopPropagation();
     	e.nativeEvent.stopImmediatePropagation();
-    	QuestionActions.displayTypes(!QuestionStore.isDisplayTypes());
+    	QuestionActions.displayTypes(!QuestionStore.isDisplayTypes());*/
 	},
 
 	render: function() {
-		var isTypeDisplayStyle = { display: QuestionStore.isDisplayTypes() ? "block" : "none" };
+		console.log("test");
+		var isTypeDisplayStyle = { display: this.state.display ? "block" : "none" };
 		var list = [];
 		Object.keys(QuestionTypes.values).forEach(function(k, count){
 			if (count % 2 == 0 && count != 0)

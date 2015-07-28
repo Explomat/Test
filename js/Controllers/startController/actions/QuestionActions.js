@@ -26,13 +26,6 @@ var QuestionActions = {
 		});
 	},
 
-	displayTypes:function(isDisplay) {
-		AppDispatcher.handleAction({
-			actionType: QuestionConstants.DISPLAY_TYPES,
-			isDisplay: isDisplay
-		});
-	},
-
 	selectType: function(type) {
 		AppDispatcher.handleAction({
 			actionType: QuestionConstants.SET_TYPE_SELECTED,

@@ -6,7 +6,7 @@ var AnswersStore = require('./AnswersStore');
 var QuestionTypes = require('../utils/QuestionTypes');
 var _ = require('underscore');
 
-var _question = {}, _displayTypes = false;
+var _question = {};
 
 function loadQuestionData(data) {
 	_question = data;
@@ -19,10 +19,6 @@ function setTitle(title) {
 
 function setText(txt) {
 	_question.text = txt;
-}
-
-function displayTypes(isDisplay){
-	_displayTypes = isDisplay;
 }
 
 function selectType(type){
@@ -62,10 +58,6 @@ var QuestionStore = _.extend({}, EventEmitter.prototype, {
 		return _question.text;
 	},
 
-	isDisplayTypes: function() {
-		return _displayTypes;
-	},
-
 	getTypeSelected: function() {
 		return _question.type;
 	},
@@ -90,9 +82,6 @@ QuestionStore.dispatchToken = AppDispatcher.register(function(payload) {
 
 		case ServerConstants.RECEIVE_DATA:
 			loadQuestionData(action.data);
-			break;
-		case QuestionConstants.DISPLAY_TYPES:
-			displayTypes(action.isDisplay);
 			break;
 		case QuestionConstants.SET_TYPE_SELECTED:
 			selectType(action.type);

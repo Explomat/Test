@@ -43,7 +43,8 @@ var Condition = {
 	},
 
 	handleBlur: function () {
-		this.setState({display: false});
+		if (this.state.display === true)
+			this.setState({display: false});
 	},
 
 	handleDisplay: function(e) {
