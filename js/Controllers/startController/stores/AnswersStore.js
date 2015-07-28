@@ -3,43 +3,21 @@ var EventEmitter = require('events').EventEmitter;
 var AnswerConstants = require('../constants/AnswerConstants');
 var ServerConstants = require('../constants/ServerConstants');
 var UUID = require('../../../utils/UUID');
+var array = require('../../../utils/Array');
+
+var Answer = require('../models/Answer');
+var Condition = require('../models/Condition');
+var ConditionText = require('../models/ConditionText');
+var Conformity = require('../models/Conformity');
+
 var QuestionTypes = require('../utils/QuestionTypes');
 var SubAnswer = require('../utils/SubAnswer');
 var extend = require('extend-object');
 
 var _answers = [], _questionType = '';
 
-function _shift(arr, k) {
-	var n = arr.length;
-    k = k % n;
-    reverse(arr, 0, n - 1);
-    reverse(arr, 0, n - k - 1);
-    reverse(arr, n - k, n - 1);
-
-    function reverse(arr, start, end) {
-		while (start < end) {
-	        var tmp = arr[start];
-	        arr[start] = arr[end];
-	        arr[end] = tmp;
-	        start++;
-	        end--;
-	    }
-	}
-}
-
 function addAnswer(){
-	var ans = {
-		uuid: UUID.generate(),
-		text: '',
-		weight: '',
-		height: 20,
-		width: 1,
-		img: null,
-		conditions: [{uuid: UUID.generate(), text: '', condition: 'equal'}],
-		conditionsText: [{ uuid: UUID.generate(), text: '', condition: 'equal'}],
-		conformities: [{ uuid: UUID.generate(), text: ''}],
-	}
-	_answers.push(ans);
+	_answers.push(new Answer());
 }
 
 function removeAnswer(uuid) {
@@ -51,11 +29,11 @@ function removeAnswer(uuid) {
 }
 
 function shiftUp(uuid) {
-	_shift(_answers, 1);
+	array.shift(_answers, 1);
 }
 
 function shiftDown(uuid) {
-	_shift(_answers, _answers.length - 1);
+	array.shift(_answers, _answers.length - 1);
 }
 
 function addAnswerCondition(uuid) {
@@ -64,11 +42,7 @@ function addAnswerCondition(uuid) {
 	});
 	if (ans){
 		ans.conditions = ans.conditions || [];
-		ans.conditions.push({
-			uuid: UUID.generate(),
-			text: '',
-			condition: SubAnswer.conditions.keys.equal
-		});
+		ans.conditions.push(new Condition());
 	}
 }
 
@@ -110,11 +84,7 @@ function addAnswerConditionText(uuid, conditionUiid){
 	});
 	if (ans){
 		ans.conditionsText = ans.conditionsText || [];
-		ans.conditionsText.push({
-			uuid: UUID.generate(),
-			text: '',
-			condition: SubAnswer.conditionsText.keys.equal
-		});
+		ans.conditionsText.push(new ConditionText());
 	}
 }
 
@@ -157,10 +127,7 @@ function addAnswerConformity(uuid) {
 	});
 	if (ans){
 		ans.conformities = ans.conformities || [];
-		ans.conformities.push({
-			uuid: UUID.generate(),
-			text: ''
-		});
+		ans.conformities.push(new Conformity());
 	}
 }
 
