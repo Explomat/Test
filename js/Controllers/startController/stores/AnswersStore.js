@@ -5,7 +5,7 @@ var ServerConstants = require('../constants/ServerConstants');
 var UUID = require('../../../utils/UUID');
 var QuestionTypes = require('../utils/QuestionTypes');
 var SubAnswer = require('../utils/SubAnswer');
-var _ = require('underscore');
+var extend = require('extend-object');
 
 var _answers = [], _questionType = '';
 
@@ -265,7 +265,7 @@ function changeAnswerWeight(uuid, weight) {
 }
 
 
-var AnswersStore = _.extend({}, EventEmitter.prototype, {
+var AnswersStore = extend({}, EventEmitter.prototype, {
 
 	getAnswers: function() {
 		return _answers;

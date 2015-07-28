@@ -4,7 +4,7 @@ var QuestionConstants = require('../constants/QuestionConstants');
 var ServerConstants = require('../constants/ServerConstants');
 var AnswersStore = require('./AnswersStore');
 var QuestionTypes = require('../utils/QuestionTypes');
-var _ = require('underscore');
+var extend = require('extend-object');
 
 var _question = {};
 
@@ -44,7 +44,7 @@ function removeImg(){
 	_question.img = null;
 }
 
-var QuestionStore = _.extend({}, EventEmitter.prototype, {
+var QuestionStore = extend({}, EventEmitter.prototype, {
 
 	getTitle: function(){
 		return _question.title;
