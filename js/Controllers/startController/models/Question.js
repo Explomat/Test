@@ -1,11 +1,13 @@
 var UUID = require('../../../utils/UUID');
 var Answer = require('./Answer');
+var QuestionTypes = require('../utils/QuestionTypes');
 
-module.exports = function(){
-	this.uuid = UUID.generate();
-	this.title = 'Temp';
-	this.text = 'What\'s the Fuck?';
-	this.type = 'match_item';
-	this.img = null;
-	this.answers = [new Answer()];
+module.exports = function(args){
+	var args = args || {};
+	this.uuid = args.uuid || UUID.generate();
+	this.title = args.title || 'Temp';
+	this.text = args.text || 'What\'s the Fuck?';
+	this.type = args.type || QuestionTypes.keys.match_item;
+	this.img = args.img || null;
+	this.answers = args.answers || [ new Answer() ];
 }

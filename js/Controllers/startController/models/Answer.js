@@ -3,14 +3,15 @@ var Condition = require('./Condition');
 var ConditionText = require('./ConditionText');
 var Conformity = require('./Conformity');
 
-module.exports = function(){
-	this.uuid = UUID.generate();
-	this.text = '';
-	this.weight = '';
-	this.height = 20;
-	this.width = 1;
-	this.img = null;
-	this.conditions = [ new Condition() ];
-	this.conditionsText = [ new ConditionText() ];
-	this.conformities = [ new Conformity() ];
+module.exports = function(args){
+	var args = args || {};
+	this.uuid = args.uuid || UUID.generate();
+	this.text = args.text || '';
+	this.weight = args.weight || '';
+	this.height = args.height || 20;
+	this.width = args.width || 1;
+	this.img = args.img || null;
+	this.conditions = args.conditions || [new Condition()];
+	this.conditionsText = args.conditionsText || [new ConditionText()];
+	this.conformities = args.conformities || [new Conformity()];
 }

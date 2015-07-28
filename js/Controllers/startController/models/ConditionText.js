@@ -1,8 +1,10 @@
 var UUID = require('../../../utils/UUID');
 var SubAnswer = require('../utils/SubAnswer');
 
-module.exports = function(text, conditionText) {
-	this.uuid = UUID.generate();
-	this.text = text || '';
-	this.condition =  conditionText || SubAnswer.conditionsText.keys.equal;
+module.exports = function(args) {
+	var args = args || {};
+	this.uuid = args.uuid || UUID.generate();
+	this.text = args.text || '';
+	this.condition = args.condition || SubAnswer.conditionsText.keys.equal;
 }
+

@@ -12,7 +12,7 @@ module.exports = {
             //imitatation loading
             setTimeout(function(){
                 resolve(Storage.getItem('question'));
-            }, 5100);
+            }, 100);
         });
     },
 

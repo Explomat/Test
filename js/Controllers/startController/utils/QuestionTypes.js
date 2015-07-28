@@ -2,7 +2,7 @@ var keyMirror = require('react/lib/keyMirror');
 
 var QuiestionTypes = {
 
-	values:{
+	values: {
 		'multiple_choice':'Единственный выбор',
 		'multiple_response':'Множественный выбор',
 		'order':'Ранжирование',
@@ -11,7 +11,7 @@ var QuiestionTypes = {
 		'match_item':'Цифровой ввод'
 	},
 
-	keys:keyMirror({
+	keys: keyMirror({
 		'multiple_choice':null,
 		'multiple_response':null,
 		'order':null,
@@ -20,7 +20,7 @@ var QuiestionTypes = {
 		'match_item':null
 	}),
 
-	toArray:function() {
+	toArray: function() {
 		return (Object.keys(this.values).map(function(key){
 			var obj = {};
 			Object.defineProperty(obj, key,{
