@@ -123,7 +123,6 @@ var SelectQuestionType = React.createClass({
 	handleBlurTypes:function() {
 		if (this.state.display === true)
 			this.setState({display: false});
-		//QuestionActions.displayTypes(false);
 	},
 
 	handleDisplayTypes:function(e) {
@@ -138,7 +137,6 @@ var SelectQuestionType = React.createClass({
 	},
 
 	render: function() {
-		console.log("test");
 		var isTypeDisplayStyle = { display: this.state.display ? "block" : "none" };
 		var list = [];
 		Object.keys(QuestionTypes.values).forEach(function(k, count){

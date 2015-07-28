@@ -8,9 +8,11 @@ module.exports = {
     getQuestionData: function() {
         return new Promise(function(resolve, reject){
             QuestionData.init();
+
+            //imitatation loading
             setTimeout(function(){
                 resolve(Storage.getItem('question'));
-            }, 100);
+            }, 5100);
         });
     },
 
@@ -21,7 +23,7 @@ module.exports = {
             try { xmlHttp = new ActiveXObject("Microsoft.XMLHTTP"); }
             catch (err) { xmlHttp = false; }
         }
-        if (!xmlHttp && typeof XMLHttpRequest!='undefined')
+        if (!xmlHttp && typeof(XMLHttpRequest) != 'undefined')
             xmlHttp = new XMLHttpRequest();
         return xmlHttp;
     },

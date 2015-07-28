@@ -1,6 +1,6 @@
 var UUID = require('../../../utils/UUID');
 
-module.exports = function(){
+module.exports = function(text){
 	this.uuid = UUID.generate();
-	this.text = '';
+	this.text = text || '';
 }

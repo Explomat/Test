@@ -1,6 +1,14 @@
 var storage = require('../../utils/Storage');
+var Question = require('./models/Question');
 
 module.exports = {
+	init: function () {
+		storage.clear();
+		storage.setItem('question', new Question());
+	}
+}
+
+/*module.exports = {
 	init: function () {
 		storage.clear();
 		storage.setItem('question', {
@@ -89,4 +97,4 @@ module.exports = {
 			]
 		});
 	}
-};
+};*/

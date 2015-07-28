@@ -8,7 +8,7 @@ var url = {
 			return '&'.concat(k).concat('=').concat(obj[k]);
 		}).join(''));
 	}
-},
+}
 
 icons = {
 	loading: 'react/Tests/build/img/loading.gif'

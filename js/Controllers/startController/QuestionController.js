@@ -7,12 +7,11 @@ function QuestionController() {
 	var QuestionAPI = require('./utils/QuestionAPI');
 	var QuestionView = require('../../../js/jsx/QuestionView');
 
-	QuestionAPI.getQuestionData().then(function(data){
-		QuestionActions.receiveQuestion(data);
-	});
-
 	this.start = function() {
-		React.render(React.createElement(QuestionView), app);
+		QuestionAPI.getQuestionData().then(function(data){
+			QuestionActions.receiveQuestion(data);
+			React.render(React.createElement(QuestionView), app);
+		});
 	}
 }
 
