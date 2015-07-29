@@ -1,5 +1,5 @@
 var Promise = require('es6-promise').Promise;
-var QuestionData = require('../Controllers/startController/QuestionData');
+var QuestionData = require('../data/QuestionData');
 var Storage = require('./Storage');
 var AJAX_TIME_OVER = 10000;
 

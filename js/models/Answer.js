@@ -1,4 +1,4 @@
-var UUID = require('../../../utils/UUID');
+var UUID = require('../utils/UUID');
 var Condition = require('./Condition');
 var ConditionText = require('./ConditionText');
 var Conformity = require('./Conformity');

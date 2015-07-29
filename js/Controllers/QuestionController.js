@@ -3,9 +3,9 @@ function QuestionController() {
 	var app = document.getElementById('app');
 	React.unmountComponentAtNode(app);
 
-	var QuestionActions = require('./actions/QuestionActions');
-	var QuestionAPI = require('./utils/QuestionAPI');
-	var QuestionView = require('../../../js/jsx/QuestionView');
+	var QuestionActions = require('../actions/QuestionActions');
+	var QuestionAPI = require('../utils/QuestionAPI');
+	var QuestionView = require('../jsx/QuestionView');
 
 	this.start = function() {
 		QuestionAPI.getQuestionData().then(function(data){

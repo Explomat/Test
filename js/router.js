@@ -27,7 +27,7 @@ function Router() {
     function loadController(controllerName, callBack){
         if (callBack) callBack();
         if (controllerName == 'QuestionController'){
-            require('./Controllers/startController/QuestionController').start();
+            require('./controllers/QuestionController').start();
         }
 
         /*require(['controllers/' + controllerName], function(controller){

@@ -1,4 +1,4 @@
-var UUID = require('../../../utils/UUID');
+var UUID = require('../utils/UUID');
 
 module.exports = function(args){
 	var args = args || {};

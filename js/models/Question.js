@@ -1,8 +1,8 @@
-var UUID = require('../../../utils/UUID');
+var UUID = require('../utils/UUID');
 var Answer = require('./Answer');
 var QuestionTypes = require('../utils/QuestionTypes');
 
-module.exports = function(args){
+function Question(args){
 	var args = args || {};
 	this.uuid = args.uuid || UUID.generate();
 	this.title = args.title || 'Temp';
@@ -11,3 +11,5 @@ module.exports = function(args){
 	this.img = args.img || null;
 	this.answers = args.answers || [ new Answer() ];
 }
+
+module.exports = Question;

@@ -1,5 +1,5 @@
-var storage = require('../../utils/Storage');
-var Question = require('./models/Question');
+var storage = require('../utils/Storage');
+var Question = require('../models/Question');
 
 module.exports = {
 	init: function () {

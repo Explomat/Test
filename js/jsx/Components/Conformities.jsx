@@ -1,5 +1,5 @@
 var React = require('react');
-var AnswerActions = require('../../Controllers/startController/actions/AnswerActions');
+var AnswerActions = require('../../actions/AnswerActions');
 var TextView = require('./Text').TextView;
 
 var Conformity = React.createClass({

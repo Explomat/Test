@@ -1,5 +1,5 @@
-var Router = require('./router.js');
-var UI = require('./utils/UI.js');
+var Router = require('./router');
+var UI = require('./utils/UI');
 
 Router.startRouting(function(){
   var curElem = UI.getElementByHash('app-container', window.location.hash);

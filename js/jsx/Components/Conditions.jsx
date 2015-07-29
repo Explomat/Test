@@ -1,6 +1,6 @@
-var React = require('../../../node_modules/react/react');
-var AnswerActions = require('../../Controllers/startController/actions/AnswerActions');
-var SubAnswer = require('../../Controllers/startController/utils/SubAnswer');
+var React = require('react');
+var AnswerActions = require('../../actions/AnswerActions');
+var SubAnswer = require('../../utils/SubAnswer');
 var TextView = require('./Text').TextView;
 var Validation = require('../../utils/Validation');
 

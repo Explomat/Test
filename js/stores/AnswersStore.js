@@ -2,8 +2,8 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var AnswerConstants = require('../constants/AnswerConstants');
 var ServerConstants = require('../constants/ServerConstants');
-var UUID = require('../../../utils/UUID');
-var array = require('../../../utils/Array');
+var UUID = require('../utils/UUID');
+var array = require('../utils/Array');
 
 var Answer = require('../models/Answer');
 var Condition = require('../models/Condition');
