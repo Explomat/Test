@@ -1,5 +1,5 @@
 node_modules/
-js/jsx/.module-cache/
-js/jsx/**/*.js
+js/components/.module-cache/
+js/components/**/*.js
 build/js/bundle.js
 build/js/bundle.js.map

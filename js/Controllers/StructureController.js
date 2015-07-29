@@ -3,7 +3,7 @@ var QuestionActions = require('../actions/QuestionActions');
 var QuestionAPI = require('../utils/QuestionAPI');
 var QuestionView = require('../components/QuestionView');
 
-function QuestionController() {
+function StructureController() {
 	var app = document.getElementById('app');
 	React.unmountComponentAtNode(app);
 
@@ -15,4 +15,4 @@ function QuestionController() {
 	}
 }
 
-module.exports = new QuestionController();
+module.exports = new StructureController();

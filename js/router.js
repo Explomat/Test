@@ -1,7 +1,7 @@
 ﻿
 function Router() {
-    var routes = [{hash:'#settings', controller:'QuestionController'},
-                {hash:'#setting', controller:'QuestionController'},
+    var routes = [{hash:'#settings', controller:'StructureController'},
+                {hash:'#setting', controller:'StructureController'},
                 {hash:'#settin', controller:'QuestionController'}];
     var defaultRoute = '#settings';
     var currentHash = '';
@@ -28,6 +28,9 @@ function Router() {
         if (callBack) callBack();
         if (controllerName == 'QuestionController'){
             require('./controllers/QuestionController').start();
+        }
+        else if (controllerName == 'StructureController'){
+            require('./controllers/StructureController').start();
         }
 
         /*require(['controllers/' + controllerName], function(controller){
