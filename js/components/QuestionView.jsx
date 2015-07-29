@@ -5,8 +5,8 @@ var QuestionActions = require('../actions/QuestionActions');
 var AnswerActions = require('../actions/AnswerActions');
 var QuestionTypes = require('../utils/QuestionTypes');
 var Answer = require('./AnswersView');
-var Txt = require('./Components/Text');
-var ImageSelect = require('./Components/ImageSelect');
+var Txt = require('./modules/Text');
+var ImageSelect = require('./modules/ImageSelect');
 
 function getQuestionState() {
 	return {

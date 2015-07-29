@@ -5,7 +5,7 @@ function QuestionController() {
 
 	var QuestionActions = require('../actions/QuestionActions');
 	var QuestionAPI = require('../utils/QuestionAPI');
-	var QuestionView = require('../jsx/QuestionView');
+	var QuestionView = require('../components/QuestionView');
 
 	this.start = function() {
 		QuestionAPI.getQuestionData().then(function(data){

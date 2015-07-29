@@ -1,13 +1,13 @@
 var React = require('react');
-var TextView = require('./Components/Text').TextView;
-var TextAreaView = require('./Components/Text').TextAreaView;
-var ImageSelect = require('./Components/ImageSelect');
+var TextView = require('./modules/Text').TextView;
+var TextAreaView = require('./modules/Text').TextAreaView;
+var ImageSelect = require('./modules/ImageSelect');
 var AnswerActions = require('../actions/AnswerActions');
 var AnswersStore = require('../stores/AnswersStore');
 var Validation = require('../utils/Validation');
-var Conditions = require('./Components/Conditions').Conditions;
-var ConditionsText = require('./Components/Conditions').ConditionsText;
-var Conformities = require('./Components/Conformities');
+var Conditions = require('./modules/Conditions').Conditions;
+var ConditionsText = require('./modules/Conditions').ConditionsText;
+var Conformities = require('./modules/Conformities');
 
 var Answer = {
 
