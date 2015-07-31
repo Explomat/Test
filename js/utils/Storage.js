@@ -1,4 +1,3 @@
-	
 function Storage() {
 	var _storage = window.sessionStorage || window.localStorage;
 	var _root = 'tests';
@@ -21,7 +20,7 @@ function Storage() {
 			throw new Error('Local storage not supported in your browser!');
 
 		var root = _storage.getItem(_root);
-		root = root ? JSON.parse(root): {};
+		root = root ? JSON.parse(root) : Object.create(null) || {};
 
 		return root[key];
 	}
@@ -31,7 +30,7 @@ function Storage() {
 			throw new Error('Local storage not supported in your browser!');
 
 		var root = _storage.getItem(_root);
-		root = root ? JSON.parse(root): {};
+		root = root ? JSON.parse(root) : Object.create(null) || {};
 
 		root[key] = value;
 		_storage.setItem(_root, JSON.stringify(root));

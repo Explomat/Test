@@ -1,5 +1,6 @@
 var Promise = require('es6-promise').Promise;
 var QuestionData = require('../data/QuestionData');
+var StructureData = require('../data/StructureData');
 var Storage = require('./Storage');
 var AJAX_TIME_OVER = 10000;
 
@@ -12,6 +13,27 @@ module.exports = {
             //imitatation loading
             setTimeout(function(){
                 resolve(Storage.getItem('question'));
+            }, 100);
+        });
+    },
+
+    saveQuestionData: function(data) {
+        return new Promise(function(resolve, reject){
+            //imitatation loading
+            setTimeout(function(){
+                Storage.setItem('question', data);
+                resolve();
+            }, 100);
+        });
+    },
+
+    getStructureData: function() {
+        return new Promise(function(resolve, reject){
+            StructureData.init();
+
+            //imitatation loading
+            setTimeout(function(){
+                resolve(Storage.getItem('structure'));
             }, 100);
         });
     },

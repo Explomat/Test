@@ -7,6 +7,10 @@ module.exports = {
 		return Ajax.getQuestionData();
 	},
 
+	saveQuestionData: function(data) {
+		return Ajax.saveQuestionData(data);
+	},
+
 	//eventTarget - DOM input for FileAPI
 	uploadImage: function(eventTarget){
 		return Ajax.uploadFiles(eventTarget, Config.url.createPath({action_name: 'uploadFile'}));

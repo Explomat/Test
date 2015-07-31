@@ -8,7 +8,7 @@
     "deploy": "uglifyjs build/js/bundle.js --source-map build/js/bundle.js.map",
     "deploytd": "uglifyjs build/js/bundle.js -o build/js/bundle.min.js",
     "build": "browserify js/main.js -d | uglifyjs -mc > build/js/bundle.js",
-    "build-jsx": "jsx js/jsx --extension jsx js/jsx"
+    "build-jsx": "jsx js/components --extension jsx js/components"
   },
   "dependencies": {
     "es6-promise": "^2.3.0",

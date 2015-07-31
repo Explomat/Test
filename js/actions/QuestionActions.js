@@ -7,8 +7,16 @@ var QuestionActions = {
 
 	receiveQuestion: function(data) {
 		AppDispatcher.handleData({
-			actionType: ServerConstants.RECEIVE_DATA,
+			actionType: ServerConstants.RECEIVE_QUESTION_DATA,
 			data: data
+		});
+	},
+
+	saveQuestion: function(data){
+		QuestionAPI.saveQuestionData(data).then(function(){
+			AppDispatcher.handleData({
+				actionType: ServerConstants.SAVE_QUESTION_DATA
+			});
 		});
 	},
 
@@ -53,7 +61,6 @@ var QuestionActions = {
 			AppDispatcher.handleData({
 				actionType: ServerConstants.REMOVE_QUESTION_IMAGE
 			});
-			
 		}, function(err) {
 			AppDispatcher.handleData({
 				actionType: ServerConstants.REMOVE_QUESTION_ERROR_IMAGE,

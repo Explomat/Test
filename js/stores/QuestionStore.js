@@ -13,6 +13,10 @@ function loadQuestionData(data) {
 	AnswersStore.setAnswers(data.answers);
 }
 
+function saveQuestionData(){
+	_question = null;
+}
+
 function setTitle(title) {
 	_question.title = title;
 }
@@ -45,6 +49,18 @@ function removeImg(){
 }
 
 var QuestionStore = extend({}, EventEmitter.prototype, {
+
+	getQuestion: function(){
+		/*var a;
+		try {
+			a = Object.create(null, _question);
+		}
+		catch(e){
+			console.log(e);
+		}*/
+		
+		return _question;
+	},
 
 	getTitle: function(){
 		return _question.title;
@@ -80,7 +96,7 @@ QuestionStore.dispatchToken = AppDispatcher.register(function(payload) {
 
 	switch(action.actionType) {
 
-		case ServerConstants.RECEIVE_DATA:
+		case ServerConstants.RECEIVE_QUESTION_DATA:
 			loadQuestionData(action.data);
 			break;
 		case QuestionConstants.SET_TYPE_SELECTED:
@@ -104,6 +120,9 @@ QuestionStore.dispatchToken = AppDispatcher.register(function(payload) {
 			break;
 		case ServerConstants.REMOVE_QUESTION_ERROR_IMAGE:
 			errorImg(action.err);
+			break;
+		case ServerConstants.SAVE_QUESTION_DATA:
+			saveQuestionData(action.err);
 			break;
 		default:
 			return true;
