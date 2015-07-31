@@ -1,7 +1,7 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var AnswerConstants = require('../constants/AnswerConstants');
 var ServerConstants = require('../constants/ServerConstants');
-var QuestionAPI = require('../utils/QuestionAPI');
+var QuestionAPI = require('../api/QuestionAPI');
 
 var AnswerActions = {
 

@@ -1,6 +1,6 @@
 var React = require('react');
 var QuestionActions = require('../actions/QuestionActions');
-var QuestionAPI = require('../utils/QuestionAPI');
+var QuestionAPI = require('../api/QuestionAPI');
 var QuestionView = require('../components/QuestionView');
 
 function QuestionController() {

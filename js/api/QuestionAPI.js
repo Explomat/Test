@@ -1,5 +1,5 @@
 var Config = require('../config');
-var Ajax = require('./Ajax');
+var Ajax = require('../utils/Ajax');
 
 module.exports = {
 
