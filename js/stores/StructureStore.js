@@ -12,8 +12,8 @@ function loadStructureData(data) {
 
 var StructureStore = extend({}, EventEmitter.prototype, {
 	
-	getData: function(){
-		return _structure;
+	getSections: function(){
+		return _structure.sections;
 	},
 
 	emitChange: function() {

@@ -4,7 +4,8 @@ var Structure = require('../models/Structure');
 module.exports = {
 	init: function () {
 		//storage.clear();
-		storage.setItem('structure', new Structure());
+		var structure = storage.getItem('structure');
+		storage.setItem('structure', new Structure(structure));
 	}
 }
 
