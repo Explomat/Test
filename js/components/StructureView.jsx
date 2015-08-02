@@ -1,5 +1,6 @@
 var React = require('react');
 var StructureStore = require('../stores/StructureStore');
+var StructureActions = require('../actions/StructureActions');
 
 function getStructureState() {
 	return {
@@ -20,16 +21,24 @@ var QuestionShortView = React.createClass({
 var SectionView = React.createClass({
 
 	handleAddQuestion: function(){
+		window.location.hash = '#settin';
+	},
 
+	handleRemoveSection: function(){
+		console.log(this.props.uuid);
+		StructureActions.removeSection(this.props.uuid);
 	},
 
 	render: function() {
 		return (
 			<div>
 				<span>{this.props.name}</span>
-				<div className="pull-right">
-					<button type="button" className="btn btn-default btn-xs" onClick={this.handleAddQuestion}>
+				<div className="btn-group btn-group-xs pull-right">
+					<button title="Добавить вопрос" type="button" className="btn btn-default" onClick={this.handleAddQuestion}>
 						<span className="glyphicon glyphicon-plus"></span>
+					</button>
+					<button title="Удалить раздел" type="button" className="btn btn-default" onClick={this.handleRemoveSection}>
+						<span className="glyphicon glyphicon-remove"></span>
 					</button>
 				</div>
 				<div>
@@ -44,16 +53,21 @@ var SectionView = React.createClass({
 
 var StructureView = React.createClass({
 
-	componentDidMount:function() {
+	componentDidMount: function() {
 		StructureStore.addChangeListener(this._onChange);
 	},
 
-	componentWillUnmount:function() {
+	componentWillUnmount: function() {
 		StructureStore.removeChangeListener(this._onChange);
 	},
 
-	_onChange:function() {
+	_onChange: function() {
 		this.setState(getStructureState());
+	},
+
+	handleAddSection: function(){
+		console.log("handleAddSection");
+		StructureActions.addSection();
 	},
 
 	getInitialState: function () {
@@ -61,18 +75,17 @@ var StructureView = React.createClass({
 	},
 
 	render:function () {
-		console.log(this.state.sections);
 		return (
 			<div className="panel panel-default">
 				<div className="panel-heading">
-					<button type="button" className="btn btn-default btn-sm" onClick={this.handleAddSection}>
+					<button title="Добавить раздел" type="button" className="btn btn-default btn-sm" onClick={this.handleAddSection}>
 						<span className="glyphicon glyphicon-plus"></span>
 						<span>&nbsp;Добавить раздел</span>
 					</button>
 				</div>
 				<div className="panel-body">
 					{this.state.sections.map(function(sec){
-						return <SectionView key={sec.uuid} name={sec.name} questions={sec.questions}/>;
+						return <SectionView uuid={sec.uuid} key={sec.uuid} name={sec.name} questions={sec.questions}/>;
 					})}
 				</div>
 			</div>
