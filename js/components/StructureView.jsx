@@ -11,7 +11,7 @@ var QuestionShortView = React.createClass({
 	render: function(){
 		return(
 			<div>
-				{this.props.name}
+				&nbsp;&nbsp;&nbsp;{this.props.title}
 			</div>
 		);
 	}
@@ -19,17 +19,23 @@ var QuestionShortView = React.createClass({
 
 var SectionView = React.createClass({
 
+	handleAddQuestion: function(){
+
+	},
+
 	render: function() {
-		var list = [];
-		var childs = this.props.questions || [];
-		childs.forEach(function(child){
-			list.push(<QuestionShortView key={child.uuid} name={child.name} />)
-		});
 		return (
 			<div>
-				{this.props.name}
+				<span>{this.props.name}</span>
+				<div className="pull-right">
+					<button type="button" className="btn btn-default btn-xs" onClick={this.handleAddQuestion}>
+						<span className="glyphicon glyphicon-plus"></span>
+					</button>
+				</div>
 				<div>
-					{list}
+					{this.props.questions.map(function(q){
+						return <QuestionShortView key={q.uuid} title={q.title}/>;
+					})}
 				</div>
 			</div>
 		);
@@ -55,14 +61,20 @@ var StructureView = React.createClass({
 	},
 
 	render:function () {
-		var list = [];
-		var sections = this.state.sections;
-		sections.forEach(function(sec){
-			list.push(<SectionView key={sec.uuid} name={sec.name} childs={sec.questions} />)
-		})
+		console.log(this.state.sections);
 		return (
 			<div className="panel panel-default">
-				{list}
+				<div className="panel-heading">
+					<button type="button" className="btn btn-default btn-sm" onClick={this.handleAddSection}>
+						<span className="glyphicon glyphicon-plus"></span>
+						<span>&nbsp;Добавить раздел</span>
+					</button>
+				</div>
+				<div className="panel-body">
+					{this.state.sections.map(function(sec){
+						return <SectionView key={sec.uuid} name={sec.name} questions={sec.questions}/>;
+					})}
+				</div>
 			</div>
 		);
 	}
