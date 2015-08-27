@@ -3,12 +3,13 @@
   "description": "Project automates the process of tests creation. This process allows users enter all parameters and description of yourself without administrator.",
   "author": "Matveev Savva",
   "scripts": {
-    "td": "npm run build-jsx & browserify js/main.js -d -o build/js/bundle.js & rm -rf js/jsx/{Components}/*.js & rm -rf js/jsx/*.js",
-    "temptd": "npm run build-jsx & browserify js/main.js -d -o build/js/bundle.js",
+    "td": "npm run build-jsx && browserify js/main.js -d -o build/js/bundle.js && rm -rf js/components/**/*.js & rm -rf js/components/*.js",
+    "temptd": "npm run build-jsx && browserify js/main.js -d -o build/js/bundle.js",
     "deploy": "uglifyjs build/js/bundle.js --source-map build/js/bundle.js.map",
     "deploytd": "uglifyjs build/js/bundle.js -o build/js/bundle.min.js",
     "build": "browserify js/main.js -d | uglifyjs -mc > build/js/bundle.js",
-    "build-jsx": "jsx js/components --extension jsx js/components"
+    "build-jsx": "jsx js/components --extension jsx js/components",
+    "start": "node node_modules/webserver/webserver.js"
   },
   "dependencies": {
     "es6-promise": "^2.3.0",
@@ -18,8 +19,8 @@
   },
   "devDependencies": {
     "browserify": "^10.2.4",
+    "react-tools": "^0.13.3",
     "uglify-js": "^2.4.24",
-    "webserver": "^1.1.2",
-    "react-tools": "^0.13.3"
+    "webserver": "^1.1.2"
   }
 }

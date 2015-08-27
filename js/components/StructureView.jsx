@@ -12,7 +12,7 @@ var QuestionShortView = React.createClass({
 	render: function(){
 		return(
 			<div>
-				&nbsp;&nbsp;&nbsp;{this.props.title}
+				&nbsp;&nbsp;&nbsp;<span>{this.props.title}</span>
 			</div>
 		);
 	}
@@ -25,7 +25,6 @@ var SectionView = React.createClass({
 	},
 
 	handleRemoveSection: function(){
-		console.log(this.props.uuid);
 		StructureActions.removeSection(this.props.uuid);
 	},
 
@@ -66,7 +65,6 @@ var StructureView = React.createClass({
 	},
 
 	handleAddSection: function(){
-		console.log("handleAddSection");
 		StructureActions.addSection();
 	},
 
