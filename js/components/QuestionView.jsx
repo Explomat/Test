@@ -19,14 +19,21 @@ function getQuestionState() {
 
 var Menu = React.createClass({
 
-	handleClick:function() {
+	handleAddAnswer: function() {
 		AnswerActions.addAnswer();
 	},
 
-	render:function() {
+	handleSaveQuestion: function(){
+		QuestionActions.saveQuestion(QuestionStore.getQuestion());
+	},
+
+	render: function() {
 		return (
 			<div className="pull-right">
-				<button type="button" className="btn btn-default btn-sm" onClick={this.handleClick}>
+				<button title="Сохранить вопрос" type="button" className="btn btn-default btn-sm" onClick={this.handleSaveQuestion}>
+					<span className="glyphicon glyphicon-floppy-disk"></span>
+				</button>
+				<button type="button" className="btn btn-default btn-sm" onClick={this.handleAddAnswer}>
 					<span className="glyphicon glyphicon-plus"></span>
 					<span>&nbsp;Добавить ответ</span>
 				</button>
