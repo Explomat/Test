@@ -2,9 +2,14 @@ var storage = require('../utils/Storage');
 var Question = require('../models/Question');
 
 module.exports = {
+
+	create: function(){
+		storage.setItem('question', new Question());
+	},
+
 	init: function () {
 		//storage.clear();
-		storage.setItem('question', new Question());
+		
 	}
 }
 

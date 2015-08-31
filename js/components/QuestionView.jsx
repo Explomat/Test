@@ -23,16 +23,9 @@ var Menu = React.createClass({
 		AnswerActions.addAnswer();
 	},
 
-	handleSaveQuestion: function(){
-		QuestionActions.saveQuestion(QuestionStore.getQuestion());
-	},
-
 	render: function() {
 		return (
 			<div className="pull-right">
-				<button title="Сохранить вопрос" type="button" className="btn btn-default btn-sm" onClick={this.handleSaveQuestion}>
-					<span className="glyphicon glyphicon-floppy-disk"></span>
-				</button>
 				<button type="button" className="btn btn-default btn-sm" onClick={this.handleAddAnswer}>
 					<span className="glyphicon glyphicon-plus"></span>
 					<span>&nbsp;Добавить ответ</span>
@@ -187,7 +180,11 @@ var QuestionView = React.createClass({
 		return getQuestionState();
 	},
 
-	render:function () {
+	handleSaveQuestion: function(){
+		QuestionActions.saveQuestion(QuestionStore.getQuestion());
+	},
+
+	render: function () {
 		var answers = [];
 		var qType = QuestionStore.getTypeSelected();
 		this.state.answers.forEach(function(ans, i){
@@ -206,16 +203,25 @@ var QuestionView = React.createClass({
 				answers.push(answer);
 		});
 		return (
-			<div className="panel panel-default">
-				<div className="panel-heading">
-					<Title title={this.state.title} />
-					<QuestionImage />
-			        <QuestionText text={this.state.text} />
-			        <Menu />
-			        <SelectQuestionType type={this.state.type}/>
-				</div>
-				<div className="panel-body answers">
-			        {answers}
+			<div className="modal fade">
+				<div className="modal-dialog">
+					<div className="modal-content">
+						<div className="modal-header">
+							<button type="button" className="close">&times;</button>
+        					<h4 className="modal-title">Добавьте вопрос</h4>
+						</div>
+						<div className="modal-body answers">
+							<Title title={this.state.title} />
+							<QuestionImage />
+					        <QuestionText text={this.state.text} />
+					        <Menu />
+					        <SelectQuestionType type={this.state.type}/>
+					        {answers}
+						</div>
+						<div className="modal-footer">
+					        <button type="button" className="btn btn-default" onClick={this.handleSaveQuestion}>Добавить</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		);

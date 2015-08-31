@@ -8,7 +8,7 @@ module.exports = {
 
     getQuestionData: function() {
         return new Promise(function(resolve, reject){
-            QuestionData.init();
+            QuestionData.create();
 
             //imitatation loading
             setTimeout(function(){

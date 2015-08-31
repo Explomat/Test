@@ -15,4 +15,4 @@ function StructureController() {
 	}
 }
 
-module.exports = new StructureController();
+module.exports = StructureController;

@@ -26,11 +26,16 @@ function Router() {
     
     function loadController(controllerName, callBack){
         if (callBack) callBack();
-        if (controllerName == 'QuestionController'){
-            require('./controllers/QuestionController').start();
-        }
-        else if (controllerName == 'StructureController'){
-            require('./controllers/StructureController').start();
+
+        var Controller = null;
+        if (controllerName == 'QuestionController')
+            Controller = require('./controllers/QuestionController');
+        else if (controllerName == 'StructureController')
+            Controller = require('./controllers/StructureController');
+
+        if (Controller){
+            var controller = new Controller();
+            controller.start();
         }
 
         /*require(['controllers/' + controllerName], function(controller){

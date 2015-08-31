@@ -3,6 +3,10 @@ var Ajax = require('../utils/Ajax');
 
 module.exports = {
 
+	createNewQuestion: function(){
+		
+	},
+
 	getQuestionData: function() {
 		return Ajax.getQuestionData();
 	},
@@ -11,7 +15,7 @@ module.exports = {
 		return Ajax.saveQuestionData(data);
 	},
 
-	//eventTarget - DOM input for FileAPI
+	//eventTarget - DOM input tag for FileAPI
 	uploadImage: function(eventTarget){
 		return Ajax.uploadFiles(eventTarget, Config.url.createPath({action_name: 'uploadFile'}));
 	},

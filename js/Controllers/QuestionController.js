@@ -15,4 +15,4 @@ function QuestionController() {
 	}
 }
 
-module.exports = new QuestionController();
+module.exports = QuestionController;

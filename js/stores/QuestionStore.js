@@ -51,14 +51,6 @@ function removeImg(){
 var QuestionStore = extend({}, EventEmitter.prototype, {
 
 	getQuestion: function(){
-		/*var a;
-		try {
-			a = Object.create(null, _question);
-		}
-		catch(e){
-			console.log(e);
-		}*/
-		
 		return _question;
 	},
 

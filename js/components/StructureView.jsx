@@ -1,6 +1,7 @@
 var React = require('react');
 var StructureStore = require('../stores/StructureStore');
 var StructureActions = require('../actions/StructureActions');
+var QuestionView = require('./QuestionView');
 
 function getStructureState() {
 	return {
@@ -20,8 +21,9 @@ var QuestionShortView = React.createClass({
 
 var SectionView = React.createClass({
 
-	handleAddQuestion: function(){
-		window.location.hash = '#settin';
+	handleDisplayNewQuestion: function(){
+		if (this.props.handleDisplayNewQuestion)
+			this.props.handleDisplayNewQuestion(this.props.uuid);
 	},
 
 	handleRemoveSection: function(){
@@ -33,7 +35,7 @@ var SectionView = React.createClass({
 			<div>
 				<span>{this.props.name}</span>
 				<div className="btn-group btn-group-xs pull-right">
-					<button title="Добавить вопрос" type="button" className="btn btn-default" onClick={this.handleAddQuestion}>
+					<button title="Добавить вопрос" type="button" className="btn btn-default" onClick={this.handleDisplayNewQuestion}>
 						<span className="glyphicon glyphicon-plus"></span>
 					</button>
 					<button title="Удалить раздел" type="button" className="btn btn-default" onClick={this.handleRemoveSection}>
@@ -64,19 +66,30 @@ var StructureView = React.createClass({
 		this.setState(getStructureState());
 	},
 
-	handleAddSection: function(){
+	handleAddNewSection: function(){
 		StructureActions.addSection();
 	},
 
-	getInitialState: function () {
-		return getStructureState();
+	handleCloseNewQuestion: function(){
+		this.setState({isDisplayQuestion: false});
 	},
 
-	render:function () {
+	handleDisplayNewQuestion: function(uuid){
+		this.setState({isDisplayQuestion: true});
+	},
+
+	getInitialState: function () {
+		var structureState = getStructureState();
+		structureState.isDisplayQuestion = false;
+		return structureState;
+	},
+
+	render: function () {
+		var isDisplayQuestion = { display : this.state.isDisplayQuestion ? 'block' : 'none' }
 		return (
 			<div className="panel panel-default">
 				<div className="panel-heading">
-					<button title="Добавить раздел" type="button" className="btn btn-default btn-sm" onClick={this.handleAddSection}>
+					<button title="Добавить раздел" type="button" className="btn btn-default btn-sm" onClick={this.handleAddNewSection}>
 						<span className="glyphicon glyphicon-plus"></span>
 						<span>&nbsp;Добавить раздел</span>
 					</button>
@@ -85,6 +98,9 @@ var StructureView = React.createClass({
 					{this.state.sections.map(function(sec){
 						return <SectionView uuid={sec.uuid} key={sec.uuid} name={sec.name} questions={sec.questions}/>;
 					})}
+				</div>
+				<div style={isDisplayQuestion}>
+					<QuestionView sectionUUID={} onClose={this.handleCloseNewQuestion} />
 				</div>
 			</div>
 		);
