@@ -80,20 +80,21 @@ var StructureView = React.createClass({
 
 	render: function () {
 		return (
-			<div className="panel panel-default">
-				<div className="panel-heading">
-					<button title="Добавить раздел" type="button" className="btn btn-default btn-sm" onClick={this.handleAddNewSection}>
-						<span className="glyphicon glyphicon-plus"></span>
-						<span>&nbsp;Добавить раздел</span>
-					</button>
+			<div>
+				<div className="panel panel-default">
+					<div className="panel-heading">
+						<button title="Добавить раздел" type="button" className="btn btn-default btn-sm" onClick={this.handleAddNewSection}>
+							<span className="glyphicon glyphicon-plus"></span>
+							<span>&nbsp;Добавить раздел</span>
+						</button>
+					</div>
+					<div className="panel-body">
+						{this.state.sections.map(function(sec){
+							return <SectionView uuid={sec.uuid} key={sec.uuid} name={sec.name} questions={sec.questions}/>;
+						})}
+					</div>
 				</div>
-				<div className="panel-body">
-					{this.state.sections.map(function(sec){
-						return <SectionView uuid={sec.uuid} key={sec.uuid} name={sec.name} questions={sec.questions}/>;
-					})}
-				</div>
-				<div id="add_question">
-				</div>
+				<div id="add_question"></div>
 			</div>
 		);
 	}
