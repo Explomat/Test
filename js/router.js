@@ -1,17 +1,21 @@
-﻿
+﻿var instance = null;
+
 function Router(config) {
+    if (instance) {
+      return instance;
+    }
+
 	var config = config || {};
     var routes = [], currentHash = '';
-    var callBack = config.callBack || function(){};
-    var defaultRoute = ('#' + config.defaultRoute) || '#';
+    var callBack = config.callBack || function(){};  //callBack - function called each time when hash changed and controller is loaded
+    var defaultRoute = config.defaultRoute || '/';
     var interval = config.interval || 100;
 
     this.addRoute = function(route, callBack){
-    	routes.push({route: '#' + route, callBack: callBack});
+    	routes.push({route: route, callBack: callBack});
     	return this;
     }
     
-    //callBack - function called each time when hash changed and controller is loaded
     this.startRouting = function(){
         window.location.hash = window.location.hash || defaultRoute;
         clearInterval(this.intervalId);
@@ -24,13 +28,11 @@ function Router(config) {
     		if (currentRoute.route == route){
     			if (callBack) callBack();
     			currentRoute.callBack(args);
-    			break;
     		}
     	}
     }
     
     function hashCheck(){
-    	console.log(1);
         if (window.location.hash != currentHash){
             for (var i = 0, currentRoute; currentRoute = routes[i++];){
                 if (window.location.hash == currentRoute.route){
@@ -41,6 +43,8 @@ function Router(config) {
             currentHash = window.location.hash;
         }
     }
+
+    instance = this;
 }
 
 module.exports = Router;

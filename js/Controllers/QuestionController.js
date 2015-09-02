@@ -4,7 +4,7 @@ var QuestionAPI = require('../api/QuestionAPI');
 var QuestionView = require('../components/QuestionView');
 
 function QuestionController() {
-	var app = document.getElementById('app');
+	var app = document.getElementById('add_question');
 	React.unmountComponentAtNode(app);
 
 	this.start = function() {
