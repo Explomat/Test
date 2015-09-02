@@ -100,7 +100,7 @@ var StructureView = React.createClass({
 					})}
 				</div>
 				<div style={isDisplayQuestion}>
-					<QuestionView sectionUUID={} onClose={this.handleCloseNewQuestion} />
+					<QuestionView onClose={this.handleCloseNewQuestion} />
 				</div>
 			</div>
 		);
