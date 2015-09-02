@@ -4,7 +4,7 @@ var StructureAPI = require('../api/StructureAPI');
 var StructureView = require('../components/StructureView');
 
 function StructureController() {
-	var app = document.getElementById('app');
+	var app = document.getElementById('app') || document.body;
 	React.unmountComponentAtNode(app);
 
 	this.start = function() {

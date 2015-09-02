@@ -11,10 +11,10 @@ var Router = new _Router({ defaultRoute: '#settings', interval: 100, callBack: f
 Router.addRoute('#settings', function(){
 	var Controller = require('./controllers/QuestionController');
 	var controller = new Controller();
-	controller.start();
+	controller.start(arguments[0]);
 }).
 addRoute('#structure', function(){
 	var Controller = require('./controllers/StructureController');
 	var controller = new Controller();
-	controller.start();
+	controller.start(arguments[0]);
 }).startRouting();

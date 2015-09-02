@@ -7,10 +7,10 @@ function QuestionController() {
 	var app = document.getElementById('add_question') || document.body;
 	React.unmountComponentAtNode(app);
 
-	this.start = function() {
+	this.start = function(args) {
 		QuestionAPI.getQuestionData().then(function(data){
 			QuestionActions.receiveQuestion(data);
-			React.render(React.createElement(QuestionView), app);
+			React.render(React.createElement(QuestionView, args), app);
 		});
 	}
 }
