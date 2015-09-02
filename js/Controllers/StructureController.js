@@ -12,6 +12,7 @@ function StructureController() {
 			StructureActions.receiveStructure(data);
 			React.render(React.createElement(StructureView), app);
 		});
+		
 	}
 }
 

@@ -1,8 +1,20 @@
-var Router = require('./router');
+var _Router = require('./router');
 var UI = require('./utils/UI');
 
-Router.startRouting(function(){
-  var curElem = UI.getElementByHash('app-container', window.location.hash);
-  if (curElem)
-    UI.toggleList(curElem, 'active');
+var Router = new _Router({ defaultRoute: '#settings', interval: 100, callBack: function(){
+	  var curElem = UI.getElementByHash('app-container', window.location.hash);
+	  if (curElem)
+	    UI.toggleList(curElem, 'active');
+	}
 });
+
+Router.addRoute('#settings', function(){
+	var Controller = require('./controllers/QuestionController');
+	var controller = new Controller();
+	controller.start();
+}).
+addRoute('#structure', function(){
+	var Controller = require('./controllers/StructureController');
+	var controller = new Controller();
+	controller.start();
+}).startRouting();

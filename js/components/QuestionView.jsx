@@ -203,7 +203,7 @@ var QuestionView = React.createClass({
 				answers.push(answer);
 		});
 		return (
-			<div className="modal fade">
+			<div className="">
 				<div className="modal-dialog">
 					<div className="modal-content">
 						<div className="modal-header">

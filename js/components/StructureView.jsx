@@ -22,8 +22,11 @@ var QuestionShortView = React.createClass({
 var SectionView = React.createClass({
 
 	handleDisplayNewQuestion: function(){
-		if (this.props.handleDisplayNewQuestion)
-			this.props.handleDisplayNewQuestion(this.props.uuid);
+		var _Router = require('../router');
+		var Router = new _Router();
+		Router.navigate('#settings', {sectionUUID: this.props.uuid});
+		//if (this.props.handleDisplayNewQuestion)
+		//	this.props.handleDisplayNewQuestion(this.props.uuid);
 	},
 
 	handleRemoveSection: function(){
@@ -70,22 +73,12 @@ var StructureView = React.createClass({
 		StructureActions.addSection();
 	},
 
-	handleCloseNewQuestion: function(){
-		this.setState({isDisplayQuestion: false});
-	},
-
-	handleDisplayNewQuestion: function(uuid){
-		this.setState({isDisplayQuestion: true});
-	},
-
 	getInitialState: function () {
 		var structureState = getStructureState();
-		structureState.isDisplayQuestion = false;
 		return structureState;
 	},
 
 	render: function () {
-		var isDisplayQuestion = { display : this.state.isDisplayQuestion ? 'block' : 'none' }
 		return (
 			<div className="panel panel-default">
 				<div className="panel-heading">
@@ -99,8 +92,7 @@ var StructureView = React.createClass({
 						return <SectionView uuid={sec.uuid} key={sec.uuid} name={sec.name} questions={sec.questions}/>;
 					})}
 				</div>
-				<div style={isDisplayQuestion}>
-					<QuestionView onClose={this.handleCloseNewQuestion} />
+				<div id="add_question">
 				</div>
 			</div>
 		);
