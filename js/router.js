@@ -1,4 +1,5 @@
-﻿var instance = null;
+﻿var Event = require('./utils/Event');
+var instance = null;
 
 function Router(config) {
     if (instance) {
@@ -18,8 +19,15 @@ function Router(config) {
     
     this.startRouting = function(){
         window.location.hash = window.location.hash || defaultRoute;
-        clearInterval(this.intervalId);
-        this.intervalId = setInterval(hashCheck, interval);
+        if ("onhashchange" in window) {
+            Event.add(window, 'hashchange', hashCheck);
+            //window.addEventListener("hashchange", hashCheck, false);
+            hashCheck();
+        }
+        else {
+            clearInterval(this.intervalId);
+            this.intervalId = setInterval(hashCheck, interval);
+        }
         return this;
     }
 
@@ -30,6 +38,7 @@ function Router(config) {
     			currentRoute.callBack(args);
     		}
     	}
+        return this;
     }
     
     function hashCheck(){
