@@ -1,4 +1,5 @@
 var React = require('react');
+var Router = require('../router');
 var QuestionStore = require('../stores/QuestionStore');
 var AnswersStore = require('../stores/AnswersStore');
 var QuestionActions = require('../actions/QuestionActions');
@@ -161,23 +162,27 @@ var SelectQuestionType = React.createClass({
 
 var QuestionView = React.createClass({
 
-	componentDidMount:function() {
+	componentDidMount: function() {
 		QuestionStore.addChangeListener(this._onChange);
 		AnswersStore.addChangeListener(this._onChange);
 	},
 
-	componentWillUnmount:function() {
+	componentWillUnmount: function() {
 		QuestionStore.removeChangeListener(this._onChange);
 		AnswersStore.addChangeListener(this._onChange);
 		QuestionActions.saveQuestion(QuestionStore.getQuestion());
 	},
 
-	_onChange:function() {
+	_onChange: function() {
 		this.setState(getQuestionState());
 	},
 
 	getInitialState: function () {
 		return getQuestionState();
+	},
+
+	handleClose: function(){
+		Router.navigate('#structure');
 	},
 
 	handleSaveQuestion: function(){
@@ -208,7 +213,7 @@ var QuestionView = React.createClass({
 				<div className="modal-dialog">
 					<div className="modal-content">
 						<div className="modal-header">
-							<button type="button" className="close">&times;</button>
+							<button type="button" className="close" onClick={this.handleClose}>&times;</button>
         					<h4 className="modal-title">Добавьте вопрос</h4>
 						</div>
 						<div className="modal-body answers">

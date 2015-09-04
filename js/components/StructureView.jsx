@@ -2,6 +2,7 @@ var React = require('react');
 var StructureStore = require('../stores/StructureStore');
 var StructureActions = require('../actions/StructureActions');
 var QuestionView = require('./QuestionView');
+var Router = require('../router');
 
 function getStructureState() {
 	return {
@@ -22,11 +23,7 @@ var QuestionShortView = React.createClass({
 var SectionView = React.createClass({
 
 	handleDisplayNewQuestion: function(){
-		var _Router = require('../router');
-		var Router = new _Router();
-		Router.navigate('#settings', {sectionUUID: this.props.uuid});
-		//if (this.props.handleDisplayNewQuestion)
-		//	this.props.handleDisplayNewQuestion(this.props.uuid);
+		Router.navigate('#question-modal/'+ this.props.uuid);
 	},
 
 	handleRemoveSection: function(){

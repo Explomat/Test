@@ -8,6 +8,7 @@ function QuestionController() {
 	React.unmountComponentAtNode(app);
 
 	this.start = function(args) {
+		console.log(args);
 		QuestionAPI.getQuestionData().then(function(data){
 			QuestionActions.receiveQuestion(data);
 			React.render(React.createElement(QuestionView, args), app);
