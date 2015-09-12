@@ -23,7 +23,7 @@ var QuestionShortView = React.createClass({
 var SectionView = React.createClass({
 
 	handleDisplayNewQuestion: function(){
-		Router.navigate('#question-modal/'+ this.props.uuid);
+		Router.navigate('#structure/'+ this.props.uuid);
 	},
 
 	handleRemoveSection: function(){

@@ -3,16 +3,19 @@ var routes = [], currentHash = '', callBack = function(){}, defaultRoute = '/', 
 
 function hashCheck(){
     if (window.location.hash != currentHash){
-        for (var i = 0, currentRoute; currentRoute = routes[i++];){
-            var match = window.location.hash.match(currentRoute.route);
-            if (match){
-                if (callBack) callBack();
-                match.shift();
-                currentRoute.callBack.apply({}, match);
-                break;
-            }
-        }
+        invoke();
         currentHash = window.location.hash;
+    }
+}
+
+function invoke(){
+    for (var i = 0, currentRoute; currentRoute = routes[i++];){
+        var match = window.location.hash.match(currentRoute.route);
+        if (match){
+            callBack();
+            match.shift();
+            currentRoute.callBack.apply({}, match);
+        }
     }
 }
 
@@ -60,16 +63,9 @@ var Router = {
     },
 
     navigate: function(route){
-        route = route ? route : '';
+        route = route ? route : defaultRoute;
         window.location.hash = route;
         return this;
-        /*for (var i = 0, currentRoute; currentRoute = routes[i++];){
-            if (currentRoute.route == route){
-                if (callBack) callBack();
-                currentRoute.callBack(args);
-            }
-        }
-        return this;*/
     }
 }
 
