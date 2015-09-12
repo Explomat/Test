@@ -1,4 +1,5 @@
 ﻿var Event = require('./utils/Event');
+var Promise = require('es6-promise').Promise;
 var routes = [], currentHash = '', callBack = function(){}, defaultRoute = '/', interval = 100;
 
 function hashCheck(){
@@ -9,14 +10,23 @@ function hashCheck(){
 }
 
 function invoke(){
+    var promiseCallBacks = [];
+    var promises = [];
     for (var i = 0, currentRoute; currentRoute = routes[i++];){
         var match = window.location.hash.match(currentRoute.route);
         if (match){
             callBack();
             match.shift();
-            currentRoute.callBack.apply({}, match);
+            var returnObj = currentRoute.callBack.apply({}, match);
+            promises.push(returnObj.promise);
+            promiseCallBacks.push(returnObj.promiseCallBack);
         }
     }
+    Promise.all(promises).then(function(arr){
+        for (var i = 0, l = promiseCallBacks.length; i < l; i++) {
+            promiseCallBacks[i](arr[i]);
+        };
+    });
 }
 
 var Router = {

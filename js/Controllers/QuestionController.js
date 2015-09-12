@@ -7,12 +7,14 @@ var Config = require('../Config');
 module.exports = {
 
 	start: function(args) {
-		var app = document.getElementById(Config.dom.questionModalId) || document.body;
-		React.unmountComponentAtNode(app);
-
-		QuestionAPI.getQuestionData().then(function(data){
-			QuestionActions.receiveQuestion(data);
-			React.render(React.createElement(QuestionView, args), app);
-		});
+		return {
+			promise: QuestionAPI.getQuestionData(),
+			promiseCallBack: function(data){
+				var app = document.getElementById(Config.dom.questionModalId) || document.body;
+				React.unmountComponentAtNode(app);
+				QuestionActions.receiveQuestion(data);
+				React.render(React.createElement(QuestionView, args), app);
+			}
+		}
 	}
 }

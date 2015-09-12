@@ -7,12 +7,14 @@ var Config = require('../Config');
 module.exports = {
 
 	start: function(){
-		var app = document.getElementById(Config.dom.appId) || document.body;
-		React.unmountComponentAtNode(app);
-
-		StructureAPI.getStructureData().then(function(data){
-			StructureActions.receiveStructure(data);
-			React.render(React.createElement(StructureView), app);
-		});
+		return {
+			promise: StructureAPI.getStructureData(),
+			promiseCallBack: function(data){
+				var app = document.getElementById(Config.dom.appId) || document.body;
+				React.unmountComponentAtNode(app);
+				StructureActions.receiveStructure(data);
+				React.render(React.createElement(StructureView), app);
+			}
+		}
 	}
 }
