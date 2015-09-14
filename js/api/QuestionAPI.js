@@ -1,10 +1,11 @@
 var Config = require('../config');
 var Ajax = require('../utils/Ajax');
+var QuestionData = require('../data/QuestionData');
 
 module.exports = {
 
 	createNewQuestion: function(){
-		
+		return QuestionData.createNew();
 	},
 
 	getQuestionData: function() {

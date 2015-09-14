@@ -30,6 +30,10 @@ var StructureStore = extend({}, EventEmitter.prototype, {
 		return _sections;
 	},
 
+	getStructure: function () {
+		return _structure;
+	},
+
 	emitChange: function() {
 		this.emit('change');
 	},

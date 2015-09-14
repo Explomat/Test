@@ -3,8 +3,9 @@ var Question = require('../models/Question');
 
 module.exports = {
 
-	create: function(){
+	createNew: function(){
 		storage.setItem('question', new Question());
+		return storage.getItem('question');
 	},
 
 	init: function () {

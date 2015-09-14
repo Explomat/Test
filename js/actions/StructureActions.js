@@ -12,6 +12,10 @@ var StructureActions = {
 		});
 	},
 
+	save: function(structure){
+		StructureAPI.saveStructure(structure);
+	},
+
 	addSection: function(){
 		AppDispatcher.handleData({
 			actionType: StructureConstants.ADD_SECTION

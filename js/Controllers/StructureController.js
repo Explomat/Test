@@ -2,7 +2,7 @@ var React = require('react');
 var StructureActions = require('../actions/StructureActions');
 var StructureAPI = require('../api/StructureAPI');
 var StructureView = require('../components/StructureView');
-var Config = require('../Config');
+var Config = require('../config');
 
 module.exports = {
 

@@ -1,4 +1,4 @@
-var Router = require('./Router');
+var Router = require('./router');
 var UI = require('./utils/UI');
 var structureController = require('./controllers/StructureController');
 var questionController = require('./controllers/QuestionController');

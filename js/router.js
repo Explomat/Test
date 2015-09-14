@@ -18,6 +18,7 @@ function invoke(){
             callBack();
             match.shift();
             var returnObj = currentRoute.callBack.apply({}, match);
+            if (!returnObj) return;
             promises.push(returnObj.promise);
             promiseCallBacks.push(returnObj.promiseCallBack);
         }

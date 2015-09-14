@@ -60,6 +60,7 @@ var StructureView = React.createClass({
 
 	componentWillUnmount: function() {
 		StructureStore.removeChangeListener(this._onChange);
+		StructureActions.save(StructureStore.getStructure());
 	},
 
 	_onChange: function() {
