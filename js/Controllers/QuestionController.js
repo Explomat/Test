@@ -6,14 +6,14 @@ var Config = require('../Config');
 
 module.exports = {
 
-	start: function(args) {
+	start: function(sectionId) {
 		return {
 			promise: QuestionAPI.getQuestionData(),
 			promiseCallBack: function(data){
 				var app = document.getElementById(Config.dom.questionModalId) || document.body;
 				React.unmountComponentAtNode(app);
 				QuestionActions.receiveQuestion(data);
-				React.render(React.createElement(QuestionView, args), app);
+				React.render(React.createElement(QuestionView, sectionId), app);
 			}
 		}
 	}
