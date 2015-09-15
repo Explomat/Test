@@ -72,8 +72,7 @@ var StructureView = React.createClass({
 	},
 
 	getInitialState: function () {
-		var structureState = getStructureState();
-		return structureState;
+		return getStructureState();
 	},
 
 	render: function () {

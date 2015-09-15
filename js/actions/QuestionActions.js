@@ -12,12 +12,17 @@ var QuestionActions = {
 		});
 	},
 
-	saveQuestion: function(data){
-		QuestionAPI.saveQuestionData(data).then(function(){
+	saveQuestion: function(question, sectionUuid){
+		if (QuestionAPI.saveQuestionData(question, sectionUuid)) {
 			AppDispatcher.handleData({
 				actionType: ServerConstants.SAVE_QUESTION_DATA
 			});
-		});
+		}
+		/*QuestionAPI.saveQuestionData(question).then(function(){
+			AppDispatcher.handleData({
+				actionType: ServerConstants.SAVE_QUESTION_DATA
+			});
+		});*/
 	},
 
 	changeTitle: function(title){

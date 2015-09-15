@@ -8,8 +8,8 @@ var Config = require('../config');
 
 module.exports = {
 
-	start: function(sectionId) {
-		if (!StructureAPI.isSectionExist(sectionId)){
+	start: function(sectionUuid) {
+		if (!StructureAPI.isSectionExist(sectionUuid)){
 			Router.navigate('#structure');
 			return null;
 		}
@@ -17,6 +17,6 @@ module.exports = {
 		var app = document.getElementById(Config.dom.questionModalId) || document.body;
 		React.unmountComponentAtNode(app);
 		QuestionActions.receiveQuestion(question);
-		React.render(React.createElement(QuestionView, sectionId), app);
+		React.render(React.createElement(QuestionView, {sectionUuid: sectionUuid}), app);
 	}
 }

@@ -169,7 +169,7 @@ var QuestionView = React.createClass({
 
 	componentWillUnmount: function() {
 		QuestionStore.removeChangeListener(this._onChange);
-		AnswersStore.addChangeListener(this._onChange);
+		AnswersStore.removeChangeListener(this._onChange);
 		QuestionActions.saveQuestion(QuestionStore.getQuestion());
 	},
 
@@ -186,7 +186,10 @@ var QuestionView = React.createClass({
 	},
 
 	handleSaveQuestion: function(){
-		QuestionActions.saveQuestion(QuestionStore.getQuestion());
+		if (this.props.sectionUuid){
+			QuestionActions.saveQuestion(QuestionStore.getQuestion(), this.props.sectionUuid);
+			Router.navigate('#structure');
+		}
 	},
 
 	render: function () {

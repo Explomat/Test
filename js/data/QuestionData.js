@@ -1,11 +1,40 @@
-var storage = require('../utils/Storage');
+var Storage = require('../utils/Storage');
 var Question = require('../models/Question');
 
 module.exports = {
 
 	createNew: function(){
-		storage.setItem('question', new Question());
-		return storage.getItem('question');
+		//storage.setItem('question', new Question());
+		//return storage.getItem('question');
+		return new Question();
+	},
+
+	save: function(question, sectionUuid){
+		var structure = Storage.getItem('structure');
+		if (!structure){
+			throw new Error('Structure is not defined in storage');
+			return;
+		}
+		var sections = structure.sections || [];
+		var section = null;
+		for (var i = sections.length - 1; i >= 0; i--) {
+			if (sections[i].uuid == sectionUuid) {
+				section = sections[i];
+				var questions = section.questions;
+				for (var i = questions.length - 1; i >= 0; i--) {
+					if (questions[i].uuid == question.uuid) {
+						questions[i] = question;
+						return;
+					}
+				}
+				break;
+			}
+		}
+
+		if (section) {
+			section.questions.push(question);
+		}
+		Storage.setItem('structure', structure);
 	},
 
 	init: function () {

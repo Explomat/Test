@@ -8,8 +8,14 @@ module.exports = {
 		return QuestionData.createNew();
 	},
 
-	saveQuestionData: function(data) {
-		return Ajax.saveQuestionData(data);
+	saveQuestionData: function(question, sectionUuid) {
+		try {
+			QuestionData.save(question, sectionUuid);
+		}
+		catch(e) { return false; }
+		return true;
+		
+		//return Ajax.saveQuestionData(data);
 	},
 
 	//eventTarget - DOM input tag for FileAPI
