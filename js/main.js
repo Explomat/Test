@@ -1,7 +1,8 @@
 var Router = require('./router');
 var UI = require('./utils/UI');
-var structureController = require('./controllers/StructureController');
-var questionController = require('./controllers/QuestionController');
+var StructureController = require('./controllers/StructureController');
+var QuestionController = require('./controllers/QuestionController');
+var SettingsController = require('./controllers/SettingsController');
 
 window.onload = function(){
 
@@ -31,13 +32,13 @@ window.onload = function(){
 	});
 
 	Router.addRoute(/^#settings$/, function() {
-		console.log(arguments);
+		SettingsController.start();
 	})
 	.addRoute(/#structure/, function() {
-		structureController.start();
+		StructureController.start();
 	})
 	.addRoute(/#structure\/(.*)/, function(){
-		questionController.start(arguments[0]);
+		QuestionController.start(arguments[0]);
 	})
 	.startRouting();
 }

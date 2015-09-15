@@ -1,21 +1,22 @@
-function Storage() {
-	var _storage = window.sessionStorage || window.localStorage;
-	var _root = 'tests';
+var _storage = window.sessionStorage || window.localStorage;
+var _root = 'tests';
 
-	this.clear = function() {
+var Storage = {
+	
+	clear: function() {
 		_storage.clear();
 	},
 
-	this.getItems = function(isParse){
+	getItems: function(isParse){
 		if (isParse == undefined || isParse == null) 
 			isParse = true;
 		var root = _storage.getItem(_root);
 		if (root && isParse)
 			root = JSON.parse(root);
 		return root;
-	}
+	},
 
-	this.getItem = function(key) {
+	getItem: function(key) {
 		if(!_storage)
 			throw new Error('Local storage not supported in your browser!');
 
@@ -23,9 +24,9 @@ function Storage() {
 		root = root ? JSON.parse(root) : Object.create(null) || {};
 
 		return root[key];
-	}
+	},
 
-	this.setItem = function(key, value) {
+	setItem: function(key, value) {
 		if(!_storage)
 			throw new Error('Local storage not supported in your browser!');
 
@@ -37,5 +38,5 @@ function Storage() {
 	}
 }
 
-module.exports = new Storage();
+module.exports = Storage;
 	
