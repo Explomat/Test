@@ -34,10 +34,10 @@ window.onload = function(){
 		console.log(arguments);
 	})
 	.addRoute(/#structure/, function() {
-		return structureController.start();
+		structureController.start();
 	})
 	.addRoute(/#structure\/(.*)/, function(){
-		return questionController.start(arguments[0]);
+		questionController.start(arguments[0]);
 	})
 	.startRouting();
 }

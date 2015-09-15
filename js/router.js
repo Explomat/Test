@@ -10,24 +10,14 @@ function hashCheck(){
 }
 
 function invoke(){
-    var promiseCallBacks = [];
-    var promises = [];
     for (var i = 0, currentRoute; currentRoute = routes[i++];){
         var match = window.location.hash.match(currentRoute.route);
         if (match){
             callBack();
             match.shift();
-            var returnObj = currentRoute.callBack.apply({}, match);
-            if (!returnObj) return;
-            promises.push(returnObj.promise);
-            promiseCallBacks.push(returnObj.promiseCallBack);
+            currentRoute.callBack.apply({}, match);
         }
     }
-    Promise.all(promises).then(function(arr){
-        for (var i = 0, l = promiseCallBacks.length; i < l; i++) {
-            promiseCallBacks[i](arr[i]);
-        };
-    });
 }
 
 var Router = {

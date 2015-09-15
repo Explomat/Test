@@ -8,10 +8,6 @@ module.exports = {
 		return QuestionData.createNew();
 	},
 
-	getQuestionData: function() {
-		return Ajax.getQuestionData();
-	},
-
 	saveQuestionData: function(data) {
 		return Ajax.saveQuestionData(data);
 	},

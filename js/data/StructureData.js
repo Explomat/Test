@@ -2,9 +2,14 @@ var storage = require('../utils/Storage');
 var Structure = require('../models/Structure');
 
 module.exports = {
+	getData: function(){
+		return storage.getItem('structure');
+	},
+
 	init: function () {
 		var structure = storage.getItem('structure');
 		storage.setItem('structure', new Structure(structure));
+		return storage.getItem('structure');
 	}
 }
 

@@ -13,14 +13,10 @@ module.exports = {
 			Router.navigate('#structure');
 			return null;
 		}
-		return {
-			promise: Promise.resolve(QuestionAPI.createNewQuestion()),
-			promiseCallBack: function(data){
-				var app = document.getElementById(Config.dom.questionModalId) || document.body;
-				React.unmountComponentAtNode(app);
-				QuestionActions.receiveQuestion(data);
-				React.render(React.createElement(QuestionView, sectionId), app);
-			}
-		}
+		var question = QuestionAPI.createNewQuestion();
+		var app = document.getElementById(Config.dom.questionModalId) || document.body;
+		React.unmountComponentAtNode(app);
+		QuestionActions.receiveQuestion(question);
+		React.render(React.createElement(QuestionView, sectionId), app);
 	}
 }

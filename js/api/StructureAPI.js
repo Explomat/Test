@@ -1,11 +1,11 @@
 var Config = require('../config');
-var Ajax = require('../utils/Ajax');
 var Storage = require('../utils/Storage');
+var StructureData = require('../data/StructureData');
 
 module.exports = {
 
 	getStructureData: function() {
-		return Ajax.getStructureData();
+		return StructureData.init();
 	},
 
 	saveStructure: function(structure){
