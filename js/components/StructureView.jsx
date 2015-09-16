@@ -11,10 +11,27 @@ function getStructureState() {
 }
 
 var QuestionShortView = React.createClass({
+
+	handleEditQuestion: function(){
+
+	},
+
+	handleRemoveQuestion: function(){
+		StructureActions.removeQuestion(this.props.sectionUuid, this.props.uuid);
+	},
+
 	render: function(){
 		return(
 			<div>
 				&nbsp;&nbsp;&nbsp;<span>{this.props.title}</span>
+				<div className="btn-group btn-group-xs pull-right">
+					<button title="Редактировать вопрос" type="button" className="btn btn-default" onClick={this.handleEditQuestion}>
+						<span className="glyphicon glyphicon-edit"></span>
+					</button>
+					<button title="Удалить вопрос" type="button" className="btn btn-default" onClick={this.handleRemoveQuestion}>
+						<span className="glyphicon glyphicon-remove"></span>
+					</button>
+				</div>
 			</div>
 		);
 	}
@@ -44,7 +61,7 @@ var SectionView = React.createClass({
 				</div>
 				<div>
 					{this.props.questions.map(function(q){
-						return <QuestionShortView key={q.uuid} title={q.title}/>;
+						return <QuestionShortView key={q.uuid} uuid={q.uuid} sectionUuid={this.props.uuid} title={q.title}/>;
 					})}
 				</div>
 			</div>
@@ -69,6 +86,7 @@ var StructureView = React.createClass({
 
 	handleAddNewSection: function(){
 		StructureActions.addSection();
+		StructureActions.save(StructureStore.getStructure());
 	},
 
 	getInitialState: function () {
