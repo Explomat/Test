@@ -44,7 +44,7 @@ module.exports = {
 				for (var j = questions.length - 1; j >= 0; j--) {
 					if (questions[j].uuid == question.uuid) {
 						questions[j] = question;
-						return;
+						break;
 					}
 				}
 				break;
