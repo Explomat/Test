@@ -7,6 +7,28 @@ var extend = require('extend-object');
 
 var _structure = {}, _sections = [];
 
+function getQuestionIndex(questionUuid){
+	for (var i = _sections.length - 1; i >= 0; i--) {
+		section = _sections[i];
+		var questions = section.questions;
+		for (var i = questions.length - 1; i >= 0; i--) {
+			if (questions[i].uuid == questionUuid) {
+				return i;
+			}
+		}
+	}
+	return null;
+}
+
+function getSection(sectionUuid){
+	for (var i = _sections.length - 1; i >= 0; i--) {
+		if(_sections[i].uuid == sectionUuid) {
+			return _sections[i];
+		}
+	}
+	return null;
+}
+
 function loadStructureData(data) {
 	_structure = data;
 	_sections = data.sections || [];
@@ -14,6 +36,27 @@ function loadStructureData(data) {
 
 function addNewSection(){
 	_sections.push(new Section());
+}
+
+function saveQuestion(question, sectionUuid){
+	var questionIndex = getQuestionIndex(question.uuid);
+	var section = getSection(sectionUuid);
+
+	if (questionIndex === null && section) {
+		section.questions.push(question);
+	}
+	else if (questionIndex !== null && section){
+		section.questions[questionIndex] = question;
+	}
+}
+
+function removeQuestion(sectionUuid, questionUuid){
+	var questionIndex = getQuestionIndex(questionUuid);
+	var section = getSection(sectionUuid);
+
+	if (questionIndex !== null && section) {
+		section.questions.splice(questionIndex, 1);
+	}
 }
 
 function removeSection(uuid){
@@ -60,6 +103,12 @@ StructureStore.dispatchToken = AppDispatcher.register(function(payload) {
 			break;
 		case StructureConstants.REMOVE_SECTION:
 			removeSection(action.uuid);
+			break;
+		case StructureConstants.REMOVE_QUESTION:
+			removeQuestion(action.sectionUuid, action.questionUuid);
+			break;
+		case ServerConstants.SAVE_QUESTION_DATA:
+			saveQuestion(action.question, action.sectionUuid);
 			break;
 		default:
 			return true;

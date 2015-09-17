@@ -2,8 +2,35 @@ var storage = require('../utils/Storage');
 var Structure = require('../models/Structure');
 
 module.exports = {
+
 	getData: function(){
 		return storage.getItem('structure');
+	},
+
+	saveStructure: function(structure){
+		storage.setItem('structure', structure);
+	},
+
+	removeQuestion: function(sectionUuid, questionUuid) {
+		var structure = storage.getItem('structure');
+		if (!structure){
+			throw new Error('\'structure\' is not defined in storage');
+			return;
+		}
+		var sections = structure.sections || [];
+		for (var i = sections.length - 1; i >= 0; i--) {
+			if (sections[i].uuid == sectionUuid) {
+				section = sections[i];
+				var questions = section.questions;
+				for (var i = questions.length - 1; i >= 0; i--) {
+					if (questions[i].uuid == questionUuid) {
+						questions.splice(i, 1);
+						break;
+					}
+				}
+			}
+		}
+		storage.setItem('structure', structure);
 	},
 
 	init: function () {

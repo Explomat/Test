@@ -12,8 +12,17 @@ var StructureActions = {
 		});
 	},
 
-	save: function(structure){
+	saveStructure: function(structure){
 		StructureAPI.saveStructure(structure);
+	},
+
+	removeQuestion: function(sectionUuid, questionUuid){
+		StructureAPI.removeQuestion(sectionUuid, questionUuid);
+		AppDispatcher.handleData({
+			actionType: StructureConstants.REMOVE_QUESTION,
+			sectionUuid: sectionUuid,
+			questionUuid: questionUuid
+		});
 	},
 
 	addSection: function(){

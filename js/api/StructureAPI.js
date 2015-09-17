@@ -9,7 +9,11 @@ module.exports = {
 	},
 
 	saveStructure: function(structure){
-		Storage.setItem('structure', structure);
+		StructureData.saveStructure(structure);
+	},
+
+	removeQuestion: function(sectionUuid, questionUuid){ 
+		StructureData.removeQuestion(sectionUuid, questionUuid);
 	},
 
 	isSectionExist: function(sectionId){

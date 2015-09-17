@@ -62,7 +62,7 @@ var SectionView = React.createClass({
 				<div>
 					{this.props.questions.map(function(q){
 						return <QuestionShortView key={q.uuid} uuid={q.uuid} sectionUuid={this.props.uuid} title={q.title}/>;
-					})}
+					}.bind(this))}
 				</div>
 			</div>
 		);
@@ -77,7 +77,7 @@ var StructureView = React.createClass({
 
 	componentWillUnmount: function() {
 		StructureStore.removeChangeListener(this._onChange);
-		StructureActions.save(StructureStore.getStructure());
+		StructureActions.saveStructure(StructureStore.getStructure());
 	},
 
 	_onChange: function() {
@@ -86,7 +86,7 @@ var StructureView = React.createClass({
 
 	handleAddNewSection: function(){
 		StructureActions.addSection();
-		StructureActions.save(StructureStore.getStructure());
+		StructureActions.saveStructure(StructureStore.getStructure());
 	},
 
 	getInitialState: function () {
