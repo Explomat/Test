@@ -11,9 +11,9 @@ function getQuestionIndex(questionUuid){
 	for (var i = _sections.length - 1; i >= 0; i--) {
 		section = _sections[i];
 		var questions = section.questions;
-		for (var i = questions.length - 1; i >= 0; i--) {
-			if (questions[i].uuid == questionUuid) {
-				return i;
+		for (var j = questions.length - 1; j >= 0; j--) {
+			if (questions[j].uuid == questionUuid) {
+				return j;
 			}
 		}
 	}
