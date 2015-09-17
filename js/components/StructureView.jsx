@@ -13,7 +13,7 @@ function getStructureState() {
 var QuestionShortView = React.createClass({
 
 	handleEditQuestion: function(){
-
+		Router.navigate('#structure/'+ this.props.sectionUuid +"/"+this.props.uuid);
 	},
 
 	handleRemoveQuestion: function(){
@@ -40,7 +40,7 @@ var QuestionShortView = React.createClass({
 var SectionView = React.createClass({
 
 	handleDisplayNewQuestion: function(){
-		Router.navigate('#structure/'+ this.props.uuid);
+		Router.navigate('#structure/'+ this.props.uuid + "/");
 	},
 
 	handleRemoveSection: function(){

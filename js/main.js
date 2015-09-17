@@ -37,8 +37,8 @@ window.onload = function(){
 	.addRoute(/#structure/, function() {
 		StructureController.start();
 	})
-	.addRoute(/#structure\/(.*)/, function(sectionId){
-		QuestionController.start(sectionId);
+	.addRoute(/#structure\/(.*)\/(.*)?/, function(sectionUuid, questionUuid){
+		QuestionController.start(sectionUuid, questionUuid);
 	})
 	.startRouting();
 }

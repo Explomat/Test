@@ -8,6 +8,10 @@ module.exports = {
 		return QuestionData.createNew();
 	},
 
+	getQuestion: function(questionUuid){
+		return QuestionData.getQuestion(questionUuid);
+	},
+
 	saveQuestionData: function(question, sectionUuid) {
 		try {
 			QuestionData.save(question, sectionUuid);

@@ -8,12 +8,12 @@ var Config = require('../config');
 
 module.exports = {
 
-	start: function(sectionUuid) {
+	start: function(sectionUuid, questionUuid) {
 		if (!StructureAPI.isSectionExist(sectionUuid)){
 			Router.navigate('#structure');
 			return null;
 		}
-		var question = QuestionAPI.createNewQuestion();
+		var question = questionUuid ? QuestionAPI.getQuestion(questionUuid) : QuestionAPI.createNewQuestion();
 		var app = document.getElementById(Config.dom.questionModalId) || document.body;
 		React.unmountComponentAtNode(app);
 		QuestionActions.receiveQuestion(question);
