@@ -37,6 +37,7 @@ module.exports = {
 		}
 		var sections = structure.sections || [];
 		var section = null;
+		var isEdit = false;
 		for (var i = sections.length - 1; i >= 0; i--) {
 			if (sections[i].uuid == sectionUuid) {
 				section = sections[i];
@@ -44,6 +45,7 @@ module.exports = {
 				for (var j = questions.length - 1; j >= 0; j--) {
 					if (questions[j].uuid == question.uuid) {
 						questions[j] = question;
+						isEdit = true;
 						break;
 					}
 				}
@@ -51,7 +53,7 @@ module.exports = {
 			}
 		}
 
-		if (section) {
+		if (!isEdit && section) {
 			section.questions.push(question);
 		}
 		Storage.setItem('structure', structure);
