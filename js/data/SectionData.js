@@ -1,15 +1,13 @@
 var Storage = require('../utils/Storage');
-var Question = require('../models/Question');
+var Section = require('../models/Section');
 
 module.exports = {
 
 	createNew: function(){
-		//storage.setItem('question', new Question());
-		//return storage.getItem('question');
-		return new Question();
+		return new Section();
 	},
 
-	getQuestion: function(questionUuid){
+	getSection: function(sectionUuid){
 		var structure = Storage.getItem('structure');
 		if (!structure){
 			throw new Error('Structure is not defined in storage');
@@ -17,44 +15,30 @@ module.exports = {
 		}
 		var sections = structure.sections || [];
 		for (var i = sections.length - 1; i >= 0; i--) {
-			section = sections[i];
-			var questions = section.questions;
-			for (var j = questions.length - 1; j >= 0; j--) {
-				if (questions[j].uuid == questionUuid) {
-					return questions[j];
-				}
-			}
-
+			if (sections[i].uuid == sectionUuid)
+				return sections[i];
 		}
 		return null;
 	},
 
-	save: function(question, sectionUuid){
+	save: function(section){
 		var structure = Storage.getItem('structure');
 		if (!structure){
 			throw new Error('Structure is not defined in storage');
 			return;
 		}
 		var sections = structure.sections || [];
-		var section = null;
 		var isEdit = false;
 		for (var i = sections.length - 1; i >= 0; i--) {
-			if (sections[i].uuid == sectionUuid) {
-				section = sections[i];
-				var questions = section.questions;
-				for (var j = questions.length - 1; j >= 0; j--) {
-					if (questions[j].uuid == question.uuid) {
-						questions[j] = question;
-						isEdit = true;
-						break;
-					}
-				}
+			if (sections[i].uuid == section.uuid) {
+				sections[i] = section;
+				isEdit = true;
 				break;
 			}
 		}
 
-		if (!isEdit && section) {
-			section.questions.push(question);
+		if (!isEdit) {
+			structure.sections.push(section);
 		}
 		Storage.setItem('structure', structure);
 	}

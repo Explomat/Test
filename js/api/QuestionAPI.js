@@ -4,7 +4,7 @@ var QuestionData = require('../data/QuestionData');
 
 module.exports = {
 
-	createNewQuestion: function(){
+	createQuestion: function(){
 		return QuestionData.createNew();
 	},
 

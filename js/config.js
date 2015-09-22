@@ -16,7 +16,7 @@ icons = {
 
 dom = {
 	appId: 'app',
-	questionModalId: 'add_question'
+	modalId: 'modal'
 }
 
 module.exports = {

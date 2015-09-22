@@ -3,6 +3,7 @@ var StructureStore = require('../stores/StructureStore');
 var StructureActions = require('../actions/StructureActions');
 var QuestionView = require('./QuestionView');
 var Hasher = require('../utils/Hasher');
+var Config = require('../config');
 
 function getStructureState() {
 	return {
@@ -109,7 +110,7 @@ var StructureView = React.createClass({
 						})}
 					</div>
 				</div>
-				<div id="add_question"></div>
+				<div id={Config.dom.modalId}></div>
 			</div>
 		);
 	}
