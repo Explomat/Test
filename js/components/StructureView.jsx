@@ -14,7 +14,7 @@ function getStructureState() {
 var QuestionShortView = React.createClass({
 
 	handleEditQuestion: function(){
-		Hasher.setHash('structure/'+ this.props.sectionUuid +'/'+this.props.uuid);
+		Hasher.setHash('structure/question/'+ this.props.sectionUuid +'/'+this.props.uuid);
 	},
 
 	handleRemoveQuestion: function(){
@@ -41,7 +41,7 @@ var QuestionShortView = React.createClass({
 var SectionView = React.createClass({
 
 	handleDisplayNewQuestion: function(){
-		Hasher.setHash('structure/'+ this.props.uuid);
+		Hasher.setHash('structure/question/'+ this.props.uuid);
 	},
 
 	handleRemoveSection: function(){

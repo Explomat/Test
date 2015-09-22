@@ -13,7 +13,11 @@ window.onload = function(){
 	Router.addRoute('structure', function(id){
 	    StructureController.start();
 	});
-	Router.addRoute('structure/{sectionId}/:questionId:', function(sectionId, questionId){
+	Router.addRoute('structure/section/:sectionId:', function(sectionId){
+		StructureController.start();
+	    SectionController.start(sectionId);
+	});
+	Router.addRoute('structure/question/{sectionId}/:questionId:', function(sectionId, questionId){
 		StructureController.start();
 	    QuestionController.start(sectionId, questionId);
 	});
