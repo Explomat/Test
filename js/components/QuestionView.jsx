@@ -1,5 +1,5 @@
 var React = require('react');
-var Router = require('../router');
+var Hasher = require('../utils/Hasher');
 var QuestionStore = require('../stores/QuestionStore');
 var AnswersStore = require('../stores/AnswersStore');
 var QuestionActions = require('../actions/QuestionActions');
@@ -182,13 +182,13 @@ var QuestionView = React.createClass({
 	},
 
 	handleClose: function(){
-		Router.navigate('#structure');
+		Hasher.setHash('structure');
 	},
 
 	handleSaveQuestion: function(){
 		if (this.props.sectionUuid){
 			QuestionActions.saveQuestion(QuestionStore.getQuestion(), this.props.sectionUuid);
-			Router.navigate('#structure');
+			Hasher.setHash('structure');
 		}
 	},
 

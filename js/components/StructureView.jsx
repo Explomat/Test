@@ -2,7 +2,7 @@ var React = require('react');
 var StructureStore = require('../stores/StructureStore');
 var StructureActions = require('../actions/StructureActions');
 var QuestionView = require('./QuestionView');
-var Router = require('../router');
+var Hasher = require('../utils/Hasher');
 
 function getStructureState() {
 	return {
@@ -13,7 +13,7 @@ function getStructureState() {
 var QuestionShortView = React.createClass({
 
 	handleEditQuestion: function(){
-		Router.navigate('#structure/'+ this.props.sectionUuid +"/"+this.props.uuid);
+		Hasher.setHash('structure/'+ this.props.sectionUuid +'/'+this.props.uuid);
 	},
 
 	handleRemoveQuestion: function(){
@@ -40,7 +40,7 @@ var QuestionShortView = React.createClass({
 var SectionView = React.createClass({
 
 	handleDisplayNewQuestion: function(){
-		Router.navigate('#structure/'+ this.props.uuid + "/");
+		Hasher.setHash('structure/'+ this.props.uuid);
 	},
 
 	handleRemoveSection: function(){
