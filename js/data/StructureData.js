@@ -31,6 +31,22 @@ module.exports = {
 		storage.setItem('structure', structure);
 	},
 
+	removeSection: function(sectionUuid){
+		var structure = storage.getItem('structure');
+		if (!structure){
+			throw new Error('\'structure\' is not defined in storage');
+			return;
+		}
+		var sections = structure.sections || [];
+		for (var i = sections.length - 1; i >= 0; i--) {
+			if (sections[i].uuid == sectionUuid) {
+				sections.splice(i, 1);
+				break;
+			}
+		}
+		storage.setItem('structure', structure);
+	},
+
 	removeQuestion: function(sectionUuid, questionUuid) {
 		var structure = storage.getItem('structure');
 		if (!structure){

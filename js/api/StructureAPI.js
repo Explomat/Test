@@ -20,6 +20,10 @@ module.exports = {
 		StructureData.saveSection(section);
 	},
 
+	removeSection: function (sectionUuid) {
+		StructureData.removeSection(sectionUuid);
+	},
+
 	isSectionExist: function(sectionId){
 		var structure = Storage.getItem('structure') || {};
 		if (!structure.sections) return false;

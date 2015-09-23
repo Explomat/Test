@@ -7,7 +7,7 @@ var QuestionActions = {
 
 	receiveQuestion: function(data) {
 		AppDispatcher.handleData({
-			actionType: ServerConstants.RECEIVE_QUESTION_DATA,
+			actionType: QuestionConstants.RECEIVE_QUESTION_DATA,
 			data: data
 		});
 	},
@@ -15,16 +15,11 @@ var QuestionActions = {
 	saveQuestion: function(question, sectionUuid){
 		if (QuestionAPI.saveQuestionData(question, sectionUuid)) {
 			AppDispatcher.handleData({
-				actionType: ServerConstants.SAVE_QUESTION_DATA,
+				actionType: QuestionConstants.SAVE_QUESTION_DATA,
 				question: question,
 				sectionUuid: sectionUuid
 			});
 		}
-		/*QuestionAPI.saveQuestionData(question).then(function(){
-			AppDispatcher.handleData({
-				actionType: ServerConstants.SAVE_QUESTION_DATA
-			});
-		});*/
 	},
 
 	changeTitle: function(title){

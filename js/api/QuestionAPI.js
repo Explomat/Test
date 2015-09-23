@@ -18,8 +18,6 @@ module.exports = {
 		}
 		catch(e) { return false; }
 		return true;
-		
-		//return Ajax.saveQuestionData(data);
 	},
 
 	//eventTarget - DOM input tag for FileAPI
