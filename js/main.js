@@ -24,6 +24,12 @@ window.onload = function(){
 		    UI.toggleList(curElem, 'active');
 	}
 
+	function initHash(curHash){
+		if (curHash !== '') {
+			Router.parse(curHash);
+		}
+	}
+
 	//setup hasher
 	function parseHash(newHash){
 		changeTabClass();
