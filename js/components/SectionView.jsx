@@ -1,7 +1,9 @@
 var React = require('react');
 var SectionStore = require('../stores/SectionStore');
 var SectionActions = require('../actions/SectionActions');
+var StructureActions = require('../actions/StructureActions');
 var Hasher = require('../utils/Hasher');
+var Txt = require('./modules/Text');
 
 function getSectionState() {
 	return {
@@ -33,7 +35,6 @@ var SectionView = React.createClass({
 
 	componentWillUnmount: function() {
 		SectionStore.removeChangeListener(this._onChange);
-		SectionStore.saveStructure(StructureStore.getStructure());
 	},
 
 	_onChange: function() {
@@ -44,11 +45,13 @@ var SectionView = React.createClass({
 		return getSectionState();
 	},
 
+	handleClose: function(){
+		Hasher.setHash('structure');
+	},
+
 	handleSaveSection: function(){
-		if (this.props.sectionUuid){
-			//QuestionActions.saveSection(QuestionStore.getQuestion(), this.props.sectionUuid);
-			Hasher.setHash('structure');
-		}
+		StructureActions.saveSection(SectionStore.getSection());
+		Hasher.setHash('structure');
 	},
 
 	render: function () {
@@ -57,6 +60,7 @@ var SectionView = React.createClass({
 				<div className="modal-dialog">
 					<div className="modal-content">
 						<div className="modal-header">
+							<button type="button" className="close" onClick={this.handleClose}>&times;</button>
         					<h4 className="modal-title">Добавьте раздел</h4>
 						</div>
 						<div className="modal-body">

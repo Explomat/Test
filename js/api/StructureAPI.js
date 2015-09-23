@@ -16,6 +16,10 @@ module.exports = {
 		StructureData.removeQuestion(sectionUuid, questionUuid);
 	},
 
+	saveSection: function(section){
+		StructureData.saveSection(section);
+	},
+
 	isSectionExist: function(sectionId){
 		var structure = Storage.getItem('structure') || {};
 		if (!structure.sections) return false;

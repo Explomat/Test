@@ -40,6 +40,10 @@ var QuestionShortView = React.createClass({
 
 var SectionView = React.createClass({
 
+	handleEditSection: function(){
+		Hasher.setHash('structure/section/'+ this.props.uuid);
+	},
+
 	handleDisplayNewQuestion: function(){
 		Hasher.setHash('structure/question/'+ this.props.uuid);
 	},
@@ -53,6 +57,9 @@ var SectionView = React.createClass({
 			<div>
 				<span>{this.props.name}</span>
 				<div className="btn-group btn-group-xs pull-right">
+					<button title="Редактировать раздел" type="button" className="btn btn-default" onClick={this.handleEditSection}>
+						<span className="glyphicon glyphicon-edit"></span>
+					</button>
 					<button title="Добавить вопрос" type="button" className="btn btn-default" onClick={this.handleDisplayNewQuestion}>
 						<span className="glyphicon glyphicon-plus"></span>
 					</button>
@@ -86,8 +93,7 @@ var StructureView = React.createClass({
 	},
 
 	handleAddNewSection: function(){
-		StructureActions.addSection();
-		StructureActions.saveStructure(StructureStore.getStructure());
+		Hasher.setHash('structure/section');
 	},
 
 	getInitialState: function () {

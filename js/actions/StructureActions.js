@@ -25,9 +25,11 @@ var StructureActions = {
 		});
 	},
 
-	addSection: function(){
+	saveSection: function(section){
+		StructureAPI.saveSection(section);
 		AppDispatcher.handleData({
-			actionType: StructureConstants.ADD_SECTION
+			actionType: StructureConstants.SAVE_SECTION,
+			section: section
 		});
 	},
 

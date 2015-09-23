@@ -34,8 +34,17 @@ function loadStructureData(data) {
 	_sections = data.sections || [];
 }
 
-function addNewSection(){
-	_sections.push(new Section());
+function saveSection(section){
+	var isEdit = false;
+	for (var i = _sections.length - 1; i >= 0; i--) {
+		if (_sections[i].uuid == section.uuid) {
+			_sections[i] = section;
+			isEdit = true;
+			break;
+		}
+	}
+	if (!isEdit)
+		_sections.push(section);
 }
 
 function saveQuestion(question, sectionUuid){
@@ -98,8 +107,8 @@ StructureStore.dispatchToken = AppDispatcher.register(function(payload) {
 		case ServerConstants.RECEIVE_STRUCTURE_DATA:
 			loadStructureData(action.data);
 			break;
-		case StructureConstants.ADD_SECTION:
-			addNewSection();
+		case StructureConstants.SAVE_SECTION:
+			saveSection(action.section);
 			break;
 		case StructureConstants.REMOVE_SECTION:
 			removeSection(action.uuid);

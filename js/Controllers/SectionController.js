@@ -17,6 +17,6 @@ module.exports = {
 		var app = document.getElementById(Config.dom.modalId) || document.body;
 		React.unmountComponentAtNode(app);
 		SectionActions.receiveSection(section);
-		React.render(React.createElement(SectionView, {sectionUuid: sectionUuid}), app);
+		React.render(React.createElement(SectionView), app);
 	}
 }

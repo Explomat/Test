@@ -9,6 +9,10 @@ function loadSectionData(data) {
 	_section = data;
 }
 
+function changeTitle(title){
+	_section.name = title;
+}
+
 var SectionStore = extend({}, EventEmitter.prototype, {
 	
 	getSection: function(){
@@ -35,6 +39,9 @@ SectionStore.dispatchToken = AppDispatcher.register(function(payload) {
 
 		case SectionConstants.RECEIVE_SECTION_DATA:
 			loadSectionData(action.data);
+			break;
+		case SectionConstants.CHANGE_SECTION_TITLE:
+			changeTitle(action.title);
 			break;
 		default:
 			return true;

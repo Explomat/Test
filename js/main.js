@@ -4,6 +4,7 @@ var UI = require('./utils/UI');
 var StructureController = require('./controllers/StructureController');
 var QuestionController = require('./controllers/QuestionController');
 var SettingsController = require('./controllers/SettingsController');
+var SectionController = require('./controllers/SectionController');
 
 window.onload = function(){
 

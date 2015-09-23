@@ -11,6 +11,26 @@ module.exports = {
 		storage.setItem('structure', structure);
 	},
 
+	saveSection: function(section){
+		var structure = storage.getItem('structure');
+		if (!structure){
+			throw new Error('\'structure\' is not defined in storage');
+			return;
+		}
+		var sections = structure.sections || [];
+		var isEdit = false;
+		for (var i = sections.length - 1; i >= 0; i--) {
+			if (sections[i].uuid == section.uuid) {
+				sections[i] = section;
+				isEdit = true;
+				break;
+			}
+		}
+		if (!isEdit)
+			sections.push(section);
+		storage.setItem('structure', structure);
+	},
+
 	removeQuestion: function(sectionUuid, questionUuid) {
 		var structure = storage.getItem('structure');
 		if (!structure){
@@ -20,7 +40,7 @@ module.exports = {
 		var sections = structure.sections || [];
 		for (var i = sections.length - 1; i >= 0; i--) {
 			if (sections[i].uuid == sectionUuid) {
-				section = sections[i];
+				var section = sections[i];
 				var questions = section.questions;
 				for (var i = questions.length - 1; i >= 0; i--) {
 					if (questions[i].uuid == questionUuid) {
