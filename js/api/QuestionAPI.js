@@ -5,11 +5,11 @@ var QuestionData = require('../data/QuestionData');
 module.exports = {
 
 	createQuestion: function(){
-		return QuestionData.createNew();
+		return QuestionData.create();
 	},
 
 	getQuestion: function(questionUuid){
-		return QuestionData.getQuestion(questionUuid);
+		return QuestionData.get(questionUuid);
 	},
 
 	saveQuestionData: function(question, sectionUuid) {

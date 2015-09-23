@@ -6,38 +6,6 @@ var AJAX_TIME_OVER = 10000;
 
 module.exports = {
 
-    getQuestionData: function() {
-        return new Promise(function(resolve, reject){
-            QuestionData.createNew();
-
-            //imitatation loading
-            setTimeout(function(){
-                resolve(Storage.getItem('question'));
-            }, 100);
-        });
-    },
-
-    saveQuestionData: function(data) {
-        return new Promise(function(resolve, reject){
-            //imitatation loading
-            setTimeout(function(){
-                Storage.setItem('question', data);
-                resolve();
-            }, 100);
-        });
-    },
-
-    getStructureData: function() {
-        return new Promise(function(resolve, reject){
-            StructureData.init();
-
-            //imitatation loading
-            setTimeout(function(){
-                resolve(Storage.getItem('structure'));
-            }, 100);
-        });
-    },
-
     getXmlHttp: function(){
         var xmlHttp;
         try { xmlHttp = new ActiveXObject("Msxml2.XMLHTTP"); }

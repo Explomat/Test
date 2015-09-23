@@ -3,13 +3,11 @@ var Question = require('../models/Question');
 
 module.exports = {
 
-	createNew: function(){
-		//storage.setItem('question', new Question());
-		//return storage.getItem('question');
+	create: function(){
 		return new Question();
 	},
 
-	getQuestion: function(questionUuid){
+	get: function(questionUuid){
 		var structure = Storage.getItem('structure');
 		if (!structure){
 			throw new Error('Structure is not defined in storage');
@@ -17,8 +15,7 @@ module.exports = {
 		}
 		var sections = structure.sections || [];
 		for (var i = sections.length - 1; i >= 0; i--) {
-			section = sections[i];
-			var questions = section.questions;
+			var questions = sections[i].questions;
 			for (var j = questions.length - 1; j >= 0; j--) {
 				if (questions[j].uuid == questionUuid) {
 					return questions[j];
