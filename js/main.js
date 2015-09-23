@@ -33,6 +33,7 @@ window.onload = function(){
 	function initHash(curHash){
 		curHash = curHash === '' ? 'settings' : curHash;
 		Hasher.setHash(curHash);
+		changeTabClass();
 		Router.parse(curHash);
 	}
 
