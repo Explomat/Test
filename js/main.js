@@ -24,14 +24,15 @@ window.onload = function(){
 
 	function changeTabClass(){
 		var curElem = UI.getElementByHash('app-container', window.location.hash);
-		if (curElem)
+		if (curElem){
 		    UI.toggleList(curElem, 'active');
+		}
 	}
 
 	function initHash(curHash){
-		if (curHash !== '') {
-			Router.parse(curHash);
-		}
+		curHash = curHash === '' ? 'settings' : curHash;
+		Hasher.setHash(curHash);
+		Router.parse(curHash);
 	}
 
 	//setup hasher
@@ -40,11 +41,12 @@ window.onload = function(){
 		Router.parse(newHash);
 	}
 
-	Hasher.initialized.add(parseHash); //parse initial hash
 	Hasher.changed.add(parseHash); //parse hash changes
+	Hasher.initialized.add(initHash); //parse initial hash
+	
 	Hasher.prependHash = '';
 	Hasher.init(); //start listening for history change
-	 
+	
 	//update URL fragment generating new history record
 	//Hasher.setHash('structure');
 
