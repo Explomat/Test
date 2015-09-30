@@ -1,19 +1,21 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var StructureConstants = require('../constants/StructureConstants');
-var ServerConstants = require('../constants/ServerConstants');
 var StructureAPI = require('../api/StructureAPI');
 
 var StructureActions = {
 
 	receiveStructure: function(data) {
 		AppDispatcher.handleData({
-			actionType: ServerConstants.RECEIVE_STRUCTURE_DATA,
+			actionType: StructureConstants.RECEIVE_STRUCTURE_DATA,
 			data: data
 		});
 	},
 
 	saveStructure: function(structure){
 		StructureAPI.saveStructure(structure);
+		AppDispatcher.handleData({
+			actionType: StructureConstants.SAVE_STRUCTURE_DATA
+		});
 	},
 
 	removeQuestion: function(sectionUuid, questionUuid){
@@ -34,6 +36,7 @@ var StructureActions = {
 	},
 
 	removeSection: function(uuid){
+		StructureAPI.removeSection(uuid);
 		AppDispatcher.handleData({
 			actionType: StructureConstants.REMOVE_SECTION,
 			uuid: uuid

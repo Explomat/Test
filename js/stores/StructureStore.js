@@ -1,8 +1,7 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var StructureConstants = require('../constants/StructureConstants');
-var Section = require('../models/Section')
-var ServerConstants = require('../constants/ServerConstants');
+var QuestionConstants = require('../constants/QuestionConstants');
 var extend = require('extend-object');
 
 var _structure = {}, _sections = [];
@@ -32,6 +31,10 @@ function getSection(sectionUuid){
 function loadStructureData(data) {
 	_structure = data;
 	_sections = data.sections || [];
+}
+
+function saveStructureDate(){
+	_structure = _sections = null;
 }
 
 function saveSection(section){
@@ -101,29 +104,40 @@ var StructureStore = extend({}, EventEmitter.prototype, {
 
 StructureStore.dispatchToken = AppDispatcher.register(function(payload) {
 	var action = payload.action;
+	var isEmit = false;
 
 	switch(action.actionType) {
 
-		case ServerConstants.RECEIVE_STRUCTURE_DATA:
+		case StructureConstants.RECEIVE_STRUCTURE_DATA:
 			loadStructureData(action.data);
+			isEmit = true;
+			break;
+		case StructureConstants.SAVE_STRUCTURE_DATA:
+			saveStructureDate();
 			break;
 		case StructureConstants.SAVE_SECTION:
 			saveSection(action.section);
+			isEmit = true;
 			break;
 		case StructureConstants.REMOVE_SECTION:
 			removeSection(action.uuid);
+			isEmit = true;
 			break;
 		case StructureConstants.REMOVE_QUESTION:
 			removeQuestion(action.sectionUuid, action.questionUuid);
+			isEmit = true;
 			break;
-		case ServerConstants.SAVE_QUESTION_DATA:
+		case QuestionConstants.SAVE_QUESTION_DATA:
 			saveQuestion(action.question, action.sectionUuid);
+			isEmit = true;
 			break;
 		default:
 			return true;
 	}
 
-	StructureStore.emitChange();
+	if (isEmit){
+		StructureStore.emitChange();
+	}
 	return true;
 });
 

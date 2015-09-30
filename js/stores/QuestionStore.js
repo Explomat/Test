@@ -89,9 +89,12 @@ QuestionStore.dispatchToken = AppDispatcher.register(function(payload) {
 
 	switch(action.actionType) {
 
-		case ServerConstants.RECEIVE_QUESTION_DATA:
+		case QuestionConstants.RECEIVE_QUESTION_DATA:
 			loadQuestionData(action.data);
 			isEmit = true;
+			break;
+		case QuestionConstants.SAVE_QUESTION_DATA:
+			saveQuestionData();
 			break;
 		case QuestionConstants.SET_TYPE_SELECTED:
 			selectType(action.type);
@@ -121,9 +124,6 @@ QuestionStore.dispatchToken = AppDispatcher.register(function(payload) {
 		case ServerConstants.REMOVE_QUESTION_ERROR_IMAGE:
 			errorImg(action.err);
 			isEmit = true;
-			break;
-		case ServerConstants.SAVE_QUESTION_DATA:
-			saveQuestionData(action.err);
 			break;
 		default:
 			return true;
