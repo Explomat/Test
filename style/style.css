@@ -82,43 +82,6 @@ textarea {
     width: 17px;
     height: 17px;
 }
-/*.menu > div {
-    position: relative;
-}*/
-
-/*.menu > div > span:after {
-    left: 98%;
-    top: 35%;
-    border: solid transparent;
-    content: " ";
-    height: 0;
-    width: 0;
-    position: absolute;
-    pointer-events: none;
-    border-color: rgba(57, 77, 89, 0);
-    border-left-color: #EEA236;//#394d59;
-    border-width: 8px;
-    margin-top: -8px;
-}
-
-
-.menu > div > span {
-    display: none;
-    position: absolute;
-    right: 115%;
-    top: 0px;
-    z-index: 3;
-    padding: 10px;
-    background: #EEA236;//#394d59;
-    opacity: .9;
-    color: #fff;
-    border-radius: 5%;
-    line-height: 1em;
-}
-
-.menu > div:hover > span {
-    display: block;
-}*/
 
 .qtype-btn {
     width:160px;
@@ -128,6 +91,10 @@ textarea {
     box-shadow: none;
     background-color: #fff;
     border-color: #CCC;
+}
+
+.modal {
+	overflow: auto;
 }
 
 #container{

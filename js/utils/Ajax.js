@@ -1,20 +1,10 @@
 var Promise = require('es6-promise').Promise;
 var QuestionData = require('../data/QuestionData');
+var StructureData = require('../data/StructureData');
 var Storage = require('./Storage');
 var AJAX_TIME_OVER = 10000;
 
 module.exports = {
-
-    getQuestionData: function() {
-        return new Promise(function(resolve, reject){
-            QuestionData.init();
-
-            //imitatation loading
-            setTimeout(function(){
-                resolve(Storage.getItem('question'));
-            }, 100);
-        });
-    },
 
     getXmlHttp: function(){
         var xmlHttp;

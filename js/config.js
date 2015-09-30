@@ -14,7 +14,13 @@ icons = {
 	loading: 'react/Tests/build/img/loading.gif'
 }
 
+dom = {
+	appId: 'app',
+	modalId: 'modal'
+}
+
 module.exports = {
 	url: url, 
-	icons: icons
+	icons: icons,
+	dom: dom
 };

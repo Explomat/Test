@@ -38,6 +38,10 @@ function getExt(fileName) {
 	return index == -1 ? '' : fileName.substr(index + 1, fileName.length - index);
 }
 
+function saveQuestion(queryObjects){
+	var question = eval("t="queryObjects.Body);
+}
+
 function uploadFile(queryObjects) {
 	try {
 		var name = queryObjects.Form.file_upload[0] + '';

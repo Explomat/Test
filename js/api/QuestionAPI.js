@@ -1,13 +1,26 @@
 var Config = require('../config');
 var Ajax = require('../utils/Ajax');
+var QuestionData = require('../data/QuestionData');
 
 module.exports = {
 
-	getQuestionData: function() {
-		return Ajax.getQuestionData();
+	createQuestion: function(){
+		return QuestionData.create();
 	},
 
-	//eventTarget - DOM input for FileAPI
+	getQuestion: function(questionUuid){
+		return QuestionData.get(questionUuid);
+	},
+
+	saveQuestionData: function(question, sectionUuid) {
+		try {
+			QuestionData.save(question, sectionUuid);
+		}
+		catch(e) { return false; }
+		return true;
+	},
+
+	//eventTarget - DOM input tag for FileAPI
 	uploadImage: function(eventTarget){
 		return Ajax.uploadFiles(eventTarget, Config.url.createPath({action_name: 'uploadFile'}));
 	},

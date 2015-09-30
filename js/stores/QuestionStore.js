@@ -13,6 +13,10 @@ function loadQuestionData(data) {
 	AnswersStore.setAnswers(data.answers);
 }
 
+function saveQuestionData(){
+	_question = null;
+}
+
 function setTitle(title) {
 	_question.title = title;
 }
@@ -46,6 +50,10 @@ function removeImg(){
 
 var QuestionStore = extend({}, EventEmitter.prototype, {
 
+	getQuestion: function(){
+		return _question;
+	},
+
 	getTitle: function(){
 		return _question.title;
 	},
@@ -77,39 +85,51 @@ var QuestionStore = extend({}, EventEmitter.prototype, {
 
 QuestionStore.dispatchToken = AppDispatcher.register(function(payload) {
 	var action = payload.action;
+	var isEmit = false;
 
 	switch(action.actionType) {
 
-		case ServerConstants.RECEIVE_DATA:
+		case QuestionConstants.RECEIVE_QUESTION_DATA:
 			loadQuestionData(action.data);
+			isEmit = true;
+			break;
+		case QuestionConstants.SAVE_QUESTION_DATA:
+			saveQuestionData();
 			break;
 		case QuestionConstants.SET_TYPE_SELECTED:
 			selectType(action.type);
+			isEmit = true;
 			break;
 		case QuestionConstants.SET_TITLE:
 			setTitle(action.title);
+			isEmit = true;
 			break;
 		case QuestionConstants.SET_TEXT:
 			setText(action.text);
+			isEmit = true;
 			break;
 
 		case ServerConstants.UPLOADED_QUESTION_IMAGE:
 			uploadedImg(action.img);
+			isEmit = true;
 			break;
 		case ServerConstants.UPLOADED_QUESTION_ERROR_IMAGE:
 			errorImg(action.err);
+			isEmit = true;
 			break;
 		case ServerConstants.REMOVE_QUESTION_IMAGE:
 			removeImg();
+			isEmit = true;
 			break;
 		case ServerConstants.REMOVE_QUESTION_ERROR_IMAGE:
 			errorImg(action.err);
+			isEmit = true;
 			break;
 		default:
 			return true;
 	}
 
-	QuestionStore.emitChange();
+	if (isEmit) QuestionStore.emitChange();
 	return true;
 });
 

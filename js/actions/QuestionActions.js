@@ -7,9 +7,19 @@ var QuestionActions = {
 
 	receiveQuestion: function(data) {
 		AppDispatcher.handleData({
-			actionType: ServerConstants.RECEIVE_DATA,
+			actionType: QuestionConstants.RECEIVE_QUESTION_DATA,
 			data: data
 		});
+	},
+
+	saveQuestion: function(question, sectionUuid){
+		if (QuestionAPI.saveQuestionData(question, sectionUuid)) {
+			AppDispatcher.handleData({
+				actionType: QuestionConstants.SAVE_QUESTION_DATA,
+				question: question,
+				sectionUuid: sectionUuid
+			});
+		}
 	},
 
 	changeTitle: function(title){
@@ -53,7 +63,6 @@ var QuestionActions = {
 			AppDispatcher.handleData({
 				actionType: ServerConstants.REMOVE_QUESTION_IMAGE
 			});
-			
 		}, function(err) {
 			AppDispatcher.handleData({
 				actionType: ServerConstants.REMOVE_QUESTION_ERROR_IMAGE,

@@ -1,18 +1,16 @@
 var React = require('react');
-var QuestionActions = require('../actions/QuestionActions');
-var QuestionAPI = require('../api/QuestionAPI');
-var QuestionView = require('../components/QuestionView');
+var StructureActions = require('../actions/StructureActions');
+var StructureAPI = require('../api/StructureAPI');
+var StructureView = require('../components/StructureView');
+var Config = require('../config');
 
-function StructureController() {
-	var app = document.getElementById('app');
-	React.unmountComponentAtNode(app);
+module.exports = {
 
-	this.start = function() {
-		QuestionAPI.getQuestionData().then(function(data){
-			QuestionActions.receiveQuestion(data);
-			React.render(React.createElement(QuestionView), app);
-		});
+	start: function(){
+		var structure =  StructureAPI.getStructureData();
+		var app = document.getElementById(Config.dom.appId) || document.body;
+		React.unmountComponentAtNode(app);
+		StructureActions.receiveStructure(structure);
+		React.render(React.createElement(StructureView), app);
 	}
 }
-
-module.exports = new StructureController();

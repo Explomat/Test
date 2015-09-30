@@ -1,4 +1,5 @@
 var React = require('react');
+var Hasher = require('../utils/Hasher');
 var QuestionStore = require('../stores/QuestionStore');
 var AnswersStore = require('../stores/AnswersStore');
 var QuestionActions = require('../actions/QuestionActions');
@@ -19,14 +20,14 @@ function getQuestionState() {
 
 var Menu = React.createClass({
 
-	handleClick:function() {
+	handleAddAnswer: function() {
 		AnswerActions.addAnswer();
 	},
 
-	render:function() {
+	render: function() {
 		return (
 			<div className="pull-right">
-				<button type="button" className="btn btn-default btn-sm" onClick={this.handleClick}>
+				<button type="button" className="btn btn-default btn-sm" onClick={this.handleAddAnswer}>
 					<span className="glyphicon glyphicon-plus"></span>
 					<span>&nbsp;Добавить ответ</span>
 				</button>
@@ -161,17 +162,18 @@ var SelectQuestionType = React.createClass({
 
 var QuestionView = React.createClass({
 
-	componentDidMount:function() {
+	componentDidMount: function() {
 		QuestionStore.addChangeListener(this._onChange);
 		AnswersStore.addChangeListener(this._onChange);
 	},
 
-	componentWillUnmount:function() {
+	componentWillUnmount: function() {
 		QuestionStore.removeChangeListener(this._onChange);
-		AnswersStore.addChangeListener(this._onChange);
+		AnswersStore.removeChangeListener(this._onChange);
+		QuestionActions.saveQuestion(QuestionStore.getQuestion());
 	},
 
-	_onChange:function() {
+	_onChange: function() {
 		this.setState(getQuestionState());
 	},
 
@@ -179,7 +181,18 @@ var QuestionView = React.createClass({
 		return getQuestionState();
 	},
 
-	render:function () {
+	handleClose: function(){
+		Hasher.setHash('structure');
+	},
+
+	handleSaveQuestion: function(){
+		if (this.props.sectionUuid){
+			QuestionActions.saveQuestion(QuestionStore.getQuestion(), this.props.sectionUuid);
+			Hasher.setHash('structure');
+		}
+	},
+
+	render: function () {
 		var answers = [];
 		var qType = QuestionStore.getTypeSelected();
 		this.state.answers.forEach(function(ans, i){
@@ -197,17 +210,27 @@ var QuestionView = React.createClass({
 			if (answer)
 				answers.push(answer);
 		});
+
 		return (
-			<div className="panel panel-default">
-				<div className="panel-heading">
-					<Title title={this.state.title} />
-					<QuestionImage />
-			        <QuestionText text={this.state.text} />
-			        <Menu />
-			        <SelectQuestionType type={this.state.type}/>
-				</div>
-				<div className="panel-body answers">
-			        {answers}
+			<div className="modal" style={{display: "block"}}>
+				<div className="modal-dialog">
+					<div className="modal-content">
+						<div className="modal-header">
+							<button type="button" className="close" onClick={this.handleClose}>&times;</button>
+        					<h4 className="modal-title">Добавьте вопрос</h4>
+						</div>
+						<div className="modal-body answers">
+							<Title title={this.state.title} />
+							<QuestionImage />
+					        <QuestionText text={this.state.text} />
+					        <Menu />
+					        <SelectQuestionType type={this.state.type}/>
+					        {answers}
+						</div>
+						<div className="modal-footer">
+					        <button type="button" className="btn btn-default" onClick={this.handleSaveQuestion}>Добавить</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		);

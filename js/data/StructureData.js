@@ -1,59 +1,78 @@
-var Storage = require('../utils/Storage');
-var Question = require('../models/Question');
+var storage = require('../utils/Storage');
+var Structure = require('../models/Structure');
 
 module.exports = {
 
-	create: function(){
-		return new Question();
+	getData: function(){
+		return storage.getItem('structure');
 	},
 
-	get: function(questionUuid){
-		var structure = Storage.getItem('structure');
+	saveStructure: function(structure){
+		storage.setItem('structure', structure);
+	},
+
+	saveSection: function(section){
+		var structure = storage.getItem('structure');
 		if (!structure){
-			throw new Error('Structure is not defined in storage');
+			throw new Error('\'structure\' is not defined in storage');
 			return;
 		}
 		var sections = structure.sections || [];
-		for (var i = sections.length - 1; i >= 0; i--) {
-			var questions = sections[i].questions;
-			for (var j = questions.length - 1; j >= 0; j--) {
-				if (questions[j].uuid == questionUuid) {
-					return questions[j];
-				}
-			}
-
-		}
-		return null;
-	},
-
-	save: function(question, sectionUuid){
-		var structure = Storage.getItem('structure');
-		if (!structure){
-			throw new Error('Structure is not defined in storage');
-			return;
-		}
-		var sections = structure.sections || [];
-		var section = null;
 		var isEdit = false;
 		for (var i = sections.length - 1; i >= 0; i--) {
-			if (sections[i].uuid == sectionUuid) {
-				section = sections[i];
-				var questions = section.questions;
-				for (var j = questions.length - 1; j >= 0; j--) {
-					if (questions[j].uuid == question.uuid) {
-						questions[j] = question;
-						isEdit = true;
-						break;
-					}
-				}
+			if (sections[i].uuid == section.uuid) {
+				sections[i] = section;
+				isEdit = true;
 				break;
 			}
 		}
+		if (!isEdit)
+			sections.push(section);
+		storage.setItem('structure', structure);
+	},
 
-		if (!isEdit && section) {
-			section.questions.push(question);
+	removeSection: function(sectionUuid){
+		var structure = storage.getItem('structure');
+		if (!structure){
+			throw new Error('\'structure\' is not defined in storage');
+			return;
 		}
-		Storage.setItem('structure', structure);
+		var sections = structure.sections || [];
+		for (var i = sections.length - 1; i >= 0; i--) {
+			if (sections[i].uuid == sectionUuid) {
+				sections.splice(i, 1);
+				break;
+			}
+		}
+		storage.setItem('structure', structure);
+	},
+
+	removeQuestion: function(sectionUuid, questionUuid) {
+		var structure = storage.getItem('structure');
+		if (!structure){
+			throw new Error('\'structure\' is not defined in storage');
+			return;
+		}
+		var sections = structure.sections || [];
+		for (var i = sections.length - 1; i >= 0; i--) {
+			if (sections[i].uuid == sectionUuid) {
+				var section = sections[i];
+				var questions = section.questions;
+				for (var i = questions.length - 1; i >= 0; i--) {
+					if (questions[i].uuid == questionUuid) {
+						questions.splice(i, 1);
+						break;
+					}
+				}
+			}
+		}
+		storage.setItem('structure', structure);
+	},
+
+	init: function () {
+		var structure = storage.getItem('structure');
+		storage.setItem('structure', new Structure(structure));
+		return storage.getItem('structure');
 	}
 }
 

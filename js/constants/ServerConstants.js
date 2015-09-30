@@ -1,7 +1,6 @@
 var keyMirror = require('react/lib/keyMirror');
 
 module.exports = keyMirror({
-	RECEIVE_DATA: null,
 	UPLOADED_ANSWER_IMAGE: null,
 	UPLOADED_ANSWER_ERROR_IMAGE: null,
 	REMOVE_ANSWER_IMAGE: null,
