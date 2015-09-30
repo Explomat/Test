@@ -28,7 +28,14 @@ window.onload = function(){
 	});
 
 	function changeTabClass(){
-		var curElem = UI.getElementByHash('app-container', window.location.hash);
+
+		function getHashRoot(hash){
+			var isChainHash = hash.indexOf('/');
+			return isChainHash == -1 ? hash.substring(0, isChainHash) : hash;
+		}
+		var hashRoot = getHashRoot(window.location.hash);
+
+		var curElem = UI.getElementByHash('app-container', getHashRoot(window.location.hash));
 		if (curElem){
 		    UI.toggleList(curElem, 'active');
 		}
