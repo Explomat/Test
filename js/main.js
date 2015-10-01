@@ -27,14 +27,14 @@ window.onload = function(){
 	    ViewMappingController.start();
 	});
 
-	function changeTabClass(){
+	function changeTabClass(curHash){
 
 		function getHashRoot(hash){
 			var isChainHash = hash.indexOf('/');
 			return isChainHash == -1 ? hash : hash.substring(0, isChainHash);
 		}
 
-		var curElem = UI.getElementByHash('app-container', getHashRoot(window.location.hash));
+		var curElem = UI.getElementByHash('app-container', getHashRoot(curHash));
 		if (curElem){
 		    UI.toggleList(curElem, 'active');
 		}
@@ -43,13 +43,13 @@ window.onload = function(){
 	function initHash(curHash){
 		curHash = curHash === '' ? 'settings' : curHash;
 		Hasher.setHash(curHash);
-		changeTabClass();
+		changeTabClass(curHash);
 		Router.parse(curHash);
 	}
 
 	//setup hasher
 	function parseHash(newHash){
-		changeTabClass();
+		changeTabClass(newHash);
 		Router.parse(newHash);
 	}
 
