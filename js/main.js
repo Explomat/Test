@@ -43,13 +43,13 @@ window.onload = function(){
 	function initHash(curHash){
 		curHash = curHash === '' ? 'settings' : curHash;
 		Hasher.setHash(curHash);
-		changeTabClass(curHash);
+		changeTabClass('#' + curHash);
 		Router.parse(curHash);
 	}
 
 	//setup hasher
 	function parseHash(newHash){
-		changeTabClass(newHash);
+		changeTabClass('#' + newHash);
 		Router.parse(newHash);
 	}
 
