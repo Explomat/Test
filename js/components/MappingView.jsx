@@ -9,7 +9,23 @@ function getMappingState() {
 	};
 }
 
-var ChoiceAnswerView = React.createClass({
+var SingleChoiceAnswerView = React.createClass({
+
+	render: function(){
+		var isCorrectChoiceStyle = this.props.answer.selected ? 'right-choice' : '';
+		return(
+			<div className={isCorrectChoiceStyle}>
+				<span>{this.props.index}</span>&nbsp;&nbsp;&nbsp;
+				<input type="radio" checked={this.props.answer.selected} disabled />
+				<span>{this.props.answer.text}</span><br/>
+				<label>Вес : <span>{this.props.answer.weight}</span></label>
+			</div>
+		);
+	}
+});
+
+
+var MultipleChoiceAnswerView = React.createClass({
 
 	render: function(){
 		var isCorrectChoiceStyle = this.props.answer.selected ? 'right-choice' : '';
@@ -29,7 +45,7 @@ var OrderAnswerView = React.createClass({
 	render: function(){	
 		return(
 			<div>
-				<div>{this.props.index}</div>
+				<span>{this.props.index}</span>&nbsp;&nbsp;&nbsp;
 				<span>{this.props.answer.text}</span>
 			</div>
 		);
@@ -79,16 +95,20 @@ var QuestionView = React.createClass({
 			<div>
 				<span>{this.props.title}</span>
 				{this.props.answers.map(function(a, index){
-					if (this.props.type === QuestionTypes.keys.multiple_choice || this.props.type === QuestionTypes.keys.multiple_response)
-						return <ChoiceAnswerView key={a.uuid} answer={a} index={index + 1}/>
-					else if (this.props.type === QuestionTypes.keys.order)
-						return <OrderAnswerView key={a.uuid} answer={a} index={index + 1}/>
-					else if (this.props.type === QuestionTypes.keys.match_item)
-						return <MatchAnswerView key={a.uuid} answer={a} index={index + 1}/>
-					else if (this.props.type === QuestionTypes.keys.numerical_fill_in_blank)
-						return <NumericalFillAnswerView key={a.uuid} answer={a} index={index + 1}/>
-					else if (this.props.type === QuestionTypes.keys.gap_fill)	
-						return <ConformityAnswerView key={a.uuid} answer={a} index={index + 1}/>
+					switch(this.props.type){
+						case QuestionTypes.keys.multiple_choice:
+							return <SingleChoiceAnswerView key={a.uuid} answer={a} index={index + 1} />
+						case QuestionTypes.keys.multiple_response:
+							return <MultipleChoiceAnswerView key={a.uuid} answer={a} index={index + 1} />
+						case QuestionTypes.keys.order:
+							return <OrderAnswerView key={a.uuid} answer={a} index={index + 1} />
+						case QuestionTypes.keys.match_item:
+							return <MatchAnswerView key={a.uuid} answer={a} index={index + 1} />
+						case QuestionTypes.keys.numerical_fill_in_blank:
+							return <NumericalFillAnswerView key={a.uuid} answer={a} index={index + 1} />
+						case QuestionTypes.keys.gap_fill:
+							return <ConformityAnswerView key={a.uuid} answer={a} index={index + 1} />
+					}
 				}.bind(this))}
 			</div>
 		);
