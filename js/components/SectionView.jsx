@@ -67,7 +67,7 @@ var SectionView = React.createClass({
 							<Title title={this.state.section.name}/>
 						</div>
 						<div className="modal-footer">
-					        <button type="button" className="btn btn-default" onClick={this.handleSaveSection}>Добавить</button>
+					        <button type="button" className="btn btn-default" onClick={this.handleSaveSection}>Сохранить</button>
 						</div>
 					</div>
 				</div>

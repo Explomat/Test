@@ -228,7 +228,7 @@ var QuestionView = React.createClass({
 					        {answers}
 						</div>
 						<div className="modal-footer">
-					        <button type="button" className="btn btn-default" onClick={this.handleSaveQuestion}>Добавить</button>
+					        <button type="button" className="btn btn-default" onClick={this.handleSaveQuestion}>Сохранить</button>
 						</div>
 					</div>
 				</div>

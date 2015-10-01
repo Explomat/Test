@@ -12,8 +12,14 @@ function getMappingState() {
 var ChoiceAnswerView = React.createClass({
 
 	render: function(){
+		var isCorrectChoiceStyle = this.props.answer.selected ? 'right-choice' : '';
 		return(
-			<div>A</div>
+			<div className={isCorrectChoiceStyle}>
+				<span>{this.props.index}</span>&nbsp;&nbsp;&nbsp;
+				<input type="checkbox" checked={this.props.answer.selected} disabled />
+				<span>{this.props.answer.text}</span><br/>
+				<label>Вес : <span>{this.props.answer.weight}</span></label>
+			</div>
 		);
 	}
 });
@@ -22,17 +28,23 @@ var OrderAnswerView = React.createClass({
 
 	render: function(){	
 		return(
-			<div>B</div>
+			<div>
+				<div>{this.props.index}</div>
+				<span>{this.props.answer.text}</span>
+			</div>
 		);
 	}
 });
 
 
-var MatchItemAnswerView = React.createClass({
+var MatchAnswerView = React.createClass({
 
 	render: function(){
 		return(
-			<div>C</div>
+			<div>
+				<div>{this.props.index}</div>
+				<span>{this.props.answer.text}</span>
+			</div>
 		);
 	}
 });
@@ -41,7 +53,10 @@ var NumericalFillAnswerView = React.createClass({
 
 	render: function(){
 		return(
-			<div>D</div>
+			<div>
+				<div>{this.props.index}</div>
+				<span>{this.props.answer.text}</span>
+			</div>
 		);
 	}
 });
@@ -50,7 +65,32 @@ var ConformityAnswerView = React.createClass({
 
 	render: function(){
 		return(
-			<div>E</div>
+			<div>
+				<div>{this.props.index}</div>
+				<span>{this.props.answer.text}</span>
+			</div>
+		);
+	}
+});
+
+var QuestionView = React.createClass({
+	render: function(){
+		return(
+			<div>
+				<span>{this.props.title}</span>
+				{this.props.answers.map(function(a, index){
+					if (this.props.type === QuestionTypes.keys.multiple_choice || this.props.type === QuestionTypes.keys.multiple_response)
+						return <ChoiceAnswerView key={a.uuid} answer={a} index={index + 1}/>
+					else if (this.props.type === QuestionTypes.keys.order)
+						return <OrderAnswerView key={a.uuid} answer={a} index={index + 1}/>
+					else if (this.props.type === QuestionTypes.keys.match_item)
+						return <MatchAnswerView key={a.uuid} answer={a} index={index + 1}/>
+					else if (this.props.type === QuestionTypes.keys.numerical_fill_in_blank)
+						return <NumericalFillAnswerView key={a.uuid} answer={a} index={index + 1}/>
+					else if (this.props.type === QuestionTypes.keys.gap_fill)	
+						return <ConformityAnswerView key={a.uuid} answer={a} index={index + 1}/>
+				}.bind(this))}
+			</div>
 		);
 	}
 });
@@ -62,17 +102,8 @@ var SectionView = React.createClass({
 			<div>
 				<span>{this.props.name}</span>
 				{this.props.questions.map(function(q){
-					if (q.type === QuestionTypes.keys.multiple_choice || q.type === QuestionTypes.keys.multiple_response)
-						return <ChoiceAnswerView />
-					else if (q.type === QuestionTypes.keys.order)
-						return <OrderAnswerView />
-					else if (q.type === QuestionTypes.keys.match_item)
-						return <MatchItemAnswerView />
-					else if (q.type === QuestionTypes.keys.numerical_fill_in_blank)
-						return <NumericalFillAnswerView />
-					else if (q.type === QuestionTypes.keys.gap_fill)	
-						return <ConformityAnswerView />
-				}.bind(this))}
+					return <QuestionView key={q.uuid} title={q.title} type={q.type} answers={q.answers} />
+				})}
 			</div>
 		);
 	}
@@ -98,10 +129,12 @@ var MappingView = React.createClass({
 
 	render: function () {
 		return (
-			<div>
-				{this.state.sections.map(function(s){
-					return <SectionView key={s.uuid} name={s.name} questions={s.questions}/>
-				}.bind(this))}
+			<div className="panel panel-default">
+				<div className="panel-body">
+					{this.state.sections.map(function(s){
+						return <SectionView key={s.uuid} name={s.name} questions={s.questions}/>
+					}.bind(this))}
+				</div>
 			</div>
 		);
 	}
