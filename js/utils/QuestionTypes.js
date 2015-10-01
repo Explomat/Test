@@ -1,6 +1,6 @@
 var keyMirror = require('react/lib/keyMirror');
 
-var QuiestionTypes = {
+var QuestionTypes = {
 
 	values: {
 		'multiple_choice':'Единственный выбор',
@@ -34,4 +34,4 @@ var QuiestionTypes = {
 	}
 };
 
-module.exports = QuiestionTypes;
+module.exports = QuestionTypes;

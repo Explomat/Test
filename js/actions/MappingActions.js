@@ -1,14 +1,14 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var MappingConstants = require('../constants/MappingConstants');
 
-var SectionActions = {
+var MappingActions = {
 
-	receiveSection: function(data) {
+	receiveData: function(data) {
 		AppDispatcher.handleAction({
-			actionType: SectionConstants.RECEIVE_SECTION_DATA,
+			actionType: MappingConstants.RECEIVE_MAPPING_DATA,
 			data: data
 		});
 	}
 }
 
-module.exports = SectionActions;
+module.exports = MappingActions;

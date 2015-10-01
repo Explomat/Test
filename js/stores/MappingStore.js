@@ -3,16 +3,16 @@ var EventEmitter = require('events').EventEmitter;
 var MappingConstants = require('../constants/MappingConstants');
 var extend = require('extend-object');
 
-var _data = {};
+var _sections = {};
 
-function loadMappingData(data){
-	_data = data;
+function loadMappingData(sections){
+	_sections = sections;
 }
 
 var MappingStore = extend({}, EventEmitter.prototype, {
 	
-	getData: function(){
-		return _data;
+	getSections: function(){
+		return _sections;
 	},
 
 	emitChange: function() {
