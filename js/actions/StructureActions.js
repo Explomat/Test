@@ -27,6 +27,16 @@ var StructureActions = {
 		});
 	},
 
+	replaceQuestion: function(questionUuid, sourceSectionUuid, destSectionUuid){
+		StructureAPI.replaceQuestion(questionUuid, sourceSectionUuid, destSectionUuid);
+		AppDispatcher.handleData({
+			actionType: StructureConstants.REPLACE_QUESTION,
+			questionUuid: questionUuid,
+			sourceSectionUuid: sourceSectionUuid,
+			destSectionUuid: destSectionUuid
+		});
+	},
+
 	saveSection: function(section){
 		StructureAPI.saveSection(section);
 		AppDispatcher.handleData({

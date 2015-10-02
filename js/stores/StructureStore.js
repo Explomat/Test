@@ -71,6 +71,23 @@ function removeQuestion(sectionUuid, questionUuid){
 	}
 }
 
+function replaceQuestion(questionUuid, sourceSectionUuid, destSectionUuid){
+	var sourceSection = getSection(sourceSectionUuid);
+	var destSection = getSection(destSectionUuid);
+
+	var sourceQuestions = sourceSection.questions || [];
+	var destQuestions = destSection.questions || [];
+
+	for (var i = sourceQuestions.length - 1; i >= 0; i--) {
+		if (sourceQuestions[i].uuid === questionUuid) {
+
+			var deletedQuestion = sourceQuestions.splice(i, 1)[0];
+			destQuestions.push(deletedQuestion);
+			break;
+		}
+	};
+}
+
 function removeSection(uuid){
 	var secIndex = _sections.findIndex(function(sec){
 		return sec.uuid == uuid;
@@ -125,6 +142,10 @@ StructureStore.dispatchToken = AppDispatcher.register(function(payload) {
 			break;
 		case StructureConstants.REMOVE_QUESTION:
 			removeQuestion(action.sectionUuid, action.questionUuid);
+			isEmit = true;
+			break;
+		case StructureConstants.REPLACE_QUESTION:
+			replaceQuestion(action.questionUuid, action.sourceSectionUuid, action.destSectionUuid);
 			isEmit = true;
 			break;
 		case QuestionConstants.SAVE_QUESTION_DATA:
