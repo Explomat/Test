@@ -83,12 +83,16 @@ module.exports = {
 		storage.setItem('structure', structure);
 	},
 
-	replaceQuestion: function(questionUuid, sourceSectionUuid, destSectionUuid){
+	replaceQuestion: function(questionUuid, sourceSectionUuid, destSectionUuid, destQuestionUuid){
 		var structure = storage.getItem('structure');
 		if (!structure){
 			throw new Error('\'structure\' is not defined in storage');
 			return;
 		}
+		if (sourceSectionUuid === destSectionUuid && destQuestionUuid){
+			
+		}
+
 		var sourceSection = getSection(structure, sourceSectionUuid);
 		var destSection = getSection(structure, destSectionUuid);
 
