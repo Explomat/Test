@@ -23,12 +23,12 @@ var QuestionShortView = React.createClass({
 
 	render: function(){
 		return(
-			<div>
-				&nbsp;&nbsp;&nbsp;<span>{this.props.title}</span>
+			<div className="question">
+				<button title="Редактировать вопрос" type="button" className="btn btn-default btn-xs" onClick={this.handleEditQuestion}>
+					<span className="glyphicon glyphicon-edit"></span>
+				</button>
+				&nbsp;<span>{this.props.title}</span>
 				<div className="btn-group btn-group-xs pull-right">
-					<button title="Редактировать вопрос" type="button" className="btn btn-default" onClick={this.handleEditQuestion}>
-						<span className="glyphicon glyphicon-edit"></span>
-					</button>
 					<button title="Удалить вопрос" type="button" className="btn btn-default" onClick={this.handleRemoveQuestion}>
 						<span className="glyphicon glyphicon-remove"></span>
 					</button>
@@ -54,16 +54,13 @@ var SectionView = React.createClass({
 
 	render: function() {
 		return (
-			<div>
-				<span>{this.props.name}</span>
+			<div className="section">
+				<button title="Редактировать раздел" type="button" className="btn btn-default btn-xs" onClick={this.handleEditSection}>
+					<span className="glyphicon glyphicon-edit"></span>
+				</button>
+				&nbsp;<span>{this.props.name}</span>
 				<div className="btn-group btn-group-xs pull-right">
-					<button title="Редактировать раздел" type="button" className="btn btn-default" onClick={this.handleEditSection}>
-						<span className="glyphicon glyphicon-edit"></span>
-					</button>
-					<button title="Добавить вопрос" type="button" className="btn btn-default" onClick={this.handleDisplayNewQuestion}>
-						<span className="glyphicon glyphicon-plus"></span>
-					</button>
-					<button title="Удалить раздел" type="button" className="btn btn-default" onClick={this.handleRemoveSection}>
+					<button title="Удалить раздел" type="button" className="btn btn-default btn-xs" onClick={this.handleRemoveSection}>
 						<span className="glyphicon glyphicon-remove"></span>
 					</button>
 				</div>
@@ -72,6 +69,10 @@ var SectionView = React.createClass({
 						return <QuestionShortView key={q.uuid} uuid={q.uuid} sectionUuid={this.props.uuid} title={q.title}/>;
 					}.bind(this))}
 				</div>
+				<button title="Добавить вопрос" type="button" className="btn btn-default btn-xs button-add-question" onClick={this.handleDisplayNewQuestion}>
+					<span className="glyphicon glyphicon-plus"></span>
+					<span>&nbsp;Добавить вопрос</span>
+				</button>
 			</div>
 		);
 	}
