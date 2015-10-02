@@ -25,7 +25,6 @@ var QuestionShortView = React.createClass({
 		e.preventDefault();
 		var data = JSON.parse(e.dataTransfer.getData('text'));
 		if (!data || data.questionUuid === this.props.uuid) return;
-		//if (!data || (data && data.sectionUuid === this.props.sectionUuid)) return;
 		StructureActions.replaceQuestion(data.questionUuid, data.sectionUuid, this.props.sectionUuid, this.props.uuid);
 	},
 
@@ -56,6 +55,17 @@ var QuestionShortView = React.createClass({
 
 var SectionView = React.createClass({
 
+	handleAllowDrop: function(e){
+		e.preventDefault();
+	},
+
+	handleDrop: function(e){
+		e.preventDefault();
+		var data = JSON.parse(e.dataTransfer.getData('text'));
+		if (this.props.questions.length > 0 || !data) return;
+		StructureActions.replaceQuestion(data.questionUuid, data.sectionUuid, this.props.uuid);
+	},
+
 	handleEditSection: function(){
 		Hasher.setHash('structure/section/'+ this.props.uuid);
 	},
@@ -70,7 +80,7 @@ var SectionView = React.createClass({
 
 	render: function() {
 		return (
-			<div className="section">
+			<div className="section" onDrop={this.handleDrop} onDragOver={this.handleAllowDrop}>
 				<button title="Редактировать раздел" type="button" className="btn btn-default btn-xs" onClick={this.handleEditSection}>
 					<span className="glyphicon glyphicon-edit"></span>
 				</button>

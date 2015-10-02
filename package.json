@@ -10,6 +10,7 @@
     "build": "browserify js/main.js -d | uglifyjs -mc > build/js/bundle.js",
     "build-jsx": "jsx js/components --extension jsx js/components",
     "min-css": "cat style/bootstrap.css style/fileinput.css style/style.css style/font-awesome.min.css style/question.css style/section.css | cleancss -o build/style/style.min.css",
+    "min-css-windows": "type style\\bootstrap.css style\\fileinput.css style\\style.css style\\font-awesome.min.css style\\question.css style\\section.css > build/style/style.min.css",
     "start": "node node_modules/webserver/webserver.js"
   },
   "dependencies": {

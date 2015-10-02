@@ -6,13 +6,13 @@ var extend = require('extend-object');
 
 var _structure = {}, _sections = [];
 
-function getQuestionIndex(questionUuid){
+function getQuestion(questionUuid){
 	for (var i = _sections.length - 1; i >= 0; i--) {
 		section = _sections[i];
 		var questions = section.questions;
 		for (var j = questions.length - 1; j >= 0; j--) {
-			if (questions[j].uuid == questionUuid) {
-				return j;
+			if (questions[j].uuid === questionUuid) {
+				return {question: questions[j], index: j}
 			}
 		}
 	}
@@ -51,41 +51,41 @@ function saveSection(section){
 }
 
 function saveQuestion(question, sectionUuid){
-	var questionIndex = getQuestionIndex(question.uuid);
+	var questionIndex = getQuestion(question.uuid);
 	var section = getSection(sectionUuid);
 
 	if (questionIndex === null && section) {
 		section.questions.push(question);
 	}
 	else if (questionIndex !== null && section){
-		section.questions[questionIndex] = question;
+		section.questions[questionIndex.index] = question;
 	}
 }
 
 function removeQuestion(sectionUuid, questionUuid){
-	var questionIndex = getQuestionIndex(questionUuid);
+	var questionIndex = getQuestion(questionUuid);
 	var section = getSection(sectionUuid);
 
 	if (questionIndex !== null && section) {
-		section.questions.splice(questionIndex, 1);
+		section.questions.splice(questionIndex.index, 1);
 	}
 }
 
-function replaceQuestion(questionUuid, sourceSectionUuid, destSectionUuid){
+function replaceQuestion(questionUuid, sourceSectionUuid, destSectionUuid, destQuestionUuid){
 	var sourceSection = getSection(sourceSectionUuid);
+	var sourceQuestion = getQuestion(questionUuid);
+	if (sourceSectionUuid === destSectionUuid && destQuestionUuid){
+		var destQuestion = getQuestion(destQuestionUuid);
+		sourceSection.questions.splice(sourceQuestion.index, 1);
+		sourceSection.questions.splice(destQuestion.index, 0, sourceQuestion.question);
+		return;
+	}
 	var destSection = getSection(destSectionUuid);
 
 	var sourceQuestions = sourceSection.questions || [];
 	var destQuestions = destSection.questions || [];
-
-	for (var i = sourceQuestions.length - 1; i >= 0; i--) {
-		if (sourceQuestions[i].uuid === questionUuid) {
-
-			var deletedQuestion = sourceQuestions.splice(i, 1)[0];
-			destQuestions.push(deletedQuestion);
-			break;
-		}
-	};
+	var deletedQuestion = sourceQuestions.splice(sourceQuestion.index, 1)[0];
+	destQuestions.push(deletedQuestion);
 }
 
 function removeSection(uuid){
@@ -145,7 +145,7 @@ StructureStore.dispatchToken = AppDispatcher.register(function(payload) {
 			isEmit = true;
 			break;
 		case StructureConstants.REPLACE_QUESTION:
-			replaceQuestion(action.questionUuid, action.sourceSectionUuid, action.destSectionUuid);
+			replaceQuestion(action.questionUuid, action.sourceSectionUuid, action.destSectionUuid, action.destQuestionUuid);
 			isEmit = true;
 			break;
 		case QuestionConstants.SAVE_QUESTION_DATA:
