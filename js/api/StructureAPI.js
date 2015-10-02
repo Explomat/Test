@@ -16,8 +16,8 @@ module.exports = {
 		StructureData.removeQuestion(sectionUuid, questionUuid);
 	},
 
-	replaceQuestion: function(questionUuid, sourceSectionUuid, destSectionUuid){
-		StructureData.replaceQuestion(questionUuid, sourceSectionUuid, destSectionUuid);
+	replaceQuestion: function(questionUuid, sourceSectionUuid, destSectionUuid, destQuestionUuid){
+		StructureData.replaceQuestion(questionUuid, sourceSectionUuid, destSectionUuid, destQuestionUuid);
 	},
 
 	saveSection: function(section){

@@ -17,6 +17,18 @@ var QuestionShortView = React.createClass({
 		e.dataTransfer.setData('text', JSON.stringify({questionUuid: this.props.uuid, sectionUuid: this.props.sectionUuid}));
 	},
 
+	handleAllowDrop: function(e){
+		e.preventDefault();
+	},
+
+	handleDrop: function(e){
+		e.preventDefault();
+		var data = JSON.parse(e.dataTransfer.getData('text'));
+		if (!data || data.questionUuid === this.props.uuid) return;
+		//if (!data || (data && data.sectionUuid === this.props.sectionUuid)) return;
+		StructureActions.replaceQuestion(data.questionUuid, data.sectionUuid, this.props.sectionUuid, this.props.uuid);
+	},
+
 	handleEditQuestion: function(){
 		Hasher.setHash('structure/question/'+ this.props.sectionUuid +'/'+this.props.uuid);
 	},
@@ -27,7 +39,7 @@ var QuestionShortView = React.createClass({
 
 	render: function(){
 		return(
-			<div className="question" draggable="true" onDragStart={this.handleDragStart}>
+			<div className="question" draggable="true" onDragStart={this.handleDragStart} onDrop={this.handleDrop} onDragOver={this.handleAllowDrop}>
 				<button title="Редактировать вопрос" type="button" className="btn btn-default btn-xs" onClick={this.handleEditQuestion}>
 					<span className="glyphicon glyphicon-edit"></span>
 				</button>
@@ -44,17 +56,6 @@ var QuestionShortView = React.createClass({
 
 var SectionView = React.createClass({
 
-	handleAllowDrop: function(e){
-		e.preventDefault();
-	},
-
-	handleDrop: function(e){
-		e.preventDefault();
-		var data = JSON.parse(e.dataTransfer.getData('text'));
-		if (!data || (data && data.sectionUuid === this.props.uuid)) return;
-		StructureActions.replaceQuestion(data.questionUuid, data.sectionUuid, this.props.uuid);
-	},
-
 	handleEditSection: function(){
 		Hasher.setHash('structure/section/'+ this.props.uuid);
 	},
@@ -69,7 +70,7 @@ var SectionView = React.createClass({
 
 	render: function() {
 		return (
-			<div className="section" onDrop={this.handleDrop} onDragOver={this.handleAllowDrop}>
+			<div className="section">
 				<button title="Редактировать раздел" type="button" className="btn btn-default btn-xs" onClick={this.handleEditSection}>
 					<span className="glyphicon glyphicon-edit"></span>
 				</button>
