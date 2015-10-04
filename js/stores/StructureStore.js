@@ -74,10 +74,15 @@ function removeQuestion(sectionUuid, questionUuid){
 function replaceQuestion(questionUuid, sourceSectionUuid, destSectionUuid, destQuestionUuid){
 	var sourceSection = getSection(sourceSectionUuid);
 	var sourceQuestion = getQuestion(questionUuid);
+	
 	if (sourceSectionUuid === destSectionUuid && destQuestionUuid){
 		var destQuestion = getQuestion(destQuestionUuid);
 		sourceSection.questions.splice(sourceQuestion.index, 1);
 		sourceSection.questions.splice(destQuestion.index, 0, sourceQuestion.question);
+		return;
+	}
+	else if (sourceSectionUuid !== destSectionUuid && destQuestionUuid){
+		
 		return;
 	}
 	var destSection = getSection(destSectionUuid);
@@ -104,6 +109,30 @@ var StructureStore = extend({}, EventEmitter.prototype, {
 
 	getStructure: function () {
 		return _structure;
+	},
+
+	getQuestionIndexNoSection: function(questionUuid){
+		var index = 0;
+		for (var i = _sections.length - 1; i >= 0; i--) {
+			section = _sections[i];
+			var questions = section.questions;
+			for (var j = questions.length - 1; j >= 0; j--) {
+				index++;
+				if (questions[j].uuid === questionUuid) {
+					return index;
+				}
+			}
+		}
+		return null;
+	},
+
+	getSectionIndex: function(sectionUuid){
+		for (var i = _sections.length - 1; i >= 0; i--) {
+			if(_sections[i].uuid === sectionUuid) {
+				return i;
+			}
+		}
+		return null;
 	},
 
 	emitChange: function() {

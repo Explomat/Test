@@ -6955,6 +6955,7 @@ textarea {
 	margin-left: 24px;
 	margin-top: 2px;
 	cursor: default;
+	padding-bottom: 1px;
 }
 
 .question:hover {
@@ -6964,6 +6965,18 @@ textarea {
 .button-add-question {
 	margin-left: 24px;
 	margin-top: 5px;
+}
+
+.question-dnd-hover-bottom {
+	border-bottom: 23px solid #fff;
+}
+
+.question-dnd-hover-top {
+	border-top: 23px solid #fff;
+}
+
+.question-dnd-start {
+	opacity: 0.5;
 }.section {
 	margin-bottom: 10px;
 	cursor: default;
