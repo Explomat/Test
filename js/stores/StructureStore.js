@@ -87,9 +87,12 @@ function replaceQuestion(questionUuid, sourceSectionUuid, destSectionUuid, destQ
 		if (deletedQuestion) destSection.questions.push(deletedQuestion);
 		return;
 	}
-	else if (sourceSectionUuid !== destSectionUuid && destQuestionUuid && curSectionUuid) {
+	else if (sourceSectionUuid !== destSectionUuid && sourceQuestion && destQuestionUuid && curSectionUuid && sourceSectionUuid !== curSectionUuid) {
+		console.log(sourceQuestion);
 		sourceSection.questions.splice(sourceQuestion.index, 1);
 		destSection.questions.splice(destQuestion.index, 0, sourceQuestion.question);
+
+		//destSection.questions.splice(destQuestion.index, 0, sourceQuestion.question);
 		/*var sourceQuestions = sourceSection.questions || [];
 		var destQuestions = destSection.questions || [];
 		var deletedQuestion = sourceQuestions.splice(sourceQuestion.index, 1)[0];
@@ -179,7 +182,7 @@ StructureStore.dispatchToken = AppDispatcher.register(function(payload) {
 			isEmit = true;
 			break;
 		case StructureConstants.REPLACE_QUESTION:
-			replaceQuestion(action.questionUuid, action.sourceSectionUuid, action.destSectionUuid, action.destQuestionUuid);
+			replaceQuestion(action.questionUuid, action.sourceSectionUuid, action.destSectionUuid, action.destQuestionUuid, action.curSectionUuid);
 			isEmit = true;
 			break;
 		case QuestionConstants.SAVE_QUESTION_DATA:
