@@ -71,22 +71,31 @@ function removeQuestion(sectionUuid, questionUuid){
 	}
 }
 
-function replaceQuestion(questionUuid, sourceSectionUuid, destSectionUuid, destQuestionUuid){
+function replaceQuestion(questionUuid, sourceSectionUuid, destSectionUuid, destQuestionUuid, curSectionUuid){
 	var sourceSection = getSection(sourceSectionUuid);
+	var destSection = getSection(destSectionUuid);
 	var sourceQuestion = getQuestion(questionUuid);
-	
+	var destQuestion = getQuestion(destQuestionUuid);
+
 	if (sourceSectionUuid === destSectionUuid && destQuestionUuid){
-		var destQuestion = getQuestion(destQuestionUuid);
 		sourceSection.questions.splice(sourceQuestion.index, 1);
 		sourceSection.questions.splice(destQuestion.index, 0, sourceQuestion.question);
 		return;
-	} 
-
-	var destSection = getSection(destSectionUuid);
-	var sourceQuestions = sourceSection.questions || [];
-	var destQuestions = destSection.questions || [];
-	var deletedQuestion = sourceQuestions.splice(sourceQuestion.index, 1)[0];
-	if (deletedQuestion) destQuestions.push(deletedQuestion);
+	}
+	else if (sourceSectionUuid !== destSectionUuid && !destQuestionUuid) {
+		var deletedQuestion = sourceSection.questions.splice(sourceQuestion.index, 1)[0];
+		if (deletedQuestion) destSection.questions.push(deletedQuestion);
+		return;
+	}
+	else if (sourceSectionUuid !== destSectionUuid && destQuestionUuid && curSectionUuid) {
+		sourceSection.questions.splice(sourceQuestion.index, 1);
+		destSection.questions.splice(destQuestion.index, 0, sourceQuestion.question);
+		/*var sourceQuestions = sourceSection.questions || [];
+		var destQuestions = destSection.questions || [];
+		var deletedQuestion = sourceQuestions.splice(sourceQuestion.index, 1)[0];
+		if (deletedQuestion && destQuestion) destQuestions.splice(destQuestion.index, 0, deletedQuestion);*/
+		return;
+	}
 }
 
 function removeSection(uuid){

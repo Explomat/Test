@@ -27,14 +27,16 @@ var StructureActions = {
 		});
 	},
 
-	replaceQuestion: function(questionUuid, sourceSectionUuid, destSectionUuid, destQuestionUuid){
-		StructureAPI.replaceQuestion(questionUuid, sourceSectionUuid, destSectionUuid, destQuestionUuid);
+	
+	replaceQuestion: function(questionUuid, sourceSectionUuid, destSectionUuid, destQuestionUuid, curSectionUuid){
+		StructureAPI.replaceQuestion(questionUuid, sourceSectionUuid, destSectionUuid, destQuestionUuid, curSectionUuid);
 		AppDispatcher.handleData({
 			actionType: StructureConstants.REPLACE_QUESTION,
 			questionUuid: questionUuid,
 			sourceSectionUuid: sourceSectionUuid,
 			destSectionUuid: destSectionUuid,
-			destQuestionUuid: destQuestionUuid
+			destQuestionUuid: destQuestionUuid,
+			curSectionUuid: curSectionUuid
 		});
 	},
 

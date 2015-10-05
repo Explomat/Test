@@ -18,11 +18,14 @@ var QuestionShortView = React.createClass({
 	handleDragEnter: function(e){
 		e.preventDefault();
 		if (!curDragQuestion || curDragQuestion.node.id === this.props.uuid) return;
-		StructureActions.replaceQuestion(curDragQuestion.node.id, curDragQuestion.sectionUuid, this.props.sectionUuid, this.props.uuid);
+		if (curDragQuestion.curSectionUuid !== this.props.sectionUuid)
+			curDragQuestion.curSectionUuid = this.props.sectionUuid;
+		//curDragQuestion.sectionUuid = this.props.sectionUuid;
+		StructureActions.replaceQuestion(curDragQuestion.node.id, curDragQuestion.sectionUuid, this.props.sectionUuid, this.props.uuid, curDragQuestion.curSectionUuid);
 	},
 
 	handleDragStart: function(e){
-		curDragQuestion = { node: e.target, sectionUuid: this.props.sectionUuid };
+		curDragQuestion = { node: e.target, sectionUuid: this.props.sectionUuid, curSectionUuid: this.props.sectionUuid };
 		curDragQuestion.node.classList.add('question-dnd-start');
 		//e.dataTransfer.setData('text', JSON.stringify({questionUuid: this.props.uuid, sectionUuid: this.props.sectionUuid}));
 	},

@@ -11,7 +11,7 @@ var url = {
 }
 
 icons = {
-	loading: 'react/Tests/build/img/loading.gif'
+	loading: 'build/img/loading.gif'
 }
 
 dom = {
