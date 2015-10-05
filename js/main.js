@@ -31,7 +31,7 @@ window.onload = function(){
 
 		function getHashRoot(hash){
 			var isChainHash = hash.indexOf('/');
-			return isChainHash == -1 ? hash : hash.substring(0, isChainHash);
+			return isChainHash === -1 ? hash : hash.substring(0, isChainHash);
 		}
 
 		var curElem = UI.getElementByHash('app-container', getHashRoot(curHash));

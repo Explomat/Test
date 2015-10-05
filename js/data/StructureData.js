@@ -11,12 +11,17 @@ function getSection(structure, sectionUuid){
 	}
 }
 
-function getQuestion(section, questionUuid){
-	for (var i = section.questions.length - 1; i >= 0; i--) {
-		if (section.questions[i].uuid === questionUuid){
-			return { question: section.questions[i], index: i};
-		}
+function getQuestion(structure, questionUuid){
+	var sections = structure.sections || [];
+	for (var j = sections.length - 1; j >= 0; j--) {
+		var section = sections[j];
+		for (var i = section.questions.length - 1; i >= 0; i--) {
+			if (section.questions[i].uuid === questionUuid) {
+				return { question: section.questions[i], index: i};
+			}
+		};
 	};
+	
 	return null;
 }
 
@@ -97,10 +102,10 @@ module.exports = {
 		}
 
 		var sourceSection = getSection(structure, sourceSectionUuid);
-		var sourceQuestion = getQuestion(sourceSection, questionUuid);
+		var sourceQuestion = getQuestion(structure, questionUuid);
 
 		if (sourceSectionUuid === destSectionUuid && destQuestionUuid){
-			var destQuestion = getQuestion(sourceSection, destQuestionUuid);
+			var destQuestion = getQuestion(structure, destQuestionUuid);
 			sourceSection.questions.splice(sourceQuestion.index, 1);
 			sourceSection.questions.splice(destQuestion.index, 0, sourceQuestion.question);
 			storage.setItem('structure', structure);
@@ -112,7 +117,7 @@ module.exports = {
 		var destQuestions = destSection.questions || [];
 
 		var deletedQuestion = sourceQuestions.splice(sourceQuestion.index, 1)[0];
-		destQuestions.push(deletedQuestion);
+		if (deletedQuestion) destQuestions.push(deletedQuestion);
 		storage.setItem('structure', structure);
 	},
 

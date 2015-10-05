@@ -17,14 +17,14 @@ var QuestionShortView = React.createClass({
 
 	handleDragEnter: function(e){
 		e.preventDefault();
-		if (!curDragQuestion) return;
+		if (!curDragQuestion || curDragQuestion.node.id === this.props.uuid) return;
 		StructureActions.replaceQuestion(curDragQuestion.node.id, curDragQuestion.sectionUuid, this.props.sectionUuid, this.props.uuid);
 	},
 
 	handleDragStart: function(e){
 		curDragQuestion = { node: e.target, sectionUuid: this.props.sectionUuid };
 		curDragQuestion.node.classList.add('question-dnd-start');
-		e.dataTransfer.setData('text', JSON.stringify({questionUuid: this.props.uuid, sectionUuid: this.props.sectionUuid}));
+		//e.dataTransfer.setData('text', JSON.stringify({questionUuid: this.props.uuid, sectionUuid: this.props.sectionUuid}));
 	},
 
 	handleDragEnd: function(e){
@@ -74,10 +74,9 @@ var SectionView = React.createClass({
 
 	handleDrop: function(e){
 		e.preventDefault();
-		var data = e.dataTransfer.getData('text');
-		if (this.props.questions.length > 0 || !data) return;
-		data = JSON.parse(data);
-		StructureActions.replaceQuestion(data.questionUuid, data.sectionUuid, this.props.uuid);
+		if (this.props.questions.length > 0) return;
+		StructureActions.replaceQuestion(curDragQuestion.node.id, curDragQuestion.sectionUuid, this.props.uuid);
+		curDragQuestion = null;
 	},
 
 	handleEditSection: function(){

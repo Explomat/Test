@@ -21,7 +21,7 @@ function getQuestion(questionUuid){
 
 function getSection(sectionUuid){
 	for (var i = _sections.length - 1; i >= 0; i--) {
-		if(_sections[i].uuid == sectionUuid) {
+		if(_sections[i].uuid === sectionUuid) {
 			return _sections[i];
 		}
 	}
@@ -40,7 +40,7 @@ function saveStructureDate(){
 function saveSection(section){
 	var isEdit = false;
 	for (var i = _sections.length - 1; i >= 0; i--) {
-		if (_sections[i].uuid == section.uuid) {
+		if (_sections[i].uuid === section.uuid) {
 			_sections[i] = section;
 			isEdit = true;
 			break;
@@ -80,22 +80,18 @@ function replaceQuestion(questionUuid, sourceSectionUuid, destSectionUuid, destQ
 		sourceSection.questions.splice(sourceQuestion.index, 1);
 		sourceSection.questions.splice(destQuestion.index, 0, sourceQuestion.question);
 		return;
-	}
-	else if (sourceSectionUuid !== destSectionUuid && destQuestionUuid){
-		
-		
-	}
-	var destSection = getSection(destSectionUuid);
+	} 
 
+	var destSection = getSection(destSectionUuid);
 	var sourceQuestions = sourceSection.questions || [];
 	var destQuestions = destSection.questions || [];
 	var deletedQuestion = sourceQuestions.splice(sourceQuestion.index, 1)[0];
-	destQuestions.push(deletedQuestion);
+	if (deletedQuestion) destQuestions.push(deletedQuestion);
 }
 
 function removeSection(uuid){
 	var secIndex = _sections.findIndex(function(sec){
-		return sec.uuid == uuid;
+		return sec.uuid === uuid;
 	});
 	if (secIndex != -1)
 		_sections.splice(secIndex, 1);
