@@ -47,7 +47,7 @@ module.exports = {
         return new Promise(function(resolve, reject){
             if (!url)
                 reject(Error("Unknown url"));
-            xmlHttp = xmlHttpRequest || this.getXmlHttp();
+            var xmlHttp = xmlHttpRequest || this.getXmlHttp();
             requestType = requestType || 'GET';
             isSync = isSync || true;
 
