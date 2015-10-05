@@ -5,6 +5,8 @@ var QuestionView = require('./QuestionView');
 var Hasher = require('../utils/Hasher');
 var Config = require('../config');
 
+var curDragQuestion = null;
+
 function getStructureState() {
 	return {
 		sections: StructureStore.getSections()
@@ -13,8 +15,21 @@ function getStructureState() {
 
 var QuestionShortView = React.createClass({
 
+	handleDragEnter: function(e){
+		e.preventDefault();
+		if (!curDragQuestion) return;
+		StructureActions.replaceQuestion(curDragQuestion.node.id, curDragQuestion.sectionUuid, this.props.sectionUuid, this.props.uuid);
+	},
+
 	handleDragStart: function(e){
+		curDragQuestion = { node: e.target, sectionUuid: this.props.sectionUuid };
+		curDragQuestion.node.classList.add('question-dnd-start');
 		e.dataTransfer.setData('text', JSON.stringify({questionUuid: this.props.uuid, sectionUuid: this.props.sectionUuid}));
+	},
+
+	handleDragEnd: function(e){
+		e.preventDefault();
+		e.target.classList.remove('question-dnd-start');
 	},
 
 	handleAllowDrop: function(e){
@@ -22,11 +37,8 @@ var QuestionShortView = React.createClass({
 	},
 
 	handleDrop: function(e){
+		curDragQuestion = null;
 		e.preventDefault();
-		var data = JSON.parse(e.dataTransfer.getData('text'));
-		if (!data || data.questionUuid === this.props.uuid) return;
-		//if (!data || (data && data.sectionUuid === this.props.sectionUuid)) return;
-		StructureActions.replaceQuestion(data.questionUuid, data.sectionUuid, this.props.sectionUuid, this.props.uuid);
 	},
 
 	handleEditQuestion: function(){
@@ -39,7 +51,7 @@ var QuestionShortView = React.createClass({
 
 	render: function(){
 		return(
-			<div className="question" draggable="true" onDragStart={this.handleDragStart} onDrop={this.handleDrop} onDragOver={this.handleAllowDrop}>
+			<div id={this.props.uuid} data-sectionuuid={this.props.sectionUuid} className="question" draggable="true" onDragStart={this.handleDragStart} onDragEnd={this.handleDragEnd} onDrop={this.handleDrop} onDragOver={this.handleAllowDrop} onDragEnter={this.handleDragEnter}>
 				<button title="Редактировать вопрос" type="button" className="btn btn-default btn-xs" onClick={this.handleEditQuestion}>
 					<span className="glyphicon glyphicon-edit"></span>
 				</button>
@@ -56,6 +68,18 @@ var QuestionShortView = React.createClass({
 
 var SectionView = React.createClass({
 
+	handleAllowDrop: function(e){
+		e.preventDefault();
+	},
+
+	handleDrop: function(e){
+		e.preventDefault();
+		var data = e.dataTransfer.getData('text');
+		if (this.props.questions.length > 0 || !data) return;
+		data = JSON.parse(data);
+		StructureActions.replaceQuestion(data.questionUuid, data.sectionUuid, this.props.uuid);
+	},
+
 	handleEditSection: function(){
 		Hasher.setHash('structure/section/'+ this.props.uuid);
 	},
@@ -70,7 +94,7 @@ var SectionView = React.createClass({
 
 	render: function() {
 		return (
-			<div className="section">
+			<div className="section" onDrop={this.handleDrop} onDragOver={this.handleAllowDrop}>
 				<button title="Редактировать раздел" type="button" className="btn btn-default btn-xs" onClick={this.handleEditSection}>
 					<span className="glyphicon glyphicon-edit"></span>
 				</button>

@@ -3,8 +3,6 @@ var Structure = require('../models/Structure');
 
 
 function getSection(structure, sectionUuid){
-	if (!structure || !sectionUuid) return null;
-
 	var sections = structure.sections || [];
 	for (var i = sections.length - 1; i >= 0; i--) {
 		if (sections[i].uuid === sectionUuid) {
@@ -13,6 +11,14 @@ function getSection(structure, sectionUuid){
 	}
 }
 
+function getQuestion(section, questionUuid){
+	for (var i = section.questions.length - 1; i >= 0; i--) {
+		if (section.questions[i].uuid === questionUuid){
+			return { question: section.questions[i], index: i};
+		}
+	};
+	return null;
+}
 
 module.exports = {
 
@@ -89,25 +95,24 @@ module.exports = {
 			throw new Error('\'structure\' is not defined in storage');
 			return;
 		}
-		if (sourceSectionUuid === destSectionUuid && destQuestionUuid){
-			
-		}
 
 		var sourceSection = getSection(structure, sourceSectionUuid);
+		var sourceQuestion = getQuestion(sourceSection, questionUuid);
+
+		if (sourceSectionUuid === destSectionUuid && destQuestionUuid){
+			var destQuestion = getQuestion(sourceSection, destQuestionUuid);
+			sourceSection.questions.splice(sourceQuestion.index, 1);
+			sourceSection.questions.splice(destQuestion.index, 0, sourceQuestion.question);
+			storage.setItem('structure', structure);
+			return;
+		}
 		var destSection = getSection(structure, destSectionUuid);
 
 		var sourceQuestions = sourceSection.questions || [];
 		var destQuestions = destSection.questions || [];
 
-		for (var i = sourceQuestions.length - 1; i >= 0; i--) {
-			if (sourceQuestions[i].uuid === questionUuid) {
-
-				var deletedQuestion = sourceQuestions.splice(i, 1)[0];
-				destQuestions.push(deletedQuestion);
-				break;
-			}
-		};
-
+		var deletedQuestion = sourceQuestions.splice(sourceQuestion.index, 1)[0];
+		destQuestions.push(deletedQuestion);
 		storage.setItem('structure', structure);
 	},
 
