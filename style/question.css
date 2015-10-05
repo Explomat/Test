@@ -14,14 +14,6 @@
 	margin-top: 5px;
 }
 
-.question-dnd-hover-bottom {
-	border-bottom: 23px solid #fff;
-}
-
-.question-dnd-hover-top {
-	border-top: 23px solid #fff;
-}
-
 .question-dnd-start {
 	opacity: 0.5;
 }

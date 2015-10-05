@@ -15,30 +15,14 @@ function getStructureState() {
 
 var QuestionShortView = React.createClass({
 
-	handleOnDragLeave: function(e){
-		e.preventDefault();
-		e.target.classList.remove('question-dnd-hover-bottom', 'question-dnd-hover-top');
-	},
-
 	handleDragEnter: function(e){
 		e.preventDefault();
 		if (!curDragQuestion) return;
-		var sourceSectionIndex = StructureStore.getSectionIndex(curDragQuestion.sectionUuid);
-		var destSectionIndex = StructureStore.getSectionIndex(e.target.getAttribute('data-sectionuuid'));
-
-
-		var sourseQuestionUuid = StructureStore.getQuestionIndexNoSection(curDragQuestion.node.id);
-		var destQuestionUuid = StructureStore.getQuestionIndexNoSection(e.target.id);
-		console.log(sourseQuestionUuid  + " : " + destQuestionUuid);
-		console.log(sourseQuestionUuid  < destQuestionUuid);
-		if (sourseQuestionUuid < destQuestionUuid)
-			e.target.classList.add('question-dnd-hover-top');
-		else if (sourseQuestionUuid > destQuestionUuid)
-			e.target.classList.add('question-dnd-hover-bottom');
+		StructureActions.replaceQuestion(curDragQuestion.node.id, curDragQuestion.sectionUuid, this.props.sectionUuid, this.props.uuid);
 	},
 
 	handleDragStart: function(e){
-		curDragQuestion = { node: e.target, sectionUuid: this.props.sectionUuid};
+		curDragQuestion = { node: e.target, sectionUuid: this.props.sectionUuid };
 		curDragQuestion.node.classList.add('question-dnd-start');
 		e.dataTransfer.setData('text', JSON.stringify({questionUuid: this.props.uuid, sectionUuid: this.props.sectionUuid}));
 	},
@@ -55,10 +39,6 @@ var QuestionShortView = React.createClass({
 	handleDrop: function(e){
 		curDragQuestion = null;
 		e.preventDefault();
-		e.target.classList.remove('question-dnd-hover-bottom', 'question-dnd-hover-top');
-		var data = JSON.parse(e.dataTransfer.getData('text'));
-		if (!data || data.questionUuid === this.props.uuid) return;
-		StructureActions.replaceQuestion(data.questionUuid, data.sectionUuid, this.props.sectionUuid, this.props.uuid);
 	},
 
 	handleEditQuestion: function(){
@@ -71,7 +51,7 @@ var QuestionShortView = React.createClass({
 
 	render: function(){
 		return(
-			<div id={this.props.uuid} data-sectionuuid={this.props.sectionUuid} className="question" draggable="true" onDragStart={this.handleDragStart} onDragEnd={this.handleDragEnd} onDrop={this.handleDrop} onDragOver={this.handleAllowDrop} onDragEnter={this.handleDragEnter} onDragLeave={this.handleOnDragLeave}>
+			<div id={this.props.uuid} data-sectionuuid={this.props.sectionUuid} className="question" draggable="true" onDragStart={this.handleDragStart} onDragEnd={this.handleDragEnd} onDrop={this.handleDrop} onDragOver={this.handleAllowDrop} onDragEnter={this.handleDragEnter}>
 				<button title="Редактировать вопрос" type="button" className="btn btn-default btn-xs" onClick={this.handleEditQuestion}>
 					<span className="glyphicon glyphicon-edit"></span>
 				</button>
@@ -94,8 +74,9 @@ var SectionView = React.createClass({
 
 	handleDrop: function(e){
 		e.preventDefault();
-		var data = JSON.parse(e.dataTransfer.getData('text'));
+		var data = e.dataTransfer.getData('text');
 		if (this.props.questions.length > 0 || !data) return;
+		data = JSON.parse(data);
 		StructureActions.replaceQuestion(data.questionUuid, data.sectionUuid, this.props.uuid);
 	},
 

@@ -83,7 +83,7 @@ function replaceQuestion(questionUuid, sourceSectionUuid, destSectionUuid, destQ
 	}
 	else if (sourceSectionUuid !== destSectionUuid && destQuestionUuid){
 		
-		return;
+		
 	}
 	var destSection = getSection(destSectionUuid);
 
