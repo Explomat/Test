@@ -111,8 +111,10 @@ function replaceSection(sectionUuid, destSectionUuid){
 	var sourceSection = _getSection(sectionUuid);
 	var destSection = _getSection(destSectionUuid);
 
-	_sections.splice(sourceSection.index, 1);
-	_sections.splice(destSection.index, 0, sourceSection.section)
+	if (sourceSection && destSection){
+		_sections.splice(sourceSection.index, 1);
+		_sections.splice(destSection.index, 0, sourceSection.section);
+	}
 }
 
 var StructureStore = extend({}, EventEmitter.prototype, {

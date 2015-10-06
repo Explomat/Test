@@ -57,7 +57,7 @@ var QuestionShortView = React.createClass({
 
 	render: function(){
 		return(
-			<div id={this.props.uuid} data-sectionuuid={this.props.sectionUuid} className="question" draggable="true" onDragStart={this.handleDragStart} onDragEnd={this.handleDragEnd} onDrop={this.handleDrop} onDragOver={this.handleAllowDrop} onDragEnter={this.handleDragEnter}>
+			<div id={this.props.uuid} className="question" draggable="true" onDragStart={this.handleDragStart} onDragEnd={this.handleDragEnd} onDrop={this.handleDrop} onDragOver={this.handleAllowDrop} onDragEnter={this.handleDragEnter}>
 				<button title="Редактировать вопрос" type="button" className="btn btn-default btn-xs" onClick={this.handleEditQuestion}>
 					<span className="glyphicon glyphicon-edit"></span>
 				</button>
@@ -83,13 +83,13 @@ var SectionView = React.createClass({
 		//this code is not needed, but FF not working without this
 		e.dataTransfer.setData("text", "some text");
 		//
-		curDragSection = { node: e.target, uuid: this.props.uuid };
-		curDragSection.node.classList.add('section-dnd-start');
+		curDragSection = { uuid: this.props.uuid };
+		e.target.parentElement.classList.add('section-dnd-start');
 	},
 
 	handleDragEnd: function(e){
 		e.preventDefault();
-		e.target.classList.remove('section-dnd-start');
+		e.target.parentElement.classList.remove('section-dnd-start');
 	},
 
 	handleDragEnter: function(e){
