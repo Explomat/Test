@@ -5,8 +5,7 @@ var QuestionView = require('./QuestionView');
 var Hasher = require('../utils/Hasher');
 var Config = require('../config');
 
-var curDragQuestion = null;
-var DRAG_EFFECT = 'move';
+var curDragQuestion = null, curDragSection = null, DRAG_EFFECT = 'move';
 
 function getStructureState() {
 	return {
@@ -43,8 +42,7 @@ var QuestionShortView = React.createClass({
 
 	handleDrop: function(e){
 		e.preventDefault();
-		e.target.classList.remove('question-dnd-start');
-		if (curDragQuestion.sectionUuid !== this.props.sectionUuid)
+		if (curDragQuestion && curDragQuestion.sectionUuid !== this.props.sectionUuid)
 			StructureActions.replaceQuestionInNewSection(curDragQuestion.node.id, curDragQuestion.sectionUuid, this.props.sectionUuid);
 		curDragQuestion = null;
 	},
@@ -80,12 +78,32 @@ var SectionView = React.createClass({
 		e.preventDefault();
 	},
 
+	handleDragStart: function(e){
+		e.dataTransfer.effectAllowed = DRAG_EFFECT;
+		//this code is not needed, but FF not working without this
+		e.dataTransfer.setData("text", "some text");
+		//
+		curDragSection = { node: e.target, uuid: this.props.uuid };
+		curDragSection.node.classList.add('section-dnd-start');
+	},
+
+	handleDragEnd: function(e){
+		e.preventDefault();
+		e.target.classList.remove('section-dnd-start');
+	},
+
+	handleDragEnter: function(e){
+		e.preventDefault();
+		if (!curDragSection || curDragSection.uuid === this.props.uuid) return;
+		StructureActions.replaceSection(curDragSection.uuid, this.props.uuid);
+	},
+
 	handleDrop: function(e){
 		e.preventDefault();
 		if (curDragQuestion && curDragQuestion.sectionUuid !== this.props.uuid)
 			StructureActions.replaceQuestionInNewSection(curDragQuestion.node.id, curDragQuestion.sectionUuid, this.props.uuid);
-		curDragQuestion = null;
-	},
+		curDragQuestion = curDragSection = null;
+	},	
 
 	handleEditSection: function(){
 		Hasher.setHash('structure/section/'+ this.props.uuid);
@@ -101,7 +119,7 @@ var SectionView = React.createClass({
 
 	render: function() {
 		return (
-			<div className="section-container" onDrop={this.handleDrop} onDragOver={this.handleAllowDrop}>
+			<div className="section-container" draggable="true" onDragStart={this.handleDragStart} onDragEnd={this.handleDragEnd} onDragEnter={this.handleDragEnter} onDrop={this.handleDrop} onDragOver={this.handleAllowDrop}>
 				<div className="section">
 					<button title="Редактировать раздел" type="button" className="btn btn-default btn-xs" onClick={this.handleEditSection}>
 						<span className="glyphicon glyphicon-edit"></span>

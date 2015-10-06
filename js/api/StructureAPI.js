@@ -32,6 +32,10 @@ module.exports = {
 		StructureData.removeSection(sectionUuid);
 	},
 
+	replaceSection: function(sectionUuid, destSectionUuid){
+		StructureData.replaceSection(sectionUuid, destSectionUuid);
+	},
+
 	isSectionExist: function(sectionId){
 		var structure = Storage.getItem('structure') || {};
 		if (!structure.sections) return false;

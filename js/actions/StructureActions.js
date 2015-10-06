@@ -62,6 +62,15 @@ var StructureActions = {
 			actionType: StructureConstants.REMOVE_SECTION,
 			uuid: uuid
 		});
+	},
+
+	replaceSection: function(sectionUuid, destSectionUuid){
+		//StructureAPI.replaceSection(sectionUuid, destSectionUuid);
+		AppDispatcher.handleData({
+			actionType: StructureConstants.REPLACE_SECTION,
+			sectionUuid: sectionUuid,
+			destSectionUuid: destSectionUuid
+		});
 	}
 }
 

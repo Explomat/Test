@@ -10,3 +10,7 @@
 .section > span {
 	margin-left: 5px;
 }
+
+.section-dnd-start {
+	opacity: 0.5;
+}

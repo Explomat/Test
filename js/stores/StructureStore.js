@@ -97,6 +97,24 @@ function removeSection(uuid){
 		_sections.splice(secIndex, 1);
 }
 
+function replaceSection(sectionUuid, destSectionUuid){
+
+	function _getSection(_sectionUuid) {
+		for (var i = _sections.length - 1; i >= 0; i--) {
+			if(_sections[i].uuid === _sectionUuid) {
+				return { section:_sections[i], index: i};
+			}
+		}
+		return null;
+	}
+
+	var sourceSection = _getSection(sectionUuid);
+	var destSection = _getSection(destSectionUuid);
+
+	_sections.splice(sourceSection.index, 1);
+	_sections.splice(destSection.index, 0, sourceSection.section)
+}
+
 var StructureStore = extend({}, EventEmitter.prototype, {
 	
 	getSections: function(){
@@ -160,6 +178,10 @@ StructureStore.dispatchToken = AppDispatcher.register(function(payload) {
 		case StructureConstants.SAVE_SECTION:
 			saveSection(action.section);
 			isEmit = true;
+			break;
+		case StructureConstants.REPLACE_SECTION:
+			replaceSection(action.sectionUuid, action.destSectionUuid);
+			isEmit =  true;
 			break;
 		case StructureConstants.REMOVE_SECTION:
 			removeSection(action.uuid);
