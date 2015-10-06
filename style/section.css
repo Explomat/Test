@@ -4,7 +4,28 @@
 }
 
 .section:hover{
-	background-color: #ECE6E6;
+	background-color: #EDF1F5;
+}
+
+.section:hover .section-buttons{
+	display: inline-block;
+}
+
+.section-up-button, .section-down-button, .section-delete-button{
+	opacity: 0.4;
+}
+
+.section-up-button:hover, .section-down-button:hover, .section-delete-button:hover{
+	opacity: 1;
+}
+
+.section-buttons {
+	display: none;
+}
+
+.section {
+	padding: 5px;
+	cursor: pointer;
 }
 
 .section > span {

@@ -2,7 +2,8 @@
 	margin-left: 24px;
 	margin-top: 2px;
 	cursor: default;
-	padding-bottom: 1px;
+	padding: 3px;
+	cursor: pointer;
 }
 
 .question > span {
@@ -10,7 +11,23 @@
 }
 
 .question:hover {
-	background-color: #ECE6E6;
+	background-color: #EDF1F5;
+}
+
+.question:hover .question-buttons{
+	display: inline-block;
+}
+
+.question-up-button, .question-down-button, .question-delete-button{
+	opacity: 0.4;
+}
+
+.question-up-button:hover, .question-down-button:hover, .question-delete-button:hover{
+	opacity: 1;
+}
+
+.question-buttons {
+	display: none;
 }
 
 .button-add-question {
