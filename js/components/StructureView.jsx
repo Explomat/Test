@@ -125,11 +125,9 @@ var SectionView = React.createClass({
 						<span className="glyphicon glyphicon-edit"></span>
 					</button>
 					<span>{this.props.name}</span>
-					<div className="btn-group btn-group-xs pull-right">
-						<button title="Удалить раздел" type="button" className="btn btn-default btn-xs" onClick={this.handleRemoveSection}>
-							<span className="glyphicon glyphicon-remove"></span>
-						</button>
-					</div>
+					<button title="Удалить раздел" type="button" className="btn btn-default btn-xs pull-right" onClick={this.handleRemoveSection}>
+						<span className="glyphicon glyphicon-remove"></span>
+					</button>
 				</div>
 				<div>
 					{this.props.questions.map(function(q){
