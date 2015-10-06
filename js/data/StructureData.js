@@ -94,6 +94,31 @@ module.exports = {
 		storage.setItem('structure', structure);
 	},
 
+	replaceSection: function(sectionUuid, destSectionUuid){
+		var structure = storage.getItem('structure');
+		if (!structure){
+			throw new Error('\'structure\' is not defined in storage');
+			return;
+		}
+
+		function _getSection(_sections, _sectionUuid) {
+			for (var i = _sections.length - 1; i >= 0; i--) {
+				if(_sections[i].uuid === _sectionUuid) {
+					return { section:_sections[i], index: i};
+				}
+			}
+			return null;
+		}
+
+		var sourceSection = _getSection(structure.sections, sectionUuid);
+		var destSection = _getSection(structure.sections, destSectionUuid);
+
+		if (sourceSection && destSection){
+			_sections.splice(sourceSection.index, 1);
+			_sections.splice(destSection.index, 0, sourceSection.section);
+		}
+	},
+
 	replaceQuestionInSection: function(questionUuid, sourceSectionUuid, destQuestionUuid){
 		var structure = storage.getItem('structure');
 		if (!structure){
