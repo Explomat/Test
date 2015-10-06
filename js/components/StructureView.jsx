@@ -6,6 +6,7 @@ var Hasher = require('../utils/Hasher');
 var Config = require('../config');
 
 var curDragQuestion = null;
+var DRAG_EFFECT = 'move';
 
 function getStructureState() {
 	return {
@@ -18,16 +19,17 @@ var QuestionShortView = React.createClass({
 	handleDragEnter: function(e){
 		e.preventDefault();
 		if (!curDragQuestion || curDragQuestion.node.id === this.props.uuid) return;
-		if (curDragQuestion.curSectionUuid !== this.props.sectionUuid)
-			curDragQuestion.curSectionUuid = this.props.sectionUuid;
-		//curDragQuestion.sectionUuid = this.props.sectionUuid;
-		StructureActions.replaceQuestion(curDragQuestion.node.id, curDragQuestion.sectionUuid, this.props.sectionUuid, this.props.uuid, curDragQuestion.curSectionUuid);
+		if (curDragQuestion.sectionUuid === this.props.sectionUuid)
+			StructureActions.replaceQuestionInSection(curDragQuestion.node.id, curDragQuestion.sectionUuid, this.props.uuid);
 	},
 
 	handleDragStart: function(e){
-		curDragQuestion = { node: e.target, sectionUuid: this.props.sectionUuid, curSectionUuid: this.props.sectionUuid };
+		e.dataTransfer.effectAllowed = DRAG_EFFECT;
+		//this code is not needed, but FF not working without this
+		e.dataTransfer.setData("text", "some text");
+		//
+		curDragQuestion = { node: e.target, sectionUuid: this.props.sectionUuid };
 		curDragQuestion.node.classList.add('question-dnd-start');
-		//e.dataTransfer.setData('text', JSON.stringify({questionUuid: this.props.uuid, sectionUuid: this.props.sectionUuid}));
 	},
 
 	handleDragEnd: function(e){
@@ -40,8 +42,11 @@ var QuestionShortView = React.createClass({
 	},
 
 	handleDrop: function(e){
-		curDragQuestion = null;
 		e.preventDefault();
+		e.target.classList.remove('question-dnd-start');
+		if (curDragQuestion.sectionUuid !== this.props.sectionUuid)
+			StructureActions.replaceQuestionInNewSection(curDragQuestion.node.id, curDragQuestion.sectionUuid, this.props.sectionUuid);
+		curDragQuestion = null;
 	},
 
 	handleEditQuestion: function(){
@@ -58,7 +63,7 @@ var QuestionShortView = React.createClass({
 				<button title="Редактировать вопрос" type="button" className="btn btn-default btn-xs" onClick={this.handleEditQuestion}>
 					<span className="glyphicon glyphicon-edit"></span>
 				</button>
-				&nbsp;<span>{this.props.title}</span>
+				<span>{this.props.title}</span>
 				<div className="btn-group btn-group-xs pull-right">
 					<button title="Удалить вопрос" type="button" className="btn btn-default" onClick={this.handleRemoveQuestion}>
 						<span className="glyphicon glyphicon-remove"></span>
@@ -77,8 +82,8 @@ var SectionView = React.createClass({
 
 	handleDrop: function(e){
 		e.preventDefault();
-		if (this.props.questions.length > 0) return;
-		StructureActions.replaceQuestion(curDragQuestion.node.id, curDragQuestion.sectionUuid, this.props.uuid);
+		if (curDragQuestion && curDragQuestion.sectionUuid !== this.props.uuid)
+			StructureActions.replaceQuestionInNewSection(curDragQuestion.node.id, curDragQuestion.sectionUuid, this.props.uuid);
 		curDragQuestion = null;
 	},
 
@@ -96,15 +101,17 @@ var SectionView = React.createClass({
 
 	render: function() {
 		return (
-			<div className="section" onDrop={this.handleDrop} onDragOver={this.handleAllowDrop}>
-				<button title="Редактировать раздел" type="button" className="btn btn-default btn-xs" onClick={this.handleEditSection}>
-					<span className="glyphicon glyphicon-edit"></span>
-				</button>
-				&nbsp;<span>{this.props.name}</span>
-				<div className="btn-group btn-group-xs pull-right">
-					<button title="Удалить раздел" type="button" className="btn btn-default btn-xs" onClick={this.handleRemoveSection}>
-						<span className="glyphicon glyphicon-remove"></span>
+			<div className="section-container" onDrop={this.handleDrop} onDragOver={this.handleAllowDrop}>
+				<div className="section">
+					<button title="Редактировать раздел" type="button" className="btn btn-default btn-xs" onClick={this.handleEditSection}>
+						<span className="glyphicon glyphicon-edit"></span>
 					</button>
+					<span>{this.props.name}</span>
+					<div className="btn-group btn-group-xs pull-right">
+						<button title="Удалить раздел" type="button" className="btn btn-default btn-xs" onClick={this.handleRemoveSection}>
+							<span className="glyphicon glyphicon-remove"></span>
+						</button>
+					</div>
 				</div>
 				<div>
 					{this.props.questions.map(function(q){

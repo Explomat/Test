@@ -94,7 +94,7 @@ module.exports = {
 		storage.setItem('structure', structure);
 	},
 
-	replaceQuestion: function(questionUuid, sourceSectionUuid, destSectionUuid, destQuestionUuid){
+	replaceQuestionInSection: function(questionUuid, sourceSectionUuid, destQuestionUuid){
 		var structure = storage.getItem('structure');
 		if (!structure){
 			throw new Error('\'structure\' is not defined in storage');
@@ -103,21 +103,25 @@ module.exports = {
 
 		var sourceSection = getSection(structure, sourceSectionUuid);
 		var sourceQuestion = getQuestion(structure, questionUuid);
+		var destQuestion = getQuestion(structure, destQuestionUuid);
+		sourceSection.questions.splice(sourceQuestion.index, 1);
+		sourceSection.questions.splice(destQuestion.index, 0, sourceQuestion.question);
+		storage.setItem('structure', structure);
+	},
 
-		if (sourceSectionUuid === destSectionUuid && destQuestionUuid){
-			var destQuestion = getQuestion(structure, destQuestionUuid);
-			sourceSection.questions.splice(sourceQuestion.index, 1);
-			sourceSection.questions.splice(destQuestion.index, 0, sourceQuestion.question);
-			storage.setItem('structure', structure);
+	replaceQuestionInNewSection: function(sourceQuestionUuid, sourceSectionUuid, destSectionUuid){
+		var structure = storage.getItem('structure');
+		if (!structure){
+			throw new Error('\'structure\' is not defined in storage');
 			return;
 		}
+
+		var sourceSection = getSection(structure, sourceSectionUuid);
 		var destSection = getSection(structure, destSectionUuid);
+		var sourceQuestion = getQuestion(structure, sourceQuestionUuid);
 
-		var sourceQuestions = sourceSection.questions || [];
-		var destQuestions = destSection.questions || [];
-
-		var deletedQuestion = sourceQuestions.splice(sourceQuestion.index, 1)[0];
-		if (deletedQuestion) destQuestions.push(deletedQuestion);
+		sourceSection.questions.splice(sourceQuestion.index, 1);
+		destSection.questions.push(sourceQuestion.question);
 		storage.setItem('structure', structure);
 	},
 

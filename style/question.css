@@ -5,6 +5,10 @@
 	padding-bottom: 1px;
 }
 
+.question > span {
+	margin-left: 5px;
+}
+
 .question:hover {
 	background-color: #ECE6E6;
 }

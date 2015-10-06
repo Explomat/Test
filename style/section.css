@@ -1,4 +1,12 @@
-.section {
+.section-container {
 	margin-bottom: 10px;
 	cursor: default;
+}
+
+.section:hover{
+	background-color: #ECE6E6;
+}
+
+.section > span {
+	margin-left: 5px;
 }

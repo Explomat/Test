@@ -28,15 +28,23 @@ var StructureActions = {
 	},
 
 	
-	replaceQuestion: function(questionUuid, sourceSectionUuid, destSectionUuid, destQuestionUuid, curSectionUuid){
-		StructureAPI.replaceQuestion(questionUuid, sourceSectionUuid, destSectionUuid, destQuestionUuid, curSectionUuid);
+	replaceQuestionInSection: function(questionUuid, sourceSectionUuid, destQuestionUuid){
+		StructureAPI.replaceQuestionInSection(questionUuid, sourceSectionUuid, destQuestionUuid);
 		AppDispatcher.handleData({
-			actionType: StructureConstants.REPLACE_QUESTION,
+			actionType: StructureConstants.REPLACE_QUESTION_IN_SECTION,
 			questionUuid: questionUuid,
 			sourceSectionUuid: sourceSectionUuid,
-			destSectionUuid: destSectionUuid,
-			destQuestionUuid: destQuestionUuid,
-			curSectionUuid: curSectionUuid
+			destQuestionUuid: destQuestionUuid
+		});
+	},
+
+	replaceQuestionInNewSection: function(questionUuid, sourceSectionUuid, destSectionUuid){
+		StructureAPI.replaceQuestionInNewSection(questionUuid, sourceSectionUuid, destSectionUuid);
+		AppDispatcher.handleData({
+			actionType: StructureConstants.REPLACE_QUESTION_IN_NEW_SECTION,
+			questionUuid: questionUuid,
+			sourceSectionUuid: sourceSectionUuid,
+			destSectionUuid: destSectionUuid
 		});
 	},
 

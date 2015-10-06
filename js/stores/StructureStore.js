@@ -71,34 +71,22 @@ function removeQuestion(sectionUuid, questionUuid){
 	}
 }
 
-function replaceQuestion(questionUuid, sourceSectionUuid, destSectionUuid, destQuestionUuid, curSectionUuid){
+function replaceQuestionInSection(sourceQuestionUuid, sourceSectionUuid, destQuestionUuid){
 	var sourceSection = getSection(sourceSectionUuid);
-	var destSection = getSection(destSectionUuid);
-	var sourceQuestion = getQuestion(questionUuid);
+	var sourceQuestion = getQuestion(sourceQuestionUuid);
 	var destQuestion = getQuestion(destQuestionUuid);
 
-	if (sourceSectionUuid === destSectionUuid && destQuestionUuid){
-		sourceSection.questions.splice(sourceQuestion.index, 1);
-		sourceSection.questions.splice(destQuestion.index, 0, sourceQuestion.question);
-		return;
-	}
-	else if (sourceSectionUuid !== destSectionUuid && !destQuestionUuid) {
-		var deletedQuestion = sourceSection.questions.splice(sourceQuestion.index, 1)[0];
-		if (deletedQuestion) destSection.questions.push(deletedQuestion);
-		return;
-	}
-	else if (sourceSectionUuid !== destSectionUuid && sourceQuestion && destQuestionUuid && curSectionUuid && sourceSectionUuid !== curSectionUuid) {
-		console.log(sourceQuestion);
-		sourceSection.questions.splice(sourceQuestion.index, 1);
-		destSection.questions.splice(destQuestion.index, 0, sourceQuestion.question);
+	sourceSection.questions.splice(sourceQuestion.index, 1);
+	sourceSection.questions.splice(destQuestion.index, 0, sourceQuestion.question);
+}
 
-		//destSection.questions.splice(destQuestion.index, 0, sourceQuestion.question);
-		/*var sourceQuestions = sourceSection.questions || [];
-		var destQuestions = destSection.questions || [];
-		var deletedQuestion = sourceQuestions.splice(sourceQuestion.index, 1)[0];
-		if (deletedQuestion && destQuestion) destQuestions.splice(destQuestion.index, 0, deletedQuestion);*/
-		return;
-	}
+function replaceQuestionInNewSection(sourceQuestionUuid, sourceSectionUuid, destSectionUuid){
+	var sourceSection = getSection(sourceSectionUuid);
+	var destSection = getSection(destSectionUuid);
+	var sourceQuestion = getQuestion(sourceQuestionUuid);
+
+	sourceSection.questions.splice(sourceQuestion.index, 1);
+	destSection.questions.push(sourceQuestion.question);
 }
 
 function removeSection(uuid){
@@ -181,8 +169,12 @@ StructureStore.dispatchToken = AppDispatcher.register(function(payload) {
 			removeQuestion(action.sectionUuid, action.questionUuid);
 			isEmit = true;
 			break;
-		case StructureConstants.REPLACE_QUESTION:
-			replaceQuestion(action.questionUuid, action.sourceSectionUuid, action.destSectionUuid, action.destQuestionUuid, action.curSectionUuid);
+		case StructureConstants.REPLACE_QUESTION_IN_SECTION:
+			replaceQuestionInSection(action.questionUuid, action.sourceSectionUuid, action.destQuestionUuid);
+			isEmit = true;
+			break;
+		case StructureConstants.REPLACE_QUESTION_IN_NEW_SECTION:
+			replaceQuestionInNewSection(action.questionUuid, action.sourceSectionUuid, action.destSectionUuid);
 			isEmit = true;
 			break;
 		case QuestionConstants.SAVE_QUESTION_DATA:
