@@ -119,8 +119,8 @@ var SectionView = React.createClass({
 
 	render: function() {
 		return (
-			<div className="section-container" draggable="true" onDragStart={this.handleDragStart} onDragEnd={this.handleDragEnd} onDragEnter={this.handleDragEnter} onDrop={this.handleDrop} onDragOver={this.handleAllowDrop}>
-				<div className="section">
+			<div className="section-container" onDrop={this.handleDrop} onDragOver={this.handleAllowDrop}>
+				<div className="section" draggable="true" onDragStart={this.handleDragStart} onDragEnd={this.handleDragEnd} onDragEnter={this.handleDragEnter}>
 					<button title="Редактировать раздел" type="button" className="btn btn-default btn-xs" onClick={this.handleEditSection}>
 						<span className="glyphicon glyphicon-edit"></span>
 					</button>
