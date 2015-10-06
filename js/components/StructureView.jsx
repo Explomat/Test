@@ -62,8 +62,14 @@ var QuestionShortView = React.createClass({
 					<span className="glyphicon glyphicon-edit"></span>
 				</button>
 				<span>{this.props.title}</span>
-				<div className="btn-group btn-group-xs pull-right">
-					<button title="Удалить вопрос" type="button" className="btn btn-default" onClick={this.handleRemoveQuestion}>
+				<div className="btn-group btn-group-xs pull-right question-buttons">
+					<button type="button" className="btn btn-default question-up-button" onClick={this.handleShiftUp}>
+						<span className="glyphicon glyphicon-arrow-up"></span>
+					</button>
+					<button type="button" className="btn btn-default question-down-button" onClick={this.handleShiftDown}>
+						<span className="glyphicon glyphicon-arrow-down"></span>
+					</button>
+					<button title="Удалить вопрос" type="button" className="btn btn-default question-delete-button" onClick={this.handleRemoveQuestion}>
 						<span className="glyphicon glyphicon-remove"></span>
 					</button>
 				</div>
@@ -125,9 +131,17 @@ var SectionView = React.createClass({
 						<span className="glyphicon glyphicon-edit"></span>
 					</button>
 					<span>{this.props.name}</span>
-					<button title="Удалить раздел" type="button" className="btn btn-default btn-xs pull-right" onClick={this.handleRemoveSection}>
-						<span className="glyphicon glyphicon-remove"></span>
-					</button>
+					<div className="btn-group btn-group-xs pull-right section-buttons">
+						<button type="button" className="btn btn-default section-up-button" onClick={this.handleShiftUp}>
+							<span className="glyphicon glyphicon-arrow-up"></span>
+						</button>
+						<button type="button" className="btn btn-default section-down-button" onClick={this.handleShiftDown}>
+							<span className="glyphicon glyphicon-arrow-down"></span>
+						</button>
+						<button title="Удалить раздел" type="button" className="btn btn-default section-delete-button" onClick={this.handleRemoveSection}>
+							<span className="glyphicon glyphicon-remove"></span>
+						</button>
+					</div>
 				</div>
 				<div>
 					{this.props.questions.map(function(q){
