@@ -13,7 +13,7 @@ function getQuestion(questionUuid){
 		var questions = section.questions;
 		for (var j = questions.length - 1; j >= 0; j--) {
 			if (questions[j].uuid === questionUuid) {
-				return {question: questions[j], index: j}
+				return { question: questions[j], index: j }
 			}
 		}
 	}
@@ -23,7 +23,7 @@ function getQuestion(questionUuid){
 function getSection(sectionUuid){
 	for (var i = _sections.length - 1; i >= 0; i--) {
 		if(_sections[i].uuid === sectionUuid) {
-			return _sections[i];
+			return { section:_sections[i], index: i}
 		}
 	}
 	return null;
@@ -56,10 +56,10 @@ function saveQuestion(question, sectionUuid){
 	var section = getSection(sectionUuid);
 
 	if (questionIndex === null && section) {
-		section.questions.push(question);
+		section.section.questions.push(question);
 	}
 	else if (questionIndex !== null && section){
-		section.questions[questionIndex.index] = question;
+		section.section.questions[questionIndex.index] = question;
 	}
 }
 
@@ -68,7 +68,7 @@ function removeQuestion(sectionUuid, questionUuid){
 	var section = getSection(sectionUuid);
 
 	if (questionIndex !== null && section) {
-		section.questions.splice(questionIndex.index, 1);
+		section.section.questions.splice(questionIndex.index, 1);
 	}
 }
 
@@ -77,8 +77,8 @@ function replaceQuestionInSection(sourceQuestionUuid, sourceSectionUuid, destQue
 	var sourceQuestion = getQuestion(sourceQuestionUuid);
 	var destQuestion = getQuestion(destQuestionUuid);
 
-	sourceSection.questions.splice(sourceQuestion.index, 1);
-	sourceSection.questions.splice(destQuestion.index, 0, sourceQuestion.question);
+	sourceSection.section.questions.splice(sourceQuestion.index, 1);
+	sourceSection.section.questions.splice(destQuestion.index, 0, sourceQuestion.question);
 }
 
 function replaceQuestionInNewSection(sourceQuestionUuid, sourceSectionUuid, destSectionUuid){
@@ -86,39 +86,56 @@ function replaceQuestionInNewSection(sourceQuestionUuid, sourceSectionUuid, dest
 	var destSection = getSection(destSectionUuid);
 	var sourceQuestion = getQuestion(sourceQuestionUuid);
 
-	sourceSection.questions.splice(sourceQuestion.index, 1);
-	destSection.questions.push(sourceQuestion.question);
+	if (sourceSection && destSection){
+		sourceSection.section.questions.splice(sourceQuestion.index, 1);
+		destSection.section.questions.push(sourceQuestion.question);
+	}
 }
 
-function shiftUpQuestion(questionUuid, sectionUuid){
+function shiftUpQuestion(questionUuid, sectionUuid) {
+	var sourceQuestion = getQuestion(questionUuid);
+	var sourceSection = getSection(sectionUuid);
+	if (!sourceQuestion || !sourceSection) return;
+	if (sourceQuestion.index === 0 && sourceSection.index === 0) return;
 
+	if (sourceQuestion.index === 0 && sourceSection.index > 0) {
+		sourceSection.section.questions.splice(sourceQuestion.index, 1);
+		_sections[sourceSection.index - 1].questions.push(sourceQuestion.question);
+	}
+	else if (sourceQuestion.index > 0) {
+		sourceSection.section.questions.splice(sourceQuestion.index, 1);
+		sourceSection.section.questions.splice(sourceQuestion.index - 1, 0, sourceQuestion.question);
+	}
 }
 
 function shiftDownQuestion(questionUuid, sectionUuid){
+	var sourceQuestion = getQuestion(questionUuid);
+	var sourceSection = getSection(sectionUuid);
+	if (!sourceQuestion || !sourceSection) return;
+	var lastQuestionIndexInSection = sourceSection.section.questions.length - 1;
+	if (sourceQuestion.index === lastQuestionIndexInSection && sourceSection.index === _sections.length - 1) return;
 
+	if (sourceQuestion.index === lastQuestionIndexInSection && sourceSection.index < _sections.length - 1) {
+		sourceSection.section.questions.splice(sourceQuestion.index, 1);
+		_sections[sourceSection.index + 1].questions.splice(0, 0, sourceQuestion.question);
+	}
+	else if (sourceQuestion.index < lastQuestionIndexInSection) {
+		sourceSection.section.questions.splice(sourceQuestion.index, 1);
+		sourceSection.section.questions.splice(sourceQuestion.index + 1, 0, sourceQuestion.question);
+	}
 }
 
 function removeSection(uuid){
 	var secIndex = _sections.findIndex(function(sec){
 		return sec.uuid === uuid;
 	});
-	if (secIndex != -1)
+	if (secIndex !== -1)
 		_sections.splice(secIndex, 1);
 }
 
 function replaceSection(sectionUuid, destSectionUuid){
-
-	function _getSection(_sectionUuid) {
-		for (var i = _sections.length - 1; i >= 0; i--) {
-			if(_sections[i].uuid === _sectionUuid) {
-				return { section:_sections[i], index: i};
-			}
-		}
-		return null;
-	}
-
-	var sourceSection = _getSection(sectionUuid);
-	var destSection = _getSection(destSectionUuid);
+	var sourceSection = getSection(sectionUuid);
+	var destSection = getSection(destSectionUuid);
 
 	if (sourceSection && destSection){
 		_sections.splice(sourceSection.index, 1);
@@ -127,17 +144,31 @@ function replaceSection(sectionUuid, destSectionUuid){
 }
 
 function shiftUpSection(sectionUuid){
-	
+	var sourceSection = getSection(sectionUuid);
+	if (sourceSection && sourceSection.index === 0) return;
+
+	var destSection = _sections[sourceSection.index - 1];
+	_sections.splice(sourceSection.index, 1);
+	_sections.splice(sourceSection.index - 1, 0, sourceSection.section);
 }
 
 function shiftDownSection(sectionUuid){
-	
+	var sourceSection = getSection(sectionUuid);
+	if (sourceSection && sourceSection.index === _sections.length - 1) return;
+
+	var destSection = _sections[sourceSection.index + 1];
+	_sections.splice(sourceSection.index, 1);
+	_sections.splice(sourceSection.index + 1, 0, sourceSection.section);
 }
 
 var StructureStore = extend({}, EventEmitter.prototype, {
 	
 	getSections: function(){
 		return _sections;
+	},
+
+	getSectionsCount: function(){
+		return _sections.length;
 	},
 
 	getStructure: function () {
@@ -159,13 +190,19 @@ var StructureStore = extend({}, EventEmitter.prototype, {
 		return null;
 	},
 
+	getQuestionIndex: function (questionUuid) {
+		var question = getQuestion(questionUuid);
+		return question ? question.index : null;
+	},
+
 	getSectionIndex: function(sectionUuid){
-		for (var i = _sections.length - 1; i >= 0; i--) {
-			if(_sections[i].uuid === sectionUuid) {
-				return i;
-			}
-		}
-		return null;
+		var section = getSection(sectionUuid);
+		return section ? section.index : null;
+	},
+
+	getQuestionsCountInSection: function(sectionUuid){
+		var section = getSection(sectionUuid);
+		return section ? section.section.questions.length : null;
 	},
 
 	emitChange: function() {
@@ -230,7 +267,7 @@ StructureStore.dispatchToken = AppDispatcher.register(function(payload) {
 			shiftUpQuestion(action.questionUuid, action.sectionUuid);
 			isEmit = true;
 			break;
-		case StructureConstants.SHIFT_UP_QUESTION:
+		case StructureConstants.SHIFT_DOWN_QUESTION:
 			shiftDownQuestion(action.questionUuid, action.sectionUuid);
 			isEmit = true;
 			break;

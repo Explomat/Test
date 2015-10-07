@@ -60,10 +60,15 @@ var QuestionShortView = React.createClass({
 	},
 
 	handleShiftDown: function () {
-		StructureActions.shiftDownSection(this.props.uuid, this.props.sectionUuid);
+		StructureActions.shiftDownQuestion(this.props.uuid, this.props.sectionUuid);
 	},
 
 	render: function(){
+		var questionIndex = StructureStore.getQuestionIndex(this.props.uuid);
+		var sectionIndex = StructureStore.getSectionIndex(this.props.sectionUuid);
+
+		var isShowArrowUp = { display : sectionIndex === 0 && questionIndex === 0 ? 'none' : 'block' };
+		var isShowArrowDown = { display : sectionIndex === StructureStore.getSectionsCount() - 1 && questionIndex === StructureStore.getQuestionsCountInSection(this.props.sectionUuid) - 1 ? 'none' : 'block' };
 		return(
 			<div id={this.props.uuid} className="question" draggable="true" onDragStart={this.handleDragStart} onDragEnd={this.handleDragEnd} onDrop={this.handleDrop} onDragOver={this.handleAllowDrop} onDragEnter={this.handleDragEnter}>
 				<button title="Редактировать вопрос" type="button" className="btn btn-default btn-xs" onClick={this.handleEditQuestion}>
@@ -71,10 +76,10 @@ var QuestionShortView = React.createClass({
 				</button>
 				<span>{this.props.title}</span>
 				<div className="btn-group btn-group-xs pull-right question-buttons">
-					<button type="button" className="btn btn-default question-up-button" onClick={this.handleShiftUp}>
+					<button type="button" style={isShowArrowUp} className="btn btn-default question-up-button" onClick={this.handleShiftUp}>
 						<span className="glyphicon glyphicon-arrow-up"></span>
 					</button>
-					<button type="button" className="btn btn-default question-down-button" onClick={this.handleShiftDown}>
+					<button type="button" style={isShowArrowDown} className="btn btn-default question-down-button" onClick={this.handleShiftDown}>
 						<span className="glyphicon glyphicon-arrow-down"></span>
 					</button>
 					<button title="Удалить вопрос" type="button" className="btn btn-default question-delete-button" onClick={this.handleRemoveQuestion}>
@@ -140,6 +145,9 @@ var SectionView = React.createClass({
 	},
 
 	render: function() {
+		var sectionIndex = StructureStore.getSectionIndex(this.props.uuid);
+		var isShowArrowUp = { display : sectionIndex === 0 ? 'none' : 'block' };
+		var isShowArrowDown = { display : sectionIndex === StructureStore.getSectionsCount() - 1 ? 'none' : 'block' };
 		return (
 			<div className="section-container" onDrop={this.handleDrop} onDragOver={this.handleAllowDrop}>
 				<div className="section" draggable="true" onDragStart={this.handleDragStart} onDragEnd={this.handleDragEnd} onDragEnter={this.handleDragEnter}>
@@ -148,10 +156,10 @@ var SectionView = React.createClass({
 					</button>
 					<span>{this.props.name}</span>
 					<div className="btn-group btn-group-xs pull-right section-buttons">
-						<button type="button" className="btn btn-default section-up-button" onClick={this.handleShiftUp}>
+						<button type="button" style={isShowArrowUp} className="btn btn-default section-up-button" onClick={this.handleShiftUp}>
 							<span className="glyphicon glyphicon-arrow-up"></span>
 						</button>
-						<button type="button" className="btn btn-default section-down-button" onClick={this.handleShiftDown}>
+						<button type="button" style={isShowArrowDown} className="btn btn-default section-down-button" onClick={this.handleShiftDown}>
 							<span className="glyphicon glyphicon-arrow-down"></span>
 						</button>
 						<button title="Удалить раздел" type="button" className="btn btn-default section-delete-button" onClick={this.handleRemoveSection}>
