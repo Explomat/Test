@@ -93,6 +93,12 @@ var QuestionShortView = React.createClass({
 
 var SectionView = React.createClass({
 
+	getInitialState: function () {
+		return {
+			isDisplayQuestions: true
+		}
+	},
+
 	handleAllowDrop: function(e){
 		e.preventDefault();
 	},
@@ -144,16 +150,27 @@ var SectionView = React.createClass({
 		StructureActions.shiftDownSection(this.props.uuid);
 	},
 
+	handleToggleDisplayQuestions: function(){
+		this.setState({isDisplayQuestions: !this.state.isDisplayQuestions});
+	},
+
 	render: function() {
 		var sectionIndex = StructureStore.getSectionIndex(this.props.uuid);
 		var isShowArrowUp = { display : sectionIndex === 0 ? 'none' : 'block' };
 		var isShowArrowDown = { display : sectionIndex === StructureStore.getSectionsCount() - 1 ? 'none' : 'block' };
+		var isDisplayQuestions = { display : this.state.isDisplayQuestions ? 'block' : 'none' };
+		var iconClassForDisplayQuestions = this.state.isDisplayQuestions ? "glyphicon glyphicon-minus" : "glyphicon glyphicon-plus";
 		return (
 			<div className="section-container" onDrop={this.handleDrop} onDragOver={this.handleAllowDrop}>
 				<div className="section" draggable="true" onDragStart={this.handleDragStart} onDragEnd={this.handleDragEnd} onDragEnter={this.handleDragEnter}>
-					<button title="Редактировать раздел" type="button" className="btn btn-default btn-xs" onClick={this.handleEditSection}>
-						<span className="glyphicon glyphicon-edit"></span>
-					</button>
+					<div className="btn-group btn-group-xs">
+						<button type="button" className="btn btn-default" onClick={this.handleToggleDisplayQuestions}>
+							<span className={iconClassForDisplayQuestions}></span>
+						</button>
+						<button title="Редактировать раздел" type="button" className="btn btn-default" onClick={this.handleEditSection}>
+							<span className="glyphicon glyphicon-edit"></span>
+						</button>
+					</div>
 					<span>{this.props.name}</span>
 					<div className="btn-group btn-group-xs pull-right section-buttons">
 						<button type="button" style={isShowArrowUp} className="btn btn-default section-up-button" onClick={this.handleShiftUp}>
@@ -167,12 +184,12 @@ var SectionView = React.createClass({
 						</button>
 					</div>
 				</div>
-				<div>
+				<div style={isDisplayQuestions}>
 					{this.props.questions.map(function(q){
 						return <QuestionShortView key={q.uuid} uuid={q.uuid} sectionUuid={this.props.uuid} title={q.title}/>;
 					}.bind(this))}
 				</div>
-				<button title="Добавить вопрос" type="button" className="btn btn-default btn-xs add-question-button" onClick={this.handleDisplayNewQuestion}>
+				<button title="Добавить вопрос" type="button" style={isDisplayQuestions} className="btn btn-default btn-xs add-question-button" onClick={this.handleDisplayNewQuestion}>
 					<span className="glyphicon glyphicon-plus"></span>
 					<span>&nbsp;Добавить вопрос</span>
 				</button>
