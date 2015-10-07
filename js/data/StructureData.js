@@ -114,8 +114,9 @@ module.exports = {
 		var destSection = _getSection(structure.sections, destSectionUuid);
 
 		if (sourceSection && destSection){
-			_sections.splice(sourceSection.index, 1);
-			_sections.splice(destSection.index, 0, sourceSection.section);
+			structure.sections.splice(sourceSection.index, 1);
+			structure.sections.splice(destSection.index, 0, sourceSection.section);
+			storage.setItem('structure', structure);
 		}
 	},
 

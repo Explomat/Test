@@ -55,6 +55,14 @@ var QuestionShortView = React.createClass({
 		StructureActions.removeQuestion(this.props.sectionUuid, this.props.uuid);
 	},
 
+	handleShiftUp: function(){
+		StructureActions.shiftUpQuestion(this.props.uuid, this.props.sectionUuid);
+	},
+
+	handleShiftDown: function () {
+		StructureActions.shiftDownSection(this.props.uuid, this.props.sectionUuid);
+	},
+
 	render: function(){
 		return(
 			<div id={this.props.uuid} className="question" draggable="true" onDragStart={this.handleDragStart} onDragEnd={this.handleDragEnd} onDrop={this.handleDrop} onDragOver={this.handleAllowDrop} onDragEnter={this.handleDragEnter}>
@@ -123,6 +131,14 @@ var SectionView = React.createClass({
 		StructureActions.removeSection(this.props.uuid);
 	},
 
+	handleShiftUp: function(){
+		StructureActions.shiftUpSection(this.props.uuid);
+	},
+
+	handleShiftDown: function () {
+		StructureActions.shiftDownSection(this.props.uuid);
+	},
+
 	render: function() {
 		return (
 			<div className="section-container" onDrop={this.handleDrop} onDragOver={this.handleAllowDrop}>
@@ -148,7 +164,7 @@ var SectionView = React.createClass({
 						return <QuestionShortView key={q.uuid} uuid={q.uuid} sectionUuid={this.props.uuid} title={q.title}/>;
 					}.bind(this))}
 				</div>
-				<button title="Добавить вопрос" type="button" className="btn btn-default btn-xs button-add-question" onClick={this.handleDisplayNewQuestion}>
+				<button title="Добавить вопрос" type="button" className="btn btn-default btn-xs add-question-button" onClick={this.handleDisplayNewQuestion}>
 					<span className="glyphicon glyphicon-plus"></span>
 					<span>&nbsp;Добавить вопрос</span>
 				</button>

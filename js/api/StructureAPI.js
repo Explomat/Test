@@ -24,6 +24,14 @@ module.exports = {
 		StructureData.replaceQuestionInNewSection(questionUuid, sourceSectionUuid, destSectionUuid);
 	},
 
+	shiftUpQuestion: function(questionUuid, sectionUuid){
+		
+	},
+
+	shiftDownQuestion: function(questionUuid, sectionUuid){
+
+	},
+
 	saveSection: function(section){
 		StructureData.saveSection(section);
 	},
@@ -34,6 +42,14 @@ module.exports = {
 
 	replaceSection: function(sectionUuid, destSectionUuid){
 		StructureData.replaceSection(sectionUuid, destSectionUuid);
+	},
+
+	shiftUpSection: function(sectionUuid){
+
+	},
+
+	shiftDownSection: function(sectionUuid){
+
 	},
 
 	isSectionExist: function(sectionId){

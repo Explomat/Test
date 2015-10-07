@@ -48,6 +48,25 @@ var StructureActions = {
 		});
 	},
 
+
+	shiftUpQuestion: function(questionUuid, sectionUuid){
+		StructureAPI.shiftUpQuestion(questionUuid, sectionUuid);
+		AppDispatcher.handleData({
+			actionType: StructureConstants.SHIFT_UP_QUESTION,
+			questionUuid: questionUuid,
+			sectionUuid: sectionUuid
+		});
+	},
+
+	shiftDownQuestion: function(questionUuid, sectionUuid){
+		StructureAPI.shiftDownQuestion(questionUuid, sectionUuid);
+		AppDispatcher.handleData({
+			actionType: StructureConstants.SHIFT_DOWN_QUESTION,
+			questionUuid: questionUuid,
+			sectionUuid: sectionUuid
+		});
+	},
+
 	saveSection: function(section){
 		StructureAPI.saveSection(section);
 		AppDispatcher.handleData({
@@ -65,11 +84,27 @@ var StructureActions = {
 	},
 
 	replaceSection: function(sectionUuid, destSectionUuid){
-		//StructureAPI.replaceSection(sectionUuid, destSectionUuid);
+		StructureAPI.replaceSection(sectionUuid, destSectionUuid);
 		AppDispatcher.handleData({
 			actionType: StructureConstants.REPLACE_SECTION,
 			sectionUuid: sectionUuid,
 			destSectionUuid: destSectionUuid
+		});
+	},
+
+	shiftUpSection: function(sectionUuid){
+		StructureAPI.shiftUpSection(sectionUuid);
+		AppDispatcher.handleData({
+			actionType: StructureConstants.SHIFT_UP_SECTION,
+			sectionUuid: sectionUuid
+		});
+	},
+
+	shiftDownSection: function(sectionUuid){
+		StructureAPI.shiftDownSection(sectionUuid);
+		AppDispatcher.handleData({
+			actionType: StructureConstants.SHIFT_DOWN_SECTION,
+			sectionUuid: sectionUuid
 		});
 	}
 }

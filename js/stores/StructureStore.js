@@ -3,6 +3,7 @@ var EventEmitter = require('events').EventEmitter;
 var StructureConstants = require('../constants/StructureConstants');
 var QuestionConstants = require('../constants/QuestionConstants');
 var extend = require('extend-object');
+var array = require('../utils/Array');
 
 var _structure = {}, _sections = [];
 
@@ -89,6 +90,14 @@ function replaceQuestionInNewSection(sourceQuestionUuid, sourceSectionUuid, dest
 	destSection.questions.push(sourceQuestion.question);
 }
 
+function shiftUpQuestion(questionUuid, sectionUuid){
+
+}
+
+function shiftDownQuestion(questionUuid, sectionUuid){
+
+}
+
 function removeSection(uuid){
 	var secIndex = _sections.findIndex(function(sec){
 		return sec.uuid === uuid;
@@ -115,6 +124,14 @@ function replaceSection(sectionUuid, destSectionUuid){
 		_sections.splice(sourceSection.index, 1);
 		_sections.splice(destSection.index, 0, sourceSection.section);
 	}
+}
+
+function shiftUpSection(sectionUuid){
+	
+}
+
+function shiftDownSection(sectionUuid){
+	
 }
 
 var StructureStore = extend({}, EventEmitter.prototype, {
@@ -189,6 +206,14 @@ StructureStore.dispatchToken = AppDispatcher.register(function(payload) {
 			removeSection(action.uuid);
 			isEmit = true;
 			break;
+		case StructureConstants.SHIFT_UP_SECTION:
+			shiftUpSection(action.sectionUuid);
+			isEmit = true;
+			break;
+		case StructureConstants.SHIFT_DOWN_SECTION:
+			shiftDownSection(action.sectionUuid);
+			isEmit = true;
+			break;
 		case StructureConstants.REMOVE_QUESTION:
 			removeQuestion(action.sectionUuid, action.questionUuid);
 			isEmit = true;
@@ -199,6 +224,14 @@ StructureStore.dispatchToken = AppDispatcher.register(function(payload) {
 			break;
 		case StructureConstants.REPLACE_QUESTION_IN_NEW_SECTION:
 			replaceQuestionInNewSection(action.questionUuid, action.sourceSectionUuid, action.destSectionUuid);
+			isEmit = true;
+			break;
+		case StructureConstants.SHIFT_UP_QUESTION:
+			shiftUpQuestion(action.questionUuid, action.sectionUuid);
+			isEmit = true;
+			break;
+		case StructureConstants.SHIFT_UP_QUESTION:
+			shiftDownQuestion(action.questionUuid, action.sectionUuid);
 			isEmit = true;
 			break;
 		case QuestionConstants.SAVE_QUESTION_DATA:
