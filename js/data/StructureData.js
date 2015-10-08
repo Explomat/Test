@@ -155,6 +155,20 @@ module.exports = {
 		storage.setItem('structure', structure);
 	},
 
+	toggleExpandSections: function(isExpandedSections){
+		var structure = storage.getItem('structure');
+		if (!structure){
+			throw new Error('\'structure\' is not defined in storage');
+			return;
+		}
+
+		for (var i = structure.sections.length - 1; i >= 0; i--) {
+			structure.sections[i].isExpanded = isExpandedSections;
+		};
+
+		storage.setItem('structure', structure);
+	},
+
 	removeQuestion: function(sectionUuid, questionUuid) {
 		var structure = storage.getItem('structure');
 		if (!structure){

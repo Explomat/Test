@@ -114,6 +114,14 @@ var StructureActions = {
 			actionType: StructureConstants.TOGGLE_EXPAND_SECTION,
 			sectionUuid: sectionUuid
 		});
+	},
+
+	toggleExpandSections: function(isExpandedSections){
+		StructureAPI.toggleExpandSections(isExpandedSections);
+		AppDispatcher.handleData({
+			actionType: StructureConstants.TOGGLE_EXPAND_SECTIONS,
+			isExpandedSections: isExpandedSections
+		});
 	}
 }
 

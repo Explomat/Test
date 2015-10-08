@@ -168,6 +168,12 @@ function toggleExpandSection(sectionUuid){
 	}
 }
 
+function toggleExpandSections(isExpandedSections){
+	for (var i = _sections.length - 1; i >= 0; i--) {
+		_sections[i].isExpanded = isExpandedSections;
+	};
+}
+
 var StructureStore = extend({}, EventEmitter.prototype, {
 	
 	getSections: function(){
@@ -260,6 +266,10 @@ StructureStore.dispatchToken = AppDispatcher.register(function(payload) {
 			break;
 		case StructureConstants.TOGGLE_EXPAND_SECTION:
 			toggleExpandSection(action.sectionUuid);
+			isEmit = true;
+			break;
+		case StructureConstants.TOGGLE_EXPAND_SECTIONS:
+			toggleExpandSections(action.isExpandedSections);
 			isEmit = true;
 			break;
 		case StructureConstants.REMOVE_QUESTION:

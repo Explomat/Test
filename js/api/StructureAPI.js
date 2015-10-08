@@ -56,6 +56,10 @@ module.exports = {
 		StructureData.toggleExpandSection(sectionUuid);
 	},
 
+	toggleExpandSections: function(isExpandedSections){
+		StructureData.toggleExpandSections(isExpandedSections);
+	},
+
 	isSectionExist: function(sectionId){
 		var structure = Storage.getItem('structure') || {};
 		if (!structure.sections) return false;

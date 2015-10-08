@@ -212,10 +212,18 @@ var StructureView = React.createClass({
 	},
 
 	getInitialState: function () {
-		return getStructureState();
+		var data = getStructureState();
+		data.isExpandedSections = true;
+		return data;
+	},
+
+	handleToggleExpandSections: function(){
+		this.setState({isExpandedSections : !this.state.isExpandedSections});
+		StructureActions.toggleExpandSections(!this.state.isExpandedSections);
 	},
 
 	render: function () {
+		var expandSectionsClass = this.state.isExpandedSections ? 'glyphicon glyphicon-minus' : 'glyphicon glyphicon-plus';
 		return (
 			<div>
 				<div className="panel panel-default">
@@ -223,6 +231,9 @@ var StructureView = React.createClass({
 						<button title="Добавить раздел" type="button" className="btn btn-default btn-sm" onClick={this.handleAddNewSection}>
 							<span className="glyphicon glyphicon-plus"></span>
 							<span>&nbsp;Добавить раздел</span>
+						</button>
+						<button type="button" className="btn btn-default btn-sm pull-right" onClick={this.handleToggleExpandSections}>
+							<span className={expandSectionsClass}></span>
 						</button>
 					</div>
 					<div className="panel-body">

@@ -5,7 +5,7 @@
   "scripts": {
     "td": "npm run build-jsx && browserify js/main.js -d -o build/js/bundle.js && rm -rf js/components/**/*.js & rm -rf js/components/*.js",
     "temptd": "npm run build-jsx && browserify js/main.js -d -o build/js/bundle.js",
-    "deploy": "uglifyjs build/js/bundle.js --source-map build/js/bundle.js.map",
+    "deploy": "uglifyjs build/js/bundle.js -o build/js/bundle.min.js",
     "deploytd": "uglifyjs build/js/bundle.js -o build/js/bundle.min.js",
     "build": "browserify js/main.js -d | uglifyjs -mc > build/js/bundle.js",
     "build-jsx": "jsx js/components --extension jsx js/components",
