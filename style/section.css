@@ -27,7 +27,7 @@
 	cursor: pointer;
 }
 
-.section > span {
+.section > strong {
 	margin-left: 5px;
 }
 

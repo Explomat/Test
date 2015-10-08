@@ -165,7 +165,7 @@ var SectionView = React.createClass({
 							<span className="glyphicon glyphicon-edit"></span>
 						</button>
 					</div>
-					<span>{this.props.name}</span>
+					<strong>{this.props.name}</strong>
 					<div className="btn-group btn-group-xs pull-right section-buttons">
 						<button type="button" style={isShowArrowUp} className="btn btn-default section-up-button" onClick={this.handleShiftUp}>
 							<span className="glyphicon glyphicon-arrow-up"></span>

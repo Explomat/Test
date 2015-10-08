@@ -6,7 +6,6 @@
     "td": "npm run build-jsx && browserify js/main.js -d -o build/js/bundle.js && rm -rf js/components/**/*.js & rm -rf js/components/*.js",
     "temptd": "npm run build-jsx && browserify js/main.js -d -o build/js/bundle.js",
     "deploy": "uglifyjs build/js/bundle.js -o build/js/bundle.min.js",
-    "deploytd": "uglifyjs build/js/bundle.js -o build/js/bundle.min.js",
     "build": "browserify js/main.js -d | uglifyjs -mc > build/js/bundle.js",
     "build-jsx": "jsx js/components --extension jsx js/components",
     "min-css": "cat style/bootstrap.css style/fileinput.css style/style.css style/font-awesome.min.css style/question.css style/section.css | cleancss -o build/style/style.min.css",
