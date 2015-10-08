@@ -93,12 +93,6 @@ var QuestionShortView = React.createClass({
 
 var SectionView = React.createClass({
 
-	getInitialState: function () {
-		return {
-			isExpand: this.props.isExpand || true
-		}
-	},
-
 	handleAllowDrop: function(e){
 		e.preventDefault();
 	},
@@ -150,21 +144,21 @@ var SectionView = React.createClass({
 		StructureActions.shiftDownSection(this.props.uuid);
 	},
 
-	handleToggleDisplayQuestions: function(){
-		this.setState({isExpand: !this.state.isExpand});
+	toggleExpandSection: function(){
+		StructureActions.toggleExpandSection(this.props.uuid);
 	},
 
 	render: function() {
 		var sectionIndex = StructureStore.getSectionIndex(this.props.uuid);
 		var isShowArrowUp = { display : sectionIndex === 0 ? 'none' : 'block' };
 		var isShowArrowDown = { display : sectionIndex === StructureStore.getSectionsCount() - 1 ? 'none' : 'block' };
-		var isDisplayQuestions = { display : this.state.isExpand ? 'block' : 'none' };
-		var isExpandClass = this.state.isExpand ? "glyphicon glyphicon-minus" : "glyphicon glyphicon-plus";
+		var isDisplayQuestions = { display : this.props.isExpanded ? 'block' : 'none' };
+		var isExpandClass = this.props.isExpanded ? "glyphicon glyphicon-minus" : "glyphicon glyphicon-plus";
 		return (
 			<div className="section-container" onDrop={this.handleDrop} onDragOver={this.handleAllowDrop}>
 				<div className="section" draggable="true" onDragStart={this.handleDragStart} onDragEnd={this.handleDragEnd} onDragEnter={this.handleDragEnter}>
 					<div className="btn-group btn-group-xs">
-						<button type="button" className="btn btn-default" onClick={this.handleToggleDisplayQuestions}>
+						<button type="button" className="btn btn-default" onClick={this.toggleExpandSection}>
 							<span className={isExpandClass}></span>
 						</button>
 						<button title="Редактировать раздел" type="button" className="btn btn-default" onClick={this.handleEditSection}>
@@ -233,7 +227,7 @@ var StructureView = React.createClass({
 					</div>
 					<div className="panel-body">
 						{this.state.sections.map(function(sec){
-							return <SectionView uuid={sec.uuid} key={sec.uuid} name={sec.name} questions={sec.questions}/>;
+							return <SectionView uuid={sec.uuid} key={sec.uuid} name={sec.name} questions={sec.questions} isExpanded={sec.isExpanded}/>;
 						})}
 					</div>
 				</div>

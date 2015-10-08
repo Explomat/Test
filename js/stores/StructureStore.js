@@ -161,6 +161,13 @@ function shiftDownSection(sectionUuid){
 	_sections.splice(sourceSection.index + 1, 0, sourceSection.section);
 }
 
+function toggleExpandSection(sectionUuid){
+	var sourceSection = getSection(sectionUuid);
+	if (sourceSection) {
+		sourceSection.section.isExpanded = !sourceSection.section.isExpanded;
+	}
+}
+
 var StructureStore = extend({}, EventEmitter.prototype, {
 	
 	getSections: function(){
@@ -249,6 +256,10 @@ StructureStore.dispatchToken = AppDispatcher.register(function(payload) {
 			break;
 		case StructureConstants.SHIFT_DOWN_SECTION:
 			shiftDownSection(action.sectionUuid);
+			isEmit = true;
+			break;
+		case StructureConstants.TOGGLE_EXPAND_SECTION:
+			toggleExpandSection(action.sectionUuid);
 			isEmit = true;
 			break;
 		case StructureConstants.REMOVE_QUESTION:

@@ -120,6 +120,20 @@ module.exports = {
 		}
 	},
 
+	toggleExpandSection: function(sectionUuid){
+		var structure = storage.getItem('structure');
+		if (!structure){
+			throw new Error('\'structure\' is not defined in storage');
+			return;
+		}
+
+		var sourceSection = getSection(structure, sectionUuid);
+		if (sourceSection) {
+			sourceSection.isExpanded = !sourceSection.isExpanded;
+		}
+		storage.setItem('structure', structure);
+	},
+
 	replaceQuestionInSection: function(questionUuid, sourceSectionUuid, destQuestionUuid){
 		var structure = storage.getItem('structure');
 		if (!structure){
