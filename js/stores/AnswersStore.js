@@ -259,6 +259,10 @@ var AnswersStore = extend({}, EventEmitter.prototype, {
 		_answers = answers;
 	},
 
+	setQuestionType: function(qType){
+		_questionType = qType;
+	},
+
 	resetSelected: function() {
 		_answers.forEach(function(item){
 			item.selected = false;
@@ -307,10 +311,6 @@ var AnswersStore = extend({}, EventEmitter.prototype, {
 		});
 		if (ans)
 			return ans.img;
-	},
-
-	setQuestionType: function(qType){
-		_questionType = qType;
 	},
 
 	emitChange: function() {

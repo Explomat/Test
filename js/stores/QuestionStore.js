@@ -11,6 +11,7 @@ var _question = {};
 function loadQuestionData(data) {
 	_question = data;
 	AnswersStore.setAnswers(data.answers);
+	AnswersStore.setQuestionType(data.type);
 }
 
 function saveQuestionData(){
