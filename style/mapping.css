@@ -1,0 +1,17 @@
+.mapping_right-choice {
+    border: 1px solid green;
+}
+
+.mapping_answer {
+	margin-bottom: 5px;
+	margin-left: 10px;
+}
+
+.mapping_question {
+	margin-top: 5px;
+	margin-left: 5px;
+}
+
+.mapping_section {
+	margin-bottom: 15px;
+}

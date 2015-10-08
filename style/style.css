@@ -97,9 +97,6 @@ textarea {
 	overflow: auto;
 }
 
-.right-choice {
-    border: 1px solid green;
-}
 
 #container{
     min-width: 600px;
