@@ -25,11 +25,11 @@ module.exports = {
 	},
 
 	shiftUpQuestion: function(questionUuid, sectionUuid){
-		
+		StructureData.shiftUpQuestion(questionUuid, sectionUuid);
 	},
 
 	shiftDownQuestion: function(questionUuid, sectionUuid){
-
+		StructureData.shiftDownQuestion(questionUuid, sectionUuid);
 	},
 
 	saveSection: function(section){
@@ -45,11 +45,11 @@ module.exports = {
 	},
 
 	shiftUpSection: function(sectionUuid){
-
+		StructureData.shiftUpSection(sectionUuid);
 	},
 
 	shiftDownSection: function(sectionUuid){
-
+		StructureData.shiftDownSection(sectionUuid);
 	},
 
 	toggleExpandSection: function(sectionUuid){

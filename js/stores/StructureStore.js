@@ -34,7 +34,7 @@ function loadStructureData(data) {
 	_sections = data.sections || [];
 }
 
-function saveStructureDate(){
+function saveStructureData(){
 	_structure = _sections = null;
 }
 
@@ -236,7 +236,7 @@ StructureStore.dispatchToken = AppDispatcher.register(function(payload) {
 			isEmit = true;
 			break;
 		case StructureConstants.SAVE_STRUCTURE_DATA:
-			saveStructureDate();
+			saveStructureData();
 			break;
 		case StructureConstants.SAVE_SECTION:
 			saveSection(action.section);

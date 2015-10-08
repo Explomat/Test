@@ -9,6 +9,17 @@ function getSection(structure, sectionUuid){
 			return sections[i];
 		}
 	}
+	return null;
+}
+
+function getSectionWithIndex(structure, sectionUuid){
+	var sections = structure.sections || [];
+	for (var i = sections.length - 1; i >= 0; i--) {
+		if (sections[i].uuid === sectionUuid) {
+			return { section: sections[i], index: i};
+		}
+	}
+	return null;
 }
 
 function getQuestion(structure, questionUuid){
@@ -71,29 +82,6 @@ module.exports = {
 		storage.setItem('structure', structure);
 	},
 
-	removeQuestion: function(sectionUuid, questionUuid) {
-		var structure = storage.getItem('structure');
-		if (!structure){
-			throw new Error('\'structure\' is not defined in storage');
-			return;
-		}
-		var sections = structure.sections || [];
-		for (var i = sections.length - 1; i >= 0; i--) {
-			if (sections[i].uuid === sectionUuid) {
-				var section = sections[i];
-				var questions = section.questions;
-				for (var j = questions.length - 1; j >= 0; j--) {
-					if (questions[j].uuid === questionUuid) {
-						questions.splice(j, 1);
-						break;
-					}
-				}
-				break;
-			}
-		}
-		storage.setItem('structure', structure);
-	},
-
 	replaceSection: function(sectionUuid, destSectionUuid){
 		var structure = storage.getItem('structure');
 		if (!structure){
@@ -120,6 +108,39 @@ module.exports = {
 		}
 	},
 
+	shiftUpSection: function(sectionUuid){
+		var structure = storage.getItem('structure');
+		if (!structure){
+			throw new Error('\'structure\' is not defined in storage');
+			return;
+		}
+
+		var sourceSection = getSectionWithIndex(structure, sectionUuid);
+		if (sourceSection && sourceSection.index === 0) return;
+
+		var destSection = structure.sections[sourceSection.index - 1];
+		structure.sections.splice(sourceSection.index, 1);
+		structure.sections.splice(sourceSection.index - 1, 0, sourceSection.section);
+		storage.setItem('structure', structure);
+	},
+
+	shiftDownSection: function(sectionUuid){
+		var structure = storage.getItem('structure');
+		if (!structure){
+			throw new Error('\'structure\' is not defined in storage');
+			return;
+		}
+
+		var sourceSection = getSectionWithIndex(structure, sectionUuid);
+		if (sourceSection && sourceSection.index === structure.sections.length - 1) return;
+
+		var destSection = structure.sections[sourceSection.index + 1];
+		structure.sections.splice(sourceSection.index, 1);
+		structure.sections.splice(sourceSection.index + 1, 0, sourceSection.section);
+
+		storage.setItem('structure', structure);
+	},
+
 	toggleExpandSection: function(sectionUuid){
 		var structure = storage.getItem('structure');
 		if (!structure){
@@ -130,6 +151,29 @@ module.exports = {
 		var sourceSection = getSection(structure, sectionUuid);
 		if (sourceSection) {
 			sourceSection.isExpanded = !sourceSection.isExpanded;
+		}
+		storage.setItem('structure', structure);
+	},
+
+	removeQuestion: function(sectionUuid, questionUuid) {
+		var structure = storage.getItem('structure');
+		if (!structure){
+			throw new Error('\'structure\' is not defined in storage');
+			return;
+		}
+		var sections = structure.sections || [];
+		for (var i = sections.length - 1; i >= 0; i--) {
+			if (sections[i].uuid === sectionUuid) {
+				var section = sections[i];
+				var questions = section.questions;
+				for (var j = questions.length - 1; j >= 0; j--) {
+					if (questions[j].uuid === questionUuid) {
+						questions.splice(j, 1);
+						break;
+					}
+				}
+				break;
+			}
 		}
 		storage.setItem('structure', structure);
 	},
@@ -162,6 +206,53 @@ module.exports = {
 
 		sourceSection.questions.splice(sourceQuestion.index, 1);
 		destSection.questions.push(sourceQuestion.question);
+		storage.setItem('structure', structure);
+	},
+
+	shiftUpQuestion: function(questionUuid, sectionUuid){
+		var structure = storage.getItem('structure');
+		if (!structure){
+			throw new Error('\'structure\' is not defined in storage');
+			return;
+		}
+
+		var sourceQuestion = getQuestion(structure, questionUuid);
+		var sourceSection = getSectionWithIndex(structure, sectionUuid);
+		if (!sourceQuestion || !sourceSection) return;
+		if (sourceQuestion.index === 0 && sourceSection.index === 0) return;
+
+		if (sourceQuestion.index === 0 && sourceSection.index > 0) {
+			sourceSection.section.questions.splice(sourceQuestion.index, 1);
+			structure.sections[sourceSection.index - 1].questions.push(sourceQuestion.question);
+		}
+		else if (sourceQuestion.index > 0) {
+			sourceSection.section.questions.splice(sourceQuestion.index, 1);
+			sourceSection.section.questions.splice(sourceQuestion.index - 1, 0, sourceQuestion.question);
+		}
+		storage.setItem('structure', structure);
+	},
+
+	shiftDownQuestion: function(questionUuid, sectionUuid){
+		var structure = storage.getItem('structure');
+		if (!structure){
+			throw new Error('\'structure\' is not defined in storage');
+			return;
+		}
+
+		var sourceQuestion = getQuestion(structure, questionUuid);
+		var sourceSection = getSectionWithIndex(structure, sectionUuid);
+		if (!sourceQuestion || !sourceSection) return;
+		var lastQuestionIndexInSection = sourceSection.section.questions.length - 1;
+		if (sourceQuestion.index === lastQuestionIndexInSection && sourceSection.index === structure.sections.length - 1) return;
+
+		if (sourceQuestion.index === lastQuestionIndexInSection && sourceSection.index < structure.sections.length - 1) {
+			sourceSection.section.questions.splice(sourceQuestion.index, 1);
+			structure.sections[sourceSection.index + 1].questions.splice(0, 0, sourceQuestion.question);
+		}
+		else if (sourceQuestion.index < lastQuestionIndexInSection) {
+			sourceSection.section.questions.splice(sourceQuestion.index, 1);
+			sourceSection.section.questions.splice(sourceQuestion.index + 1, 0, sourceQuestion.question);
+		}
 		storage.setItem('structure', structure);
 	},
 
