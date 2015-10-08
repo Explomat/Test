@@ -3,8 +3,6 @@ var EventEmitter = require('events').EventEmitter;
 var AnswerConstants = require('../constants/AnswerConstants');
 var ServerConstants = require('../constants/ServerConstants');
 var UUID = require('../utils/UUID');
-var array = require('../utils/Array');
-
 var Answer = require('../models/Answer');
 var Condition = require('../models/Condition');
 var ConditionText = require('../models/ConditionText');
@@ -15,6 +13,15 @@ var SubAnswer = require('../utils/SubAnswer');
 var extend = require('extend-object');
 
 var _answers = [], _questionType = '';
+
+function getAnswerWithIndex(uuid){
+	for (var i = _answers.length - 1; i >= 0; i--) {
+		if (_answers[i].uuid === uuid) {
+			return { answer: _answers[i], index: i };
+		}
+	};
+	return null;
+}
 
 function addAnswer(){
 	_answers.push(new Answer());
@@ -29,11 +36,21 @@ function removeAnswer(uuid) {
 }
 
 function shiftUp(uuid) {
-	array.shift(_answers, 1);
+	var sourceAnswer = getAnswerWithIndex(uuid);
+	if (sourceAnswer && sourceAnswer.index === 0) return;
+
+	var destAnswer = _answers[sourceAnswer.index - 1];
+	_answers.splice(sourceAnswer.index, 1);
+	_answers.splice(sourceAnswer.index - 1, 0, sourceAnswer.answer);
 }
 
 function shiftDown(uuid) {
-	array.shift(_answers, _answers.length - 1);
+	var sourceAnswer = getAnswerWithIndex(uuid);
+	if (sourceAnswer && sourceAnswer.index === _answers.length - 1) return;
+
+	var destAnswer = _answers[sourceAnswer.index + 1];
+	_answers.splice(sourceAnswer.index, 1);
+	_answers.splice(sourceAnswer.index + 1, 0, sourceAnswer.answer);
 }
 
 function addAnswerCondition(uuid) {
@@ -250,6 +267,11 @@ var AnswersStore = extend({}, EventEmitter.prototype, {
 
 	getAnswersCount: function() {
 		return _answers.length;
+	},
+
+	getAnswerIndex: function(uuid){
+		var ans = getAnswerWithIndex(uuid);
+		return ans ? ans.index : null;
 	},
 
 	getConditions: function(uuid) {

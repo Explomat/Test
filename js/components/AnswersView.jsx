@@ -20,12 +20,15 @@ var Answer = {
 	},
 
 	getIcons: function(){
+		var answerIndex = AnswersStore.getAnswerIndex(this.props.uuid);
+		var isShowArrowUp = { display : answerIndex === 0 ? 'none' : 'block' };
+		var isShowArrowDown = { display : answerIndex === AnswersStore.getAnswersCount() - 1 ? 'none' : 'block' };
 		return (
 			<div className="btn-group btn-group-xs pull-right">
-				<button type="button" className="btn btn-default" onClick={this.shiftUp}>
+				<button type="button" style={isShowArrowUp} className="btn btn-default" onClick={this.shiftUp}>
 				  <span className="glyphicon glyphicon-arrow-up"></span>
 				</button>
-				<button type="button" className="btn btn-default" onClick={this.shiftDown}>
+				<button type="button" style={isShowArrowDown} className="btn btn-default" onClick={this.shiftDown}>
 				  <span className="glyphicon glyphicon-arrow-down"></span>
 				</button>
 				<button type="button" className="btn btn-default" onClick={this.remove}>
