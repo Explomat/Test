@@ -95,7 +95,7 @@ var SectionView = React.createClass({
 
 	getInitialState: function () {
 		return {
-			isDisplayQuestions: true
+			isExpand: this.props.isExpand || true
 		}
 	},
 
@@ -151,21 +151,21 @@ var SectionView = React.createClass({
 	},
 
 	handleToggleDisplayQuestions: function(){
-		this.setState({isDisplayQuestions: !this.state.isDisplayQuestions});
+		this.setState({isExpand: !this.state.isExpand});
 	},
 
 	render: function() {
 		var sectionIndex = StructureStore.getSectionIndex(this.props.uuid);
 		var isShowArrowUp = { display : sectionIndex === 0 ? 'none' : 'block' };
 		var isShowArrowDown = { display : sectionIndex === StructureStore.getSectionsCount() - 1 ? 'none' : 'block' };
-		var isDisplayQuestions = { display : this.state.isDisplayQuestions ? 'block' : 'none' };
-		var iconClassForDisplayQuestions = this.state.isDisplayQuestions ? "glyphicon glyphicon-minus" : "glyphicon glyphicon-plus";
+		var isDisplayQuestions = { display : this.state.isExpand ? 'block' : 'none' };
+		var isExpandClass = this.state.isExpand ? "glyphicon glyphicon-minus" : "glyphicon glyphicon-plus";
 		return (
 			<div className="section-container" onDrop={this.handleDrop} onDragOver={this.handleAllowDrop}>
 				<div className="section" draggable="true" onDragStart={this.handleDragStart} onDragEnd={this.handleDragEnd} onDragEnter={this.handleDragEnter}>
 					<div className="btn-group btn-group-xs">
 						<button type="button" className="btn btn-default" onClick={this.handleToggleDisplayQuestions}>
-							<span className={iconClassForDisplayQuestions}></span>
+							<span className={isExpandClass}></span>
 						</button>
 						<button title="Редактировать раздел" type="button" className="btn btn-default" onClick={this.handleEditSection}>
 							<span className="glyphicon glyphicon-edit"></span>
