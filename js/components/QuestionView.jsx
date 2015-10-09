@@ -182,10 +182,14 @@ var QuestionView = React.createClass({
 	},
 
 	handleClose: function(){
+		QuestionStore.removeChangeListener(this._onChange);
+		AnswersStore.removeChangeListener(this._onChange);
 		Hasher.setHash('structure');
 	},
 
 	handleSaveQuestion: function(){
+		QuestionStore.removeChangeListener(this._onChange);
+		AnswersStore.removeChangeListener(this._onChange);
 		if (this.props.sectionUuid){
 			QuestionActions.saveQuestion(QuestionStore.getQuestion(), this.props.sectionUuid);
 			Hasher.setHash('structure');

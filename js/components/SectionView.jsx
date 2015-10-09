@@ -46,11 +46,13 @@ var SectionView = React.createClass({
 	},
 
 	handleClose: function(){
+		SectionStore.removeChangeListener(this._onChange);
 		Hasher.setHash('structure');
 	},
 
 	handleSaveSection: function(){
 		StructureActions.saveSection(SectionStore.getSection());
+		SectionStore.removeChangeListener(this._onChange);
 		Hasher.setHash('structure');
 	},
 

@@ -2,7 +2,7 @@ var Router = require('./utils/Crossroads');
 var Hasher = require('./utils/Hasher');
 var UI = require('./utils/UI');
 var StructureController = require('./controllers/StructureController');
-var ViewMappingController = require('./controllers/ViewMappingController');
+var MappingController = require('./controllers/MappingController');
 var QuestionController = require('./controllers/modal/QuestionController');
 var SettingsController = require('./controllers/SettingsController');
 var SectionController = require('./controllers/modal/SectionController');
@@ -24,7 +24,7 @@ window.onload = function(){
 	    QuestionController.start(sectionId, questionId);
 	});
 	Router.addRoute('view', function(){
-	    ViewMappingController.start();
+	    MappingController.start();
 	});
 
 	function changeTabClass(curHash){
