@@ -1,6 +1,7 @@
 var Router = require('./utils/Crossroads');
 var Hasher = require('./utils/Hasher');
 var UI = require('./utils/UI');
+var BasicController = require('./controllers/BasicController');
 var StructureController = require('./controllers/StructureController');
 var MappingController = require('./controllers/MappingController');
 var QuestionController = require('./controllers/modal/QuestionController');
@@ -40,7 +41,9 @@ window.onload = function(){
 		}
 	}
 
-	function initHash(curHash){
+	function init(curHash){
+		BasicController.start();
+
 		curHash = curHash === '' ? 'settings' : curHash;
 		Hasher.setHash(curHash);
 		changeTabClass('#' + curHash);
@@ -54,7 +57,7 @@ window.onload = function(){
 	}
 
 	Hasher.changed.add(parseHash); //parse hash changes
-	Hasher.initialized.add(initHash); //parse initial hash
+	Hasher.initialized.add(init); //parse initial hash
 	
 	Hasher.prependHash = '';
 	Hasher.init(); //start listening for history change
