@@ -4,6 +4,7 @@ var StructureConstants = require('../constants/StructureConstants');
 var QuestionConstants = require('../constants/QuestionConstants');
 var extend = require('extend-object');
 var array = require('../utils/Array');
+var StructureAPI = require('../api/StructureAPI');
 
 var _structure = {}, _sections = [];
 
@@ -301,6 +302,7 @@ StructureStore.dispatchToken = AppDispatcher.register(function(payload) {
 	}
 
 	if (isEmit){
+		StructureAPI.saveStructure(_structure);
 		StructureStore.emitChange();
 	}
 	return true;

@@ -19,7 +19,6 @@ var StructureActions = {
 	},
 
 	removeQuestion: function(sectionUuid, questionUuid){
-		StructureAPI.removeQuestion(sectionUuid, questionUuid);
 		AppDispatcher.handleData({
 			actionType: StructureConstants.REMOVE_QUESTION,
 			sectionUuid: sectionUuid,
@@ -29,7 +28,6 @@ var StructureActions = {
 
 	
 	replaceQuestionInSection: function(questionUuid, sourceSectionUuid, destQuestionUuid){
-		StructureAPI.replaceQuestionInSection(questionUuid, sourceSectionUuid, destQuestionUuid);
 		AppDispatcher.handleData({
 			actionType: StructureConstants.REPLACE_QUESTION_IN_SECTION,
 			questionUuid: questionUuid,
@@ -39,7 +37,6 @@ var StructureActions = {
 	},
 
 	replaceQuestionInNewSection: function(questionUuid, sourceSectionUuid, destSectionUuid){
-		StructureAPI.replaceQuestionInNewSection(questionUuid, sourceSectionUuid, destSectionUuid);
 		AppDispatcher.handleData({
 			actionType: StructureConstants.REPLACE_QUESTION_IN_NEW_SECTION,
 			questionUuid: questionUuid,
@@ -50,7 +47,6 @@ var StructureActions = {
 
 
 	shiftUpQuestion: function(questionUuid, sectionUuid){
-		StructureAPI.shiftUpQuestion(questionUuid, sectionUuid);
 		AppDispatcher.handleData({
 			actionType: StructureConstants.SHIFT_UP_QUESTION,
 			questionUuid: questionUuid,
@@ -59,7 +55,6 @@ var StructureActions = {
 	},
 
 	shiftDownQuestion: function(questionUuid, sectionUuid){
-		StructureAPI.shiftDownQuestion(questionUuid, sectionUuid);
 		AppDispatcher.handleData({
 			actionType: StructureConstants.SHIFT_DOWN_QUESTION,
 			questionUuid: questionUuid,
@@ -68,7 +63,6 @@ var StructureActions = {
 	},
 
 	saveSection: function(section){
-		StructureAPI.saveSection(section);
 		AppDispatcher.handleData({
 			actionType: StructureConstants.SAVE_SECTION,
 			section: section
@@ -76,7 +70,6 @@ var StructureActions = {
 	},
 
 	removeSection: function(uuid){
-		StructureAPI.removeSection(uuid);
 		AppDispatcher.handleData({
 			actionType: StructureConstants.REMOVE_SECTION,
 			uuid: uuid
@@ -84,7 +77,6 @@ var StructureActions = {
 	},
 
 	replaceSection: function(sectionUuid, destSectionUuid){
-		StructureAPI.replaceSection(sectionUuid, destSectionUuid);
 		AppDispatcher.handleData({
 			actionType: StructureConstants.REPLACE_SECTION,
 			sectionUuid: sectionUuid,
@@ -93,7 +85,6 @@ var StructureActions = {
 	},
 
 	shiftUpSection: function(sectionUuid){
-		StructureAPI.shiftUpSection(sectionUuid);
 		AppDispatcher.handleData({
 			actionType: StructureConstants.SHIFT_UP_SECTION,
 			sectionUuid: sectionUuid
@@ -101,7 +92,6 @@ var StructureActions = {
 	},
 
 	shiftDownSection: function(sectionUuid){
-		StructureAPI.shiftDownSection(sectionUuid);
 		AppDispatcher.handleData({
 			actionType: StructureConstants.SHIFT_DOWN_SECTION,
 			sectionUuid: sectionUuid
@@ -109,7 +99,6 @@ var StructureActions = {
 	},
 
 	toggleExpandSection: function(sectionUuid){
-		StructureAPI.toggleExpandSection(sectionUuid);
 		AppDispatcher.handleData({
 			actionType: StructureConstants.TOGGLE_EXPAND_SECTION,
 			sectionUuid: sectionUuid
@@ -117,7 +106,6 @@ var StructureActions = {
 	},
 
 	toggleExpandSections: function(isExpandedSections){
-		StructureAPI.toggleExpandSections(isExpandedSections);
 		AppDispatcher.handleData({
 			actionType: StructureConstants.TOGGLE_EXPAND_SECTIONS,
 			isExpandedSections: isExpandedSections

@@ -1,20 +1,62 @@
 var Config = require('../config');
 var Ajax = require('../utils/Ajax');
-var QuestionData = require('../data/QuestionData');
+var Storage = require('../utils/Storage');
+var Question = require('../models/Question');
 
 module.exports = {
 
 	createQuestion: function(){
-		return QuestionData.create();
+		return new Question();
 	},
 
 	getQuestion: function(questionUuid){
-		return QuestionData.get(questionUuid);
+		var structure = Storage.getItem('structure');
+		if (!structure){
+			throw new Error('Structure is not defined in storage');
+			return;
+		}
+		var sections = structure.sections || [];
+		for (var i = sections.length - 1; i >= 0; i--) {
+			var questions = sections[i].questions;
+			for (var j = questions.length - 1; j >= 0; j--) {
+				if (questions[j].uuid == questionUuid) {
+					return questions[j];
+				}
+			}
+
+		}
+		return null;
 	},
 
 	saveQuestionData: function(question, sectionUuid) {
 		try {
-			QuestionData.save(question, sectionUuid);
+			var structure = Storage.getItem('structure');
+			if (!structure){
+				throw new Error('Structure is not defined in storage');
+				return;
+			}
+			var sections = structure.sections || [];
+			var section = null;
+			var isEdit = false;
+			for (var i = sections.length - 1; i >= 0; i--) {
+				if (sections[i].uuid == sectionUuid) {
+					section = sections[i];
+					var questions = section.questions;
+					for (var j = questions.length - 1; j >= 0; j--) {
+						if (questions[j].uuid == question.uuid) {
+							questions[j] = question;
+							isEdit = true;
+							break;
+						}
+					}
+					break;
+				}
+			}
+
+			if (!isEdit && section) {
+				section.questions.push(question);
+			}
+			Storage.setItem('structure', structure);
 		}
 		catch(e) { return false; }
 		return true;

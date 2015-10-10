@@ -1,7 +1,4 @@
 var Promise = require('es6-promise').Promise;
-var QuestionData = require('../data/QuestionData');
-var StructureData = require('../data/StructureData');
-var Storage = require('./Storage');
 var AJAX_TIME_OVER = 10000;
 
 module.exports = {
