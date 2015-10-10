@@ -6,17 +6,20 @@ module.exports= {
 		var condition = SubAnswer.conditions.values[conditionKey];
 		if (!condition || !firstValue || !secondValue) return false;
 
+		firstValue = Number(firstValue.trim());
+		secondValue = Number(secondValue.trim());
+
 		switch (condition){
 			case '=':
-				return Number(firstValue) === Number(secondValue);
+				return firstValue === secondValue;
 			case '>':
-				return Number(firstValue) > Number(secondValue);
+				return firstValue > secondValue;
 			case '<':
-				return Number(firstValue) < Number(secondValue);
+				return firstValue < secondValue;
 			case '>=':
-				return Number(firstValue) >= Number(secondValue);
+				return firstValue >= secondValue;
 			case '<=':
-				return Number(firstValue) <= Number(secondValue);
+				return firstValue <= secondValue;
 			default:
 				return false;
 		}

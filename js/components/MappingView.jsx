@@ -64,7 +64,7 @@ var MatchAnswerView = React.createClass({
 		var condition = this.props.answer.conditions[0];
 		var isCorrectClass = EvaluateConditions.evalCondition(this.props.answer.text, condition.text, condition.condition) ? 'mapping_right-choice' : '';
 		return(
-			<div className="mapping_answer">
+			<div className={isCorrectClass + " mapping_answer"}>
 				<span>{this.props.index}</span>
 				<span>{this.props.answer.text}</span><br/>
 				<label>Условие : <span>{this.props.answer.conditions[0].text}</span></label><br/>
@@ -95,10 +95,12 @@ var NumericalFillAnswerView = React.createClass({
 var GapFillAnswerView = React.createClass({
 
 	render: function(){
+		var conformity = this.props.answer.conformities[0];
 		return(
 			<div className="mapping_answer">
 				<span>{this.props.index}</span>
-				<span>{this.props.answer.text}</span>
+				<span>{this.props.answer.text}</span><br/>
+				<label>Соответствие :<span>{conformity.text}</span></label><br/>
 				<label>Вес : <span>{this.props.answer.weight}</span></label>
 			</div>
 		);
