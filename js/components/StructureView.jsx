@@ -165,7 +165,7 @@ var SectionView = React.createClass({
 							<span className="glyphicon glyphicon-edit"></span>
 						</button>
 					</div>
-					<strong>{this.props.name}</strong>
+					<strong>{this.props.title}</strong>
 					<div className="btn-group btn-group-xs pull-right section-buttons">
 						<button type="button" style={isShowArrowUp} className="btn btn-default section-up-button" onClick={this.handleShiftUp}>
 							<span className="glyphicon glyphicon-arrow-up"></span>
@@ -238,7 +238,7 @@ var StructureView = React.createClass({
 					</div>
 					<div className="panel-body">
 						{this.state.sections.map(function(sec){
-							return <SectionView uuid={sec.uuid} key={sec.uuid} name={sec.name} questions={sec.questions} isExpanded={sec.isExpanded}/>;
+							return <SectionView key={sec.uuid} {...sec} />;
 						})}
 					</div>
 				</div>

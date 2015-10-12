@@ -10,7 +10,23 @@ function loadSectionData(data) {
 }
 
 function changeTitle(title){
-	_section.name = title;
+	_section.title = title;
+}
+
+function changePassingScore(score){
+	_section.passingScore = score;
+}
+
+function changeDuration(duration){
+	_section.duration = duration;
+}
+
+function changeOrder(order){
+	_section.order = order;
+}
+
+function changeSelection(selection){
+	_section.selection = selection;
 }
 
 var SectionStore = extend({}, EventEmitter.prototype, {

@@ -1,12 +1,16 @@
 var UUID = require('../utils/UUID');
-var Question = require('./Question');
+var SectionKeys = require('../utils/SectionKeys');
 
 function Section(args) {
 	var args = args || {};
 	this.uuid = args.uuid || UUID.generate();
-	this.name = args.name || 'Default name';
-	this.isExpanded = args.isExpanded || true;
+	this.title = args.title || 'Default name';
+	this.passingScore = args.passingScore || 0;
+	this.duration = args.duration || 0;
+	this.order = args.order || SectionKeys.order.keys.Sequential;
+	this.selection = args.selection || SectionKeys.selection.keys.all;
 	this.questions = args.questions || [];
+	this.isExpanded = args.isExpanded || true;
 }
 
 module.exports = Section;

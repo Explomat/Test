@@ -1,6 +1,6 @@
 var SubAnswer = require('./SubAnswer');
 
-module.exports= {
+module.exports = {
 
 	evalCondition: function (firstValue, secondValue, conditionKey) {
 		var condition = SubAnswer.conditions.values[conditionKey];
@@ -10,15 +10,15 @@ module.exports= {
 		secondValue = Number(secondValue.trim());
 
 		switch (condition){
-			case '=':
+			case SubAnswer.conditions.values.equal:
 				return firstValue === secondValue;
-			case '>':
+			case SubAnswer.conditions.values.more:
 				return firstValue > secondValue;
-			case '<':
+			case SubAnswer.conditions.values.less:
 				return firstValue < secondValue;
-			case '>=':
+			case SubAnswer.conditions.values.moreOrEqual:
 				return firstValue >= secondValue;
-			case '<=':
+			case SubAnswer.conditions.values.lessOrEqual:
 				return firstValue <= secondValue;
 			default:
 				return false;
@@ -30,9 +30,9 @@ module.exports= {
 		if (!conditionText || !firstValue || !secondValue) return false;
 
 		switch (conditionText) {
-			case 'равен':
+			case SubAnswer.conditionsText.values.equal:
 				return firstValue === secondValue;
-			case 'содержит':
+			case SubAnswer.conditionsText.values.contains:
 				return firstValue.indexOf(secondValue) !== -1;
 			default:
 				return false;
