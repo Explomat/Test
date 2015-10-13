@@ -59,11 +59,19 @@ var Fields = React.createClass({
 		}
 	},
 
-	handleToogleDisplayOrder: function(){
+	handleToogleDisplayOrder: function(e){
+		if (e){
+			e.stopPropagation();
+    		e.nativeEvent.stopImmediatePropagation();
+		}
 		this.setState({isDisplayOrder : !this.state.isDisplayOrder});
 	},
 
-	handleToogleDisplaySelection: function(){
+	handleToogleDisplaySelection: function(e){
+		if (e){
+			e.stopPropagation();
+    		e.nativeEvent.stopImmediatePropagation();
+		}
 		this.setState({isDisplaySelection : !this.state.isDisplaySelection});
 	},
 
