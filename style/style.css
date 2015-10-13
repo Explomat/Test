@@ -21,7 +21,6 @@ body {
 
 h1, nav {
     text-align: center;
-    margin: 0px 0px 20px;
 }
 
 textarea {
@@ -53,10 +52,6 @@ textarea {
     white-space: nowrap;
 }
 
-.c-btn {
-    width:80px;
-}
-
 .answers {
     height: 750px;
     overflow-y: auto;
@@ -83,16 +78,6 @@ textarea {
     height: 17px;
 }
 
-.qtype-btn {
-    width:160px;
-}
-
-.qtype-btn:hover {
-    box-shadow: none;
-    background-color: #fff;
-    border-color: #CCC;
-}
-
 .modal {
 	overflow: auto;
 }
@@ -102,9 +87,7 @@ textarea {
     min-width: 600px;
     font-family:Calibri, Helvetica, serif;
     color:#444;
-    width:55%;
     margin:100px auto 100px;
-    padding:30px;
     border:1px solid #ddd;
     background:#f6f6f6;
     -webkit-border-radius:4px;

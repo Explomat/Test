@@ -18,7 +18,7 @@ var BasicView = React.createClass({
 
 	render: function () {
 		return (
-			<div id="container">
+			<div id="container" className="container">
 				<h1>Tests</h1>
 				<div id="app-container">
 					<div className="list-group side-bar">

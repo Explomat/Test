@@ -139,7 +139,7 @@ var SectionView = React.createClass({
 	render: function(){
 		return(
 			<div className="mapping_section">
-				<span>{this.props.name}</span>
+				<span>{this.props.title}</span>
 				{this.props.questions.map(function(q){
 					return <QuestionView key={q.uuid} title={q.title} text={q.text} type={q.type} answers={q.answers} />
 				})}
@@ -171,7 +171,7 @@ var MappingView = React.createClass({
 			<div className="panel panel-default">
 				<div className="panel-body">
 					{this.state.sections.map(function(s){
-						return <SectionView key={s.uuid} name={s.name} questions={s.questions}/>
+						return <SectionView key={s.uuid} title={s.title} questions={s.questions}/>
 					}.bind(this))}
 				</div>
 			</div>

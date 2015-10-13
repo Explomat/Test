@@ -10,6 +10,8 @@ var SectionController = require('./controllers/modal/SectionController');
 
 window.onload = function(){
 
+	var DEFAULT_HASH = 'settings';
+
 	Router.addRoute('settings', function(){
 	    SettingsController.start();
 	});
@@ -44,7 +46,7 @@ window.onload = function(){
 	function init(curHash){
 		BasicController.start();
 
-		curHash = curHash === '' ? 'settings' : curHash;
+		curHash = curHash === '' ? DEFAULT_HASH : curHash;
 		Hasher.setHash(curHash);
 		changeTabClass('#' + curHash);
 		Router.parse(curHash);

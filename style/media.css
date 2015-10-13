@@ -1,0 +1,42 @@
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+    .modal {
+        z-index: 1050;
+        background-color: #FFF;
+        border: 1px solid rgba(0, 0, 0, 0.3);
+        box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.3);
+        background-clip: padding-box;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        left: 0;
+        height: 100%;
+    }
+}
+@media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 3) { 
+    .modal {
+        z-index: 1050;
+        background-color: #FFF;
+        border: 1px solid rgba(0, 0, 0, 0.3);
+        box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.3);
+        background-clip: padding-box;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        left: 0;
+        height: 100%;
+    }
+}
+@media (min-resolution: 1.5dppx), (min-resolution: 144dpi), (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3/2) {
+    .modal {
+        z-index: 1050;
+        background-color: #FFF;
+        border: 1px solid rgba(0, 0, 0, 0.3);
+        box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.3);
+        background-clip: padding-box;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        left: 0;
+        height: 100%;
+    }
+}
