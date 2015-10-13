@@ -2,7 +2,7 @@ var React = require('react');
 var AnswerActions = require('../../actions/AnswerActions');
 var SubAnswer = require('../../utils/SubAnswer');
 var TextView = require('./Text').TextView;
-var Validation = require('../../utils/Validation');
+var AnswerValidation = require('../../utils/validation/AnswerValidation');
 
 var ConditionTypeText = React.createClass({
 	
@@ -134,7 +134,7 @@ var ConditionNumber = React.createClass({
 
 	render: function() {
 		return(
-			this.getMark(this.getConditionsType(), SubAnswer.conditions.values[this.props.type], Validation.isNumber)
+			this.getMark(this.getConditionsType(), SubAnswer.conditions.values[this.props.type], AnswerValidation.isValidCondition)
 		);
 	}
 });

@@ -4,7 +4,7 @@ var TextAreaView = require('./modules/Text').TextAreaView;
 var ImageSelect = require('./modules/ImageSelect');
 var AnswerActions = require('../actions/AnswerActions');
 var AnswersStore = require('../stores/AnswersStore');
-var Validation = require('../utils/Validation');
+var AnswerValidation = require('../utils/validation/AnswerValidation');
 var Conditions = require('./modules/Conditions').Conditions;
 var ConditionsText = require('./modules/Conditions').ConditionsText;
 var Conformities = require('./modules/Conformities');
@@ -48,7 +48,7 @@ var Answer = {
 				<ImageSelect img={AnswersStore.getAnswerImg(this.props.uuid)} uploadImage={this.uploadImage} removeImage={this.removeImage}/>
 				<label>
 					<span>Вес :</span>
-					<TextView value={this.props.weight} onBlur={this.changeWeight} isValid={Validation.isNumberOrReal}/>
+					<TextView value={this.props.weight} onBlur={this.changeWeight} isValid={AnswerValidation.isValidWeight}/>
 				</label>
 			</div>
 		);
@@ -96,11 +96,11 @@ var FillAnswer = {
 				{this.getBasicFields()}
 				<label>
 					<span>Высота</span>
-					<TextView value={this.props.height} onBlur={this.changeHeight} isValid={Validation.isNumber}/>
+					<TextView value={this.props.height} onBlur={this.changeHeight} isValid={AnswerValidation.isValidHeight}/>
 				</label>
 				<label>
 					<span>Ширина</span>
-					<TextView value={this.props.width} onBlur={this.changeWidth} isValid={Validation.isNumber}/>
+					<TextView value={this.props.width} onBlur={this.changeWidth} isValid={AnswerValidation.isValidWidth}/>
 				</label>
 				<div className="a-conditions">
 					{conditions}

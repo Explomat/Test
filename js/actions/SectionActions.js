@@ -15,6 +15,34 @@ var SectionActions = {
 			actionType: SectionConstants.CHANGE_SECTION_TITLE,
 			title: title
 		});
+	},
+
+	changePassingScore: function(score){
+		AppDispatcher.handleAction({
+			actionType: SectionConstants.CHANGE_PASSING_SCORE,
+			score: score
+		});
+	},
+
+	changeDuration: function(duration){
+		AppDispatcher.handleAction({
+			actionType: SectionConstants.CHANGE_DURATION,
+			duration: duration
+		});
+	},
+
+	selectOrder: function(order){
+		AppDispatcher.handleAction({
+			actionType: SectionConstants.CHANGE_SELECT_ORDER,
+			order: order
+		});
+	},
+
+	selectSelection: function(selection){
+		AppDispatcher.handleAction({
+			actionType: SectionConstants.CHANGE_SELECT_SELECTION,
+			selection: selection
+		});
 	}
 }
 

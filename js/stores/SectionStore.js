@@ -59,6 +59,18 @@ SectionStore.dispatchToken = AppDispatcher.register(function(payload) {
 		case SectionConstants.CHANGE_SECTION_TITLE:
 			changeTitle(action.title);
 			break;
+		case SectionConstants.CHANGE_PASSING_SCORE:
+			changePassingScore(action.score);
+			break;
+		case SectionConstants.CHANGE_DURATION:
+			changeDuration(action.duration);
+			break;
+		case SectionConstants.CHANGE_SELECT_ORDER:
+			changeOrder(action.order);
+			break;
+		case SectionConstants.CHANGE_SELECT_SELECTION:
+			changeSelection(action.selection);
+			break;
 		default:
 			return true;
 	}

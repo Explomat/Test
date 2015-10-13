@@ -5,8 +5,8 @@ function Section(args) {
 	var args = args || {};
 	this.uuid = args.uuid || UUID.generate();
 	this.title = args.title || 'Default name';
-	this.passingScore = args.passingScore || 0;
-	this.duration = args.duration || 0;
+	this.passingScore = args.passingScore || '';
+	this.duration = args.duration || '';
 	this.order = args.order || SectionKeys.order.keys.Sequential;
 	this.selection = args.selection || SectionKeys.selection.keys.all;
 	this.questions = args.questions || [];

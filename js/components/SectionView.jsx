@@ -5,12 +5,28 @@ var StructureActions = require('../actions/StructureActions');
 var Hasher = require('../utils/Hasher');
 var Txt = require('./modules/Text');
 var SectionKeys = require('../utils/SectionKeys');
+var SectionValidation = require('../utils/validation/SectionValidation');
 
 function getSectionState() {
 	return {
 		section: SectionStore.getSection()
 	};
 }
+
+var SelectedUl = React.createClass({
+
+	handleSelect: function(){
+		if (this.props.handleSelect) {
+			this.props.handleSelect(this.props.type);
+		}
+	},
+
+	render: function() {
+		return (
+			<li onClick={this.handleSelect}><span>{this.props.value}</span></li>
+		);
+	}
+})
 
 var Fields = React.createClass({
 	
@@ -21,7 +37,29 @@ var Fields = React.createClass({
 		}
 	},
 
-	handleToogleDisplaySequence: function(){
+	componentWillUnmount: function() {
+		document.removeEventListener('click', this.handleBlurOrder);
+		document.removeEventListener('click', this.handleBlurSelection);
+	},
+
+	componentDidMount: function() {
+		document.addEventListener('click', this.handleBlurOrder);
+		document.addEventListener('click', this.handleBlurSelection);
+	},
+
+	handleBlurOrder: function(){
+		if (this.state.isDisplayOrder === true) {
+			this.setState({isDisplayOrder: false});
+		}
+	},
+
+	handleBlurSelection: function(){
+		if (this.state.isDisplaySelection === true) {
+			this.setState({isDisplaySelection: false});
+		}
+	},
+
+	handleToogleDisplayOrder: function(){
 		this.setState({isDisplayOrder : !this.state.isDisplayOrder});
 	},
 
@@ -31,6 +69,28 @@ var Fields = React.createClass({
 
 	handleChangeTitle: function(val) {
 		SectionActions.changeTitle(val);
+	},
+
+	handleChangePassingScore: function(val){
+		SectionActions.changePassingScore(val);
+	},
+
+	handleChangeDuration: function(val){
+		SectionActions.changeDuration(val);
+	},
+
+	handleChangeDuration: function(val){
+		SectionActions.changeDuration(val);
+	},
+
+	handleSelectOrder: function(type){
+		this.handleBlurOrder();
+		SectionActions.selectOrder(type);
+	},
+
+	handleSelectSelection: function(type){
+		this.handleBlurSelection();
+		SectionActions.selectSelection(type);
 	},
 
 	render:function() {
@@ -44,20 +104,20 @@ var Fields = React.createClass({
 		        </div>
 		        <div className="input-group all">
 		            <span className="input-group-addon">Проходной балл : *</span>
-		            <Txt.TextView value={this.props.passingScore} onBlur={this.handleChangeTitle} placeholder='Проходной балл'/>
+		            <Txt.TextView value={this.props.passingScore} onBlur={this.handleChangePassingScore} isValid={SectionValidation.isValidPassingScore} placeholder='Проходной балл'/>
 		        </div>
 		        <div className="input-group all">
 		            <span className="input-group-addon">Длительность (минут) : *</span>
-		            <Txt.TextView value={this.props.duration} onBlur={this.handleChangeTitle} placeholder='Длительность (минут)'/>
+		            <Txt.TextView value={this.props.duration} onBlur={this.handleChangeDuration} isValid={SectionValidation.isValidDuration} placeholder='Длительность (минут)'/>
 	        	</div>
 	        	<div className="input-group all">
-					<button className="btn btn-default dropdown-toggle" type="button" onClick={this.handleToogleDisplaySequence}>
+					<button className="btn btn-default dropdown-toggle" type="button" onClick={this.handleToogleDisplayOrder}>
 						<span>{SectionKeys.order.values[this.props.order]}&nbsp;&nbsp;</span>
 						<span className="caret"></span>
 					</button>
 					<ul className="dropdown-menu" style={isDisplayOrder}>
 						{Object.keys(SectionKeys.order.keys).map(function(o, index){
-							return <li key={index} onClick={this.handleSelectOrder}><span>{SectionKeys.order.values[o]}</span></li>
+							return <SelectedUl key={index} handleSelect={this.handleSelectOrder} value={SectionKeys.order.values[o]} type={o}/>
 						}.bind(this))}
 					</ul>
 				</div>
@@ -68,7 +128,7 @@ var Fields = React.createClass({
 					</button>
 					<ul className="dropdown-menu" style={isDisplaySelection}>
 						{Object.keys(SectionKeys.selection.keys).map(function(s, index){
-							return <li key={index} onClick={this.handleSelectSelection}><span>{SectionKeys.selection.values[s]}</span></li>
+							return <SelectedUl key={index} handleSelect={this.handleSelectSelection} value={SectionKeys.selection.values[s]} type={s}/>
 						}.bind(this))}
 					</ul>
 				</div>
