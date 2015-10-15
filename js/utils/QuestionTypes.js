@@ -18,20 +18,7 @@ var QuestionTypes = {
 		gap_fill: null,
 		numerical_fill_in_blank: null,
 		match_item: null
-	}),
-
-	toArray: function() {
-		return (Object.keys(this.values).map(function(key){
-			var obj = {};
-			Object.defineProperty(obj, key,{
-				value: this.values[key],
-				writable: true,
-				enumerable: true,
-				configurable: true
-			});
-	    	return obj;
-	    }.bind(this)));
-	}
+	})
 };
 
 module.exports = QuestionTypes;

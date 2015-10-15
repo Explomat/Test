@@ -26,7 +26,7 @@ var SelectedUl = React.createClass({
 			<li onClick={this.handleSelect}><span>{this.props.value}</span></li>
 		);
 	}
-})
+});
 
 var Fields = React.createClass({
 	
@@ -48,13 +48,13 @@ var Fields = React.createClass({
 	},
 
 	handleBlurOrder: function(){
-		if (this.state.isDisplayOrder === true) {
+		if (this.state.isDisplayOrder) {
 			this.setState({isDisplayOrder: false});
 		}
 	},
 
 	handleBlurSelection: function(){
-		if (this.state.isDisplaySelection === true) {
+		if (this.state.isDisplaySelection) {
 			this.setState({isDisplaySelection: false});
 		}
 	},
@@ -105,40 +105,42 @@ var Fields = React.createClass({
 		var isDisplayOrder = { display: this.state.isDisplayOrder ? 'block' : 'none' };
 		var isDisplaySelection = { display: this.state.isDisplaySelection ? 'block' : 'none' };
 		return (
-			<div>
-				<div className="input-group">
-		            <span className="input-group-addon">Название раздела : *</span>
-		            <Txt.TextView value={this.props.title} onBlur={this.handleChangeTitle} placeholder='Название раздела'/>
-		        </div>
-		        <div className="input-group all">
-		            <span className="input-group-addon">Проходной балл : *</span>
-		            <Txt.TextView value={this.props.passingScore} onBlur={this.handleChangePassingScore} isValid={SectionValidation.isValidPassingScore} placeholder='Проходной балл'/>
-		        </div>
-		        <div className="input-group all">
-		            <span className="input-group-addon">Длительность (минут) : *</span>
-		            <Txt.TextView value={this.props.duration} onBlur={this.handleChangeDuration} isValid={SectionValidation.isValidDuration} placeholder='Длительность (минут)'/>
-	        	</div>
-	        	<div className="input-group all">
-					<button className="btn btn-default dropdown-toggle" type="button" onClick={this.handleToogleDisplayOrder}>
-						<span>{SectionKeys.order.values[this.props.order]}&nbsp;&nbsp;</span>
-						<span className="caret"></span>
-					</button>
-					<ul className="dropdown-menu" style={isDisplayOrder}>
-						{Object.keys(SectionKeys.order.keys).map(function(o, index){
-							return <SelectedUl key={index} handleSelect={this.handleSelectOrder} value={SectionKeys.order.values[o]} type={o}/>
-						}.bind(this))}
-					</ul>
-				</div>
-				<div className="input-group all">
-					<button className="btn btn-default dropdown-toggle" type="button" onClick={this.handleToogleDisplaySelection}>
-						<span>{SectionKeys.selection.values[this.props.selection]}&nbsp;&nbsp;</span>
-						<span className="caret"></span>
-					</button>
-					<ul className="dropdown-menu" style={isDisplaySelection}>
-						{Object.keys(SectionKeys.selection.keys).map(function(s, index){
-							return <SelectedUl key={index} handleSelect={this.handleSelectSelection} value={SectionKeys.selection.values[s]} type={s}/>
-						}.bind(this))}
-					</ul>
+			<div className="panel panel-default">
+				<div className="panel-body">
+					<div className="input-group">
+			            <span className="input-group-addon">Название раздела : *</span>
+			            <Txt.TextView value={this.props.title} onBlur={this.handleChangeTitle} placeholder='Название раздела'/>
+			        </div>
+			        <div className="input-group all">
+			            <span className="input-group-addon">Проходной балл : *</span>
+			            <Txt.TextView value={this.props.passingScore} onBlur={this.handleChangePassingScore} isValid={SectionValidation.isValidPassingScore} placeholder='Проходной балл'/>
+			        </div>
+			        <div className="input-group all">
+			            <span className="input-group-addon">Длительность (минут) : *</span>
+			            <Txt.TextView value={this.props.duration} onBlur={this.handleChangeDuration} isValid={SectionValidation.isValidDuration} placeholder='Длительность (минут)'/>
+		        	</div>
+		        	<div className="input-group all">
+						<button className="btn btn-default dropdown-toggle" type="button" onClick={this.handleToogleDisplayOrder}>
+							<span>{SectionKeys.order.values[this.props.order]}&nbsp;&nbsp;</span>
+							<span className="caret"></span>
+						</button>
+						<ul className="dropdown-menu" style={isDisplayOrder}>
+							{Object.keys(SectionKeys.order.keys).map(function(o, index){
+								return <SelectedUl key={index} handleSelect={this.handleSelectOrder} value={SectionKeys.order.values[o]} type={o}/>
+							}.bind(this))}
+						</ul>
+					</div>
+					<div className="input-group all">
+						<button className="btn btn-default dropdown-toggle" type="button" onClick={this.handleToogleDisplaySelection}>
+							<span>{SectionKeys.selection.values[this.props.selection]}&nbsp;&nbsp;</span>
+							<span className="caret"></span>
+						</button>
+						<ul className="dropdown-menu" style={isDisplaySelection}>
+							{Object.keys(SectionKeys.selection.keys).map(function(s, index){
+								return <SelectedUl key={index} handleSelect={this.handleSelectSelection} value={SectionKeys.selection.values[s]} type={s}/>
+							}.bind(this))}
+						</ul>
+					</div>
 				</div>
 	        </div>
 		);

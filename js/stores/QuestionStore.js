@@ -109,7 +109,6 @@ QuestionStore.dispatchToken = AppDispatcher.register(function(payload) {
 			setText(action.text);
 			isEmit = true;
 			break;
-
 		case ServerConstants.UPLOADED_QUESTION_IMAGE:
 			uploadedImg(action.img);
 			isEmit = true;
