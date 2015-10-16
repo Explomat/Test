@@ -107,18 +107,9 @@ var Fields = React.createClass({
 		return (
 			<div className="panel panel-default">
 				<div className="panel-body">
-					<div className="input-group">
-			            <span className="input-group-addon">Название раздела : *</span>
-			            <Txt.TextView value={this.props.title} onBlur={this.handleChangeTitle} placeholder='Название раздела'/>
-			        </div>
-			        <div className="input-group all">
-			            <span className="input-group-addon">Проходной балл : *</span>
-			            <Txt.TextView value={this.props.passingScore} onBlur={this.handleChangePassingScore} isValid={SectionValidation.isValidPassingScore} placeholder='Проходной балл'/>
-			        </div>
-			        <div className="input-group all">
-			            <span className="input-group-addon">Длительность (минут) : *</span>
-			            <Txt.TextView value={this.props.duration} onBlur={this.handleChangeDuration} isValid={SectionValidation.isValidDuration} placeholder='Длительность (минут)'/>
-		        	</div>
+		            <Txt.TextView value={this.props.title} onBlur={this.handleChangeTitle} placeholder='Название раздела'/>
+		            <Txt.TextView value={this.props.passingScore} onBlur={this.handleChangePassingScore} isValid={SectionValidation.isValidPassingScore} placeholder='Проходной балл'/>
+		            <Txt.TextView value={this.props.duration} onBlur={this.handleChangeDuration} isValid={SectionValidation.isValidDuration} placeholder='Длительность (минут)'/>
 		        	<div className="input-group all">
 						<button className="btn btn-default dropdown-toggle" type="button" onClick={this.handleToogleDisplayOrder}>
 							<span>{SectionKeys.order.values[this.props.order]}&nbsp;&nbsp;</span>

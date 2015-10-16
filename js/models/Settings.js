@@ -8,7 +8,7 @@ function Settings(_args) {
 	this.durationDays = args.durationDays || '';
 	this.attemptsCount = args.attemptsCount || 1;
 	this.status = args.status || SettingsKeys.status.keys.publish;
-	this.notSentCorrectAnswer = args.notSentCorrectAnswer || false; //Не передавать проигрывателю информацию о правилбных ответах на вопросы
+	this.notSentCorrectAnswer = args.notSentCorrectAnswer || false; //Не передавать проигрывателю информацию о правильных ответах на вопросы
 	this.displayResult = args.displayResult || false; //Показывать результаты теста (резюме по тесту)
 	this.notDisplayLastAttempt = args.notDisplayLastAttempt || false; //Не показывать сообщение об исчерпании попыток ответа
 	this.notDisplayFeedback = args.notDisplayFeedback || false; //Не показывать в данном тесте сообщения обратной связи
