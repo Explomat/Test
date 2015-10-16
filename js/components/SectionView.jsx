@@ -3,7 +3,7 @@ var SectionStore = require('../stores/SectionStore');
 var SectionActions = require('../actions/SectionActions');
 var StructureActions = require('../actions/StructureActions');
 var Hasher = require('../utils/Hasher');
-var Txt = require('./modules/Text');
+var Txt = require('./modules/TextLabel');
 var SectionKeys = require('../utils/SectionKeys');
 var SectionValidation = require('../utils/validation/SectionValidation');
 

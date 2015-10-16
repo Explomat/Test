@@ -1,7 +1,7 @@
 var React = require('react');
 var SettingsStore = require('../stores/SettingsStore');
 var SettingsActions = require('../actions/SettingsActions');
-var Txt = require('./modules/Text');
+var Txt = require('./modules/TextLabel');
 var SettingsValidation = require('../utils/validation/SettingsValidation');
 var SettingsKeys = require('../utils/SettingsKeys');
 
@@ -67,78 +67,77 @@ var SettingsView= React.createClass({
 		return(
 			<div className="panel panel-default">
 				<div className="panel-body">
-
-			            <Txt.TextView value={this.state.settings.title} onBlur={this.handleChangeTitle} placeholder='Введите название теста'/>
-
-
-			            <Txt.TextView value={this.state.settings.passingScore} onBlur={this.handleChangePassingScore} isValid={SettingsValidation.isValidPassingScore} placeholder='Введите проходной балл'/>
-
-
-			            <Txt.TextView value={this.state.settings.durationMinutes} onBlur={this.handleChangeDuration} isValid={SettingsValidation.isValidDuration} placeholder='Введите длительность в минутах'/>
-
-
-			            <Txt.TextView value={this.state.settings.durationDays} onBlur={this.handleChangeDuration} isValid={SettingsValidation.isValidDuration} placeholder='Введите продолжительность в днях'/>
-		        	<Txt.TextView value={this.state.settings.attemptsCount} onBlur={this.handleAttemptsCount} isValid={SettingsValidation.isValidAttemptsCount} placeholder='Введите количество попыток'/>
-		        	<div className="input-group col-lg-4 all">
-		        		<span className="input-group-addon">Статус</span>
-						<button className="btn btn-default dropdown-toggle" type="button" onClick={this.handleToogleDisplayStatus}>
-							<span>{SettingsKeys.status.values[this.state.settings.status]}&nbsp;&nbsp;</span>
-							<span className="caret"></span>
-						</button> 
-						<ul className="dropdown-menu" style={isDisplayStatus}>
-							{Object.keys(SettingsKeys.status.keys).map(function(s, index){
-								return <SelectedUl key={index} handleSelect={this.handleSelectStatus} value={SettingsKeys.status.values[s]} type={s}/>
-							}.bind(this))}
-						</ul>
-					</div>
-					<div className="input-group all">
-			            <span className="input-group-addon">
-			            	<input type="checkbox" checked={this.state.settings.notSentCorrectAnswer}/>
-			            </span>
-			            <label className="form-control">Не передавать проигрывателю информацию о правильных ответах на вопросы</label>
-		        	</div>
-		        	<div className="input-group all">
-			            <span className="input-group-addon">
-			            	<input type="checkbox" checked={this.state.settings.displayResult}/>
-			            </span>
-			            <label className="form-control">Показывать результаты теста (резюме по тесту)</label>
-		        	</div>
-		        	<div className="input-group all">
-			            <span className="input-group-addon">
-			            	<input type="checkbox" checked={this.state.settings.notDisplayLastAttempt}/>
-			            </span>
-			            <label className="form-control">Не показывать сообщение об исчерпании попыток ответа</label>
-		        	</div>
-		        	<div className="input-group all">
-			            <span className="input-group-addon">
-			            	<input type="checkbox" checked={this.state.settings.notDisplayFeedback}/>
-			            </span>
-			            <label className="form-control">Не показывать в данном тесте сообщения обратной связи</label>
-		        	</div>
-		        	<div className="input-group all">
-			            <span className="input-group-addon">
-			            	<input type="checkbox" checked={this.state.settings.displayResultReport}/>
-			            </span>
-			            <label className="form-control">Показывать отчет о результатах теста</label>
-		        	</div>
-		        	<div className="input-group all">
-			            <span className="input-group-addon">
-			            	<input type="checkbox" checked={this.state.settings.displayAnswersInReport}/>
-			            </span>
-			            <label className="form-control">Показывать варианты ответов в отчете по тестированию</label>
-		        	</div>
-		        	<div className="input-group all">
-			            <span className="input-group-addon">
-			            	<input type="checkbox" checked={this.state.settings.displayCorrectAnswerInReport}/>
-			            </span>
-			            <label className="form-control">Показывать правильный ответ в отчете по тестированию</label>
-		        	</div>
-		        	<div className="input-group all">
-			            <span className="input-group-addon">
-			            	<input type="checkbox" checked={this.state.settings.notDisplayUnfinishedScore}/>
-			            </span>
-			            <label className="form-control">Не показывать набранных балл для незавершенных тестов</label>
-		        	</div>
+					<div className="row">
+						<div className="col-lg-4">
+				            <Txt.TextView value={this.state.settings.title} onBlur={this.handleChangeTitle} placeholder='Название теста'/>
+				            <Txt.TextView value={this.state.settings.passingScore} onBlur={this.handleChangePassingScore} isValid={SettingsValidation.isValidPassingScore} placeholder='Проходной балл'/>
+				            <Txt.TextView value={this.state.settings.durationMinutes} onBlur={this.handleChangeDuration} isValid={SettingsValidation.isValidDuration} placeholder='Длительность в минутах'/>
+				            <Txt.TextView value={this.state.settings.durationDays} onBlur={this.handleChangeDuration} isValid={SettingsValidation.isValidDuration} placeholder='Продолжительность в днях'/>
+				        	<Txt.TextView value={this.state.settings.attemptsCount} onBlur={this.handleAttemptsCount} isValid={SettingsValidation.isValidAttemptsCount} placeholder='Количество попыток'/>
+			        	</div>
+			        	<div className="col-lg-8">
+				        	<div className="input-group all">
+				        		<span className="input-group-addon">Статус</span>
+								<button className="btn btn-default dropdown-toggle" type="button" onClick={this.handleToogleDisplayStatus}>
+									<span>{SettingsKeys.status.values[this.state.settings.status]}&nbsp;&nbsp;</span>
+									<span className="caret"></span>
+								</button> 
+								<ul className="dropdown-menu" style={isDisplayStatus}>
+									{Object.keys(SettingsKeys.status.keys).map(function(s, index){
+										return <SelectedUl key={index} handleSelect={this.handleSelectStatus} value={SettingsKeys.status.values[s]} type={s}/>
+									}.bind(this))}
+								</ul>
+							</div>
+							<div className="input-group all">
+					            <span className="input-group-addon">
+					            	<input type="checkbox" checked={this.state.settings.notSentCorrectAnswer}/>
+					            </span>
+					            <label className="form-control">Не передавать проигрывателю информацию о правильных ответах на вопросы</label>
+				        	</div>
+				        	<div className="input-group all">
+					            <span className="input-group-addon">
+					            	<input type="checkbox" checked={this.state.settings.displayResult}/>
+					            </span>
+					            <label className="form-control">Показывать результаты теста (резюме по тесту)</label>
+				        	</div>
+				        	<div className="input-group all">
+					            <span className="input-group-addon">
+					            	<input type="checkbox" checked={this.state.settings.notDisplayLastAttempt}/>
+					            </span>
+					            <label className="form-control">Не показывать сообщение об исчерпании попыток ответа</label>
+				        	</div>
+				        	<div className="input-group all">
+					            <span className="input-group-addon">
+					            	<input type="checkbox" checked={this.state.settings.notDisplayFeedback}/>
+					            </span>
+					            <label className="form-control">Не показывать в данном тесте сообщения обратной связи</label>
+				        	</div>
+				        	<div className="input-group all">
+					            <span className="input-group-addon">
+					            	<input type="checkbox" checked={this.state.settings.displayResultReport}/>
+					            </span>
+					            <label className="form-control">Показывать отчет о результатах теста</label>
+				        	</div>
+				        	<div className="input-group all">
+					            <span className="input-group-addon">
+					            	<input type="checkbox" checked={this.state.settings.displayAnswersInReport}/>
+					            </span>
+					            <label className="form-control">Показывать варианты ответов в отчете по тестированию</label>
+				        	</div>
+				        	<div className="input-group all">
+					            <span className="input-group-addon">
+					            	<input type="checkbox" checked={this.state.settings.displayCorrectAnswerInReport}/>
+					            </span>
+					            <label className="form-control">Показывать правильный ответ в отчете по тестированию</label>
+				        	</div>
+				        	<div className="input-group all">
+					            <span className="input-group-addon">
+					            	<input type="checkbox" checked={this.state.settings.notDisplayUnfinishedScore}/>
+					            </span>
+					            <label className="form-control">Не показывать набранных балл для незавершенных тестов</label>
+				        	</div>
+				        </div>
+				    </div>
 				</div>
 	        </div>
 		);
