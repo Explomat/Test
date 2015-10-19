@@ -1,4 +1,4 @@
-/*h1,tr,td,th,span,label,div {
+h1,tr,td,th,span,label,div {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -8,7 +8,7 @@
     -o-user-select: none;
 }
 
-::selection { background-color: transparent; };*/
+/*::selection { background-color: transparent; };*/
 
 html, body{
     height: 100%;
@@ -25,6 +25,10 @@ h1, nav {
 
 textarea {
     resize: none;
+}
+
+input {
+    outline: 0;
 }
 
 .all {

@@ -23,7 +23,7 @@
     height: 16px;
     border: 1px solid #999;
     border-radius: 4px;
-    transition:all .3s ease-in-out;
+    transition: all .1s ease-in-out;
 }
 
 .checkbox-box__input {
@@ -37,5 +37,5 @@
     border-top: none;
     border-right: none;
     border-radius: 0px;
-    transform:rotate(-45deg);
+    transform: rotate(-45deg);
 }
