@@ -7,10 +7,10 @@ var TextBase = {
 	},
 
 	handleChange: function(e) {
-		if (!this.props.isValid(e.target.value))
+		/*if (!this.props.isValid(e.target.value))
 			e.target.classList.add(this.validClass);
 		else
-			e.target.classList.remove(this.validClass);
+			e.target.classList.remove(this.validClass);*/
 		this.setState({value: e.target.value});
 	},
 
@@ -61,9 +61,11 @@ var TextView = React.createClass({
 
 	render:function() {
 		var isNotEmptyClass = this.state.value === '' ? '' : 'input_not-empty';
+		var isValidClass = !this.props.isValid(this.state.value) ? this.validClass : ''
+		
 		return (
 			<div className="input_label-box" tabIndex={1} onBlur={this.handleDetranslate}>
-				<input ref="inpt" className={"input_input " + isNotEmptyClass} type="text" value={this.state.value} onChange={this.handleChange} onBlur={this.handleBlur}/>
+				<input ref="inpt" className={"input_input " + isNotEmptyClass + " " + isValidClass} type="text" value={this.state.value} onChange={this.handleChange} onBlur={this.handleBlur}/>
                 <label ref="lbl" onClick={this.handleAddtranslate} className="input_label">{this.props.placeholder}</label>
 			</div>
 		);

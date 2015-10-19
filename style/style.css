@@ -85,14 +85,14 @@ textarea {
 
 #container{
     min-width: 600px;
-    font-family:Calibri, Helvetica, serif;
-    color:#444;
-    margin:100px auto 100px;
-    border:1px solid #ddd;
-    background:#f6f6f6;
-    -webkit-border-radius:4px;
-       -moz-border-radius:4px;
-            border-radius:4px;
+    font-family: Calibri, Helvetica, serif;
+    color: #444;
+    margin: 100px auto 100px;
+    border: 1px solid #ddd;
+    background: #f6f6f6;
+    -webkit-border-radius: 4px;
+       -moz-border-radius: 4px;
+            border-radius: 4px;
 }
 
 #container:after{

@@ -33,7 +33,7 @@
 .checkbox-box__input:checked ~ .checkbox-box__label:before {
     width: 21px;
     height: 10px;
-    border: 2px solid #BADA55;
+    border: 2px solid #009688;
     border-top: none;
     border-right: none;
     border-radius: 0px;

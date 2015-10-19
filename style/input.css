@@ -10,7 +10,7 @@
 }
 
 .input_input:focus {
-    border-color: #2196F3;
+    border-color: #009688;
     border-width: 2px;
 }
 
@@ -41,7 +41,7 @@
 .input_input:focus + label,
 .input_not-empty + label,
 .input_translate {
-    color: #2196F3;
+    color: #009688;
     font-size: 14px;
     transform: translateY(-25px);
 }
