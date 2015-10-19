@@ -20,7 +20,7 @@ var MultipleChoiceAnswerView = React.createClass({
 			<div className={isCorrectClass + " mapping_answer"}>
 				<span>{this.props.index}</span>
 				<input type="radio" checked={this.props.answer.selected} disabled />
-				<span>{this.props.answer.text}</span><br/>
+				<label>Ответ: <span>{this.props.answer.text}</span></label><br/>
 				<label>Вес : <span>{this.props.answer.weight}</span></label>
 			</div>
 		);
@@ -36,7 +36,7 @@ var MultipleResponceAnswerView = React.createClass({
 			<div className={isCorrectClass + " mapping_answer"}>
 				<span>{this.props.index}</span>
 				<input type="checkbox" checked={this.props.answer.selected} disabled />
-				<span>{this.props.answer.text}</span><br/>
+				<label>Ответ: <span>{this.props.answer.text}</span></label><br/>
 				<label>Вес : <span>{this.props.answer.weight}</span></label>
 			</div>
 		);
@@ -50,7 +50,7 @@ var OrderAnswerView = React.createClass({
 		return(
 			<div className="mapping_answer">
 				<span>{this.props.index}</span>
-				<span>{this.props.answer.text}</span><br/>
+				<label>Ответ: <span>{this.props.answer.text}</span></label><br/>
 				<label>Вес : <span>{this.props.answer.weight}</span></label>
 			</div>
 		);
@@ -66,7 +66,7 @@ var MatchAnswerView = React.createClass({
 		return(
 			<div className={isCorrectClass + " mapping_answer"}>
 				<span>{this.props.index}</span>
-				<span>{this.props.answer.text}</span><br/>
+				<label>Ответ: <span>{this.props.answer.text}</span></label><br/>
 				<label>Условие : <span>{this.props.answer.conditions[0].text}</span></label><br/>
 				<label>Вес : <span>{this.props.answer.weight}</span></label>
 			</div>
@@ -83,7 +83,7 @@ var NumericalFillAnswerView = React.createClass({
 		return(
 			<div className={isCorrectClass + " mapping_answer"}>
 				<span>{this.props.index}</span>
-				<span>{this.props.answer.text}</span><br/>
+				<label>Ответ: <span>{this.props.answer.text}</span></label><br/>
 				<label>Условие {SubAnswer.conditions.values[conditionText.condition]}<span>{conditionText.text}</span></label><br/>
 				<label>Вес : <span>{this.props.answer.weight}</span></label>
 			</div>
@@ -99,7 +99,7 @@ var GapFillAnswerView = React.createClass({
 		return(
 			<div className="mapping_answer">
 				<span>{this.props.index}</span>
-				<span>{this.props.answer.text}</span><br/>
+				<label>Ответ: <span>{this.props.answer.text}</span></label><br/>
 				<label>Соответствие :<span>{conformity.text}</span></label><br/>
 				<label>Вес : <span>{this.props.answer.weight}</span></label>
 			</div>

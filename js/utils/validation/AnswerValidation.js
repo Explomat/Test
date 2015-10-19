@@ -21,8 +21,8 @@ module.exports = {
 	},
 
 	isValidCondition: function (_val) {
-		var val = Number(val);
+		var val = Number(_val);
 		if (isNaN(val)) return false;
-		return Validation.isNumber(val);
+		return Validation.isNumber(_val);
 	}
 }

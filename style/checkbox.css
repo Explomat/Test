@@ -1,0 +1,41 @@
+.checkbox-box {
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.checkbox-box:hover {
+    background-color: #F2EDF1;
+}
+
+.checkbox-box__label {
+    position: relative;
+    cursor: pointer;
+    width: 88%;
+}
+
+.checkbox-box__label:before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    right: -45px;
+    z-index: 1;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #999;
+    border-radius: 4px;
+    transition:all .3s ease-in-out;
+}
+
+.checkbox-box__input {
+    display: none;
+}
+
+.checkbox-box__input:checked ~ .checkbox-box__label:before {
+    width: 21px;
+    height: 10px;
+    border: 2px solid #BADA55;
+    border-top: none;
+    border-right: none;
+    border-radius: 0px;
+    transform:rotate(-45deg);
+}
