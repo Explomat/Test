@@ -11,7 +11,7 @@ var url = {
 }
 
 icons = {
-	loading: 'build/img/loading.gif'
+	loading: 'build/icons/loading.gif'
 }
 
 dom = {

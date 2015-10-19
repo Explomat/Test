@@ -1,0 +1,27 @@
+.tests {
+	margin-top: 100px;
+	font-family: Calibri, Helvetica, serif;
+	min-width: 500px;
+	width: 900px;
+}
+
+.tests__header {
+	height: 125px;
+	background-color: #009688;
+}
+
+/*.tests__header:after{
+    content: '';
+    display: table;
+    clear: both;
+}*/
+
+/*.tests__body {
+	-webkit-box-shadow: inset 9px 49px 24px -8px rgba(0,0,0,0.32);
+	-moz-box-shadow: inset 9px 49px 24px -8px rgba(0,0,0,0.32);
+	box-shadow: inset 9px 49px 24px -8px rgba(0,0,0,0.32);
+}*/
+
+/*.tests__body > div:first-child {
+	margin-top: 10px;
+}*/

@@ -1,0 +1,12 @@
+.bicon-box {
+	display: inline-block;
+	color: #fff;
+	font-size: 23px;
+	cursor: pointer;
+	padding: 5px;
+	float: right;
+}
+
+.bicon-box:hover {
+	/*background-color: #02887C;*/	
+}

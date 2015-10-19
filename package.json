@@ -8,8 +8,8 @@
     "deploy": "uglifyjs build/js/bundle.js --compress --mangle -o build/js/bundle.min.js",
     "build": "browserify js/main.js -d | uglifyjs -mc > build/js/bundle.js",
     "build-jsx": "jsx js/components --extension jsx js/components",
-    "min-css": "cat style/bootstrap.css style/fileinput.css style/style.css style/font-awesome.min.css style/question.css style/section.css style/mapping.css style/media.css style/input.css style/checkbox.css style/group.css | cleancss -o build/style/style.min.css",
-    "min-css-windows": "type style\\bootstrap.css style\\fileinput.css style\\style.css style\\font-awesome.min.css style\\question.css style\\section.css style\\mapping.css style\\media.css style\\input.css style\\checkbox.css style\\group.css > build/style/style.min.css",
+    "min-css": "cat style/bootstrap.css style/fileinput.css style/style.css style/font-awesome.min.css style/question.css style/section.css style/mapping.css style/media.css style/input.css style/checkbox.css style/group.css style/tests.css style/bicon.css | cleancss -o build/style/style.min.css",
+    "min-css-windows": "type style\\bootstrap.css style\\fileinput.css style\\style.css style\\font-awesome.min.css style\\question.css style\\section.css style\\mapping.css style\\media.css style\\input.css style\\checkbox.css style\\group.css style\\tests.css style\\bicon.css > build/style/style.min.css",
     "start": "node node_modules/webserver/webserver.js"
   },
   "dependencies": {

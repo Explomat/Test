@@ -1,4 +1,6 @@
 var React = require('react');
+var Config = require('../config');
+var BIconView = require('./modules/BIcon');
 //var MappingStore = require('../stores/MappingStore');
 //var MappingActions = require('../actions/SectionActions');
 
@@ -18,19 +20,11 @@ var BasicView = React.createClass({
 
 	render: function () {
 		return (
-			<div id="container" className="container">
-				<h1>Tests</h1>
-				<div id="app-container">
-					<div className="list-group side-bar">
-				    	<a href="#settings" className="list-group-item active">
-				        	<span className="glyphicon glyphicon-wrench"></span> 
-				        	<span>Основные сведения</span>
-				    	</a>
-				        <a href="#structure" className="list-group-item">Структура</a>
-				        <a href="#view" className="list-group-item">Отображение</a>
-				    </div>
-				    <div id="app"></div>
+			<div id="app-container" className="container tests">
+				<div className="tests__header">
+					<BIconView bclass={'glyphicon glyphicon-option-vertical'}/>
 				</div>
+			    <div id="app" className="tests__body"></div>
 			</div>
 		);
 	}
