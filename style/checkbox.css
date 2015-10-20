@@ -11,6 +11,8 @@
     position: relative;
     cursor: pointer;
     width: 88%;
+    font-weight: 400;
+    color: #212121;
 }
 
 .checkbox-box__label:before {
@@ -33,7 +35,7 @@
 .checkbox-box__input:checked ~ .checkbox-box__label:before {
     width: 21px;
     height: 10px;
-    border: 2px solid #009688;
+    border: 2px solid #FF5252;
     border-top: none;
     border-right: none;
     border-radius: 0px;
