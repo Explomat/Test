@@ -17,6 +17,7 @@ html, body{
 
 body {
     overflow-y:scroll;
+    background-color: wheat;
 }
 
 h1, nav {
@@ -84,4 +85,8 @@ input {
 
 .modal {
 	overflow: auto;
+}
+
+.panel-heading {
+    border-radius: 0px;
 }

@@ -122,10 +122,10 @@ var SettingsView= React.createClass({
 	render: function(){
 		var isDisplayStatus = { display: this.state.isDisplayStatus ? 'block' : 'none' };
 		return(
-			<div className="panel panel-default">
+			<div className="panel panel-default tests__body-content">
 				<div className="panel-body">
 					<div className="row">
-						<div className="col-lg-8 col-md-8 col-lg-offset-2 col-md-offset-2">
+						<div className="col-lg-10 col-md-10 col-lg-offset-1 col-md-offset-1">
 							<div className="group">
 								<div className="group__elem">
 									<div className="group__title"></div>

@@ -7,11 +7,10 @@ var UI = {
         ctx.classList.add(className);
     },
 
-    getElementByHash: function(rootId, hash) {
-        var cont = document.getElementById(rootId);
-        if (!cont) 
+    getElementByHash: function(elem, hash) {
+        if (!elem) 
             return null;
-        return cont.querySelector("a[href='"+hash+"']");
+        return elem.querySelector("a[href='"+hash+"']");
     }
 }
 
