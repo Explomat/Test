@@ -226,7 +226,7 @@ var StructureView = React.createClass({
 		var expandSectionsClass = this.state.isExpandedSections ? 'glyphicon glyphicon-minus' : 'glyphicon glyphicon-plus';
 		return (
 			<div>
-				<div className="panel panel-default">
+				<div className="panel panel-default tests__body-content">
 					<div className="panel-heading">
 						<button title="Добавить раздел" type="button" className="btn btn-default btn-sm" onClick={this.handleAddNewSection}>
 							<span className="glyphicon glyphicon-plus"></span>

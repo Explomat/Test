@@ -1,6 +1,7 @@
 var Router = require('./utils/Crossroads');
 var Hasher = require('./utils/Hasher');
-var UI = require('./utils/UI');
+var Config = require('./config');
+//var UI = require('./utils/UI');
 var BasicController = require('./controllers/BasicController');
 var StructureController = require('./controllers/StructureController');
 var MappingController = require('./controllers/MappingController');
@@ -10,51 +11,54 @@ var SectionController = require('./controllers/modal/SectionController');
 
 window.onload = function(){
 
-	var DEFAULT_HASH = 'settings';
-
-	Router.addRoute('settings', function(){
+	Router.addRoute(Config.hashes.settings.key, function(){
+		BasicController.start(Config.hashes.settings.value);
 	    SettingsController.start();
 	});
-	Router.addRoute('structure', function(id){
+	Router.addRoute(Config.hashes.structure.key, function(id){
+		BasicController.start(Config.hashes.structure.value);
 	    StructureController.start();
 	});
-	Router.addRoute('structure/section/:sectionId:', function(sectionId){
+	Router.addRoute(Config.hashes.section.key, function(sectionId){
+		BasicController.start(Config.hashes.section.value);
 		StructureController.start();
 	    SectionController.start(sectionId);
 	});
-	Router.addRoute('structure/question/{sectionId}/:questionId:', function(sectionId, questionId){
+	Router.addRoute(Config.hashes.question.key, function(sectionId, questionId){
+		BasicController.start(Config.hashes.question.value);
 		StructureController.start();
 	    QuestionController.start(sectionId, questionId);
 	});
-	Router.addRoute('view', function(){
+	Router.addRoute(Config.hashes.view.key, function(){
+		BasicController.start(Config.hashes.view.value);
 	    MappingController.start();
 	});
 
-	function changeTabClass(curHash){
+	/*function changeTabClass(curHash){
 
 		function getHashRoot(hash){
 			var isChainHash = hash.indexOf('/');
 			return isChainHash === -1 ? hash : hash.substring(0, isChainHash);
 		}
 
-		var curElem = UI.getElementByHash('app-container', getHashRoot(curHash));
+		var curElem = UI.getElementByHash(document.getElementsByClassName('menu-box')[0], getHashRoot(curHash));
 		if (curElem){
-		    UI.toggleList(curElem, 'active');
+		    UI.toggleList(curElem.parentNode, 'menu-box__item_active');
 		}
-	}
+	}*/
 
 	function init(curHash){
-		BasicController.start();
+		//BasicController.start();
 
-		curHash = curHash === '' ? DEFAULT_HASH : curHash;
+		curHash = curHash === '' ? Config.hashes.DEFAULT_HASH_KEY : curHash;
 		Hasher.setHash(curHash);
-		changeTabClass('#' + curHash);
+		//changeTabClass('#' + curHash);
 		Router.parse(curHash);
 	}
 
 	//setup hasher
 	function parseHash(newHash){
-		changeTabClass('#' + newHash);
+		//changeTabClass('#' + newHash);
 		Router.parse(newHash);
 	}
 
@@ -63,27 +67,6 @@ window.onload = function(){
 	
 	Hasher.prependHash = '';
 	Hasher.init(); //start listening for history change
-	
-	//update URL fragment generating new history record
-	//Hasher.setHash('structure');
-
-	/*Router.config({ defaultRoute: '#settings', interval: 100, callBack: function(){
-		  var curElem = UI.getElementByHash('app-container', window.location.hash);
-		  if (curElem)
-		    UI.toggleList(curElem, 'active');
-		}
-	});
-
-	Router.addRoute(/^#settings$/, function() {
-		SettingsController.start();
-	})
-	.addRoute(/#structure/, function() {
-		StructureController.start();
-	})
-	.addRoute(/#structure\/(.*)\/(.*)?/, function(sectionUuid, questionUuid){
-		QuestionController.start(sectionUuid, questionUuid);
-	})
-	.startRouting();*/
 }
 
 
