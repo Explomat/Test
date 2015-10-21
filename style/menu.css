@@ -30,3 +30,8 @@
 	color: rgba(33, 33, 33, 0.7);
 	line-height: 2;
 }
+
+.menu-box__item_img:hover {
+	top:-3px;
+	transition: all .2s ease-in-out;
+}
