@@ -51,12 +51,14 @@
 }
 
 .tests__body-content_show {
-	
+	display: block;
+	transition: all .9s ease-in-out;
+	transform: translateY(0px);
 }
 
 .tests__body-content_hide {
-	transition: all .2s ease-in-out;
-    transform: translateY(750px);
+	display: none;
+	transform: translateY(750px);
 }
 
 /*.tests__header:after{

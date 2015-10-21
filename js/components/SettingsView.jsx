@@ -29,27 +29,9 @@ var SelectedUl = React.createClass({
 
 var SettingsView= React.createClass({
 
-	handleBlurStatus: function(){
-		if (this.state.isDisplayStatus) {
-			this.setState({isDisplayStatus: false});
-		}
-	},
-
-	handleToogleDisplayStatus: function(e){
-		if (e){
-			e.stopPropagation();
-    		e.nativeEvent.stopImmediatePropagation();
-		}
-		this.setState({isDisplayStatus : !this.state.isDisplayStatus});
-	},
-
 	componentDidMount: function() {
 		document.addEventListener('click', this.handleBlurStatus);
 		SettingsStore.addChangeListener(this._onChange);
-	},
-
-	componentWillmount:function () {
-		this.isMounted = false;
 	},
 
 	componentWillUnmount: function() {
@@ -65,6 +47,20 @@ var SettingsView= React.createClass({
 		var sectionState = getSettingsState();
 		sectionState.isDisplayStatus = false;
 		return sectionState;
+	},
+
+	handleBlurStatus: function(){
+		if (this.state.isDisplayStatus) {
+			this.setState({isDisplayStatus: false});
+		}
+	},
+
+	handleToogleDisplayStatus: function(e){
+		if (e){
+			e.stopPropagation();
+    		e.nativeEvent.stopImmediatePropagation();
+		}
+		this.setState({isDisplayStatus : !this.state.isDisplayStatus});
 	},
 
 	handleChangeTitle: function(title){
