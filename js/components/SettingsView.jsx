@@ -48,6 +48,10 @@ var SettingsView= React.createClass({
 		SettingsStore.addChangeListener(this._onChange);
 	},
 
+	componentWillmount:function () {
+		this.isMounted = false;
+	},
+
 	componentWillUnmount: function() {
 		document.removeEventListener('click', this.handleBlurStatus);
 		SettingsStore.removeChangeListener(this._onChange);

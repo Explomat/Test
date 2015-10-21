@@ -50,6 +50,15 @@
 	overflow-y: auto;
 }
 
+.tests__body-content_show {
+	
+}
+
+.tests__body-content_hide {
+	transition: all .2s ease-in-out;
+    transform: translateY(750px);
+}
+
 /*.tests__header:after{
     content: '';
     display: table;

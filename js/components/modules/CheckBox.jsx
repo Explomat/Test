@@ -2,6 +2,12 @@ var React = require('react');
 
 var CheckBoxView = React.createClass({
 
+	propsTypes: {
+		checked: React.PropTypes.bool,
+		label: React.PropTypes.string,
+		onChangeChecked: React.PropTypes.func
+	},
+
 	componentWillReceiveProps: function(nextProps){
 		this.setState({checked: nextProps.checked});
 	},

@@ -21,6 +21,11 @@
 
 .menu-box__item_active span {
 	color: #fff;
+	top: 0px;
+}
+
+.menu-box__item_active .menu-box__item_img:hover {
+	top: 0px;
 }
 
 .menu-box__item_img {

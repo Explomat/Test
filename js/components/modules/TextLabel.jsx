@@ -61,7 +61,7 @@ var TextView = React.createClass({
 
 	render:function() {
 		var isNotEmptyClass = this.state.value === '' ? '' : 'input-box__input_not-empty';
-		var isValidClass = !this.props.isValid(this.state.value) ? this.validClass : ''
+		var isValidClass = !this.props.isValid(this.state.value) ? this.validClass : '';
 		
 		return (
 			<div className="input-box" tabIndex={1} onBlur={this.handleDetranslate}>
