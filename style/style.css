@@ -10,6 +10,10 @@ h1,tr,td,th,span,label,div {
 
 /*::selection { background-color: transparent; };*/
 
+/*::-webkit-scrollbar { 
+    display: none; 
+}*/
+
 html, body{
     height: 100%;
     overflow: hidden;

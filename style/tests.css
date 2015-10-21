@@ -15,6 +15,11 @@
 	padding-top: 15px;
 }
 
+.tests__body {
+	width: 700px;
+	overflow: hidden;
+}
+
 .tests__name {
 	font-size: 30px;
     font-family: serif;
@@ -41,6 +46,7 @@
 	border-top-right-radius: 0px;
 	margin-bottom: 0px;
 	height: 750px;
+	width: 720px;
 	overflow-y: auto;
 }
 
