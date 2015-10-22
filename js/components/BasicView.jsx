@@ -30,9 +30,9 @@ var BasicView = React.createClass({
 		var isActiveSettingsClass = curHash === Config.hashes.settings.key || (curHash !== Config.hashes.settings.key && curHash !== Config.hashes.view.key && curHash !== Config.hashes.structure.key) ? 'menu-box__item_active' : '';
 
 		return (
-			<div className="container tests">
+			<div className="tests">
 				<div className="tests__header">
-					<div className="tests__name">{this.props.sectionName}</div>
+					<div className="col-lg-10 col-md-10 col-lg-offset-1 col-md-offset-1 tests__name">{this.props.sectionName}</div>
 					<div className="menu-box">
 						<div className={"menu-box__item " + isActiveSettingsClass}>
 							<a href="#settings">

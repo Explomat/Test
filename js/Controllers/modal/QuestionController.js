@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 var QuestionActions = require('../../actions/QuestionActions');
 var QuestionAPI = require('../../api/QuestionAPI');
 var StructureAPI = require('../../api/StructureAPI');
@@ -15,8 +16,8 @@ module.exports = {
 			return;
 		}
 		var app = document.getElementById(Config.dom.modalId) || document.body;
-		React.unmountComponentAtNode(app);
+		ReactDOM.unmountComponentAtNode(app);
 		QuestionActions.receiveQuestion(question);
-		React.render(React.createElement(QuestionView, {sectionUuid: sectionUuid}), app);
+		ReactDOM.render(React.createElement(QuestionView, {sectionUuid: sectionUuid}), app);
 	}
 }

@@ -39,8 +39,8 @@
     cursor: text;
 }
 
-.input-box__input:focus + label,
-.input-box__input_not-empty + label,
+.input-box__input:focus + .input-box__label,
+.input-box__input_not-empty + .input-box__label,
 .input-box__label_translate {
     color: #727272;
     font-size: 14px;

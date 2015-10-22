@@ -1,7 +1,6 @@
 var React = require('react');
 var StructureStore = require('../stores/StructureStore');
 var StructureActions = require('../actions/StructureActions');
-var QuestionView = require('./QuestionView');
 var Hasher = require('../utils/Hasher');
 var Config = require('../config');
 

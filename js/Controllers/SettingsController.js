@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 var SettingsView = require('../components/SettingsView');
 var SettingsAPI = require('../api/SettingsAPI');
 var SettingsActions = require('../actions/SettingsActions');
@@ -8,10 +9,10 @@ module.exports = {
 
 	start: function(){
 		var app = document.getElementById(Config.dom.appId) || document.body;
-		React.unmountComponentAtNode(app);
+		ReactDOM.unmountComponentAtNode(app);
 
 		var settings = SettingsAPI.getSettingsData();
 		SettingsActions.receiveSettings(settings);
-		React.render(React.createElement(SettingsView), app);
+		ReactDOM.render(React.createElement(SettingsView), app);
 	}
 }

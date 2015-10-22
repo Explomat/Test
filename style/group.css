@@ -4,6 +4,9 @@
 
 .group__elem {
 	margin-bottom: 50px;
+	background-color: #fff;
+    padding: 10px;
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.16),0px 2px 5px 0px rgba(0,0,0,0.23);
 }
 
 .group__title {

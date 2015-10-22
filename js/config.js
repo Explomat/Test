@@ -28,5 +28,9 @@ module.exports = {
 		section: { value: 'Создание/редактирование раздела',  key: 'structure/section/:sectionId:' },
 		question: { value: 'Создание/редактирование вопроса', key: 'structure/question/{sectionId}/:questionId:' },
 		view: { value: 'Отображение теста', key: 'view' }
+	},
+
+	setProductionMode: function () {
+		process.env.NODE_ENV = 'production'
 	}
 }

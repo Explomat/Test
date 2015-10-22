@@ -16,7 +16,15 @@
     "es6-promise": "^2.3.0",
     "extend-object": "^1.0.0",
     "flux": "^2.0.3",
-    "react": "^0.13.3",
+    "keymirror": "^0.1.1",
+    "material-ui": "^0.13.0",
+    "react": "^0.14.0",
+    "react-addons-create-fragment": "^0.14.0",
+    "react-addons-pure-render-mixin": "^0.14.0",
+    "react-addons-transition-group": "^0.14.0",
+    "react-addons-update": "^0.14.0",
+    "react-dom": "^0.14.0",
+    "react-tap-event-plugin": "^0.2.1",
     "signals": "^1.0.0"
   },
   "devDependencies": {

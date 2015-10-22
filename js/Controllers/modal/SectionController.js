@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 var Hasher = require('../../utils/Hasher');
 var SectionActions = require('../../actions/SectionActions');
 var SectionAPI = require('../../api/SectionAPI');
@@ -15,8 +16,8 @@ module.exports = {
 		}
 
 		var app = document.getElementById(Config.dom.modalId) || document.body;
-		React.unmountComponentAtNode(app);
+		ReactDOM.unmountComponentAtNode(app);
 		SectionActions.receiveSection(section);
-		React.render(React.createElement(SectionView), app);
+		ReactDOM.render(React.createElement(SectionView), app);
 	}
 }

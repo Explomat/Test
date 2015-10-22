@@ -50,13 +50,13 @@ var TextView = React.createClass({
 	handleAddtranslate: function(e){
 		if (!e.target.classList.contains('input-box__label_translate')){
 			e.target.classList.add('input-box__label_translate');
-			this.refs.inpt.getDOMNode().focus();
+			this.refs.inpt.focus();
 		}
 	},
 
 	handleDetranslate: function(e){
-		this.refs.lbl.getDOMNode().classList.remove('input-box__label_translate');
-		this.refs.lbl.getDOMNode().classList.add('input-box__label_detranslate');
+		this.refs.lbl.classList.remove('input-box__label_translate');
+		this.refs.lbl.classList.add('input-box__label_detranslate');
 	},
 
 	render:function() {
