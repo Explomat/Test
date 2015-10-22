@@ -230,9 +230,8 @@ var StructureView = React.createClass({
 
 	render: function () {
 		var classes = '';
-        if (this.state.isMounted) {
-            classes = ' tests__body-content_show';
-        }
+		if (this.props.isAnimate) classes += ' tests__body-content_translate';
+        if (this.state.isMounted && this.props.isAnimate) classes = ' tests__body-content_show';
 		var expandSectionsClass = this.state.isExpandedSections ? 'glyphicon glyphicon-minus' : 'glyphicon glyphicon-plus';
 		return (
 			<div>

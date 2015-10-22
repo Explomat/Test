@@ -17,16 +17,16 @@ window.onload = function(){
 	});
 	Router.addRoute(Config.hashes.structure.key, function(id){
 		BasicController.start(Config.hashes.structure.value);
-	    StructureController.start();
+	    StructureController.start(true);
 	});
 	Router.addRoute(Config.hashes.section.key, function(sectionId){
 		BasicController.start(Config.hashes.section.value);
-		StructureController.start();
+		StructureController.start(false);
 	    SectionController.start(sectionId);
 	});
 	Router.addRoute(Config.hashes.question.key, function(sectionId, questionId){
 		BasicController.start(Config.hashes.question.value);
-		StructureController.start();
+		StructureController.start(false);
 	    QuestionController.start(sectionId, questionId);
 	});
 	Router.addRoute(Config.hashes.view.key, function(){

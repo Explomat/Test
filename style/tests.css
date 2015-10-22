@@ -49,6 +49,9 @@
 	height: 750px;
 	width: 720px;
 	overflow-y: auto;
+}
+
+.tests__body-content_translate {
 	opacity: 0;
 	transform: translateX(720px);
 }

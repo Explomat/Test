@@ -145,7 +145,7 @@ var SettingsView= React.createClass({
         }
 		var isDisplayStatus = { display: this.state.isDisplayStatus ? 'block' : 'none' };
 		return(
-			<div className={"panel panel-default tests__body-content" + classes}>
+			<div className={"panel panel-default tests__body-content tests__body-content_translate" + classes}>
 				<div className="panel-body">
 					<div className="row">
 						<div className="col-lg-10 col-md-10 col-lg-offset-1 col-md-offset-1">

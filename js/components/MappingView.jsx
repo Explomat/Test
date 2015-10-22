@@ -179,7 +179,7 @@ var MappingView = React.createClass({
             classes = ' tests__body-content_show';
         }
 		return (
-			<div className={"panel panel-default tests__body-content" + classes}>
+			<div className={"panel panel-default tests__body-content tests__body-content_translate" + classes}>
 				<div className="panel-body">
 					{this.state.sections.map(function(s){
 						return <SectionView key={s.uuid} title={s.title} questions={s.questions}/>

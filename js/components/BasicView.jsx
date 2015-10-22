@@ -51,7 +51,7 @@ var BasicView = React.createClass({
 						</div>
 					</div>
 				</div>
-			    <div id="app" className="tests__body"></div>
+			    <div id={Config.dom.appId} className="tests__body"></div>
 			</div>
 		);
 	}

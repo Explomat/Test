@@ -6,11 +6,11 @@ var Config = require('../config');
 
 module.exports = {
 
-	start: function(){
+	start: function(isAnimate){
 		var structure =  StructureAPI.getStructureData();
 		var app = document.getElementById(Config.dom.appId) || document.body;
 		React.unmountComponentAtNode(app);
 		StructureActions.receiveStructure(structure);
-		React.render(React.createElement(StructureView), app);
+		React.render(React.createElement(StructureView, {isAnimate: isAnimate}), app);
 	}
 }
