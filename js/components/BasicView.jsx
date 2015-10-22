@@ -32,22 +32,16 @@ var BasicView = React.createClass({
 		return (
 			<div className="tests">
 				<div className="tests__header">
-					<div className="col-lg-10 col-md-10 col-lg-offset-1 col-md-offset-1 tests__name">{this.props.sectionName}</div>
+					<div className="tests__name">{this.props.sectionName}</div>
 					<div className="menu-box">
 						<div className={"menu-box__item " + isActiveSettingsClass}>
-							<a href="#settings">
-								<span className="glyphicon glyphicon-pencil menu-box__item_img">
-							</span></a>
+							<a href="#settings">Общие сведения</a>
 						</div>
 						<div className={"menu-box__item " + isActiveStructureClass}>
-							<a href="#structure">
-								<span className="glyphicon glyphicon-list menu-box__item_img">
-							</span></a>
+							<a href="#structure">Структура теста</a>
 						</div>
 						<div className={"menu-box__item " + isActiveViewClass}>
-							<a href="#view">
-								<span className="glyphicon glyphicon-check menu-box__item_img"></span>
-							</a>
+							<a href="#view">Отображение теста</a>
 						</div>
 					</div>
 				</div>
