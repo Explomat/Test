@@ -94,13 +94,3 @@ input {
 .panel-heading {
     border-radius: 0px;
 }
-
-.FadeInWhenAdded {
-    opacity: 0;
-    -webkit-transition: all 0.5s;
-    -moz-transition: all 0.5s;
-}
-
-.FadeInWhenAddedShown {
-    opacity: 0.99;
-}

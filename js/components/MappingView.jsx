@@ -150,8 +150,13 @@ var SectionView = React.createClass({
 
 var MappingView = React.createClass({
 
+	toggle: function() {
+        this.setState({isMounted: !this.state.isMounted});
+    },
+
 	componentDidMount: function() {
 		MappingStore.addChangeListener(this._onChange);
+		setTimeout(this.toggle, 0);
 	},
 
 	componentWillUnmount: function() {
@@ -163,12 +168,18 @@ var MappingView = React.createClass({
 	},
 
 	getInitialState: function () {
-		return getMappingState();
+		var data = getMappingState();
+		data.isMounted = false;
+		return data;
 	},
 
 	render: function () {
+		var classes = '';
+        if (this.state.isMounted) {
+            classes = ' tests__body-content_show';
+        }
 		return (
-			<div className="panel panel-default tests__body-content">
+			<div className={"panel panel-default tests__body-content" + classes}>
 				<div className="panel-body">
 					{this.state.sections.map(function(s){
 						return <SectionView key={s.uuid} title={s.title} questions={s.questions}/>

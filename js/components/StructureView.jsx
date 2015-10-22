@@ -194,8 +194,13 @@ var SectionView = React.createClass({
 
 var StructureView = React.createClass({
 
+	toggle: function() {
+        this.setState({isMounted: !this.state.isMounted});
+    },
+
 	componentDidMount: function() {
 		StructureStore.addChangeListener(this._onChange);
+		setTimeout(this.toggle, 0);
 	},
 
 	componentWillUnmount: function() {
@@ -214,6 +219,7 @@ var StructureView = React.createClass({
 	getInitialState: function () {
 		var data = getStructureState();
 		data.isExpandedSections = true;
+		data.isMounted = false;
 		return data;
 	},
 
@@ -223,10 +229,14 @@ var StructureView = React.createClass({
 	},
 
 	render: function () {
+		var classes = '';
+        if (this.state.isMounted) {
+            classes = ' tests__body-content_show';
+        }
 		var expandSectionsClass = this.state.isExpandedSections ? 'glyphicon glyphicon-minus' : 'glyphicon glyphicon-plus';
 		return (
 			<div>
-				<div className="panel panel-default tests__body-content">
+				<div className={"panel panel-default tests__body-content" + classes}>
 					<div className="panel-heading">
 						<button title="Добавить раздел" type="button" className="btn btn-default btn-sm" onClick={this.handleAddNewSection}>
 							<span className="glyphicon glyphicon-plus"></span>

@@ -49,7 +49,7 @@ var SettingsView= React.createClass({
 	componentDidMount: function() {
 		document.addEventListener('click', this.handleBlurStatus);
 		SettingsStore.addChangeListener(this._onChange);
-		setTimeout(this.toggle, 1000);
+		setTimeout(this.toggle, 0);
 	},
 
 	componentWillUnmount: function() {
@@ -139,9 +139,9 @@ var SettingsView= React.createClass({
 	},
 
 	render: function(){
-		var classes = ' FadeInWhenAdded';
+		var classes = '';
         if (this.state.isMounted) {
-            classes += ' FadeInWhenAddedShown';
+            classes = ' tests__body-content_show';
         }
 		var isDisplayStatus = { display: this.state.isDisplayStatus ? 'block' : 'none' };
 		return(
