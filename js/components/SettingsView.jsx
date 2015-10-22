@@ -2,6 +2,7 @@ var React = require('react');
 var SettingsStore = require('../stores/SettingsStore');
 var SettingsActions = require('../actions/SettingsActions');
 var Txt = require('./modules/TextLabel');
+var ReactCSSTransitionGroup = require('react/lib/ReactCSSTransitionGroup');
 var CheckBox = require('./modules/CheckBox');
 var SettingsValidation = require('../utils/validation/SettingsValidation');
 var SettingsKeys = require('../utils/SettingsKeys');
@@ -29,9 +30,26 @@ var SelectedUl = React.createClass({
 
 var SettingsView= React.createClass({
 
+	/*componentWillAppear: function(callback) {
+		console.log(callback);
+	},
+	  
+	componentWillEnter: function(callback) {
+		console.log(callback);
+	},
+	  
+	componentWillLeave: function(callback) {
+		console.log(callback);
+	},*/
+
+	toggle: function() {
+        this.setState({isMounted: !this.state.isMounted});
+    },
+
 	componentDidMount: function() {
 		document.addEventListener('click', this.handleBlurStatus);
 		SettingsStore.addChangeListener(this._onChange);
+		setTimeout(this.toggle, 1000);
 	},
 
 	componentWillUnmount: function() {
@@ -46,6 +64,7 @@ var SettingsView= React.createClass({
 	getInitialState: function () {
 		var sectionState = getSettingsState();
 		sectionState.isDisplayStatus = false;
+		sectionState.isMounted = false;
 		return sectionState;
 	},
 
@@ -120,9 +139,13 @@ var SettingsView= React.createClass({
 	},
 
 	render: function(){
+		var classes = ' FadeInWhenAdded';
+        if (this.state.isMounted) {
+            classes += ' FadeInWhenAddedShown';
+        }
 		var isDisplayStatus = { display: this.state.isDisplayStatus ? 'block' : 'none' };
 		return(
-			<div className="panel panel-default tests__body-content">
+			<div className={"panel panel-default tests__body-content" + classes}>
 				<div className="panel-body">
 					<div className="row">
 						<div className="col-lg-10 col-md-10 col-lg-offset-1 col-md-offset-1">
