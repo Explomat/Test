@@ -6,14 +6,17 @@
 	padding-right: 0px;
 	padding-left: 0px;	
 	background-color: #f5f5f5;
-	width: 1180px;
+	width: 1200px;
+	min-width: 800px;
+	height: 900px;
 	margin: 50px auto;
 }
 
 .tests__header {
-	height: 125px;
+	height: 200px;
 	background-color: #4CAF50;
 	position: relative;
+	margin-bottom: -135px;
 }
 
 .tests__body {
@@ -46,21 +49,18 @@
 	border-top-left-radius: 0px;
 	border-top-right-radius: 0px;
 	margin-bottom: 0px;
-	height: 750px;
-	width: 1200px;
-	overflow-y: auto;
-	background-color: #f5f5f5;
+	/*width: 1200px;
+	overflow-y: auto;*/
+	background: none;
 }
 
 .tests__body-content_translate {
-	opacity: 0;
-	transform: translateX(720px);
+	transform: translateX(1200px);
 }
 
 .tests__body-content_show {
-	transition: all .2s ease-in-out;
+	transition: all .1s ease-in-out;
 	transform: translateX(0px);
-	opacity: 1;
 }
 
 /*.tests__body-content_hide {
