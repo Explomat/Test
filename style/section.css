@@ -1,12 +1,12 @@
-.section-container {
+.sections {
 	cursor: default;
 }
 
-.section:hover{
+.sections__section:hover{
 	background-color: #EDF1F5;
 }
 
-.section:hover .section-buttons{
+.sections__section:hover .section-buttons{
 	display: inline-block;
 }
 
@@ -22,12 +22,12 @@
 	display: none;
 }
 
-.section {
+.sections__section {
 	padding: 5px;
 	cursor: pointer;
 }
 
-.section > strong {
+.sections__section > strong {
 	margin-left: 5px;
 }
 

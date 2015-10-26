@@ -145,50 +145,44 @@ var SettingsView= React.createClass({
         }
 		var isDisplayStatus = { display: this.state.isDisplayStatus ? 'block' : 'none' };
 		return(
-			<div className={"panel panel-default tests__body-content tests__body-content_translate" + classes}>
-				<div className="panel-body">
-					<div className="row">
-						<div className="col-lg-10 col-md-10 col-lg-offset-1 col-md-offset-1">
-							<div className="group">
-								<div className="group__elem">
-									<div className="group__title"></div>
-									<div className="group__content">
-							            <Txt.TextView value={this.state.settings.title} onBlur={this.handleChangeTitle} placeholder='Название теста'/>
-							            <Txt.TextView value={this.state.settings.passingScore} onBlur={this.handleChangePassingScore} isValid={SettingsValidation.isValidPassingScore} placeholder='Проходной балл'/>
-							            <Txt.TextView value={this.state.settings.durationMinutes} onBlur={this.handleChangeDurationMinutes} isValid={SettingsValidation.isValidDuration} placeholder='Длительность в минутах'/>
-							            <Txt.TextView value={this.state.settings.durationDays} onBlur={this.handleChangeDurationDays} isValid={SettingsValidation.isValidDuration} placeholder='Продолжительность в днях'/>
-							        	<Txt.TextView value={this.state.settings.attemptsCount} onBlur={this.handleChangeAttemptsCount} isValid={SettingsValidation.isValidAttemptsCount} placeholder='Количество попыток'/>
-							        	<div className="input-group all">
-							        		<span className="input-group-addon">Статус</span>
-											<button className="btn btn-default dropdown-toggle" type="button" onClick={this.handleToogleDisplayStatus}>
-												<span>{SettingsKeys.status.values[this.state.settings.status]}&nbsp;&nbsp;</span>
-												<span className="caret"></span>
-											</button> 
-											<ul className="dropdown-menu" style={isDisplayStatus}>
-												{Object.keys(SettingsKeys.status.keys).map(function(s, index){
-													return <SelectedUl key={index} handleSelect={this.handleChangeStatus} value={SettingsKeys.status.values[s]} type={s}/>
-												}.bind(this))}
-											</ul>
-										</div>
-									</div>
-								</div>
-								<div className="group__elem">
-									<div className="group__title"></div>
-									<div className="group__content">
-										<CheckBox label={"Не передавать проигрывателю информацию о правильных ответах на вопросы"} checked={this.state.settings.notSentCorrectAnswer} onChangeChecked={this.handleChangeNotSentCorrectAnswer}/>
-							        	<CheckBox label={"Показывать результаты теста (резюме по тесту)"} checked={this.state.settings.displayResult} onChangeChecked={this.handleChangeDisplayResult}/>
-							        	<CheckBox label={"Не показывать сообщение об исчерпании попыток ответа"} checked={this.state.settings.notDisplayLastAttempt} onChangeChecked={this.handleChangeNotDisplayLastAttempt}/>
-							        	<CheckBox label={"Не показывать в данном тесте сообщения обратной связи"} checked={this.state.settings.notDisplayFeedback} onChangeChecked={this.handleChangeNotDisplayFeedback}/>
-							        	<CheckBox label={"Показывать отчет о результатах теста"} checked={this.state.settings.displayResultReport} onChangeChecked={this.handleChangeDisplayResultReport}/>
-							        	
-							        	<CheckBox label={"Показывать варианты ответов в отчете по тестированию"} checked={this.state.settings.displayAnswersInReport} onChangeChecked={this.handleChangeDisplayAnswersInReport}/>
-							        	<CheckBox label={"Показывать правильный ответ в отчете по тестированию"} checked={this.state.settings.displayCorrectAnswerInReport} onChangeChecked={this.handleChangeDisplayCorrectAnswerInReport}/>
-							        	<CheckBox label={"Не показывать набранных балл для незавершенных тестов"} checked={this.state.settings.notDisplayUnfinishedScore} onChangeChecked={this.handleChangeNotDisplayUnfinishedScore}/>
-									</div>
-								</div>
+			<div className={"tests__body-content tests__body-content_translate" + classes}>
+				<div className="group">
+					<div className="group__elem">
+						<div className="group__title"></div>
+						<div className="group__content">
+				            <Txt.TextView value={this.state.settings.title} onBlur={this.handleChangeTitle} placeholder='Название теста'/>
+				            <Txt.TextView value={this.state.settings.passingScore} onBlur={this.handleChangePassingScore} isValid={SettingsValidation.isValidPassingScore} placeholder='Проходной балл'/>
+				            <Txt.TextView value={this.state.settings.durationMinutes} onBlur={this.handleChangeDurationMinutes} isValid={SettingsValidation.isValidDuration} placeholder='Длительность в минутах'/>
+				            <Txt.TextView value={this.state.settings.durationDays} onBlur={this.handleChangeDurationDays} isValid={SettingsValidation.isValidDuration} placeholder='Продолжительность в днях'/>
+				        	<Txt.TextView value={this.state.settings.attemptsCount} onBlur={this.handleChangeAttemptsCount} isValid={SettingsValidation.isValidAttemptsCount} placeholder='Количество попыток'/>
+				        	<div className="input-group all">
+				        		<span className="input-group-addon">Статус</span>
+								<button className="btn btn-default dropdown-toggle" type="button" onClick={this.handleToogleDisplayStatus}>
+									<span>{SettingsKeys.status.values[this.state.settings.status]}&nbsp;&nbsp;</span>
+									<span className="caret"></span>
+								</button> 
+								<ul className="dropdown-menu" style={isDisplayStatus}>
+									{Object.keys(SettingsKeys.status.keys).map(function(s, index){
+										return <SelectedUl key={index} handleSelect={this.handleChangeStatus} value={SettingsKeys.status.values[s]} type={s}/>
+									}.bind(this))}
+								</ul>
 							</div>
-					    </div>
-				    </div>
+						</div>
+					</div>
+					<div className="group__elem">
+						<div className="group__title"></div>
+						<div className="group__content">
+							<CheckBox label={"Не передавать проигрывателю информацию о правильных ответах на вопросы"} checked={this.state.settings.notSentCorrectAnswer} onChangeChecked={this.handleChangeNotSentCorrectAnswer}/>
+				        	<CheckBox label={"Показывать результаты теста (резюме по тесту)"} checked={this.state.settings.displayResult} onChangeChecked={this.handleChangeDisplayResult}/>
+				        	<CheckBox label={"Не показывать сообщение об исчерпании попыток ответа"} checked={this.state.settings.notDisplayLastAttempt} onChangeChecked={this.handleChangeNotDisplayLastAttempt}/>
+				        	<CheckBox label={"Не показывать в данном тесте сообщения обратной связи"} checked={this.state.settings.notDisplayFeedback} onChangeChecked={this.handleChangeNotDisplayFeedback}/>
+				        	<CheckBox label={"Показывать отчет о результатах теста"} checked={this.state.settings.displayResultReport} onChangeChecked={this.handleChangeDisplayResultReport}/>
+				        	
+				        	<CheckBox label={"Показывать варианты ответов в отчете по тестированию"} checked={this.state.settings.displayAnswersInReport} onChangeChecked={this.handleChangeDisplayAnswersInReport}/>
+				        	<CheckBox label={"Показывать правильный ответ в отчете по тестированию"} checked={this.state.settings.displayCorrectAnswerInReport} onChangeChecked={this.handleChangeDisplayCorrectAnswerInReport}/>
+				        	<CheckBox label={"Не показывать набранных балл для незавершенных тестов"} checked={this.state.settings.notDisplayUnfinishedScore} onChangeChecked={this.handleChangeNotDisplayUnfinishedScore}/>
+						</div>
+					</div>
 				</div>
 	        </div>
 		);

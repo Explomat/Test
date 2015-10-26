@@ -154,8 +154,8 @@ var SectionView = React.createClass({
 		var isDisplayQuestions = { display : this.props.isExpanded ? 'block' : 'none' };
 		var isExpandClass = this.props.isExpanded ? "glyphicon glyphicon-minus" : "glyphicon glyphicon-plus";
 		return (
-			<div className="section-container" onDrop={this.handleDrop} onDragOver={this.handleAllowDrop}>
-				<div className="section" draggable="true" onDragStart={this.handleDragStart} onDragEnd={this.handleDragEnd} onDragEnter={this.handleDragEnter}>
+			<div className="sections" onDrop={this.handleDrop} onDragOver={this.handleAllowDrop}>
+				<div className="sections__section" draggable="true" onDragStart={this.handleDragStart} onDragEnd={this.handleDragEnd} onDragEnter={this.handleDragEnter}>
 					<div className="btn-group btn-group-xs">
 						<button type="button" className="btn btn-default" onClick={this.toggleExpandSection}>
 							<span className={isExpandClass}></span>
@@ -233,18 +233,18 @@ var StructureView = React.createClass({
         if (this.state.isMounted && this.props.isAnimate) classes = ' tests__body-content_show';
 		var expandSectionsClass = this.state.isExpandedSections ? 'glyphicon glyphicon-minus' : 'glyphicon glyphicon-plus';
 		return (
-			<div>
-				<div className={"panel panel-default tests__body-content" + classes}>
-					<div className="panel-heading">
-						<button title="Добавить раздел" type="button" className="btn btn-default btn-sm" onClick={this.handleAddNewSection}>
-							<span className="glyphicon glyphicon-plus"></span>
-							<span>&nbsp;Добавить раздел</span>
-						</button>
-						<button type="button" className="btn btn-default btn-sm pull-right" onClick={this.handleToggleExpandSections}>
-							<span className={expandSectionsClass}></span>
-						</button>
-					</div>
-					<div className="panel-body">
+			<div className={"structure tests__body-content" + classes}>
+				<div className="group">
+					<div className="group__elem">
+						<div className="structure__header">
+							<button title="Добавить раздел" type="button" className="btn btn-default btn-sm" onClick={this.handleAddNewSection}>
+								<span className="glyphicon glyphicon-plus"></span>
+								<span>&nbsp;Добавить раздел</span>
+							</button>
+							<button type="button" className="btn btn-default btn-sm pull-right" onClick={this.handleToggleExpandSections}>
+								<span className={expandSectionsClass}></span>
+							</button>
+						</div>
 						{this.state.sections.map(function(sec){
 							return <SectionView key={sec.uuid} {...sec} />;
 						})}

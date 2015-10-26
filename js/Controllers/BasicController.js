@@ -10,6 +10,6 @@ module.exports = {
 		if (appElem) ReactDOM.unmountComponentAtNode(appElem);
 		
 		ReactDOM.unmountComponentAtNode(document.body);
-		ReactDOM.render(React.createElement(BasicView, {sectionName: sectionName}), document.body);
+		ReactDOM.render(React.createElement(BasicView/*, {sectionName: sectionName}*/), document.body);
 	}
 }
