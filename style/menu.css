@@ -13,7 +13,7 @@
 }
 
 .menu-box__item_active {
-	
+
 }
 
 .menu-box__item_border{
@@ -66,14 +66,9 @@
 	height: 100%;
 }
 
-.menu-box__button:hover, .menu-box__button:active, .menu-box__button:visited {
+.menu-box__button:hover, .menu-box__button:active, .menu-box__button:visited, .menu-box__button:link {
 	text-decoration: none;
 	color: #004446;
 	/*background-color: #388E3C;*/
-}
-
-.menu-box__button:link {
-	text-decoration: none;
-	color: #004446;
 }
 

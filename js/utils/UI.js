@@ -54,7 +54,7 @@ var UI = {
             tabBorderElem.classList.add('menu-box__item_border_contract');
             tabBorderElem.style.width = borderWidth + 'px';
             tabBorderElem.style.left = shift + 'px';
-        }, 250)
+        }, 250);
         this.toggleClass(curElem, 'menu-box__item_active');
 
         /*function getElemsWidth (menu, indexCurElem) {
