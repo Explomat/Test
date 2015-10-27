@@ -69,12 +69,12 @@
 }
 
 .tests__body-content_translate {
-	transform: translateX(1200px);
+	transform: translateY(780px);
 }
 
 .tests__body-content_show {
 	transition: all .5s ease-in-out;
-	transform: translateX(0px);
+	transform: translateY(0px);
 }
 
 /*.tests__body-content_hide {

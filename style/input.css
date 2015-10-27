@@ -21,6 +21,7 @@
 }
 
 .input-box__label {
+    font-family: sans-serif;
     margin-top: 30px;
     position: absolute;
     left: 0;

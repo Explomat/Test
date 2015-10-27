@@ -37,7 +37,7 @@ var BasicView = React.createClass({
 							<a className="menu-box__button" href="#settings">Общие сведения</a>
 						</div>
 						<div className="menu-box__item">
-							<a className="menu-box__button" href="#structure">Структура теста</a>
+							<a className="menu-box__button" href="#structure">Структура</a>
 						</div>
 						<div className="menu-box__item">
 							<a className="menu-box__button" href="#view">Отображение теста</a>

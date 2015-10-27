@@ -12,7 +12,9 @@
     cursor: pointer;
     width: 88%;
     font-weight: 400;
-    color: #212121;
+    color: #5c5c5c;
+    font-size: 14px;
+    margin-bottom: 0;
 }
 
 .checkbox-box__label:before {

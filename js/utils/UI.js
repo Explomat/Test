@@ -13,44 +13,70 @@ var UI = {
         return elem.querySelector("a[href='"+hash+"']");
     },
 
-    transitionBorder: function (menuBoxeElem, tabBorderElem, curElem, prevElem) {
+    transitionBorder: function (menuBoxeElem, tabBorderElem, curElem) {
 
-        function getPostElemsWidth (menu, elemIndex) {
+        function getShift(menu, indexCurElem) {
             var width = 0;
             var elems = menuBoxeElem.querySelectorAll(".menu-box__item");
-            for (var i = elems.length - 1; i >= 0; i--) {
-                if (i === elemIndex) return width;
+            for (var i = 0; i < indexCurElem; i++) {
                 width += elems[i].offsetWidth;
-            };
+            }
             return width;
         }
 
-        function getPrevElemsWidth (menu, elemIndex) {
+        function getElemsWidth(menu, indexCurElem, indexPrevElem) {
+            indexPrevElem = indexPrevElem !== -1 ? indexPrevElem : indexCurElem;
             var width = 0;
+            var i = indexCurElem >= indexPrevElem ? indexPrevElem : indexCurElem;
+            var count = indexCurElem >= indexPrevElem ? indexCurElem : indexPrevElem;
             var elems = menuBoxeElem.querySelectorAll(".menu-box__item");
-            for (var i = 0, len = elems.length; i < len; i++) {
-                if (i === elemIndex) return width;
+            for (i; i <= count; i++) {
                 width += elems[i].offsetWidth;
-            };
+            }
             return width;
         }
 
         if (!menuBoxeElem || !tabBorderElem || !curElem) return;
-
         var borderWidth = curElem.offsetWidth;
         var children = menuBoxeElem.children;
-
         if (!borderWidth || !children) return;
 
-        var ch = Array.prototype.slice.call(children);
-        var indexCurElem = ch.indexOf(curElem);
-        var indexPrevElem = ch.indexOf(prevElem);
-        //console.log(getPostElemsWidth(menuBoxeElem, indexElem));
-        //console.log(getPrevElemsWidth(menuBoxeElem, indexElem));
+        var indexCurElem = Array.prototype.slice.call(children).indexOf(curElem);
+        var indexPrevElem = Array.prototype.slice.call(children).indexOf(menuBoxeElem.querySelector('.menu-box__item_active'));
+        var shift = getShift(menuBoxeElem, indexCurElem);
+        tabBorderElem.style.width = getElemsWidth(menuBoxeElem, indexCurElem, indexPrevElem) + 'px'; //tabBorderElem.offsetWidth + borderWidth + 'px';
+        if (indexCurElem < indexPrevElem) tabBorderElem.style.left = shift + 'px';
 
-        var shift = indexCurElem <= indexPrevElem ? getPrevElemsWidth(menuBoxeElem, indexPrevElem) : getPostElemsWidth(menuBoxeElem, indexPrevElem);
+        tabBorderElem.classList.remove('menu-box__item_border_contract');
+        tabBorderElem.classList.add('menu-box__item_border_expand');
+        setTimeout(function(){
+            tabBorderElem.classList.remove('menu-box__item_border_expand');
+            tabBorderElem.classList.add('menu-box__item_border_contract');
+            tabBorderElem.style.width = borderWidth + 'px';
+            tabBorderElem.style.left = shift + 'px';
+        }, 250)
+        this.toggleClass(curElem, 'menu-box__item_active');
+
+        /*function getElemsWidth (menu, indexCurElem) {
+            var width = 0;
+            var elems = menuBoxeElem.querySelectorAll(".menu-box__item");
+            for (var i = 0; i < indexCurElem; i++) {
+                width += elems[i].offsetWidth;
+            }
+            return width;
+        }
+
+        if (!menuBoxeElem || !tabBorderElem || !curElem) return;
+        var borderWidth = curElem.offsetWidth;
+        var children = menuBoxeElem.children;
+        if (!borderWidth || !children) return;
+
+        var indexCurElem = Array.prototype.slice.call(children).indexOf(curElem);
+        var shift = getElemsWidth(menuBoxeElem, indexCurElem);
         tabBorderElem.style.width = borderWidth + 'px';
-        tabBorderElem.style.transform = 'translateX('+ shift +'px)';
+        tabBorderElem.classList.add('menu-box__item_border_expand');
+        tabBorderElem.style.left = shift + 'px'*/
+        //tabBorderElem.style.left = shift + 'px';
     }
 }
 

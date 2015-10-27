@@ -2,7 +2,6 @@
     position: absolute;
     height: 100%;
     right: 10px;
-    width: 60%;
 }
 /*background: rgba(255,255,255,0.36)*/
 .menu-box__item {
@@ -13,10 +12,26 @@
     text-align: center;
 }
 
+.menu-box__item_active {
+	
+}
+
 .menu-box__item_border{
 	height: 2px;
 	background-color: #fff;
-	transition: all .3s ease-in-out;
+	/*transition: all .3s ease-in-out;*/
+	position: absolute;
+    top: 50px;
+}
+
+.menu-box__item_border_expand {
+	transition-duration: 0.15s;
+    transition-timing-function: cubic-bezier(0.4, 0.0, 1, 1);
+}
+
+.menu-box__item_border_contract {
+	transition-duration: 0.18s;
+    transition-timing-function: cubic-bezier(0.0, 0.0, 0.2, 1);
 }
 
 /*.menu-box__item_border_0 {

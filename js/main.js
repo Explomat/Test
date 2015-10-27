@@ -11,8 +11,6 @@ var SectionController = require('./controllers/modal/SectionController');
 
 window.onload = function(){
 
-	var prevHash = '#';
-
 	Router.addRoute(Config.hashes.settings.key, function(){
 		//BasicController.start(Config.hashes.settings.value);
 	    SettingsController.start();
@@ -45,14 +43,12 @@ window.onload = function(){
 
 		var menuBox = document.getElementsByClassName('menu-box')[0];
 		var tabBorder = document.getElementsByClassName('menu-box__item_border')[0];
-		var prevElem = UI.getElementByHash(menuBox, getHashRoot(prevHash));
 		var curElem = UI.getElementByHash(menuBox, getHashRoot(curHash));
-		UI.transitionBorder(menuBox, tabBorder, curElem.parentNode, prevElem.parentNode);
+		UI.transitionBorder(menuBox, tabBorder, curElem.parentNode);
 	}
 
 	function init(curHash){
 		curHash = curHash === '' ? Config.hashes.DEFAULT_HASH_KEY : curHash;
-		prevHash = '#' + curHash;
 		
 		BasicController.start();
 		Hasher.setHash(curHash);
@@ -62,10 +58,8 @@ window.onload = function(){
 
 	//setup hasher
 	function parseHash(newHash){
-		var hash = '#' + newHash;
-		changeTabClass(hash);
+		changeTabClass('#' + newHash);
 		Router.parse(newHash);
-		prevHash = hash;
 	}
 
 	Hasher.changed.add(parseHash); //parse hash changes
