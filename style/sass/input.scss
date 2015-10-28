@@ -1,3 +1,5 @@
+@import 'variables';
+
 .input-box {
     position: relative;
     outline: 0;
@@ -12,11 +14,11 @@
     outline: 0;
     height: 35px;
     width: 100%;
-    color: #212121;
+    color: $primaryTextColor;
 }
 
 .input-box__input:focus {
-    border-color: #727272;
+    border-color: $secondaryTextColor;
     border-width: 2px;
 }
 
@@ -26,7 +28,7 @@
     position: absolute;
     left: 0;
     pointer-events: none;
-    color: #999;
+    color: $secondaryTextColor;
     transition: all 0.2s ease;
     font-weight: lighter;
     font-size: 16px;
@@ -43,7 +45,7 @@
 .input-box__input:focus + .input-box__label,
 .input-box__input_not-empty + .input-box__label,
 .input-box__label_translate {
-    color: #727272;
+    color: $secondaryTextColor;
     font-size: 14px;
     transform: translateY(-25px);
 }

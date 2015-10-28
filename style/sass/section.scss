@@ -1,9 +1,11 @@
+@import 'variables';
+
 .sections {
 	cursor: default;
 }
 
 .sections__section:hover{
-	background-color: #EDF1F5;
+	background-color: $deviderColor;
 }
 
 .sections__section:hover .section-buttons{
