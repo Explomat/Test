@@ -12,11 +12,7 @@
     text-align: center;
 }
 
-.menu-box__item_active {
-
-}
-
-.menu-box__item_border{
+.menu-box__border{
 	height: 2px;
 	background-color: #fff;
 	/*transition: all .3s ease-in-out;*/
@@ -24,12 +20,12 @@
     top: 50px;
 }
 
-.menu-box__item_border_expand {
+.menu-box__border_expand {
 	transition-duration: 0.15s;
     transition-timing-function: cubic-bezier(0.4, 0.0, 1, 1);
 }
 
-.menu-box__item_border_contract {
+.menu-box__border_contract {
 	transition-duration: 0.18s;
     transition-timing-function: cubic-bezier(0.0, 0.0, 0.2, 1);
 }

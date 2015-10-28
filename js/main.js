@@ -51,13 +51,13 @@ window.onload = function(){
 		curHash = curHash === '' ? Config.hashes.DEFAULT_HASH_KEY : curHash;
 		Hasher.setHash(curHash);
 		BasicController.start();
-		changeTabClass('#' + curHash);
+		//changeTabClass('#' + curHash);
 		Router.parse(curHash);
 	}
 
 	//setup hasher
 	function parseHash(newHash){
-		changeTabClass('#' + newHash);
+		//changeTabClass('#' + newHash);
 		Router.parse(newHash);
 	}
 

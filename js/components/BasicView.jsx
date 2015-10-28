@@ -1,12 +1,6 @@
 var React = require('react');
 var Config = require('../config');
-//var MappingStore = require('../stores/MappingStore');
-//var MappingActions = require('../actions/SectionActions');
-
-/*function getHashRoot(hash){
-	var isChainHash = hash.indexOf('/');
-	return isChainHash === -1 ? hash.substring(1, hash.length) : hash.substring(1, isChainHash);
-}*/
+var MenuView = require('./modules/MenuView');
 
 var BasicView = React.createClass({
 
@@ -23,27 +17,10 @@ var BasicView = React.createClass({
 	},
 
 	render: function () {
-
-		/*var curHash = getHashRoot(window.location.hash);
-		var isActiveStructureClass = curHash === Config.hashes.structure.key ? 'menu-box__item_active' : '';
-		var isActiveViewClass = curHash === Config.hashes.view.key ? 'menu-box__item_active' : '';
-		var isActiveSettingsClass = curHash === Config.hashes.settings.key || (curHash !== Config.hashes.settings.key && curHash !== Config.hashes.view.key && curHash !== Config.hashes.structure.key) ? 'menu-box__item_active' : '';
-		*/
 		return (
 			<div className="tests">
 				<div className="tests__header">
-					<div className="menu-box">
-						<div className="menu-box__item">
-							<a className="menu-box__button" href="#settings">Общие сведения</a>
-						</div>
-						<div className="menu-box__item">
-							<a className="menu-box__button" href="#structure">Структура</a>
-						</div>
-						<div className="menu-box__item">
-							<a className="menu-box__button" href="#view">Отображение теста</a>
-						</div>
-						<div className="menu-box__item_border"></div>
-					</div>
+					<MenuView defaultRoute={window.location.hash} routes={[{route: '#settings', title: 'Общие сведения'}, {route: '#structure', title: 'Структура'}, {route: '#view', title: 'Отображение'}]}/>
 				</div>
 			    <div id={Config.dom.appId} className="tests__body"></div>
 			</div>

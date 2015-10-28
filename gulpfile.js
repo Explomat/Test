@@ -22,7 +22,8 @@ gulp.task('build-js', function() {
 	gulp.src('./js/main.js')
 	.pipe(browserify({
         transform: [reactify], // We want to convert JSX to normal javascript
-        debug: true // Gives us sourcemapping
+        debug: true, // Gives us sourcemapping
+        extensions: ['.jsx']
     }))
     .pipe(rename('bundle.js'))
     .pipe(gulp.dest('./build/js'));
@@ -32,7 +33,8 @@ gulp.task('deploy', ['build-scss'], function() {
 	gulp.src('./js/main.js')
 	.pipe(browserify({
         transform: [reactify], // We want to convert JSX to normal javascript
-        debug: false // Gives us sourcemapping
+        debug: false, // Gives us sourcemapping
+        extensions: ['.jsx']
     }))
     .pipe(uglify({
     	mangle: true,

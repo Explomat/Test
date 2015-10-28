@@ -1,8 +1,7 @@
 node_modules/
 /js/components/.module-cache/
 /js/components/**/*.js
-/js/components/modules/*.js
-build/js/bundle.js
-build/js/bundle.min.js
-build/style/style.min.css
+build/js/
+build/style/
 npm-debug.log
+gulpfile.js
