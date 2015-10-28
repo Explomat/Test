@@ -49,9 +49,8 @@ window.onload = function(){
 
 	function init(curHash){
 		curHash = curHash === '' ? Config.hashes.DEFAULT_HASH_KEY : curHash;
-		
-		BasicController.start();
 		Hasher.setHash(curHash);
+		BasicController.start();
 		changeTabClass('#' + curHash);
 		Router.parse(curHash);
 	}
