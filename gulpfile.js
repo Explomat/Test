@@ -2,7 +2,7 @@
 
 var gulp = require('gulp');
 var sass = require('gulp-sass');
-var minifyCss = require('gulp-minify-css');
+var cleanss = require('gulp-cleancss');
 var reactify = require('reactify'); 
 var concat = require('gulp-concat');
 var jsx = require('gulp-react');
@@ -13,7 +13,7 @@ var uglify = require('gulp-uglify');
 gulp.task('build-scss', function() {
   gulp.src(['./style/css/*.css', './style/sass/*.scss'])
     .pipe(sass().on('error', sass.logError))
-    .pipe(minifyCss({compatibility: 'ie9'}))
+    .pipe(cleanss({keepBreaks: false}))
     .pipe(concat('style.min.css'))
     .pipe(gulp.dest('./build/style'));
 });
