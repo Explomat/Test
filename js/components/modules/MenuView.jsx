@@ -47,7 +47,7 @@ var MenuView = React.createClass({
     propTypes: {
         defaultRoute: React.PropTypes.string.isRequired,
         routes: React.PropTypes.array.isRequired, //[{route: '#settings', title: 'test'}, {...}, {..}]
-        changeMenuItem: React.PropTypes.func
+        onChange: React.PropTypes.func
     },
 
     getInitialState: function(){
@@ -122,8 +122,8 @@ var MenuView = React.createClass({
                 borderShift: borderShift,
                 borderWidth: this.getBorderWidth(curHashIndex, curHashIndex)
             });
-            if (this.props.changeMenuItem) {
-                this.props.changeMenuItem(getRoute(curHashIndex, this.props.routes));
+            if (this.props.onChange) {
+                this.props.onChange(getRoute(curHashIndex, this.props.routes));
             }
         }.bind(this), 250);
 	},
