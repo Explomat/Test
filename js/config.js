@@ -1,5 +1,5 @@
 var serverId = '6166852566696923932';
-var routerUrl = 'http://study.merlion.ru/custom_web_template.html?object_id=6135330846971222087';
+var routerUrl = '/custom_web_template.html?object_id=6135330846971222087';
 
 module.exports = {
 
@@ -28,6 +28,10 @@ module.exports = {
 		section: { value: 'Создание/редактирование раздела',  key: 'structure/section/:sectionId:' },
 		question: { value: 'Создание/редактирование вопроса', key: 'structure/question/{sectionId}/:questionId:' },
 		view: { value: 'Отображение теста', key: 'view' }
+	},
+
+	setServerId: function(serverId){
+		serverId = serverId;
 	},
 
 	setProductionMode: function () {
