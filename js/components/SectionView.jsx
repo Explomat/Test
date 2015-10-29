@@ -3,6 +3,7 @@ var SectionStore = require('../stores/SectionStore');
 var SectionActions = require('../actions/SectionActions');
 var StructureActions = require('../actions/StructureActions');
 var Hasher = require('../utils/Hasher');
+var UI = require('../utils/UI');
 var Txt = require('./modules/TextLabel');
 var SectionKeys = require('../utils/SectionKeys');
 var SectionValidation = require('../utils/validation/SectionValidation');
@@ -140,8 +141,35 @@ var Fields = React.createClass({
 
 var SectionView = React.createClass({
 
+    propTypes: {
+    	postionX: React.PropTypes.number,
+    	postionY: React.PropTypes.number,
+    	scale: React.PropTypes.number,
+    },
+
+    getDefaultProps: function(){
+    	return {
+    		positionX: 0,
+    		positionY: 0,
+    		scale: 0.1
+    	}
+    },
+
+    shift: function(){
+    	var coordinates = UI.getElementCoordinates(this.refs.section);
+		var shiftX = coordinates.positionX < this.props.positionX ? (coordinates.positionX - this.props.positionX)/this.props.scale : (this.props.positionX - coordinates.positionX)/this.props.scale;
+		var shiftY = coordinates.positionY > this.props.positionY ? (coordinates.positionY - this.props.positionY) / this.props.scale : (this.props.positionY - coordinates.positionY) * this.props.scale;
+		this.refs.section.style.transform = 'scale('+ this.props.scale +')translate('+ shiftX+'px,'+shiftY+'px)';
+    },
+
+    toggle: function() {
+        this.setState({isMounted: !this.state.isMounted});
+    },
+
 	componentDidMount: function() {
 		SectionStore.addChangeListener(this._onChange);
+		this.shift();
+		setTimeout(this.toggle, 0);
 	},
 
 	componentWillUnmount: function() {
@@ -153,7 +181,9 @@ var SectionView = React.createClass({
 	},
 
 	getInitialState: function () {
-		return getSectionState();
+		var sectionState = getSectionState();
+		sectionState.isMounted = false;
+		return sectionState;
 	},
 
 	handleClose: function(){
@@ -168,9 +198,13 @@ var SectionView = React.createClass({
 	},
 
 	render: function () {
+		var classes = '';
+        if (this.state.isMounted) {
+            classes = ' modal-box__dialog_show';
+        }
 		return (
 			<div className="modal-box" style={{display: "block"}}>
-				<div className="modal-box__dialog">
+				<div ref="section" className={"modal-box__dialog modal-box__dialog_translate" + classes}>
 					<div className="modal-box__content">
 						<div className="modal-box__header">
 							<button type="button" className="close" onClick={this.handleClose}>&times;</button>

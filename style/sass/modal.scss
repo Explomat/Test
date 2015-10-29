@@ -17,6 +17,17 @@
     margin: 10px;
 }
 
+.modal-box__dialog_translate {
+    opacity: 0.2;
+    /* transform: translate(-450px,-100px)scale(0.01); */
+}
+
+.modal-box__dialog_show {
+    transition: all .3s cubic-bezier(0.4, 0.0, 1, 1);
+    transform: scale(1) translate(0,0) !important;
+    opacity: 1;
+}
+
 .modal-box__content {
 	position: relative;
     background-color: rgb(255, 255, 255);

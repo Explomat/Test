@@ -2,6 +2,7 @@ var React = require('react');
 var StructureStore = require('../stores/StructureStore');
 var StructureActions = require('../actions/StructureActions');
 var Hasher = require('../utils/Hasher');
+var UI = require('../utils/UI');
 var Config = require('../config');
 
 var curDragQuestion = null, curDragSection = null, DRAG_EFFECT = 'move';
@@ -46,8 +47,9 @@ var QuestionShortView = React.createClass({
 		curDragQuestion = null;
 	},
 
-	handleEditQuestion: function(){
-		Hasher.setHash('structure/question/'+ this.props.sectionUuid +'/'+this.props.uuid);
+	handleEditQuestion: function(e){
+		var coordinates = UI.getElementCoordinates(e.target);
+		Hasher.setHash('structure/question/'+ coordinates.positionX +'/' + coordinates.positionY + '/' + this.props.sectionUuid +'/'+this.props.uuid);
 	},
 
 	handleRemoveQuestion: function(){
@@ -123,12 +125,14 @@ var SectionView = React.createClass({
 		curDragQuestion = curDragSection = null;
 	},	
 
-	handleEditSection: function(){
-		Hasher.setHash('structure/section/'+ this.props.uuid);
+	handleEditSection: function(e){
+		var coordinates = UI.getElementCoordinates(e.target);
+		Hasher.setHash('structure/section/' + coordinates.positionX + '/' + coordinates.positionY + '/' + this.props.uuid);
 	},
 
-	handleDisplayNewQuestion: function(){
-		Hasher.setHash('structure/question/'+ this.props.uuid);
+	handleDisplayNewQuestion: function(e){
+		var coordinates = UI.getElementCoordinates(e.target);
+		Hasher.setHash('structure/question/'+ coordinates.positionX +'/' + coordinates.positionY + '/' + this.props.uuid);
 	},
 
 	handleRemoveSection: function(){
@@ -211,8 +215,9 @@ var StructureView = React.createClass({
 		this.setState(getStructureState());
 	},
 
-	handleAddNewSection: function(){
-		Hasher.setHash('structure/section');
+	handleAddNewSection: function(e){
+		var coordinates = UI.getElementCoordinates(e.target);
+		Hasher.setHash('structure/section/' + coordinates.positionX + '/' + coordinates.positionY);
 	},
 
 	getInitialState: function () {

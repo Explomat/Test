@@ -9,7 +9,7 @@ var Config = require('../../config');
 
 module.exports = {
 
-	start: function(sectionUuid, questionUuid) {
+	start: function(sectionUuid, questionUuid, x, y) {
 		var question = questionUuid ? QuestionAPI.getQuestion(questionUuid) : QuestionAPI.createQuestion();
 		if (!StructureAPI.isSectionExist(sectionUuid) || !question){
 			Hasher.setHash('structure');
@@ -18,6 +18,6 @@ module.exports = {
 		var app = document.getElementById(Config.dom.modalId) || document.body;
 		ReactDOM.unmountComponentAtNode(app);
 		QuestionActions.receiveQuestion(question);
-		ReactDOM.render(React.createElement(QuestionView, {sectionUuid: sectionUuid}), app);
+		ReactDOM.render(React.createElement(QuestionView, {sectionUuid: sectionUuid, positionX: x, positionY: y}), app);
 	}
 }
