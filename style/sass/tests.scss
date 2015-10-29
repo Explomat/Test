@@ -10,7 +10,7 @@
 	background-color: #f5f5f5;
 	width: 1200px;
 	min-width: 800px;
-	height: 904px;
+	height: 934px;
 	margin: 50px auto;
 	border-radius: $borderRadius;
 
@@ -22,7 +22,7 @@
 }
 
 .tests__header {
-	height: 200px;
+	height: 230px;
 	background-color: $primaryColor;
 	position: relative;
 	margin-bottom: -135px;
@@ -60,13 +60,10 @@
 }*/
 
 .tests__body-content {
-	/*box-shadow: inset 0px 15px 13px -9px rgba(0,0,0,.32);*/
 	border:none;
 	border-top-left-radius: 0px;
 	border-top-right-radius: 0px;
 	margin-bottom: 0px;
-	/*width: 1200px;
-	overflow-y: auto;*/
 	background: none;
 }
 
@@ -78,34 +75,3 @@
 	transition: all .5s ease-in-out;
 	transform: translateY(0px);
 }
-
-/*.tests__body-content_hide {
-	transform: translateY(750px);
-}*/
-
-
-/*.FadeInWhenAdded {
-    opacity: 0;
-    -webkit-transition: all 0.5s;
-    -moz-transition: all 0.5s;
-}
-
-.FadeInWhenAddedShown {
-    opacity: 0.99;
-}*/
-
-/*.tests__header:after{
-    content: '';
-    display: table;
-    clear: both;
-}*/
-
-/*.tests__body {
-	-webkit-box-shadow: inset 9px 49px 24px -8px rgba(0,0,0,0.32);
-	-moz-box-shadow: inset 9px 49px 24px -8px rgba(0,0,0,0.32);
-	box-shadow: inset 9px 49px 24px -8px rgba(0,0,0,0.32);
-}*/
-
-/*.tests__body > div:first-child {
-	margin-top: 10px;
-}*/

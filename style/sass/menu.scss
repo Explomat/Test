@@ -2,7 +2,7 @@
     position: absolute;
     right: 10px;
     height: 50px;
-    margin-top: 20px;
+    margin-top: 15px;
 }
 /*background: rgba(255,255,255,0.36)*/
 .menu-box__item {
@@ -10,6 +10,7 @@
     float: left;
     text-align: center;
     height: 100%;
+    display: table;
 }
 
 .menu-box__helper {
@@ -45,8 +46,13 @@
     font-weight: 300;
     padding: 0px 12px;
 	text-decoration: none;
-	display: inline-block;
-	height: 100%;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.menu-box__button:active {
+    transition: all .15s ease-in-out;
+    background-color: #5BD4E3;
 }
 
 .menu-box__button:hover, .menu-box__button:active, .menu-box__button:visited, .menu-box__button:link {
