@@ -19,15 +19,15 @@ window.onload = function(){
 		//BasicController.start(Config.hashes.structure.value);
 	    StructureController.start(true);
 	});
-	Router.addRoute(Config.hashes.section.key, function(sectionId){
+	Router.addRoute(Config.hashes.section.key, function(x, y, sectionId){
 		//BasicController.start(Config.hashes.section.value);
 		StructureController.start(false);
-	    SectionController.start(sectionId);
+	    SectionController.start(sectionId, x, y);
 	});
-	Router.addRoute(Config.hashes.question.key, function(sectionId, questionId){
+	Router.addRoute(Config.hashes.question.key, function(x, y, sectionId, questionId){
 		//BasicController.start(Config.hashes.question.value);
 		StructureController.start(false);
-	    QuestionController.start(sectionId, questionId);
+	    QuestionController.start(sectionId, questionId, x, y);
 	});
 	Router.addRoute(Config.hashes.view.key, function(){
 		//BasicController.start(Config.hashes.view.value);
@@ -49,8 +49,9 @@ window.onload = function(){
 
 	function init(curHash){
 		curHash = curHash === '' ? Config.hashes.DEFAULT_HASH_KEY : curHash;
-		Hasher.setHash(curHash);
 		BasicController.start();
+		Hasher.setHash(curHash);
+		
 		//changeTabClass('#' + curHash);
 		Router.parse(curHash);
 	}

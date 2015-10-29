@@ -13,6 +13,27 @@ var UI = {
         return elem.querySelector("a[href='"+hash+"']");
     },
 
+    getElementCoordinates: function(elem){
+        if (!elem) return {};
+
+        var elemRect = elem.getBoundingClientRect();
+        var elementLeft, elementTop; //x and y
+        var scrollTop = document.documentElement.scrollTop? document.documentElement.scrollTop : document.body.scrollTop;
+        var scrollLeft = document.documentElement.scrollLeft? document.documentElement.scrollLeft : document.body.scrollLeft;
+
+        return {
+            positionX: elemRect.left + scrollLeft,
+            positionY: elemRect.top + scrollTop
+        }
+
+        /*var elemRect = elem.getBoundingClientRect();
+        var bodyRect = document.body.getBoundingClientRect();
+        return {
+            x: bodyRect.left - elemRect.left,
+            y: bodyRect.top - elemRect.top
+        }*/
+    },
+
     transitionBorder: function (menuBoxeElem, tabBorderElem, curElem) {
 
         function getShift(menu, indexCurElem) {

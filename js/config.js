@@ -25,8 +25,8 @@ module.exports = {
 		DEFAULT_HASH_KEY: 'settings',
 		settings: { value: 'Общие сведения', key: 'settings' },
 		structure: { value: 'Структура', key: 'structure' },
-		section: { value: 'Создание/редактирование раздела',  key: 'structure/section/:sectionId:' },
-		question: { value: 'Создание/редактирование вопроса', key: 'structure/question/{sectionId}/:questionId:' },
+		section: { value: 'Создание/редактирование раздела',  key: 'structure/section/{x}/{y}/:sectionId:' },
+		question: { value: 'Создание/редактирование вопроса', key: 'structure/question/{x}/{y}/{sectionId}/:questionId:' },
 		view: { value: 'Отображение теста', key: 'view' }
 	},
 

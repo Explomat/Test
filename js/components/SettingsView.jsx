@@ -62,10 +62,10 @@ var SettingsView= React.createClass({
 	},
 
 	getInitialState: function () {
-		var sectionState = getSettingsState();
-		sectionState.isDisplayStatus = false;
-		sectionState.isMounted = false;
-		return sectionState;
+		var settingsState = getSettingsState();
+		settingsState.isDisplayStatus = false;
+		settingsState.isMounted = false;
+		return settingsState;
 	},
 
 	handleBlurStatus: function(){
