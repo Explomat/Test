@@ -169,17 +169,17 @@ var SectionView = React.createClass({
 
 	render: function () {
 		return (
-			<div className="modal" style={{display: "block"}}>
-				<div className="modal-dialog">
-					<div className="modal-content">
-						<div className="modal-header">
+			<div className="modal-box" style={{display: "block"}}>
+				<div className="modal-box__dialog">
+					<div className="modal-box__content">
+						<div className="modal-box__header">
 							<button type="button" className="close" onClick={this.handleClose}>&times;</button>
         					<h4 className="modal-title">Добавьте раздел</h4>
 						</div>
-						<div className="modal-body">
+						<div className="modal-box__body">
 							<Fields {...this.state.section}/>
 						</div>
-						<div className="modal-footer">
+						<div className="modal-box__footer">
 					        <button type="button" className="btn btn-default" onClick={this.handleSaveSection}>Сохранить</button>
 						</div>
 					</div>

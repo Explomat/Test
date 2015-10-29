@@ -52,7 +52,7 @@ var MenuView = React.createClass({
 
     getInitialState: function(){
         return {
-            curhashIndex: 0,
+            curHashIndex: 0,
             prevHashIndex: 0,
             borderShift: 0,
             borderWidth: 0
@@ -61,12 +61,12 @@ var MenuView = React.createClass({
 
     componentDidMount: function() {
         var curHashIndex = getHashIndex(this.props.defaultRoute, this.props.routes);
-        curHashIndex === -1 ? this.state.curHashIndex : curHashIndex;
+        curHashIndex = curHashIndex === -1 ? this.state.curHashIndex : curHashIndex;
 
         var borderShift = this.getBorderShift(curHashIndex);
         var borderWidth = this.getBorderWidth(curHashIndex, curHashIndex);
         this.setState({
-            curhashIndex: curHashIndex,
+            curHashIndex: curHashIndex,
             borderShift: borderShift,
             borderWidth: borderWidth
         });
@@ -83,6 +83,7 @@ var MenuView = React.createClass({
     },
 
     getBorderWidth: function(indexCurElem, indexPrevElem) {
+        if (indexCurElem === -1 && indexPrevElem === -1) return 0;
         var menuBoxeElem = this.refs.menuBox;
         indexPrevElem = indexPrevElem !== -1 ? indexPrevElem : indexCurElem;
         var width = 0;
@@ -96,14 +97,14 @@ var MenuView = React.createClass({
     },
 
 	handleChangeRoute: function(route, index){
-        var prevHashIndex = this.state.curhashIndex;
+        var prevHashIndex = this.state.curHashIndex;
         var curHashIndex = index;
 
         var borderShift = this.getBorderShift(curHashIndex);
         var borderWidth = this.getBorderWidth(curHashIndex, prevHashIndex);
         this.setState({ 
             borderWidth: borderWidth,
-            curhashIndex: curHashIndex,
+            curHashIndex: curHashIndex,
             prevHashIndex: prevHashIndex 
         }); 
 

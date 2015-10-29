@@ -216,14 +216,14 @@ var QuestionView = React.createClass({
 		});
 
 		return (
-			<div className="modal" style={{display: "block"}}>
-				<div className="modal-dialog">
-					<div className="modal-content">
-						<div className="modal-header">
+			<div className="modal-box" style={{display: "block"}}>
+				<div className="modal-box__dialog">
+					<div className="modal-box__content">
+						<div className="modal-box__header">
 							<button type="button" className="close" onClick={this.handleClose}>&times;</button>
-        					<h4 className="modal-title">Добавьте вопрос</h4>
+        					<h4 className="modal-box__title">Добавьте вопрос</h4>
 						</div>
-						<div className="modal-body answers">
+						<div className="modal-box__body answers">
 							<Title title={this.state.title} />
 							<QuestionImage />
 					        <QuestionText text={this.state.text} />
@@ -231,7 +231,7 @@ var QuestionView = React.createClass({
 					        <SelectQuestionType type={this.state.type}/>
 					        {answers}
 						</div>
-						<div className="modal-footer">
+						<div className="modal-box__footer">
 					        <button type="button" className="btn btn-default" onClick={this.handleSaveQuestion}>Сохранить</button>
 						</div>
 					</div>

@@ -1,0 +1,112 @@
+.modal-box {
+	position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    z-index: 1050;
+    display: none;
+    overflow: hidden;
+    outline: 0px;
+    overflow: auto;
+}
+
+.modal-box__dialog {
+	position: relative;
+    width: auto;
+    margin: 10px;
+}
+
+.modal-box__content {
+	position: relative;
+    background-color: rgb(255, 255, 255);
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-width: initial;
+    border-image-outset: initial;
+    border-image-repeat: initial;
+    border-radius: 6px;
+    outline: 0px;
+    box-shadow: rgba(0, 0, 0, 0.498039) 0px 3px 9px;
+}
+
+.modal-box__header {
+	min-height: 16.43px;
+    padding: 15px;
+    border-bottom: 1px solid rgb(229, 229, 229);
+}	
+
+.modal-box__body {
+	position: relative;
+    padding: 15px;
+}
+
+.modal-box__footer {
+	padding: 15px;
+    text-align: right;
+    border-top: 1px solid rgb(229, 229, 229);
+}
+
+.modal-box__title{
+    margin: 0;
+    line-height: 1.42857143;
+}
+
+@media (min-width: 768px) {
+    .modal-box__dialog {
+        width: 600px;
+        margin: 30px auto;
+    }
+}
+
+@media (min-width: 768px) {
+    .modal-box__content {
+        box-shadow: rgba(0, 0, 0, 0.498039) 0px 5px 15px;
+    }
+}
+
+/*@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+    .modal {
+        z-index: 1050;
+        background-color: #FFF;
+        border: 1px solid rgba(0, 0, 0, 0.3);
+        box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.3);
+        background-clip: padding-box;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        left: 0;
+        height: 100%;
+    }
+}
+@media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 3) { 
+    .modal {
+        z-index: 1050;
+        background-color: #FFF;
+        border: 1px solid rgba(0, 0, 0, 0.3);
+        box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.3);
+        background-clip: padding-box;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        left: 0;
+        height: 100%;
+    }
+}
+@media (min-resolution: 1.5dppx), (min-resolution: 144dpi), (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3/2) {
+    .modal {
+        z-index: 1050;
+        background-color: #FFF;
+        border: 1px solid rgba(0, 0, 0, 0.3);
+        box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.3);
+        background-clip: padding-box;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        left: 0;
+        height: 100%;
+    }
+}*/
