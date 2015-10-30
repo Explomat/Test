@@ -160,6 +160,10 @@ var SectionView = React.createClass({
 		var shiftX = coordinates.positionX < this.props.positionX ? (coordinates.positionX - this.props.positionX)/this.props.scale : (this.props.positionX - coordinates.positionX)/this.props.scale;
 		var shiftY = coordinates.positionY > this.props.positionY ? (coordinates.positionY - this.props.positionY) / this.props.scale : (this.props.positionY - coordinates.positionY) * this.props.scale;
 		this.refs.section.style.transform = 'scale('+ this.props.scale +')translate('+ shiftX+'px,'+shiftY+'px)';
+    	
+		setTimeout(function(){
+			this.refs.sectionBox.classList.add('modal-box_color');
+		}.bind(this), 400);
     },
 
     toggle: function() {
@@ -203,7 +207,7 @@ var SectionView = React.createClass({
             classes = ' modal-box__dialog_show';
         }
 		return (
-			<div className="modal-box" style={{display: "block"}}>
+			<div ref="sectionBox" className="modal-box" style={{display: "block"}}>
 				<div ref="section" className={"modal-box__dialog modal-box__dialog_translate" + classes}>
 					<div className="modal-box__content">
 						<div className="modal-box__header">

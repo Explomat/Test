@@ -11,6 +11,10 @@
     overflow: auto;
 }
 
+.modal-box_color {
+    background-color: rgba(0, 0, 0, 0.53);
+}
+
 .modal-box__dialog {
 	position: relative;
     width: auto;
@@ -18,7 +22,7 @@
 }
 
 .modal-box__dialog_translate {
-    opacity: 0.2;
+    opacity: 0;
     /* transform: translate(-450px,-100px)scale(0.01); */
 }
 

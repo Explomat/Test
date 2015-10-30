@@ -188,6 +188,9 @@ var QuestionView = React.createClass({
 		var shiftX = coordinates.positionX < this.props.positionX ? (coordinates.positionX - this.props.positionX)/this.props.scale : (this.props.positionX - coordinates.positionX)/this.props.scale;
 		var shiftY = coordinates.positionY > this.props.positionY ? (coordinates.positionY - this.props.positionY) / this.props.scale : (this.props.positionY - coordinates.positionY) * this.props.scale;
 		this.refs.question.style.transform = 'scale('+ this.props.scale +')translate('+ shiftX+'px,'+shiftY+'px)';
+    	setTimeout(function(){
+			this.refs.questionBox.classList.add('modal-box_color');
+		}.bind(this), 400);
     },
 
     toggle: function() {
@@ -251,7 +254,7 @@ var QuestionView = React.createClass({
         }
 
 		return (
-			<div className="modal-box" style={{display: "block"}}>
+			<div ref="questionBox" className="modal-box" style={{display: "block"}}>
 				<div ref="question" className={"modal-box__dialog modal-box__dialog_translate" + classes}>
 					<div className="modal-box__content">
 						<div className="modal-box__header">
