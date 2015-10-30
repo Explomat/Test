@@ -214,7 +214,7 @@ var QuestionView = React.createClass({
 	handleClose: function(){
 		QuestionStore.removeChangeListener(this._onChange);
 		AnswersStore.removeChangeListener(this._onChange);
-		Hasher.setHash('structure');
+		Hasher.setHash('structure/false');
 	},
 
 	handleSaveQuestion: function(){
@@ -222,7 +222,7 @@ var QuestionView = React.createClass({
 		AnswersStore.removeChangeListener(this._onChange);
 		if (this.props.sectionUuid){
 			QuestionActions.saveQuestion(QuestionStore.getQuestion(), this.props.sectionUuid);
-			Hasher.setHash('structure');
+			Hasher.setHash('structure/false');
 		}
 	},
 

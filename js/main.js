@@ -15,9 +15,10 @@ window.onload = function(){
 		//BasicController.start(Config.hashes.settings.value);
 	    SettingsController.start();
 	});
-	Router.addRoute(Config.hashes.structure.key, function(id){
+	Router.addRoute(Config.hashes.structure.key, function(isAnimate){
 		//BasicController.start(Config.hashes.structure.value);
-	    StructureController.start(true);
+		var _isAnimate = !isAnimate ? true : (isAnimate === 'true' ? true : false);
+	    StructureController.start(_isAnimate);
 	});
 	Router.addRoute(Config.hashes.section.key, function(x, y, sectionId){
 		//BasicController.start(Config.hashes.section.value);
