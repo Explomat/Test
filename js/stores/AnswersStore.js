@@ -10,7 +10,7 @@ var Conformity = require('../models/Conformity');
 
 var QuestionTypes = require('../utils/QuestionTypes');
 var SubAnswer = require('../utils/SubAnswer');
-var extend = require('extend-object');
+var extend = require('extend');
 
 var _answers = [], _questionType = '';
 

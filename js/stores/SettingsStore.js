@@ -2,7 +2,7 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var SettingsAPI = require('../api/SettingsAPI');
 var SettingsConstants = require('../constants/SettingsConstants');
-var extend = require('extend-object');
+var extend = require('extend');
 
 var _settings = {};
 

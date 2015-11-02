@@ -1,7 +1,7 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var MappingConstants = require('../constants/MappingConstants');
-var extend = require('extend-object');
+var extend = require('extend');
 
 var _sections = {};
 

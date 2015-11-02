@@ -2,7 +2,7 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var StructureConstants = require('../constants/StructureConstants');
 var QuestionConstants = require('../constants/QuestionConstants');
-var extend = require('extend-object');
+var extend = require('extend');
 var array = require('../utils/Array');
 var StructureAPI = require('../api/StructureAPI');
 

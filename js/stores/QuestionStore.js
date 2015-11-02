@@ -4,7 +4,7 @@ var QuestionConstants = require('../constants/QuestionConstants');
 var ServerConstants = require('../constants/ServerConstants');
 var AnswersStore = require('./AnswersStore');
 var QuestionTypes = require('../utils/QuestionTypes');
-var extend = require('extend-object');
+var extend = require('extend');
 
 var _question = {};
 

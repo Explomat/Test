@@ -7,6 +7,8 @@ var UI = require('../utils/UI');
 var Txt = require('./modules/TextLabel');
 var SectionKeys = require('../utils/SectionKeys');
 var SectionValidation = require('../utils/validation/SectionValidation');
+var ModalClass = require('./modules/ModalView').Class;
+var ModalView = require('./modules/ModalView');
 
 function getSectionState() {
 	return {
@@ -138,6 +140,7 @@ var Fields = React.createClass({
 		);
 	}
 });
+
 
 var SectionView = React.createClass({
 
