@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^3.1.0",
     "gulp-browserify": "^0.5.1",
     "gulp-cleancss": "^0.2.2",
     "gulp-concat": "^2.6.0",

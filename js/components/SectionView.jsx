@@ -151,19 +151,23 @@ var SectionView = React.createClass({
     	return {
     		positionX: 0,
     		positionY: 0,
-    		scale: 0.1
+    		scale: 0.05
     	}
     },
 
     shift: function(){
     	var coordinates = UI.getElementCoordinates(this.refs.section);
-		var shiftX = coordinates.positionX < this.props.positionX ? (coordinates.positionX - this.props.positionX)/this.props.scale : (this.props.positionX - coordinates.positionX)/this.props.scale;
-		var shiftY = coordinates.positionY > this.props.positionY ? (coordinates.positionY - this.props.positionY) / this.props.scale : (this.props.positionY - coordinates.positionY) * this.props.scale;
-		this.refs.section.style.transform = 'scale('+ this.props.scale +')translate('+ shiftX+'px,'+shiftY+'px)';
+    	var shiftX = this.props.positionX - coordinates.positionX;
+    	var shiftY = this.props.positionY - coordinates.positionY;
+		var x = Number(shiftX) - (this.refs.section.offsetWidth / 2);
+		var y = Number(shiftY) - (this.refs.section.offsetHeight / 2);
+		//this.refs.section.style.transformOrigin = x + 'px '+ y + 'px';
+		//this.refs.section.style.transform = 'scale(0.1)';
+		this.refs.section.style.transform = 'translate('+ x + 'px,'+ y +'px)scale(' + this.props.scale +')';
     	
 		setTimeout(function(){
 			this.refs.sectionBox.classList.add('modal-box_color');
-		}.bind(this), 400);
+		}.bind(this), 350);
     },
 
     toggle: function() {

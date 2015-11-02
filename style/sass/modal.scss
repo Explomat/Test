@@ -22,12 +22,14 @@
 }
 
 .modal-box__dialog_translate {
-    opacity: 0;
+    opacity: 0.4;
+   /* transform: scale(0.1); */
     /* transform: translate(-450px,-100px)scale(0.01); */
 }
 
 .modal-box__dialog_show {
-    transition: all .3s cubic-bezier(0.4, 0.0, 1, 1);
+    /* transition: all .3s cubic-bezier(0.4, 0.0, 1, 1); */
+    transition: all .3s ease-in;
     transform: scale(1) translate(0,0) !important;
     opacity: 1;
 }
