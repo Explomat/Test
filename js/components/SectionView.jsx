@@ -145,13 +145,15 @@ var SectionView = React.createClass({
     	postionX: React.PropTypes.number,
     	postionY: React.PropTypes.number,
     	scale: React.PropTypes.number,
+    	delay: React.PropTypes.number
     },
 
     getDefaultProps: function(){
     	return {
     		positionX: 0,
     		positionY: 0,
-    		scale: 0.05
+    		scale: 0.05,
+    		delay: 350
     	}
     },
 
@@ -159,15 +161,14 @@ var SectionView = React.createClass({
     	var coordinates = UI.getElementCoordinates(this.refs.section);
     	var shiftX = this.props.positionX - coordinates.positionX;
     	var shiftY = this.props.positionY - coordinates.positionY;
-		var x = Number(shiftX) - (this.refs.section.offsetWidth / 2);
-		var y = Number(shiftY) - (this.refs.section.offsetHeight / 2);
-		//this.refs.section.style.transformOrigin = x + 'px '+ y + 'px';
-		//this.refs.section.style.transform = 'scale(0.1)';
-		this.refs.section.style.transform = 'translate('+ x + 'px,'+ y +'px)scale(' + this.props.scale +')';
+		var x = Number(shiftX);
+		var y = Number(shiftY);
+		this.refs.section.style.transform = 'scale(' + this.props.scale +')';
+		this.refs.section.style.transformOrigin = x + 'px '+ this.props.positionY + 'px';
     	
 		setTimeout(function(){
-			this.refs.sectionBox.classList.add('modal-box_color');
-		}.bind(this), 350);
+			this.refs.sectionBox.classList.add('modal-box_color_overlay');
+		}.bind(this), this.props.delay);
     },
 
     toggle: function() {
@@ -195,8 +196,13 @@ var SectionView = React.createClass({
 	},
 
 	handleClose: function(){
-		SectionStore.removeChangeListener(this._onChange);
-		Hasher.setHash('structure/false');
+		this.refs.sectionBox.classList.remove('modal-box_color_overlay');
+		this.refs.section.classList.remove('modal-box__dialog_show');
+		this.refs.section.classList.add('modal-box__dialog_close');
+		setTimeout(function(){
+			SectionStore.removeChangeListener(this._onChange);
+			Hasher.setHash('structure/false');
+		}.bind(this), this.props.delay);
 	},
 
 	handleSaveSection: function(){

@@ -11,7 +11,7 @@
     overflow: auto;
 }
 
-.modal-box_color {
+.modal-box_color_overlay {
     background-color: rgba(0, 0, 0, 0.53);
 }
 
@@ -32,6 +32,10 @@
     transition: all .3s ease-in;
     transform: scale(1) translate(0,0) !important;
     opacity: 1;
+}
+
+.modal-box__dialog_close {
+    transition: all .3s ease-in;
 }
 
 .modal-box__content {

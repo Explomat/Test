@@ -25,13 +25,6 @@ var UI = {
             positionX: elemRect.left + scrollLeft,
             positionY: elemRect.top + scrollTop
         }
-
-        /*var elemRect = elem.getBoundingClientRect();
-        var bodyRect = document.body.getBoundingClientRect();
-        return {
-            x: bodyRect.left - elemRect.left,
-            y: bodyRect.top - elemRect.top
-        }*/
     },
 
     transitionBorder: function (menuBoxeElem, tabBorderElem, curElem) {
