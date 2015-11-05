@@ -4,18 +4,20 @@ var UI = require('../../utils/UI');
 var ModalBoxContent = React.createClass({
 
 	propTypes: {
-		children: React.PropTypes.oneOfType([React.PropTypes.element, React.PropTypes.array])
+		children: React.PropTypes.oneOfType([React.PropTypes.element, React.PropTypes.array]),
+		className: React.PropTypes.string
 	},
 
 	getDefaultProps: function(){
 		return {
-			children: []
+			children: [],
+			className: ''
 		}
 	},
 
 	render: function(){
 		return (
-			<div className="modal-box__content">
+			<div className={"modal-box__content " + this.props.className}>
 				{this.props.children}
 			</div>
 		);
@@ -26,6 +28,7 @@ var ModalBoxHeader = React.createClass({
 
 	propTypes: {
 		children: React.PropTypes.oneOfType([React.PropTypes.element, React.PropTypes.array]),
+		className: React.PropTypes.string,
 		onClose: React.PropTypes.func
 	},
 
@@ -36,7 +39,8 @@ var ModalBoxHeader = React.createClass({
 
 	getDefaultProps: function(){
 		return {
-			children: []
+			children: [],
+			className: ''
 		}
 	},
 
@@ -53,7 +57,7 @@ var ModalBoxHeader = React.createClass({
 
 	render: function(){
 		return (
-			<div className="modal-box__header">
+			<div className={"modal-box__header " + this.props.className}>
 				<button type="button" className="close" onClick={this.handleClose}>&times;</button>
 				{this.props.children}
 			</div>
@@ -64,18 +68,20 @@ var ModalBoxHeader = React.createClass({
 var ModalBoxBody = React.createClass({
 
 	propTypes: {
-		children: React.PropTypes.oneOfType([React.PropTypes.element, React.PropTypes.array])
+		children: React.PropTypes.oneOfType([React.PropTypes.element, React.PropTypes.array]),
+		className: React.PropTypes.string
 	},
 
 	getDefaultProps: function(){
 		return {
-			children: []
+			children: [],
+			className: ''
 		}
 	},
 
 	render: function(){
 		return (
-			<div className="modal-box__body">
+			<div className={"modal-box__body " + this.props.className}>
 				{this.props.children}
 			</div>
 		);
@@ -86,6 +92,7 @@ var ModalBoxFooter = React.createClass({
 
 	propTypes: {
 		children: React.PropTypes.oneOfType([React.PropTypes.element, React.PropTypes.array]),
+		className: React.PropTypes.string,
 		onSave: React.PropTypes.func
 	},
 
@@ -96,7 +103,8 @@ var ModalBoxFooter = React.createClass({
 
 	getDefaultProps: function(){
 		return {
-			children: []
+			children: [],
+			className: ''
 		}
 	},
 
@@ -113,7 +121,7 @@ var ModalBoxFooter = React.createClass({
 
 	render: function(){
 		return (
-			<div className="modal-box__footer">
+			<div className={"modal-box__footer " + this.props.className}>
 				<button type="button" className="btn btn-default" onClick={this.handleSave}>Сохранить</button>
 				{this.props.children}
 			</div>
@@ -126,8 +134,9 @@ var ModalBox = React.createClass({
 
 	propTypes: {
 		children: React.PropTypes.element,
-    	positionX: React.PropTypes.number,
-    	positionY: React.PropTypes.number,
+		className: React.PropTypes.string,
+    	positionX: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
+    	positionY: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
     	scale: React.PropTypes.number,
     	delay: React.PropTypes.number
     },
@@ -140,6 +149,7 @@ var ModalBox = React.createClass({
     getDefaultProps: function(){
     	return {
     		children: [],
+    		className: '',
     		positionX: 0,
     		positionY: 0,
     		scale: 0.05,
@@ -184,13 +194,13 @@ var ModalBox = React.createClass({
 	},
 
 	render: function(){
-		var classes = '';
+		var modalClasses = '';
         if (this.state.isMounted) {
-            classes = ' modal-box__dialog_show';
+            modalClasses = ' modal-box__dialog_show';
         }
 		return (
-			<div ref="modalBox" className="modal-box" style={{display: "block"}}>
-				<div ref="modal" className={"modal-box__dialog modal-box__dialog_translate" + classes}>
+			<div ref="modalBox" className={"modal-box " + this.props.className} style={{display: "block"}}>
+				<div ref="modal" className={"modal-box__dialog modal-box__dialog_translate" + modalClasses}>
 					{this.props.children}
 				</div>
 			</div>

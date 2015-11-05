@@ -1,6 +1,5 @@
 var React = require('react');
 var Hasher = require('../utils/Hasher');
-var UI = require('../utils/UI');
 var QuestionStore = require('../stores/QuestionStore');
 var AnswersStore = require('../stores/AnswersStore');
 var QuestionActions = require('../actions/QuestionActions');
@@ -9,6 +8,7 @@ var QuestionTypes = require('../utils/QuestionTypes');
 var Answer = require('./AnswersView');
 var Txt = require('./modules/Text');
 var ImageSelect = require('./modules/ImageSelect');
+var ModalView = require('./modules/ModalView');
 
 function getQuestionState() {
 	return {
@@ -163,45 +163,13 @@ var SelectQuestionType = React.createClass({
 
 var QuestionView = React.createClass({
 
-	 propTypes: {
-    	postionX: React.PropTypes.number,
-    	postionY: React.PropTypes.number,
-    	scale: React.PropTypes.number,
-    },
-
-    getDefaultProps: function(){
-    	return {
-    		positionX: 0,
-    		positionY: 0,
-    		scale: 0.1
-    	}
-    },
-
     getInitialState: function () {
-    	var questionState = getQuestionState();
-		questionState.isMounted = false;
-		return questionState;
+		return getQuestionState();
 	},
-
-	shift: function(){
-    	var coordinates = UI.getElementCoordinates(this.refs.question);
-		var shiftX = coordinates.positionX < this.props.positionX ? (coordinates.positionX - this.props.positionX)/this.props.scale : (this.props.positionX - coordinates.positionX)/this.props.scale;
-		var shiftY = coordinates.positionY > this.props.positionY ? (coordinates.positionY - this.props.positionY) / this.props.scale : (this.props.positionY - coordinates.positionY) * this.props.scale;
-		this.refs.question.style.transform = 'scale('+ this.props.scale +')translate('+ shiftX+'px,'+shiftY+'px)';
-    	setTimeout(function(){
-			this.refs.questionBox.classList.add('modal-box_color');
-		}.bind(this), 400);
-    },
-
-    toggle: function() {
-        this.setState({isMounted: !this.state.isMounted});
-    },
 
 	componentDidMount: function() {
 		QuestionStore.addChangeListener(this._onChange);
 		AnswersStore.addChangeListener(this._onChange);
-		this.shift();
-		setTimeout(this.toggle, 0);
 	},
 
 	componentWillUnmount: function() {
@@ -248,35 +216,25 @@ var QuestionView = React.createClass({
 				answers.push(answer);
 		});
 
-		var classes = '';
-        if (this.state.isMounted) {
-            classes = ' modal-box__dialog_show';
-        }
-
 		return (
-			<div ref="questionBox" className="modal-box" style={{display: "block"}}>
-				<div ref="question" className={"modal-box__dialog modal-box__dialog_translate" + classes}>
-					<div className="modal-box__content">
-						<div className="modal-box__header">
-							<button type="button" className="close" onClick={this.handleClose}>&times;</button>
-        					<h4 className="modal-box__title">Добавьте вопрос</h4>
-						</div>
-						<div className="modal-box__body answers">
-							<Title title={this.state.title} />
-							<QuestionImage />
-					        <QuestionText text={this.state.text} />
-					        <Menu />
-					        <SelectQuestionType type={this.state.type}/>
-					        {answers}
-						</div>
-						<div className="modal-box__footer">
-					        <button type="button" className="btn btn-default" onClick={this.handleSaveQuestion}>Сохранить</button>
-						</div>
-					</div>
-				</div>
-			</div>
+			<ModalView.ModalBox positionX={this.props.positionX} positionY={this.props.positionY}>
+				<ModalView.ModalBoxContent>
+					<ModalView.ModalBoxHeader onClose={this.handleClose}>
+						<h4 className="modal-box__title">Добавьте вопрос</h4>
+					</ModalView.ModalBoxHeader>
+					<ModalView.ModalBoxBody className="answers">
+						<Title title={this.state.title} />
+						<QuestionImage />
+				        <QuestionText text={this.state.text} />
+				        <Menu />
+				        <SelectQuestionType type={this.state.type}/>
+				        {answers}
+					</ModalView.ModalBoxBody>
+					<ModalView.ModalBoxFooter onSave={this.handleSaveQuestion} />
+				</ModalView.ModalBoxContent>
+			</ModalView.ModalBox>
 		);
-	}
+	}	
 });
 
 module.exports = QuestionView;

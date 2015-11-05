@@ -3,7 +3,6 @@ var SectionStore = require('../stores/SectionStore');
 var SectionActions = require('../actions/SectionActions');
 var StructureActions = require('../actions/StructureActions');
 var Hasher = require('../utils/Hasher');
-var UI = require('../utils/UI');
 var Txt = require('./modules/TextLabel');
 var SectionKeys = require('../utils/SectionKeys');
 var SectionValidation = require('../utils/validation/SectionValidation');
@@ -185,102 +184,5 @@ var SectionView = React.createClass({
 		);
 	}
 });
-/*var SectionView = React.createClass({
-
-    propTypes: {
-    	positionX: React.PropTypes.number,
-    	positionY: React.PropTypes.number,
-    	scale: React.PropTypes.number,
-    	delay: React.PropTypes.number
-    },
-
-    getDefaultProps: function(){
-    	return {
-    		positionX: 0,
-    		positionY: 0,
-    		scale: 0.05,
-    		delay: 350
-    	}
-    },
-
-    shift: function(){
-    	var coordinates = UI.getElementCoordinates(this.refs.section);
-    	var shiftX = this.props.positionX - coordinates.positionX;
-    	var shiftY = this.props.positionY - coordinates.positionY;
-		var x = Number(shiftX);
-		var y = Number(shiftY);
-		this.refs.section.style.transform = 'scale(' + this.props.scale +')';
-		this.refs.section.style.transformOrigin = x + 'px '+ this.props.positionY + 'px';
-    	
-		setTimeout(function(){
-			this.refs.sectionBox.classList.add('modal-box_color_overlay');
-		}.bind(this), this.props.delay);
-    },
-
-    toggle: function() {
-        this.setState({isMounted: !this.state.isMounted});
-    },
-
-	componentDidMount: function() {
-		SectionStore.addChangeListener(this._onChange);
-		this.shift();
-		setTimeout(this.toggle, 0);
-	},
-
-	componentWillUnmount: function() {
-		SectionStore.removeChangeListener(this._onChange);
-	},
-
-	_onChange: function() {
-		this.setState(getSectionState());
-	},
-
-	getInitialState: function () {
-		var sectionState = getSectionState();
-		sectionState.isMounted = false;
-		return sectionState;
-	},
-
-	handleClose: function(){
-		this.refs.sectionBox.classList.remove('modal-box_color_overlay');
-		this.refs.section.classList.remove('modal-box__dialog_show');
-		this.refs.section.classList.add('modal-box__dialog_close');
-		setTimeout(function(){
-			SectionStore.removeChangeListener(this._onChange);
-			Hasher.setHash('structure/false');
-		}.bind(this), this.props.delay);
-	},
-
-	handleSaveSection: function(){
-		StructureActions.saveSection(SectionStore.getSection());
-		SectionStore.removeChangeListener(this._onChange);
-		Hasher.setHash('structure/false');
-	},
-
-	render: function () {
-		var classes = '';
-        if (this.state.isMounted) {
-            classes = ' modal-box__dialog_show';
-        }
-		return (
-			<div ref="sectionBox" className="modal-box" style={{display: "block"}}>
-				<div ref="section" className={"modal-box__dialog modal-box__dialog_translate" + classes}>
-					<div className="modal-box__content">
-						<div className="modal-box__header">
-							<button type="button" className="close" onClick={this.handleClose}>&times;</button>
-        					<h4 className="modal-title">Добавьте раздел</h4>
-						</div>
-						<div className="modal-box__body">
-							<Fields {...this.state.section}/>
-						</div>
-						<div className="modal-box__footer">
-					        <button type="button" className="btn btn-default" onClick={this.handleSaveSection}>Сохранить</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		);
-	}
-});*/
 
 module.exports = SectionView;
