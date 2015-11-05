@@ -25,14 +25,32 @@ var ModalBoxHeader = React.createClass({
 		children: React.PropTypes.array
 	},
 
+	contextTypes: {
+        delay: React.PropTypes.number.isRequired
+    },
+
 	getDefaultProps: function(){
 		return {
 			children: []
 		}
 	},
 
+	handleClose: function(){
+		this.refs.modalBox.classList.remove('modal-box_color_overlay');
+		this.refs.modal.classList.remove('modal-box__dialog_show');
+		this.refs.modal.classList.add('modal-box__dialog_close');
+		setTimeout(function(){
+			if (this.props.onClose) {
+				this.props.onClose();
+			}
+			//SectionStore.removeChangeListener(this._onChange);
+			//Hasher.setHash('structure/false');
+		}.bind(this), this.context.delay);
+	},
+
 	render: function(){
 		<div className="modal-box__header">
+			<button type="button" className="close" onClick={this.handleClose}>&times;</button>
 			{this.props.children}
 		</div>
 	}
@@ -77,7 +95,7 @@ var ModalBoxFooter = React.createClass({
 });
 
 
-var ModalBox = {
+var ModalBox = React.createClass({
 
 	propTypes: {
 		children: React.PropTypes.array,
@@ -95,6 +113,10 @@ var ModalBox = {
     		scale: 0.05,
     		delay: 350
     	}
+    },
+
+    getChildContext: function() {
+        return { delay: this.props.delay || 350 };
     },
 
     getInitialState: function () {
@@ -121,16 +143,6 @@ var ModalBox = {
 		}.bind(this), this.props.delay);
     },
 
-    handleClose: function(){
-		this.refs.modalBox.classList.remove('modal-box_color_overlay');
-		this.refs.modal.classList.remove('modal-box__dialog_show');
-		this.refs.modal.classList.add('modal-box__dialog_close');
-		setTimeout(function(){
-			SectionStore.removeChangeListener(this._onChange);
-			Hasher.setHash('structure/false');
-		}.bind(this), this.props.delay);
-	},
-
 	componentDidMount: function() {
 		this.shift();
 		setTimeout(this.toggle, 0);
@@ -149,15 +161,13 @@ var ModalBox = {
 			</div>
 		)
 	}
-}
+});
 
 
 module.exports = {
-	ModalBox: React.createClass(ModalBox),
+	ModalBox: ModalBox,
 	ModalBoxContent: ModalBoxContent,
 	ModalBoxHeader: ModalBoxHeader,
 	ModalBoxBody: ModalBoxBody,
 	ModalBoxFooter: ModalBoxFooter
 }
-
-module.exports.Class = ModalBox;
