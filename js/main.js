@@ -9,19 +9,6 @@ var QuestionController = require('./controllers/modal/QuestionController');
 var SettingsController = require('./controllers/SettingsController');
 var SectionController = require('./controllers/modal/SectionController');
 
-/*
-function n(e){
-	return e === window ? 
-		{
-			x: window.pageXOffset || document.documentElement.scrollLeft,
-			y: window.pageYOffset|| document.documentElement.scrollTop
-		} : 
-		{ 
-			x: e.scrollLeft,
-			y: e.scrollTop
-		}
-}*/
-
 window.onload = function(){
 
 	Router.addRoute(Config.hashes.settings.key, function(){
