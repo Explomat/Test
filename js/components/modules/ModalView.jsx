@@ -1,9 +1,10 @@
 var React = require('react');
+var UI = require('../../utils/UI');
 
 var ModalBoxContent = React.createClass({
 
 	propTypes: {
-		children: React.PropTypes.array
+		children: React.PropTypes.oneOfType([React.PropTypes.element, React.PropTypes.array])
 	},
 
 	getDefaultProps: function(){
@@ -13,20 +14,24 @@ var ModalBoxContent = React.createClass({
 	},
 
 	render: function(){
-		<div className="modal-box__content">
-			{this.props.children}
-		</div>
+		return (
+			<div className="modal-box__content">
+				{this.props.children}
+			</div>
+		);
 	}
 });
 
 var ModalBoxHeader = React.createClass({
 
 	propTypes: {
-		children: React.PropTypes.array
+		children: React.PropTypes.oneOfType([React.PropTypes.element, React.PropTypes.array]),
+		onClose: React.PropTypes.func
 	},
 
 	contextTypes: {
-        delay: React.PropTypes.number.isRequired
+        delay: React.PropTypes.number.isRequired,
+        parent: React.PropTypes.any.isRequired,
     },
 
 	getDefaultProps: function(){
@@ -36,30 +41,30 @@ var ModalBoxHeader = React.createClass({
 	},
 
 	handleClose: function(){
-		this.refs.modalBox.classList.remove('modal-box_color_overlay');
-		this.refs.modal.classList.remove('modal-box__dialog_show');
-		this.refs.modal.classList.add('modal-box__dialog_close');
+		this.context.parent.refs.modalBox.classList.remove('modal-box_color_overlay');
+		this.context.parent.refs.modal.classList.remove('modal-box__dialog_show');
+		this.context.parent.refs.modal.classList.add('modal-box__dialog_close');
 		setTimeout(function(){
 			if (this.props.onClose) {
 				this.props.onClose();
 			}
-			//SectionStore.removeChangeListener(this._onChange);
-			//Hasher.setHash('structure/false');
 		}.bind(this), this.context.delay);
 	},
 
 	render: function(){
-		<div className="modal-box__header">
-			<button type="button" className="close" onClick={this.handleClose}>&times;</button>
-			{this.props.children}
-		</div>
+		return (
+			<div className="modal-box__header">
+				<button type="button" className="close" onClick={this.handleClose}>&times;</button>
+				{this.props.children}
+			</div>
+		);
 	}
 });
 
 var ModalBoxBody = React.createClass({
 
 	propTypes: {
-		children: React.PropTypes.array
+		children: React.PropTypes.oneOfType([React.PropTypes.element, React.PropTypes.array])
 	},
 
 	getDefaultProps: function(){
@@ -69,17 +74,25 @@ var ModalBoxBody = React.createClass({
 	},
 
 	render: function(){
-		<div className="modal-box__body">
-			{this.props.children}
-		</div>
+		return (
+			<div className="modal-box__body">
+				{this.props.children}
+			</div>
+		);
 	}
 });
 
 var ModalBoxFooter = React.createClass({
 
 	propTypes: {
-		children: React.PropTypes.array
+		children: React.PropTypes.oneOfType([React.PropTypes.element, React.PropTypes.array]),
+		onSave: React.PropTypes.func
 	},
+
+	contextTypes: {
+        delay: React.PropTypes.number.isRequired,
+        parent: React.PropTypes.any.isRequired,
+    },
 
 	getDefaultProps: function(){
 		return {
@@ -87,10 +100,24 @@ var ModalBoxFooter = React.createClass({
 		}
 	},
 
+	handleSave: function(){
+		this.context.parent.refs.modalBox.classList.remove('modal-box_color_overlay');
+		this.context.parent.refs.modal.classList.remove('modal-box__dialog_show');
+		this.context.parent.refs.modal.classList.add('modal-box__dialog_close');
+		setTimeout(function(){
+			if (this.props.onSave) {
+				this.props.onSave();
+			}
+		}.bind(this), this.context.delay);
+	},
+
 	render: function(){
-		<div className="modal-box__footer">
-			{this.props.children}
-		</div>
+		return (
+			<div className="modal-box__footer">
+				<button type="button" className="btn btn-default" onClick={this.handleSave}>Сохранить</button>
+				{this.props.children}
+			</div>
+		);
 	}
 });
 
@@ -98,12 +125,17 @@ var ModalBoxFooter = React.createClass({
 var ModalBox = React.createClass({
 
 	propTypes: {
-		children: React.PropTypes.array,
-    	postionX: React.PropTypes.number,
-    	postionY: React.PropTypes.number,
+		children: React.PropTypes.element,
+    	positionX: React.PropTypes.number,
+    	positionY: React.PropTypes.number,
     	scale: React.PropTypes.number,
     	delay: React.PropTypes.number
     },
+
+    childContextTypes: {
+		delay: React.PropTypes.number.isRequired,
+		parent: React.PropTypes.any
+	},
 
     getDefaultProps: function(){
     	return {
@@ -116,7 +148,10 @@ var ModalBox = React.createClass({
     },
 
     getChildContext: function() {
-        return { delay: this.props.delay || 350 };
+        return { 
+        	delay: this.props.delay || 350,
+        	parent: this
+        };
     },
 
     getInitialState: function () {
@@ -159,7 +194,7 @@ var ModalBox = React.createClass({
 					{this.props.children}
 				</div>
 			</div>
-		)
+		);
 	}
 });
 

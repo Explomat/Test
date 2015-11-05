@@ -140,12 +140,56 @@ var Fields = React.createClass({
 	}
 });
 
-
 var SectionView = React.createClass({
 
+	componentDidMount: function() {
+		SectionStore.addChangeListener(this._onChange);
+	},
+
+	componentWillUnmount: function() {
+		SectionStore.removeChangeListener(this._onChange);
+	},
+
+	_onChange: function() {
+		this.setState(getSectionState());
+	},
+
+	getInitialState: function () {
+		return getSectionState();
+	},
+
+	handleClose: function(){
+		SectionStore.removeChangeListener(this._onChange);
+		Hasher.setHash('structure/false');
+	},
+
+	handleSaveSection: function(){
+		StructureActions.saveSection(SectionStore.getSection());
+		SectionStore.removeChangeListener(this._onChange);
+		Hasher.setHash('structure/false');
+	},
+
+	render: function(){
+		return(
+			<ModalView.ModalBox positionX={this.props.positionX} positionY={this.props.positionY}>
+				<ModalView.ModalBoxContent>
+					<ModalView.ModalBoxHeader onClose={this.handleClose}>
+						<h4 className="modal-box__title">Добавьте раздел</h4>
+					</ModalView.ModalBoxHeader>
+					<ModalView.ModalBoxBody>
+						<Fields {...this.state.section}/>
+					</ModalView.ModalBoxBody>
+					<ModalView.ModalBoxFooter onSave={this.handleSaveSection} />
+				</ModalView.ModalBoxContent>
+			</ModalView.ModalBox>
+		);
+	}
+});
+/*var SectionView = React.createClass({
+
     propTypes: {
-    	postionX: React.PropTypes.number,
-    	postionY: React.PropTypes.number,
+    	positionX: React.PropTypes.number,
+    	positionY: React.PropTypes.number,
     	scale: React.PropTypes.number,
     	delay: React.PropTypes.number
     },
@@ -237,6 +281,6 @@ var SectionView = React.createClass({
 			</div>
 		);
 	}
-});
+});*/
 
 module.exports = SectionView;
