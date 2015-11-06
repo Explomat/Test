@@ -104,12 +104,12 @@ var SectionView = React.createClass({
 		e.dataTransfer.setData("text", "some text");
 		//
 		curDragSection = { uuid: this.props.uuid };
-		e.target.parentElement.classList.add('section-dnd-start');
+		e.target.parentElement.classList.add('section__dnd-start');
 	},
 
 	handleDragEnd: function(e){
 		e.preventDefault();
-		e.target.parentElement.classList.remove('section-dnd-start');
+		e.target.parentElement.classList.remove('section__dnd-start');
 	},
 
 	handleDragEnter: function(e){
@@ -130,11 +130,6 @@ var SectionView = React.createClass({
 		Hasher.setHash('structure/section/' + coordinates.positionX + '/' + coordinates.positionY + '/' + this.props.uuid);
 	},
 
-	handleDisplayNewQuestion: function(e){
-		var coordinates = UI.getElementCoordinates(e.target);
-		Hasher.setHash('structure/question/'+ coordinates.positionX +'/' + coordinates.positionY + '/' + this.props.uuid);
-	},
-
 	handleRemoveSection: function(){
 		StructureActions.removeSection(this.props.uuid);
 	},
@@ -147,49 +142,35 @@ var SectionView = React.createClass({
 		StructureActions.shiftDownSection(this.props.uuid);
 	},
 
-	toggleExpandSection: function(){
-		StructureActions.toggleExpandSection(this.props.uuid);
+	toggleSelectSection: function(){
+		StructureActions.toggleSelectSection(this.props.uuid);
 	},
 
 	render: function() {
 		var sectionIndex = StructureStore.getSectionIndex(this.props.uuid);
 		var isShowArrowUp = { display : sectionIndex === 0 ? 'none' : 'block' };
 		var isShowArrowDown = { display : sectionIndex === StructureStore.getSectionsCount() - 1 ? 'none' : 'block' };
-		var isDisplayQuestions = { display : this.props.isExpanded ? 'block' : 'none' };
-		var isExpandClass = this.props.isExpanded ? "glyphicon glyphicon-minus" : "glyphicon glyphicon-plus";
 		return (
-			<div className="sections" onDrop={this.handleDrop} onDragOver={this.handleAllowDrop}>
-				<div className="sections__section" draggable="true" onDragStart={this.handleDragStart} onDragEnd={this.handleDragEnd} onDragEnter={this.handleDragEnter}>
+			<div className="section" onDrop={this.handleDrop} onDragOver={this.handleAllowDrop} onClick={this.toggleSelectSection}>
+				<div className="section__content" draggable="true" onDragStart={this.handleDragStart} onDragEnd={this.handleDragEnd} onDragEnter={this.handleDragEnter}>
 					<div className="btn-group btn-group-xs">
-						<button type="button" className="btn btn-default" onClick={this.toggleExpandSection}>
-							<span className={isExpandClass}></span>
-						</button>
 						<button title="Редактировать раздел" type="button" className="btn btn-default" onClick={this.handleEditSection}>
 							<span className="glyphicon glyphicon-edit"></span>
 						</button>
 					</div>
-					<strong>{this.props.title}</strong>
-					<div className="btn-group btn-group-xs pull-right section-buttons">
-						<button type="button" style={isShowArrowUp} className="btn btn-default section-up-button" onClick={this.handleShiftUp}>
+					<strong className="section__title">{this.props.title}</strong>
+					<div className="btn-group btn-group-xs pull-right section__buttons">
+						<button type="button" style={isShowArrowUp} className="btn btn-default section__button-edit" onClick={this.handleShiftUp}>
 							<span className="glyphicon glyphicon-arrow-up"></span>
 						</button>
-						<button type="button" style={isShowArrowDown} className="btn btn-default section-down-button" onClick={this.handleShiftDown}>
+						<button type="button" style={isShowArrowDown} className="btn btn-default section__button-edit" onClick={this.handleShiftDown}>
 							<span className="glyphicon glyphicon-arrow-down"></span>
 						</button>
-						<button title="Удалить раздел" type="button" className="btn btn-default section-delete-button" onClick={this.handleRemoveSection}>
+						<button title="Удалить раздел" type="button" className="btn btn-default section__button-edit" onClick={this.handleRemoveSection}>
 							<span className="glyphicon glyphicon-remove"></span>
 						</button>
 					</div>
 				</div>
-				<div style={isDisplayQuestions}>
-					{this.props.questions.map(function(q){
-						return <QuestionShortView key={q.uuid} uuid={q.uuid} sectionUuid={this.props.uuid} title={q.title}/>;
-					}.bind(this))}
-				</div>
-				<button title="Добавить вопрос" type="button" style={isDisplayQuestions} className="btn btn-default btn-xs question__add-button" onClick={this.handleDisplayNewQuestion}>
-					<span className="glyphicon glyphicon-plus"></span>
-					<span>&nbsp;Добавить вопрос</span>
-				</button>
 			</div>
 		);
 	}
@@ -220,6 +201,12 @@ var StructureView = React.createClass({
 		Hasher.setHash('structure/section/' + coordinates.positionX + '/' + coordinates.positionY);
 	},
 
+	handleAddNewQuestion: function(e){
+		var coordinates = UI.getElementCoordinates(e.target);
+		var sectionSelected = StructureStore.getSectionSelected();
+		Hasher.setHash('structure/question/'+ coordinates.positionX +'/' + coordinates.positionY + '/' + sectionSelected.uuid);
+	},
+
 	getInitialState: function () {
 		var data = getStructureState();
 		data.isMounted = false;
@@ -230,16 +217,43 @@ var StructureView = React.createClass({
 		var classes = '';
 		if (this.props.isAnimate) classes += ' tests__body-content_translate';
         if (this.state.isMounted && this.props.isAnimate) classes = ' tests__body-content_show';
+        var sectionSelected = StructureStore.getSectionSelected();
+        var questions = sectionSelected ? sectionSelected.questions : [];
 		return (
-			<div className={"structure tests__body-content" + classes}>
+			<div className={"tests__body-content" + classes}>
 				<div className="row clearfix">
-					<div className="col-lg-10 col-lg-offset-1">
-						<div className="col-lg-4 structure__sections">
-							{this.state.sections.map(function(sec){
-								return <SectionView key={sec.uuid} {...sec} />;
-							})}
-						</div>
-						<div className="col-lg-8 structure__questions">
+					<div className="structure col-lg-10 col-lg-offset-1">
+						<div className="structure__content">
+							<div className="col-lg-4">
+								<div className="structure__sections">
+									<div className="structure__sections-header">
+										<button title="Добавить раздел" type="button" className="btn btn-default btn-sm" onClick={this.handleAddNewSection}>
+											<span className="glyphicon glyphicon-plus"></span>
+											<span>&nbsp;Добавить раздел</span>
+										</button>
+									</div>
+									<div className="structure__sections-body">
+										{this.state.sections.map(function(sec){
+											return <SectionView key={sec.uuid} {...sec} />;
+										})}
+									</div>
+								</div>
+							</div>
+							<div className="col-lg-8">
+								<div className="structure__questions">
+									<div className="structure__questions-header">
+										<button title="Добавить вопрос" type="button" className="btn btn-default btn-xs question__add-button" onClick={this.handleAddNewQuestion}>
+											<span className="glyphicon glyphicon-plus"></span>
+											<span>&nbsp;Добавить вопрос</span>
+										</button>
+									</div>
+									<div className="structure__questions-body">
+										{questions.map(function(q){
+											return <QuestionShortView key={q.uuid} uuid={q.uuid} sectionUuid={sectionSelected.uuid} title={q.title}/>;
+										}.bind(this))}
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

@@ -1,42 +1,38 @@
 @import 'variables';
 
-.sections {
+.section {
 	cursor: default;
-	background-color: #fff;
-    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.16),0px 2px 5px 0px rgba(0,0,0,0.23);
-    height: 100%;
-    padding: 15px;
 }
 
-.sections__section:hover{
+.section:hover{
 	background-color: $deviderColor;
 }
 
-.sections__section:hover .section-buttons{
-	display: inline-block;
-}
-
-.section-up-button, .section-down-button, .section-delete-button{
-	opacity: 0.4;
-}
-
-.section-up-button:hover, .section-down-button:hover, .section-delete-button:hover{
-	opacity: 1;
-}
-
-.section-buttons {
-	display: none;
-}
-
-.sections__section {
+.section__content {
 	padding: 5px;
 	cursor: pointer;
 }
 
-.sections__section > strong {
+.section__title {
 	margin-left: 5px;
 }
 
-.section-dnd-start {
+.section__buttons {
+	display: none;
+}
+
+.section:hover .section__buttons{
+	display: inline-block;
+}
+
+.section__button-edit{
+	opacity: 0.4;
+}
+
+.section__button-edit:hover{
+	opacity: 1;
+}
+
+.section__dnd-start {
 	opacity: 0.5;
 }

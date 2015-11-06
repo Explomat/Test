@@ -162,16 +162,10 @@ function shiftDownSection(sectionUuid){
 	_sections.splice(sourceSection.index + 1, 0, sourceSection.section);
 }
 
-function toggleExpandSection(sectionUuid){
-	var sourceSection = getSection(sectionUuid);
-	if (sourceSection) {
-		sourceSection.section.isExpanded = !sourceSection.section.isExpanded;
-	}
-}
-
-function toggleExpandSections(isExpandedSections){
+function toggleSelectSection(sectionUuid){
 	for (var i = _sections.length - 1; i >= 0; i--) {
-		_sections[i].isExpanded = isExpandedSections;
+		_sections[i].selected = false;
+		if (_sections[i].uuid === sectionUuid) _sections[i].selected = true;
 	};
 }
 
@@ -212,6 +206,13 @@ var StructureStore = extend({}, EventEmitter.prototype, {
 	getSectionIndex: function(sectionUuid){
 		var section = getSection(sectionUuid);
 		return section ? section.index : null;
+	},
+
+	getSectionSelected: function() {
+		for (var i = _sections.length - 1; i >= 0; i--) {
+			if(_sections[i].selected === true) return _sections[i];
+		};
+		return null;
 	},
 
 	getQuestionsCountInSection: function(sectionUuid){
@@ -265,8 +266,8 @@ StructureStore.dispatchToken = AppDispatcher.register(function(payload) {
 			shiftDownSection(action.sectionUuid);
 			isEmit = true;
 			break;
-		case StructureConstants.TOGGLE_EXPAND_SECTION:
-			toggleExpandSection(action.sectionUuid);
+		case StructureConstants.TOGGLE_SELECT_SECTION:
+			toggleSelectSection(action.sectionUuid);
 			isEmit = true;
 			break;
 		case StructureConstants.REMOVE_QUESTION:

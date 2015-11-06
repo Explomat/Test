@@ -22,7 +22,7 @@
 }
 
 .tests__header {
-	height: 230px;
+	height: 25%;
 	background-color: $primaryColor;
 	position: relative;
 	margin-bottom: -135px;
@@ -37,6 +37,7 @@
 	overflow: hidden;
 	padding: 15px;
 	position: relative;
+	height: 89%;
 }
 
 .tests__name {
@@ -65,6 +66,7 @@
 	border-top-right-radius: 0px;
 	margin-bottom: 0px;
 	background: none;
+	height: 100%;
 }
 
 .tests__body-content_translate {

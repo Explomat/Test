@@ -98,9 +98,9 @@ var StructureActions = {
 		});
 	},
 
-	toggleExpandSection: function(sectionUuid){
+	toggleSelectSection: function(sectionUuid){
 		AppDispatcher.handleData({
-			actionType: StructureConstants.TOGGLE_EXPAND_SECTION,
+			actionType: StructureConstants.TOGGLE_SELECT_SECTION,
 			sectionUuid: sectionUuid
 		});
 	}

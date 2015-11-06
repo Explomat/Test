@@ -10,7 +10,7 @@ function Section(args) {
 	this.order = args.order || SectionKeys.order.keys.Sequential;
 	this.selection = args.selection || SectionKeys.selection.keys.all;
 	this.questions = args.questions || [];
-	this.isExpanded = args.isExpanded || true;
+	this.selected = args.selected || false;
 }
 
 module.exports = Section;
