@@ -28,12 +28,12 @@ var QuestionShortView = React.createClass({
 		e.dataTransfer.setData("text", "some text");
 		//
 		curDragQuestion = { node: e.target, sectionUuid: this.props.sectionUuid };
-		curDragQuestion.node.classList.add('question-dnd-start');
+		curDragQuestion.node.classList.add('question__dnd-start');
 	},
 
 	handleDragEnd: function(e){
 		e.preventDefault();
-		e.target.classList.remove('question-dnd-start');
+		e.target.classList.remove('question__dnd-start');
 	},
 
 	handleAllowDrop: function(e){
@@ -76,14 +76,14 @@ var QuestionShortView = React.createClass({
 					<span className="glyphicon glyphicon-edit"></span>
 				</button>
 				<span>{this.props.title}</span>
-				<div className="btn-group btn-group-xs pull-right question-buttons">
-					<button type="button" style={isShowArrowUp} className="btn btn-default question-up-button" onClick={this.handleShiftUp}>
+				<div className="btn-group btn-group-xs pull-right question__buttons">
+					<button type="button" style={isShowArrowUp} className="btn btn-default question__edit-button" onClick={this.handleShiftUp}>
 						<span className="glyphicon glyphicon-arrow-up"></span>
 					</button>
-					<button type="button" style={isShowArrowDown} className="btn btn-default question-down-button" onClick={this.handleShiftDown}>
+					<button type="button" style={isShowArrowDown} className="btn btn-default question__edit-button" onClick={this.handleShiftDown}>
 						<span className="glyphicon glyphicon-arrow-down"></span>
 					</button>
-					<button title="Удалить вопрос" type="button" className="btn btn-default question-delete-button" onClick={this.handleRemoveQuestion}>
+					<button title="Удалить вопрос" type="button" className="btn btn-default question__edit-button" onClick={this.handleRemoveQuestion}>
 						<span className="glyphicon glyphicon-remove"></span>
 					</button>
 				</div>
@@ -186,7 +186,7 @@ var SectionView = React.createClass({
 						return <QuestionShortView key={q.uuid} uuid={q.uuid} sectionUuid={this.props.uuid} title={q.title}/>;
 					}.bind(this))}
 				</div>
-				<button title="Добавить вопрос" type="button" style={isDisplayQuestions} className="btn btn-default btn-xs add-question-button" onClick={this.handleDisplayNewQuestion}>
+				<button title="Добавить вопрос" type="button" style={isDisplayQuestions} className="btn btn-default btn-xs question__add-button" onClick={this.handleDisplayNewQuestion}>
 					<span className="glyphicon glyphicon-plus"></span>
 					<span>&nbsp;Добавить вопрос</span>
 				</button>
@@ -222,21 +222,14 @@ var StructureView = React.createClass({
 
 	getInitialState: function () {
 		var data = getStructureState();
-		data.isExpandedSections = true;
 		data.isMounted = false;
 		return data;
-	},
-
-	handleToggleExpandSections: function(){
-		this.setState({isExpandedSections : !this.state.isExpandedSections});
-		StructureActions.toggleExpandSections(!this.state.isExpandedSections);
 	},
 
 	render: function () {
 		var classes = '';
 		if (this.props.isAnimate) classes += ' tests__body-content_translate';
         if (this.state.isMounted && this.props.isAnimate) classes = ' tests__body-content_show';
-		var expandSectionsClass = this.state.isExpandedSections ? 'glyphicon glyphicon-minus' : 'glyphicon glyphicon-plus';
 		return (
 			<div className={"structure tests__body-content" + classes}>
 				<div className="row clearfix">

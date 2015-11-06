@@ -269,10 +269,6 @@ StructureStore.dispatchToken = AppDispatcher.register(function(payload) {
 			toggleExpandSection(action.sectionUuid);
 			isEmit = true;
 			break;
-		case StructureConstants.TOGGLE_EXPAND_SECTIONS:
-			toggleExpandSections(action.isExpandedSections);
-			isEmit = true;
-			break;
 		case StructureConstants.REMOVE_QUESTION:
 			removeQuestion(action.sectionUuid, action.questionUuid);
 			isEmit = true;
