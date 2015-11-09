@@ -92,7 +92,7 @@ var QuestionShortView = React.createClass({
 	}
 });
 
-var SectionView2 = React.createClass({
+var SectionView = React.createClass({
 
 	handleAllowDrop: function(e){
 		e.preventDefault();
@@ -126,6 +126,8 @@ var SectionView2 = React.createClass({
 	},	
 
 	handleEditSection: function(e){
+		e.stopPropagation();
+    	e.nativeEvent.stopImmediatePropagation();
 		var coordinates = UI.getElementCoordinates(e.target);
 		Hasher.setHash('structure/section/' + coordinates.positionX + '/' + coordinates.positionY + '/' + this.props.uuid);
 	},
@@ -142,7 +144,7 @@ var SectionView2 = React.createClass({
 		StructureActions.shiftDownSection(this.props.uuid);
 	},
 
-	toggleSelectSection: function(){
+	handleToggleSelectSection: function(e){
 		StructureActions.toggleSelectSection(this.props.uuid);
 	},
 
@@ -151,7 +153,7 @@ var SectionView2 = React.createClass({
 		var isShowArrowUp = { display : sectionIndex === 0 ? 'none' : 'block' };
 		var isShowArrowDown = { display : sectionIndex === StructureStore.getSectionsCount() - 1 ? 'none' : 'block' };
 		return (
-			<div className="section" onDrop={this.handleDrop} onDragOver={this.handleAllowDrop} onClick={this.toggleSelectSection}>
+			<div className="section" onDrop={this.handleDrop} onDragOver={this.handleAllowDrop} onClick={this.handleToggleSelectSection}>
 				<div className="section__content" draggable="true" onDragStart={this.handleDragStart} onDragEnd={this.handleDragEnd} onDragEnter={this.handleDragEnter}>
 					<div className="btn-group btn-group-xs">
 						<button title="Редактировать раздел" type="button" className="btn btn-default" onClick={this.handleEditSection}>
@@ -234,7 +236,7 @@ var StructureView = React.createClass({
 									</div>
 									<div className="structure__sections-body">
 										{this.state.sections.map(function(sec){
-											return <SectionView2 key={sec.uuid} {...sec} />;
+											return <SectionView key={sec.uuid} {...sec} />;
 										})}
 									</div>
 								</div>

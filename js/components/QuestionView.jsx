@@ -175,7 +175,6 @@ var QuestionView = React.createClass({
 	componentWillUnmount: function() {
 		QuestionStore.removeChangeListener(this._onChange);
 		AnswersStore.removeChangeListener(this._onChange);
-		QuestionActions.saveQuestion(QuestionStore.getQuestion());
 	},
 
 	_onChange: function() {
