@@ -94,6 +94,11 @@ var QuestionShortView = React.createClass({
 
 var SectionView = React.createClass({
 
+	stopPropagation: function(e){
+		e.stopPropagation();
+    	e.nativeEvent.stopImmediatePropagation();
+	},
+
 	handleAllowDrop: function(e){
 		e.preventDefault();
 	},
@@ -126,8 +131,7 @@ var SectionView = React.createClass({
 	},	
 
 	handleEditSection: function(e){
-		e.stopPropagation();
-    	e.nativeEvent.stopImmediatePropagation();
+		this.stopPropagation(e);
 		var coordinates = UI.getElementCoordinates(e.target);
 		Hasher.setHash('structure/section/' + coordinates.positionX + '/' + coordinates.positionY + '/' + this.props.uuid);
 	},
@@ -136,11 +140,13 @@ var SectionView = React.createClass({
 		StructureActions.removeSection(this.props.uuid);
 	},
 
-	handleShiftUp: function(){
+	handleShiftUp: function(e){
+		this.stopPropagation(e);
 		StructureActions.shiftUpSection(this.props.uuid);
 	},
 
-	handleShiftDown: function () {
+	handleShiftDown: function (e) {
+		this.stopPropagation(e);
 		StructureActions.shiftDownSection(this.props.uuid);
 	},
 

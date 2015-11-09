@@ -8,10 +8,11 @@
 
 }
 
-.structure__sections {
+.structure__sections, .structure__questions {
 	background-color: #fff;
     box-shadow: 0 2px 5px 0 rgba(0,0,0,.16),0 2px 5px 0 rgba(0,0,0,.23);
     padding: 15px;
+    border-radius: $borderRadius;
 }
 
 .structure__sections-header {
@@ -20,12 +21,6 @@
 
 .structure__sections-body {
 
-}
-
-.structure__questions {
-	background-color: #fff;
-    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.16),0px 2px 5px 0px rgba(0,0,0,0.23);
-    padding: 15px;
 }
 
 .structure__questions-header {
