@@ -10,6 +10,10 @@ module.exports = {
 	start: function(isAnimate){
 		var structure =  StructureAPI.getStructureData();
 		var app = document.getElementById(Config.dom.appId) || document.body;
+		var modalApp = document.getElementById(Config.dom.modalId);
+
+		if (modalApp) ReactDOM.unmountComponentAtNode(modalApp);
+		
 		ReactDOM.unmountComponentAtNode(app);
 		StructureActions.receiveStructure(structure);
 		ReactDOM.render(React.createElement(StructureView, {isAnimate: isAnimate}), app);

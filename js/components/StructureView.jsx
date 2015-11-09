@@ -92,7 +92,7 @@ var QuestionShortView = React.createClass({
 	}
 });
 
-var SectionView = React.createClass({
+var SectionView2 = React.createClass({
 
 	handleAllowDrop: function(e){
 		e.preventDefault();
@@ -234,7 +234,7 @@ var StructureView = React.createClass({
 									</div>
 									<div className="structure__sections-body">
 										{this.state.sections.map(function(sec){
-											return <SectionView key={sec.uuid} {...sec} />;
+											return <SectionView2 key={sec.uuid} {...sec} />;
 										})}
 									</div>
 								</div>
