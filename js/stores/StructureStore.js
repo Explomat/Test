@@ -215,6 +215,13 @@ var StructureStore = extend({}, EventEmitter.prototype, {
 		return null;
 	},
 
+	isSectionSelected: function(sectionUuid){
+		for (var i = _sections.length - 1; i >= 0; i--) {
+			if(_sections[i].uuid === sectionUuid && _sections[i].selected === true) return true;
+		};
+		return false;
+	},
+
 	getQuestionsCountInSection: function(sectionUuid){
 		var section = getSection(sectionUuid);
 		return section ? section.section.questions.length : null;

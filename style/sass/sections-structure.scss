@@ -1,20 +1,39 @@
 @import 'variables';
 
 .section {
-	cursor: default;
-}
-
-.section:hover{
-	background-color: $deviderColor;
-}
-
-.section__content {
-	padding: 5px;
+	padding: 10px;
+	margin-bottom: 5px;
 	cursor: pointer;
 }
 
+.section_selected {
+	background-color: $selectedColor;
+}
+
+.section:hover:not(.section_selected){
+	background-color: $hoverColor;
+}
+
+.section__content {
+	
+}
+
 .section__title {
-	margin-left: 5px;
+	color: $primaryTextColor;
+	margin-bottom: 5px;
+	margin-top: 0px;
+	display: block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.section__description {
+	display: inline-block;
+}
+
+.section__questions-count {
+	color: $secondaryTextColor;
 }
 
 .section__buttons {
@@ -25,12 +44,27 @@
 	display: inline-block;
 }
 
+.section__sort-group {
+
+}
+
+.section__edit-group {
+	margin-left: 5px;
+}
+
 .section__button-edit{
 	opacity: 0.4;
+	display: inline-block;
+	margin-left: 6px;
 }
 
 .section__button-edit:hover{
 	opacity: 1;
+	color: $accentColor;
+}
+
+.section__button-edit_margin {
+	margin-left: 3px;
 }
 
 .section__dnd-start {

@@ -1,19 +1,30 @@
 @import 'variables';
 
 .question {
-	margin-left: 24px;
-	margin-top: 2px;
-	cursor: default;
-	padding: 3px;
+	padding: 10px;
 	cursor: pointer;
 }
 
-.question > span {
-	margin-left: 5px;
+.question__title {
+	color: $primaryTextColor;
+	margin-bottom: 5px;
+	margin-top: 0px;
+	display: block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .question:hover {
-	background-color: $deviderColor;
+	background-color: $hoverColor;
+}
+
+.question__description {
+	display: inline-block;
+}
+
+.question__type {
+	color: $secondaryTextColor;
 }
 
 .question__buttons {
@@ -24,18 +35,27 @@
 	display: inline-block;
 }
 
+.question__sort-group {
+
+}
+
+.question__edit-group {
+	margin-left: 5px;
+}
+
 .question__edit-button {
 	opacity: 0.4;
+	display: inline-block;
+	margin-left: 6px;
 }
 
 .question__edit-button:hover{
 	opacity: 1;
+	color: $accentColor;
 }
 
-.question__add-button {
-	margin-left: 24px;
-	margin-top: 5px;
-	margin-bottom: 5px;
+.question__edit-button_margin {
+	margin-left: 3px;
 }
 
 .question__dnd-start {

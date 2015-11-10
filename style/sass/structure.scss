@@ -11,22 +11,24 @@
 .structure__sections, .structure__questions {
 	background-color: #fff;
     box-shadow: 0 2px 5px 0 rgba(0,0,0,.16),0 2px 5px 0 rgba(0,0,0,.23);
-    padding: 15px;
+    padding: 10px;
     border-radius: $borderRadius;
 }
 
 .structure__sections-header {
-	
+	padding: 10px;
+	border-bottom: 1px solid $deviderColor;
 }
 
 .structure__sections-body {
-
+	padding: 10px;
 }
 
 .structure__questions-header {
-
+	padding: 10px;
+	border-bottom: 1px solid $deviderColor;
 }
 
 .structure__questions-body {
-
+	padding: 10px;
 }
