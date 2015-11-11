@@ -79,12 +79,12 @@ var QuestionShortView = React.createClass({
 				</div>
 				<div className="pull-right question__buttons">
 					<div className="btn-group btn-group-xs question__sort-group">
-						<span onClick={this.handleShiftUp} style={isShowArrowUp} className="question__edit-button question__edit-button_margin glyphicon glyphicon-arrow-up"></span>
-						<span onClick={this.handleShiftDown} style={isShowArrowDown} className="question__edit-button question__edit-button_margin glyphicon glyphicon-arrow-down"></span>
+						<span onClick={this.handleShiftUp} style={isShowArrowUp} className="question__edit-button question__edit-button_margin glyphicon glyphicon-arrow-up glyphicon-box_lg"></span>
+						<span onClick={this.handleShiftDown} style={isShowArrowDown} className="question__edit-button question__edit-button_margin glyphicon glyphicon-arrow-down glyphicon-box_lg"></span>
 					</div>
 					<div className="btn-group btn-group-xs question__edit-group">
-						<span title="Редактировать вопрос" onClick={this.handleEditQuestion} className="question__edit-button glyphicon glyphicon-edit"></span>
-						<span title="Удалить вопрос"  onClick={this.handleRemoveQuestion} className="question__edit-button glyphicon glyphicon-remove"></span>
+						<span title="Редактировать вопрос" onClick={this.handleEditQuestion} className="question__edit-button glyphicon glyphicon-pencil glyphicon-box_lg"></span>
+						<span title="Удалить вопрос"  onClick={this.handleRemoveQuestion} className="question__edit-button glyphicon glyphicon-trash glyphicon-box_lg"></span>
 					</div>
 				</div>
 			</div>
@@ -172,8 +172,8 @@ var SectionView = React.createClass({
 							<span onClick={this.handleShiftDown} style={isShowArrowDown} className="section__button-edit section__button-edit_margin glyphicon glyphicon-arrow-down glyphicon-box_lg"></span>
 						</div>
 						<div className="btn-group btn-group-xs section__edit-group">
-							<span title="Редактировать раздел" onClick={this.handleEditSection} className="section__button-edit glyphicon glyphicon-edit glyphicon-box_lg"></span>
-							<span title="Удалить раздел" onClick={this.handleRemoveSection} className="section__button-edit glyphicon glyphicon-remove glyphicon-box_lg"></span>
+							<span title="Редактировать раздел" onClick={this.handleEditSection} className="section__button-edit glyphicon glyphicon-pencil glyphicon-box_lg"></span>
+							<span title="Удалить раздел" onClick={this.handleRemoveSection} className="section__button-edit glyphicon glyphicon-trash glyphicon-box_lg"></span>
 						</div>
 					</div>
 				</div>
