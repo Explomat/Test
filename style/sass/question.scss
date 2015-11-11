@@ -1,13 +1,35 @@
 @import 'variables';
 
 .question {
-	padding: 10px;
+	display: table;
+}
+
+.question__number-box {
+	display: table-cell;
+    vertical-align: middle;
+    font-size: $fontSizeXs;
+}
+
+.question__number {
+    padding: 8px;
+    border: 1px solid #000;
+    border-radius: 50%;
+}
+
+.question__content {
+	display: table-cell;
 	cursor: pointer;
+	padding: 5px 10px;
+	width: 100%;
+}
+
+.question__content:hover {
+	background-color: $hoverColor;
 }
 
 .question__title {
 	color: $primaryTextColor;
-	margin-bottom: 5px;
+	margin-bottom: 0px;
 	margin-top: 0px;
 	display: block;
 	white-space: nowrap;
@@ -15,12 +37,9 @@
 	text-overflow: ellipsis;
 }
 
-.question:hover {
-	background-color: $hoverColor;
-}
-
 .question__description {
 	display: inline-block;
+	font-size: $fontSizeXs;
 }
 
 .question__type {
@@ -31,7 +50,7 @@
 	display: none;
 }
 
-.question:hover .question__buttons{
+.question__content:hover .question__buttons{
 	display: inline-block;
 }
 

@@ -50,7 +50,7 @@ var QuestionShortView = React.createClass({
 
 	handleEditQuestion: function(e){
 		var coordinates = UI.getElementCoordinates(e.target);
-		Hasher.setHash('structure/question/'+ coordinates.positionX +'/' + coordinates.positionY + '/' + this.props.sectionUuid +'/'+this.props.uuid);
+		Hasher.setHash('structure/question/'+ (coordinates.positionX + (coordinates.width / 2))  +'/' + (coordinates.positionY - (coordinates.height / 2)) + '/' + this.props.sectionUuid +'/'+this.props.uuid);
 	},
 
 	handleRemoveQuestion: function(){
@@ -73,18 +73,23 @@ var QuestionShortView = React.createClass({
 		var isShowArrowDown = { display : sectionIndex === StructureStore.getSectionsCount() - 1 && questionIndex === StructureStore.getQuestionsCountInSection(this.props.sectionUuid) - 1 ? 'none' : 'inline-block' };
 		return(
 			<div id={this.props.uuid} className="question" draggable="true" onDragStart={this.handleDragStart} onDragEnd={this.handleDragEnd} onDrop={this.handleDrop} onDragOver={this.handleAllowDrop} onDragEnter={this.handleDragEnter}>
-				<p className="question__title">{this.props.title}</p>
-				<div className="question__description">
-					<span className="question__type">Тип: {QuestionTypes.values[this.props.type]}</span>
+				<div className="question__number-box">
+					<span className="question__number">{this.props.number}</span>
 				</div>
-				<div className="pull-right question__buttons">
-					<div className="btn-group btn-group-xs question__sort-group">
-						<span onClick={this.handleShiftUp} style={isShowArrowUp} className="question__edit-button question__edit-button_margin glyphicon glyphicon-arrow-up glyphicon-box_lg"></span>
-						<span onClick={this.handleShiftDown} style={isShowArrowDown} className="question__edit-button question__edit-button_margin glyphicon glyphicon-arrow-down glyphicon-box_lg"></span>
+				<div className="question__content">
+					<p className="question__title">{this.props.title}</p>
+					<div className="question__description">
+						<span className="question__type">Тип: {QuestionTypes.values[this.props.type]}</span>
 					</div>
-					<div className="btn-group btn-group-xs question__edit-group">
-						<span title="Редактировать вопрос" onClick={this.handleEditQuestion} className="question__edit-button glyphicon glyphicon-pencil glyphicon-box_lg"></span>
-						<span title="Удалить вопрос"  onClick={this.handleRemoveQuestion} className="question__edit-button glyphicon glyphicon-trash glyphicon-box_lg"></span>
+					<div className="pull-right question__buttons">
+						<div className="btn-group btn-group-xs question__sort-group">
+							<span onClick={this.handleShiftUp} style={isShowArrowUp} className="question__edit-button question__edit-button_margin glyphicon glyphicon-arrow-up glyphicon-box_lg"></span>
+							<span onClick={this.handleShiftDown} style={isShowArrowDown} className="question__edit-button question__edit-button_margin glyphicon glyphicon-arrow-down glyphicon-box_lg"></span>
+						</div>
+						<div className="btn-group btn-group-xs question__edit-group">
+							<span title="Редактировать вопрос" onClick={this.handleEditQuestion} className="question__edit-button glyphicon glyphicon-pencil glyphicon-box_lg"></span>
+							<span title="Удалить вопрос"  onClick={this.handleRemoveQuestion} className="question__edit-button glyphicon glyphicon-trash glyphicon-box_lg"></span>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -133,7 +138,7 @@ var SectionView = React.createClass({
 	handleEditSection: function(e){
 		this.stopPropagation(e);
 		var coordinates = UI.getElementCoordinates(e.target);
-		Hasher.setHash('structure/section/' + coordinates.positionX + '/' + coordinates.positionY + '/' + this.props.uuid);
+		Hasher.setHash('structure/section/' + (coordinates.positionX + (coordinates.width / 2)) + '/' + (coordinates.positionY - (coordinates.height / 2)) + '/' + this.props.uuid);
 	},
 
 	handleRemoveSection: function(){
@@ -204,13 +209,13 @@ var StructureView = React.createClass({
 
 	handleAddNewSection: function(e){
 		var coordinates = UI.getElementCoordinates(e.target);
-		Hasher.setHash('structure/section/' + coordinates.positionX + '/' + coordinates.positionY);
+		Hasher.setHash('structure/section/' + (coordinates.positionX + (coordinates.width / 2)) + '/' + (coordinates.positionY - (coordinates.height / 2)));
 	},
 
 	handleAddNewQuestion: function(e){
 		var coordinates = UI.getElementCoordinates(e.target);
 		var sectionSelected = StructureStore.getSectionSelected();
-		Hasher.setHash('structure/question/'+ coordinates.positionX +'/' + coordinates.positionY + '/' + sectionSelected.uuid);
+		Hasher.setHash('structure/question/'+ (coordinates.positionX + (coordinates.width / 2)) + '/' + (coordinates.positionY - (coordinates.height / 2)) + '/' + sectionSelected.uuid);
 	},
 
 	getInitialState: function () {
@@ -254,8 +259,8 @@ var StructureView = React.createClass({
 										</button>
 									</div>
 									<div className="structure__questions-body">
-										{questions.map(function(q){
-											return <QuestionShortView key={q.uuid} uuid={q.uuid} sectionUuid={sectionSelected.uuid} {...q}/>;
+										{questions.map(function(q, index){
+											return <QuestionShortView key={q.uuid} uuid={q.uuid} sectionUuid={sectionSelected.uuid} {...q} number={index + 1}/>;
 										}.bind(this))}
 									</div>
 								</div>

@@ -17,13 +17,19 @@ var UI = {
         if (!elem) return {};
 
         var elemRect = elem.getBoundingClientRect();
-        var elementLeft, elementTop; //x and y
-        var scrollTop = document.documentElement.scrollTop? document.documentElement.scrollTop : document.body.scrollTop;
+        /*var scrollTop = document.documentElement.scrollTop? document.documentElement.scrollTop : document.body.scrollTop;
         var scrollLeft = document.documentElement.scrollLeft? document.documentElement.scrollLeft : document.body.scrollLeft;
 
         return {
             positionX: elemRect.left + scrollLeft,
             positionY: elemRect.top + scrollTop
+        }*/
+
+        return {
+            positionX: elemRect.left,
+            positionY: elemRect.top,
+            width: elemRect.width,
+            height: elemRect.height
         }
     },
 

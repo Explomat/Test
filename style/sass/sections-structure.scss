@@ -1,7 +1,7 @@
 @import 'variables';
 
 .section {
-	padding: 10px;
+	padding: 5px 10px;
 	margin-bottom: 5px;
 	cursor: pointer;
 }
@@ -20,7 +20,7 @@
 
 .section__title {
 	color: $primaryTextColor;
-	margin-bottom: 5px;
+	margin-bottom: 0px;
 	margin-top: 0px;
 	display: block;
 	white-space: nowrap;
@@ -30,6 +30,7 @@
 
 .section__description {
 	display: inline-block;
+	font-size: $fontSizeXs;
 }
 
 .section__questions-count {
