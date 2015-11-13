@@ -1,17 +1,13 @@
 @import 'variables';
 
 .tests {
-	margin-top: 50px;
 	font-family: Calibri, Helvetica, serif;
-	min-width: 500px;
+	width: 1200px;
+	margin: auto;
 	box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.16),0px 2px 5px 0px rgba(0,0,0,0.23);
 	padding-right: 0px;
 	padding-left: 0px;	
 	background-color: #f5f5f5;
-	width: 1200px;
-	min-width: 800px;
-	height: 934px;
-	margin: 50px auto;
 	border-radius: $borderRadius;
 
 	font-family: Roboto, sans-serif;
@@ -22,10 +18,9 @@
 }
 
 .tests__header {
-	height: 25%;
+	height: 200px;
 	background-color: $primaryColor;
-	position: relative;
-	margin-bottom: -135px;
+	margin-bottom: -110px;
 	border-top-right-radius: $borderRadius;
 	border-top-left-radius: $borderRadius;
 	/*background-image: url('/build/img/banner3.jpg');
@@ -33,11 +28,31 @@
     background-position: center;*/
 }
 
+.tests__header-fixed{
+	background: $primaryColor;
+    left:0;
+    right: 0;
+    z-index: 10;
+    width: 1200px;
+    margin: auto;
+}
+
+.tests__header-fixed_stop {
+	position: fixed;
+	top: 0px;
+	box-shadow: 0 2px 5px 0 rgba(0,0,0,.16),0 2px 5px 0 rgba(0,0,0,.23);
+}
+
 .tests__body {
-	overflow: hidden;
+	min-height: 800px;
+	width: 1200px;
+	margin: auto;
+}
+
+.tests__body, .tests__header-wrapper {
 	padding: 15px;
-	position: relative;
-	height: 89%;
+	width:1200px;
+    margin: auto;
 }
 
 .tests__name {
@@ -48,17 +63,6 @@
     margin-left: 20px;
     float: left;
 }
-
-/*.tests__header:before {
-	content: '';
-	display: block;
-	height: 25px;
-	width: 100%;
-	top: 0;
-	left: 0;
-	position: absolute;
-	background-color: #388E3C;
-}*/
 
 .tests__body-content {
 	border:none;

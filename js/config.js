@@ -17,6 +17,7 @@ module.exports = {
 	},
 
 	dom: {
+		basicAppId: 'basicApp',
 		appId: 'app',
 		modalId: 'modal'
 	},

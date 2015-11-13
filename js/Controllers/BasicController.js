@@ -6,10 +6,9 @@ var Config = require('../config');
 module.exports = {
 	
 	start: function(sectionName){
-		/*var appElem = document.getElementById(Config.dom.appId);
-		if (appElem) ReactDOM.unmountComponentAtNode(appElem);*/
+		var appElem = document.getElementById(Config.dom.basicAppId) || document.body;
 		
-		ReactDOM.unmountComponentAtNode(document.body);
-		ReactDOM.render(React.createElement(BasicView/*, {sectionName: sectionName}*/), document.body);
+		ReactDOM.unmountComponentAtNode(appElem);
+		ReactDOM.render(React.createElement(BasicView/*, {sectionName: sectionName}*/), appElem);
 	}
 }
