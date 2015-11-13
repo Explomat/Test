@@ -34,9 +34,9 @@ var MenuItem = React.createClass({
 
     render: function(){
         return (
-            <div className="menu-box__item">
-                <a onClick={this.handleChangeRoute} className="menu-box__button" href={this.props.route}>{this.props.title}</a>
-                <div className="menu-box__helper" />
+            <div className="menu__item">
+                <a onClick={this.handleChangeRoute} className="menu__button" href={this.props.route}>{this.props.title}</a>
+                <div className="menu__helper" />
             </div>
         );
     }
@@ -75,7 +75,7 @@ var MenuView = React.createClass({
     getBorderShift: function(indexCurElem){
         var shift = 0;
         var menuBoxeElem = this.refs.menuBox;
-        var children = menuBoxeElem.querySelectorAll(".menu-box__item");
+        var children = menuBoxeElem.querySelectorAll(".menu__item");
         for (var i = 0; i < indexCurElem; i++) {
             shift += children[i].offsetWidth;
         }
@@ -89,7 +89,7 @@ var MenuView = React.createClass({
         var width = 0;
         var i = indexCurElem >= indexPrevElem ? indexPrevElem : indexCurElem;
         var count = indexCurElem >= indexPrevElem ? indexCurElem : indexPrevElem;
-        var elems = menuBoxeElem.querySelectorAll(".menu-box__item");
+        var elems = menuBoxeElem.querySelectorAll(".menu__item");
         for (i; i <= count; i++) {
             width += elems[i].offsetWidth;
         }
@@ -113,11 +113,11 @@ var MenuView = React.createClass({
         }
 
         var border = this.refs.border;
-        border.classList.remove('menu-box__border_contract');
-        border.classList.add('menu-box__border_expand');
+        border.classList.remove('menu__border_contract');
+        border.classList.add('menu__border_expand');
         setTimeout(function(){
-            border.classList.remove('menu-box__border_expand');
-            border.classList.add('menu-box__border_contract');
+            border.classList.remove('menu__border_expand');
+            border.classList.add('menu__border_contract');
             this.setState({
                 borderShift: borderShift,
                 borderWidth: this.getBorderWidth(curHashIndex, curHashIndex)
@@ -131,11 +131,13 @@ var MenuView = React.createClass({
 	render: function () {
         var borderStyles = { left: this.state.borderShift, width: this.state.borderWidth };
 		return (
-			<div ref="menuBox" className="menu-box">
-				{this.props.routes.map(function(r, index){
-					return <MenuItem key={index} route={r.route} title={r.title} index={index} changeRoute={this.handleChangeRoute}/>;
-				}.bind(this))}
-				<div ref="border" style={borderStyles} className="menu-box__border"></div>
+			<div ref="menuBox" className="menu-box clearfix">
+                <div className="menu">
+    				{this.props.routes.map(function(r, index){
+    					return <MenuItem key={index} route={r.route} title={r.title} index={index} changeRoute={this.handleChangeRoute}/>;
+    				}.bind(this))}
+    				<div ref="border" style={borderStyles} className="menu__border"></div>
+                </div>
 			</div>
 		);
 	}

@@ -1,11 +1,19 @@
+@import 'variables';
+
 .menu-box {
-    position: absolute;
+
+}
+
+.menu {
+    position: relative;
     right: 10px;
     height: 50px;
     margin-top: 15px;
+    float: right;
+    display: inline-block;
 }
 /*background: rgba(255,255,255,0.36)*/
-.menu-box__item {
+.menu__item {
     position: relative;
     float: left;
     text-align: center;
@@ -13,7 +21,7 @@
     display: table;
 }
 
-.menu-box__helper {
+.menu__helper {
 	display: inline-block;
     height: 100%;
     width: 0px;
@@ -21,7 +29,7 @@
     zoom: 1;
 }
 
-.menu-box__border{
+.menu__border{
 	height: 2px;
 	background-color: #fff;
 	/*transition: all .3s ease-in-out;*/
@@ -29,33 +37,33 @@
     top: 50px;
 }
 
-.menu-box__border_expand {
+.menu__border_expand {
 	transition-duration: 0.15s;
     transition-timing-function: cubic-bezier(0.4, 0.0, 1, 1);
 }
 
-.menu-box__border_contract {
+.menu__border_contract {
 	transition-duration: 0.18s;
     transition-timing-function: cubic-bezier(0.0, 0.0, 0.2, 1);
 }
 
-.menu-box__button {
-	font-size: 20px;
+.menu__button {
+	font-size: $fontSizeLarge;
+    text-transform: uppercase;
     color: #004446;
     display: block;
-    font-weight: 300;
     padding: 0px 12px;
 	text-decoration: none;
     display: table-cell;
     vertical-align: middle;
 }
 
-.menu-box__button:active {
+.menu__button:active {
     transition: all .15s ease-in-out;
     background-color: #5BD4E3;
 }
 
-.menu-box__button:hover, .menu-box__button:active, .menu-box__button:visited, .menu-box__button:link {
+.menu__button:hover, .menu__button:active, .menu__button:visited, .menu__button:link {
 	text-decoration: none;
 	color: #004446;
 	/*background-color: #388E3C;*/
