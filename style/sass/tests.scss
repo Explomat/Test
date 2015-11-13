@@ -3,7 +3,7 @@
 .tests {
 	font-family: Calibri, Helvetica, serif;
 	width: 1200px;
-	margin: auto;
+	margin: 10px auto auto;
 	box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.16),0px 2px 5px 0px rgba(0,0,0,0.23);
 	padding-right: 0px;
 	padding-left: 0px;	
@@ -14,7 +14,7 @@
     font-size: 16px;
     font-weight: 400;
     line-height: 24px;
-    letter-spacing: -0.01em
+    letter-spacing: -0.01em;
 }
 
 .tests__header {
@@ -40,7 +40,7 @@
 .tests__header-fixed_stop {
 	position: fixed;
 	top: 0px;
-	box-shadow: 0 2px 5px 0 rgba(0,0,0,.16),0 2px 5px 0 rgba(0,0,0,.23);
+	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.26);
 }
 
 .tests__body {
