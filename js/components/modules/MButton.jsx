@@ -4,7 +4,7 @@ var MButton = {
 
 	propTypes: {
 	    value: React.PropTypes.string,
-        onClick: React.PropTypes.onClick
+        onClick: React.PropTypes.func
   	},
 
     baseClassName: 'waves-effect waves-button waves-float',

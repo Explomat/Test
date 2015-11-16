@@ -5,7 +5,6 @@ var Hasher = require('../utils/Hasher');
 var UI = require('../utils/UI');
 var Config = require('../config');
 var QuestionTypes = require('../utils/QuestionTypes');
-var MButtonBlue = require('./modules/MButtonBlue');
 
 var curDragQuestion = null, curDragSection = null, DRAG_EFFECT = 'move';
 
