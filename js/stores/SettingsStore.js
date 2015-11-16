@@ -30,28 +30,26 @@ function changeAttemptsCount(attemptsCount){
 	_settings.attemptsCount = attemptsCount;
 }
 
-function changeStatus(status){
-	_settings.status = status;
-}
-
 function changeNotSentCorrectAnswer(val){
 	_settings.notSentCorrectAnswer = val;
+	if (val){
+		_settings.displayResult = !val;
+		_settings.notDisplayLastAttempt = !val;
+	}
 }
 
 function changeDisplayResult(val){
 	_settings.displayResult = val;
+	if (val) {
+		_settings.notSentCorrectAnswer = !val;
+	}
 }
 
 function changeNotDisplayLastAttempt(val){
 	_settings.notDisplayLastAttempt = val;
-}
-
-function changeNotDisplayFeedback(val){
-	_settings.notDisplayFeedback = val;
-}
-
-function changeDisplayResultReport(val){
-	_settings.displayResultReport = val;
+	if (val) {
+		_settings.notSentCorrectAnswer = !val;
+	}
 }
 
 function changeDisplayAnswersInReport(val){
@@ -108,9 +106,6 @@ SettingsStore.dispatchToken = AppDispatcher.register(function(payload) {
 		case SettingsConstants.CHANGE_ATTEMPTS_COUNT:
 			changeAttemptsCount(action.attemptsCount);
 			break;
-		case SettingsConstants.CHANGE_STATUS:
-			changeStatus(action.status);
-			break;
 		case SettingsConstants.CHANGE_NOT_SENT_CORRECT_ANSWER:
 			changeNotSentCorrectAnswer(action.val);
 			break;
@@ -119,12 +114,6 @@ SettingsStore.dispatchToken = AppDispatcher.register(function(payload) {
 			break;
 		case SettingsConstants.CHANGE_NOT_DISPLAY_LAST_ATTEMPT:
 			changeNotDisplayLastAttempt(action.val);
-			break;
-		case SettingsConstants.CHANGE_NOT_DISPLAY_FEEDBACK:
-			changeNotDisplayFeedback(action.val);
-			break;
-		case SettingsConstants.CHANGE_DISPLAY_RESULT_REPORT:
-			changeDisplayResultReport(action.val);
 			break;
 		case SettingsConstants.CHANGE_DISPLAY_ANSWERS_IN_REPORT:
 			changeDisplayAnswersInReport(action.val);

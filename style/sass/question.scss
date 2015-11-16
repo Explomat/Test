@@ -12,9 +12,13 @@
 }
 
 .question__number {
-    padding: 8px;
-    border: 1px solid #000;
+	display: inline-block;
+    width: 26px;
+    height: 26px;
+    padding: 2px;
     border-radius: 50%;
+    background-color: $accentColor;
+    color: #fff;
 }
 
 .question__content {

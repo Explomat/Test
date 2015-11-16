@@ -5,6 +5,7 @@ var Hasher = require('../utils/Hasher');
 var UI = require('../utils/UI');
 var Config = require('../config');
 var QuestionTypes = require('../utils/QuestionTypes');
+var MButtonBlue = require('./modules/MButtonBlue');
 
 var curDragQuestion = null, curDragSection = null, DRAG_EFFECT = 'move';
 
@@ -141,7 +142,8 @@ var SectionView = React.createClass({
 		Hasher.setHash('structure/section/' + (coordinates.positionX + (coordinates.width / 2)) + '/' + (coordinates.positionY - (coordinates.height / 2)) + '/' + this.props.uuid);
 	},
 
-	handleRemoveSection: function(){
+	handleRemoveSection: function(e){
+		this.stopPropagation(e);
 		StructureActions.removeSection(this.props.uuid);
 	},
 

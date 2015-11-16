@@ -45,13 +45,6 @@ var SettingsActions = {
 		});
 	},
 
-	changeStatus: function(status){
-		AppDispatcher.handleAction({
-			actionType: SettingsConstants.CHANGE_STATUS,
-			status: status
-		});
-	},
-
 	changeNotSentCorrectAnswer: function(val){
 		AppDispatcher.handleAction({
 			actionType: SettingsConstants.CHANGE_NOT_SENT_CORRECT_ANSWER,
@@ -69,20 +62,6 @@ var SettingsActions = {
 	changeNotDisplayLastAttempt: function(val){
 		AppDispatcher.handleAction({
 			actionType: SettingsConstants.CHANGE_NOT_DISPLAY_LAST_ATTEMPT,
-			val: val
-		});
-	},
-
-	changeNotDisplayFeedback: function(val){
-		AppDispatcher.handleAction({
-			actionType: SettingsConstants.CHANGE_NOT_DISPLAY_FEEDBACK,
-			val: val
-		});
-	},
-
-	changeDisplayResultReport: function(val){
-		AppDispatcher.handleAction({
-			actionType: SettingsConstants.CHANGE_DISPLAY_RESULT_REPORT,
 			val: val
 		});
 	},
