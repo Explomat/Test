@@ -30,6 +30,15 @@ function getSection(sectionUuid){
 	return null;
 }
 
+function getSectionFromIndex(index){
+	for (var i = _sections.length - 1; i >= 0; i--) {
+		if(i === index) {
+			return _sections[i];
+		}
+	}
+	return null;
+}
+
 function loadStructureData(data) {
 	_structure = data;
 	_sections = data.sections || [];
@@ -130,8 +139,16 @@ function removeSection(uuid){
 	var secIndex = _sections.findIndex(function(sec){
 		return sec.uuid === uuid;
 	});
-	if (secIndex !== -1)
-		_sections.splice(secIndex, 1);
+	if (secIndex !== -1 && _sections.length > 1){
+		var section = _sections.splice(secIndex, 1)[0];
+		if (section.selected) {
+			secIndex = secIndex === _sections.length ? secIndex - 1 : secIndex;
+			var selectedSection = getSectionFromIndex(secIndex); 
+			if (selectedSection) {
+				selectedSection.selected = true;
+			}
+		}
+	}
 }
 
 function replaceSection(sectionUuid, destSectionUuid){
