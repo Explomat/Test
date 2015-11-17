@@ -6,9 +6,7 @@ var SubAnswer = require('../utils/SubAnswer');
 var EvaluateConditions = require('../utils/EvaluateConditions');
 
 function getMappingState() {
-	return {
-		sections: MappingStore.getSections()
-	};
+	return MappingStore.getData();
 }
 
 //единственный выбор
@@ -178,10 +176,18 @@ var MappingView = React.createClass({
         if (this.state.isMounted) {
             classes = ' tests__body-content_show';
         }
+        var questionsCount = MappingStore.getQuestionsCount();
 		return (
-			<div className={"group tests__body-content tests__body-content_translate" + classes}>
-				<div className="mapping group__elem">
-					{this.state.sections.map(function(s){
+			<div className={"mapping group tests__body-content tests__body-content_translate" + classes}>
+				<div className="mapping__header group__elem">
+					<h2 className="mapping__header-title">{this.state.settings.title}</h2>
+					<p>
+						<span>Количество вопросов: </span>
+						<span>{questionsCount}</span>
+					</p>
+				</div>
+				<div className="mapping__content group__elem">
+					{this.state.structure.sections.map(function(s){
 						return <SectionView key={s.uuid} title={s.title} questions={s.questions}/>
 					}.bind(this))}
 				</div>

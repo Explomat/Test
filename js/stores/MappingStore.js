@@ -3,16 +3,24 @@ var EventEmitter = require('events').EventEmitter;
 var MappingConstants = require('../constants/MappingConstants');
 var extend = require('extend');
 
-var _sections = {};
+var _data = {};
 
-function loadMappingData(sections){
-	_sections = sections;
+function loadMappingData(data){
+	_data = data;
 }
 
 var MappingStore = extend({}, EventEmitter.prototype, {
 	
-	getSections: function(){
-		return _sections;
+	getData: function(){
+		return _data;
+	},
+
+	getQuestionsCount: function(){
+		var count = 0;
+		for (var i = _data.structure.sections.length - 1; i >= 0; i--) {
+			count += _data.structure.sections[i].questions.length;
+		};
+		return count;
 	},
 
 	emitChange: function() {

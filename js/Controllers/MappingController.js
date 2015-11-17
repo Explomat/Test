@@ -11,8 +11,8 @@ module.exports = {
 		var app = document.getElementById(Config.dom.appId) || document.body;
 		ReactDOM.unmountComponentAtNode(app);
 
-		var sections = MappingAPI.getSections();
-		MappingActions.receiveData(sections);
+		var data = MappingAPI.getData();
+		MappingActions.receiveData(data);
 		ReactDOM.render(React.createElement(MappingView), app);
 	}
 }

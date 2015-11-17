@@ -161,10 +161,13 @@ var SectionView = React.createClass({
 	},
 
 	render: function() {
+		var sectionsCount = StructureStore.getSectionsCount();
 		var sectionIndex = StructureStore.getSectionIndex(this.props.uuid);
 		var isShowArrowUp = { display : sectionIndex === 0 ? 'none' : 'inline-block' };
-		var isShowArrowDown = { display : sectionIndex === StructureStore.getSectionsCount() - 1 ? 'none' : 'inline-block' };
+		var isShowArrowDown = { display : sectionIndex === sectionsCount - 1 ? 'none' : 'inline-block' };
+		var isShowDelete = { display : sectionsCount === 1 ? 'none' : 'inline-block' };
 		var selectedClass = StructureStore.isSectionSelected(this.props.uuid) ? 'section_selected': '';
+		
 		return (
 			<div className={"section " + selectedClass} onDrop={this.handleDrop} onDragOver={this.handleAllowDrop} onClick={this.handleToggleSelectSection}>
 				<div className="section__content" draggable="true" onDragStart={this.handleDragStart} onDragEnd={this.handleDragEnd} onDragEnter={this.handleDragEnter}>
@@ -179,7 +182,7 @@ var SectionView = React.createClass({
 						</div>
 						<div className="btn-group btn-group-xs section__edit-group">
 							<span title="Редактировать раздел" onClick={this.handleEditSection} className="section__button-edit glyphicon glyphicon-pencil glyphicon-box_lg"></span>
-							<span title="Удалить раздел" onClick={this.handleRemoveSection} className="section__button-edit glyphicon glyphicon-trash glyphicon-box_lg"></span>
+							<span title="Удалить раздел" onClick={this.handleRemoveSection} style={isShowDelete} className="section__button-edit glyphicon glyphicon-trash glyphicon-box_lg"></span>
 						</div>
 					</div>
 				</div>

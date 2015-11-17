@@ -2,12 +2,17 @@ var Config = require('../config');
 var Storage = require('../utils/Storage')
 
 module.exports = {
-	getSections: function () {
+	getData: function () {
 		var structure = Storage.getItem('structure');
-		if (!structure){
-			throw new Error('Structure is not defined in storage');
+		var settings = Storage.getItem('settings');
+		
+		if (!structure || !settings){
+			throw new Error('Tests data is not defined in storage');
 			return;
 		}
-		return structure.sections || [];
+		return {
+			structure: structure,
+			settings: settings
+		}
 	}
 }
