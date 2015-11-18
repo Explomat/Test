@@ -37,22 +37,6 @@ var Menu = React.createClass({
 	}
 });
 
-var Title = React.createClass({
-
-	handleChange:function(val) {
-		QuestionActions.changeTitle(val);
-	},
-
-	render:function() {
-		return (
-			<div className="input-group all">
-	            <span className="input-group-addon">Заголовок : *</span>
-	            <Txt.TextView value={this.props.title} onBlur={this.handleChange} placeholder='Заголовок вопроса'/>
-	        </div>
-		);
-	}
-});
-
 var QuestionImage = React.createClass({
 
 	uploadImage: function(eventTarget) {
@@ -222,7 +206,6 @@ var QuestionView = React.createClass({
 						<h4 className="modal-box__title">Добавьте вопрос</h4>
 					</ModalView.ModalBoxHeader>
 					<ModalView.ModalBoxBody className="answers">
-						<Title title={this.state.title} />
 						<QuestionImage />
 				        <QuestionText text={this.state.text} />
 				        <Menu />

@@ -18,10 +18,6 @@ function saveQuestionData(){
 	_question = null;
 }
 
-function setTitle(title) {
-	_question.title = title;
-}
-
 function setText(txt) {
 	_question.text = txt;
 }
@@ -99,10 +95,6 @@ QuestionStore.dispatchToken = AppDispatcher.register(function(payload) {
 			break;
 		case QuestionConstants.SET_TYPE_SELECTED:
 			selectType(action.type);
-			isEmit = true;
-			break;
-		case QuestionConstants.SET_TITLE:
-			setTitle(action.title);
 			isEmit = true;
 			break;
 		case QuestionConstants.SET_TEXT:

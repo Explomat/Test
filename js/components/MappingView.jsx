@@ -61,7 +61,6 @@ var MatchAnswerView = React.createClass({
 		var isCorrectClass = EvaluateConditions.evalCondition(this.props.text, condition.text, condition.condition) ? 'mquestion__answer_correct' : '';
 		return(
 			<div className={isCorrectClass + " mquestion__answer"}>
-				<span>{this.props.index}</span>
 				<label>Ответ: <span>{this.props.text}</span></label><br/>
 				<label>Условие : <span>{this.props.conditions[0].text}</span></label><br/>
 				<span className="mquestion__answer-weight">{this.props.weight}</span>
@@ -78,7 +77,6 @@ var NumericalFillAnswerView = React.createClass({
 		var isCorrectClass = EvaluateConditions.evalConditionText(this.props.text, conditionText.text, conditionText.condition) ? 'mquestion__answer_correct' : '';
 		return(
 			<div className={isCorrectClass + " mquestion__answer"}>
-				<span>{this.props.index}</span>
 				<label>Ответ: <span>{this.props.text}</span></label><br/>
 				<label>Условие {SubAnswer.conditions.values[conditionText.condition]}<span>{conditionText.text}</span></label><br/>
 				<span className="mquestion__answer-weight">{this.props.weight}</span>
@@ -94,7 +92,6 @@ var GapFillAnswerView = React.createClass({
 		var conformity = this.props.conformities[0];
 		return(
 			<div className="mquestion__answer">
-				<span>{this.props.index}</span>
 				<label>Ответ: <span>{this.props.text}</span></label><br/>
 				<label>Соответствие :<span>{conformity.text}</span></label><br/>
 				<span className="mquestion__answer-weight">{this.props.weight}</span>

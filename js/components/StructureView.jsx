@@ -77,7 +77,7 @@ var QuestionShortView = React.createClass({
 					<span className="question__number">{this.props.number}</span>
 				</div>
 				<div className="question__content">
-					<p className="question__title">{this.props.title}</p>
+					<p className="question__title">{this.props.text}</p>
 					<div className="question__description">
 						<span className="question__type">Тип: {QuestionTypes.values[this.props.type]}</span>
 					</div>

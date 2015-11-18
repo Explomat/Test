@@ -22,13 +22,6 @@ var QuestionActions = {
 		}
 	},
 
-	changeTitle: function(title){
-		AppDispatcher.handleAction({
-			actionType: QuestionConstants.SET_TITLE,
-			title: title
-		});
-	},
-
 	changeText: function(text) {
 		AppDispatcher.handleAction({
 			actionType: QuestionConstants.SET_TEXT,
