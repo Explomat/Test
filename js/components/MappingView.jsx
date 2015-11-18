@@ -13,7 +13,7 @@ function getMappingState() {
 var MultipleChoiceAnswerView = React.createClass({
 
 	render: function(){
-		var isCorrectClass = this.props.answer.selected ? 'mapping__answer_right-choice' : '';
+		var isCorrectClass = this.props.answer.selected ? 'mapping__answer_correct' : '';
 		return(
 			<div className={isCorrectClass + " mapping__answer"}>
 				<span>{this.props.index}</span>
@@ -29,7 +29,7 @@ var MultipleChoiceAnswerView = React.createClass({
 var MultipleResponceAnswerView = React.createClass({
 
 	render: function(){
-		var isCorrectClass = this.props.answer.selected ? 'mapping__answer_right-choice' : '';
+		var isCorrectClass = this.props.answer.selected ? 'mapping__answer_correct' : '';
 		return(
 			<div className={isCorrectClass + " mapping__answer"}>
 				<span>{this.props.index}</span>
@@ -60,7 +60,7 @@ var MatchAnswerView = React.createClass({
 
 	render: function(){
 		var condition = this.props.answer.conditions[0];
-		var isCorrectClass = EvaluateConditions.evalCondition(this.props.answer.text, condition.text, condition.condition) ? 'mapping__answer_right-choice' : '';
+		var isCorrectClass = EvaluateConditions.evalCondition(this.props.answer.text, condition.text, condition.condition) ? 'mapping__answer_correct' : '';
 		return(
 			<div className={isCorrectClass + " mapping__answer"}>
 				<span>{this.props.index}</span>
@@ -77,7 +77,7 @@ var NumericalFillAnswerView = React.createClass({
 
 	render: function(){
 		var conditionText = this.props.answer.conditionsText[0];
-		var isCorrectClass = EvaluateConditions.evalConditionText(this.props.answer.text, conditionText.text, conditionText.condition) ? 'mapping__answer_right-choice' : '';
+		var isCorrectClass = EvaluateConditions.evalConditionText(this.props.answer.text, conditionText.text, conditionText.condition) ? 'mapping__answer_correct' : '';
 		return(
 			<div className={isCorrectClass + " mapping__answer"}>
 				<span>{this.props.index}</span>
@@ -137,7 +137,7 @@ var SectionView = React.createClass({
 	render: function(){
 		return(
 			<div className="mapping__section">
-				<span>{this.props.title}</span>
+				<span className="mapping__section-title">{this.props.title}</span>
 				{this.props.questions.map(function(q){
 					return <QuestionView key={q.uuid} title={q.title} text={q.text} type={q.type} answers={q.answers} />
 				})}
@@ -177,6 +177,7 @@ var MappingView = React.createClass({
             classes = ' tests__body-content_show';
         }
         var questionsCount = MappingStore.getQuestionsCount();
+        var maxAttemptsCount = MappingStore.getMaxPassingScore();
 		return (
 			<div className={"mapping group tests__body-content tests__body-content_translate" + classes}>
 				<div className="mapping__header group__elem">
@@ -184,6 +185,18 @@ var MappingView = React.createClass({
 					<p>
 						<span>Количество вопросов: </span>
 						<span>{questionsCount}</span>
+					</p>
+					<p>
+						<span>Время тестирования(мин): </span>
+						<span>{this.state.settings.durationMinutes}</span>
+					</p>
+					<p>
+						<span>Максимально возможный балл: </span>
+						<span>{maxAttemptsCount}</span>
+					</p>
+					<p>
+						<span>Проходной балл: </span>
+						<span>{this.state.settings.passingScore}</span>
 					</p>
 				</div>
 				<div className="mapping__content group__elem">

@@ -23,6 +23,20 @@ var MappingStore = extend({}, EventEmitter.prototype, {
 		return count;
 	},
 
+	getMaxPassingScore: function(){
+		var count = 0;
+		for (var i = _data.structure.sections.length - 1; i >= 0; i--) {
+			var section = _data.structure.sections[i];
+			for (var j = section.questions.length - 1; j >= 0; j--) {
+				var question = section.questions[j];
+				for (var k = question.answers.length - 1; k >= 0; k--) {
+					count += Number(question.answers[k].weight);
+				};
+			};
+		};
+		return count;
+	},
+
 	emitChange: function() {
 		this.emit('change');
 	},
