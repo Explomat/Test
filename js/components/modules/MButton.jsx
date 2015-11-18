@@ -7,7 +7,8 @@ var MButton = {
         onClick: React.PropTypes.func
   	},
 
-    baseClassName: 'waves-effect waves-button waves-float',
+    baseButtonClassName: 'waves-effect waves-button waves-float',
+    baseBlockClassName: 'waves-effect waves-float',
 
   	getDefaultProps: function () {
 		return {
@@ -27,11 +28,11 @@ var MButton = {
 		this.setState({value : nextProps.value});
 	},
 
-	handleClick: function (e) {
-		var element = e.target || e.srcElement;
+	handleMouseDown: function (e, _element) {
+		var element = _element || e.target || e.srcElement;
 		this.show(e, element);
-		element.addEventListener("mouseup", this.hide, false);
-		element.addEventListener("mouseleave", this.hide, false);
+		element.addEventListener("mouseup", this.hide);
+		element.addEventListener("mouseleave", this.hide);
 	},
 
 	isWindow: function (obj) {
@@ -216,7 +217,7 @@ var MButton = {
 
 	render: function () {
 		return (
-			<button title={this.state.value} className={this.baseClassName} onMouseDown={this.handleClick} onClick={this.props.onClick}>
+			<button title={this.state.value} className={this.baseClassName} onMouseDown={this.handleMouseDown} onClick={this.props.onClick}>
 	           	{this.state.value}
 	        </button>
 		);

@@ -26,9 +26,9 @@ var MenuItem = React.createClass({
         index: React.PropTypes.number.isRequired
     },
 
-    handleChangeRoute: function(){
+    handleChangeRoute: function(e){
         if (this.props.changeRoute) {
-            this.props.changeRoute(this.props.route, this.props.index);
+            this.props.changeRoute(this.props.route, this.props.index, e);
         }
     },
 
@@ -95,7 +95,7 @@ var MenuView = React.createClass({
         return width;
     },
 
-	handleChangeRoute: function(route, index){
+	handleChangeRoute: function(route, index, e){
         var prevHashIndex = this.state.curHashIndex;
         var curHashIndex = index;
 
@@ -122,7 +122,7 @@ var MenuView = React.createClass({
                 borderWidth: this.getBorderWidth(curHashIndex, curHashIndex)
             });
             if (this.props.onChange) {
-                this.props.onChange(getRoute(curHashIndex, this.props.routes));
+                this.props.onChange(e, getRoute(curHashIndex, this.props.routes));
             }
         }.bind(this), 250);
 	},
