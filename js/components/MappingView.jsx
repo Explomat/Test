@@ -13,13 +13,12 @@ function getMappingState() {
 var MultipleChoiceAnswerView = React.createClass({
 
 	render: function(){
-		var isCorrectClass = this.props.answer.selected ? 'mapping__answer_correct' : '';
+		var isCorrectClass = this.props.selected ? 'mquestion__answer_correct' : '';
 		return(
-			<div className={isCorrectClass + " mapping__answer"}>
-				<span>{this.props.index}</span>
-				<input type="radio" checked={this.props.answer.selected} disabled />
-				<label>Ответ: <span>{this.props.answer.text}</span></label><br/>
-				<label>Вес : <span>{this.props.answer.weight}</span></label>
+			<div className={isCorrectClass + " mquestion__answer"}>
+				<input className="mquestion__answer-type-control" type="radio" checked={this.props.selected} disabled />
+				<span>{this.props.text}</span>
+				<span className="mquestion__answer-weight">{this.props.weight}</span>
 			</div>
 		);
 	}
@@ -29,13 +28,12 @@ var MultipleChoiceAnswerView = React.createClass({
 var MultipleResponceAnswerView = React.createClass({
 
 	render: function(){
-		var isCorrectClass = this.props.answer.selected ? 'mapping__answer_correct' : '';
+		var isCorrectClass = this.props.selected ? 'mquestion__answer_correct' : '';
 		return(
-			<div className={isCorrectClass + " mapping__answer"}>
-				<span>{this.props.index}</span>
-				<input type="checkbox" checked={this.props.answer.selected} disabled />
-				<label>Ответ: <span>{this.props.answer.text}</span></label><br/>
-				<label>Вес : <span>{this.props.answer.weight}</span></label>
+			<div className={isCorrectClass + " mquestion__answer"}>
+				<input className="mquestion__answer-type-control" type="checkbox" checked={this.props.selected} disabled />
+				<span>{this.props.text}</span>
+				<span className="mquestion__answer-weight">{this.props.weight}</span>
 			</div>
 		);
 	}
@@ -46,10 +44,10 @@ var OrderAnswerView = React.createClass({
 
 	render: function(){	
 		return(
-			<div className="mapping__answer">
-				<span>{this.props.index}</span>
-				<label>Ответ: <span>{this.props.answer.text}</span></label><br/>
-				<label>Вес : <span>{this.props.answer.weight}</span></label>
+			<div className="mquestion__answer">
+				<span>{this.props.number}. </span>
+				<span>{this.props.text}</span>
+				<span className="mquestion__answer-weight">{this.props.weight}</span>
 			</div>
 		);
 	}
@@ -59,14 +57,14 @@ var OrderAnswerView = React.createClass({
 var MatchAnswerView = React.createClass({
 
 	render: function(){
-		var condition = this.props.answer.conditions[0];
-		var isCorrectClass = EvaluateConditions.evalCondition(this.props.answer.text, condition.text, condition.condition) ? 'mapping__answer_correct' : '';
+		var condition = this.props.conditions[0];
+		var isCorrectClass = EvaluateConditions.evalCondition(this.props.text, condition.text, condition.condition) ? 'mquestion__answer_correct' : '';
 		return(
-			<div className={isCorrectClass + " mapping__answer"}>
+			<div className={isCorrectClass + " mquestion__answer"}>
 				<span>{this.props.index}</span>
-				<label>Ответ: <span>{this.props.answer.text}</span></label><br/>
-				<label>Условие : <span>{this.props.answer.conditions[0].text}</span></label><br/>
-				<label>Вес : <span>{this.props.answer.weight}</span></label>
+				<label>Ответ: <span>{this.props.text}</span></label><br/>
+				<label>Условие : <span>{this.props.conditions[0].text}</span></label><br/>
+				<span className="mquestion__answer-weight">{this.props.weight}</span>
 			</div>
 		);
 	}
@@ -76,14 +74,14 @@ var MatchAnswerView = React.createClass({
 var NumericalFillAnswerView = React.createClass({
 
 	render: function(){
-		var conditionText = this.props.answer.conditionsText[0];
-		var isCorrectClass = EvaluateConditions.evalConditionText(this.props.answer.text, conditionText.text, conditionText.condition) ? 'mapping__answer_correct' : '';
+		var conditionText = this.props.conditionsText[0];
+		var isCorrectClass = EvaluateConditions.evalConditionText(this.props.text, conditionText.text, conditionText.condition) ? 'mquestion__answer_correct' : '';
 		return(
-			<div className={isCorrectClass + " mapping__answer"}>
+			<div className={isCorrectClass + " mquestion__answer"}>
 				<span>{this.props.index}</span>
-				<label>Ответ: <span>{this.props.answer.text}</span></label><br/>
+				<label>Ответ: <span>{this.props.text}</span></label><br/>
 				<label>Условие {SubAnswer.conditions.values[conditionText.condition]}<span>{conditionText.text}</span></label><br/>
-				<label>Вес : <span>{this.props.answer.weight}</span></label>
+				<span className="mquestion__answer-weight">{this.props.weight}</span>
 			</div>
 		);
 	}
@@ -93,41 +91,62 @@ var NumericalFillAnswerView = React.createClass({
 var GapFillAnswerView = React.createClass({
 
 	render: function(){
-		var conformity = this.props.answer.conformities[0];
+		var conformity = this.props.conformities[0];
 		return(
-			<div className="mapping__answer">
+			<div className="mquestion__answer">
 				<span>{this.props.index}</span>
-				<label>Ответ: <span>{this.props.answer.text}</span></label><br/>
+				<label>Ответ: <span>{this.props.text}</span></label><br/>
 				<label>Соответствие :<span>{conformity.text}</span></label><br/>
-				<label>Вес : <span>{this.props.answer.weight}</span></label>
+				<span className="mquestion__answer-weight">{this.props.weight}</span>
 			</div>
 		);
 	}
 });
 
 var QuestionView = React.createClass({
+
+	getWeight: function(){
+		var weight = 0;
+		for (var i = this.props.answers.length - 1; i >= 0; i--) {
+			weight += Number(this.props.answers[i].weight);
+		};
+		return weight;
+	},
+
 	render: function(){
 		return(
-			<div className="mapping__question">
-				<div>{this.props.title}</div>
-				<div>{this.props.text}</div>
-				{this.props.answers.map(function(a, index){
-					switch(this.props.type){
-						case QuestionTypes.keys.multiple_choice:
-							return <MultipleChoiceAnswerView key={a.uuid} answer={a} index={index + 1} />
-						case QuestionTypes.keys.multiple_response:
-							return <MultipleResponceAnswerView key={a.uuid} answer={a} index={index + 1} />
-						case QuestionTypes.keys.order:
-							return <OrderAnswerView key={a.uuid} answer={a} index={index + 1} />
-						case QuestionTypes.keys.match_item:
-							return <MatchAnswerView key={a.uuid} answer={a} index={index + 1} />
-						case QuestionTypes.keys.numerical_fill_in_blank:
-							return <NumericalFillAnswerView key={a.uuid} answer={a} index={index + 1} />
-						case QuestionTypes.keys.gap_fill:
-							return <GapFillAnswerView key={a.uuid} answer={a} index={index + 1} />
-					}
-				}.bind(this))}
-			</div>
+			<section className="mquestion">
+				<h3 className="mquestion__title">
+					<span className="mquestion__title-number">{this.props.number}</span> 
+					<span>{this.props.text}</span>
+				</h3>
+				<main className="mquestion__answers-box">
+					{this.props.answers.map(function(a, index){
+						switch(this.props.type){
+							case QuestionTypes.keys.multiple_choice:
+								return <MultipleChoiceAnswerView key={a.uuid} {...a} number={index + 1} />
+							case QuestionTypes.keys.multiple_response:
+								return <MultipleResponceAnswerView key={a.uuid} {...a} number={index + 1} />
+							case QuestionTypes.keys.order:
+								return <OrderAnswerView key={a.uuid} {...a} number={index + 1} />
+							case QuestionTypes.keys.match_item:
+								return <MatchAnswerView key={a.uuid} {...a} number={index + 1} />
+							case QuestionTypes.keys.numerical_fill_in_blank:
+								return <NumericalFillAnswerView key={a.uuid} {...a} number={index + 1} />
+							case QuestionTypes.keys.gap_fill:
+								return <GapFillAnswerView key={a.uuid} {...a} number={index + 1} />
+						}
+					}.bind(this))}
+				</main>
+				<footer className="mquestion__footer">
+					<p className="mquestion__info">
+						<span className="mquestion__info-title">Тип вопроса: </span>
+						<span className="mquestion__info-type">{QuestionTypes.values[this.props.type]}</span>
+						<span className="mquestion__info-title">Вес вопроса: </span>
+						<span className="mquestion__info-score">{this.getWeight()}</span>
+					</p>
+				</footer>
+			</section>
 		);
 	}
 });
@@ -136,10 +155,10 @@ var SectionView = React.createClass({
 
 	render: function(){
 		return(
-			<div className="mapping__section">
+			<div className="group__elem mapping__section">
 				<span className="mapping__section-title">{this.props.title}</span>
-				{this.props.questions.map(function(q){
-					return <QuestionView key={q.uuid} title={q.title} text={q.text} type={q.type} answers={q.answers} />
+				{this.props.questions.map(function(q, index){
+					return <QuestionView key={q.uuid} {...q} number={index + 1}/>
 				})}
 			</div>
 		);
@@ -199,7 +218,7 @@ var MappingView = React.createClass({
 						<span>{this.state.settings.passingScore}</span>
 					</p>
 				</div>
-				<div className="mapping__content group__elem">
+				<div className="mapping__content">
 					{this.state.structure.sections.map(function(s){
 						return <SectionView key={s.uuid} title={s.title} questions={s.questions}/>
 					}.bind(this))}
