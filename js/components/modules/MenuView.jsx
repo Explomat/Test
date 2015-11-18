@@ -36,7 +36,6 @@ var MenuItem = React.createClass({
         return (
             <div className="menu__item">
                 <a onClick={this.handleChangeRoute} className="menu__button" href={this.props.route}>{this.props.title}</a>
-                <div className="menu__helper" />
             </div>
         );
     }
