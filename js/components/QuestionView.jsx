@@ -27,11 +27,12 @@ var Menu = React.createClass({
 
 	render: function() {
 		return (
-			<div className="pull-right">
+			<div>
 				<button type="button" className="btn btn-default btn-sm" onClick={this.handleAddAnswer}>
 					<span className="glyphicon glyphicon-plus"></span>
 					<span>&nbsp;Добавить ответ</span>
 				</button>
+				<SelectQuestionType type={this.props.type}/>
 			</div>
 		);
 	}
@@ -133,7 +134,7 @@ var SelectQuestionType = React.createClass({
 		
 		return (
 			<div className="btn-group btn-group-sm">
-				<button className="btn btn-default dropdown-toggle qtype-btn" type="button" onClick={this.handleDisplayTypes}>
+				<button className="btn btn-default dropdown-toggle" type="button" onClick={this.handleDisplayTypes}>
 					<span>{QuestionTypes.values[this.props.type]}&nbsp;&nbsp;</span>
 					<span className="caret"></span>
 				</button>
@@ -205,12 +206,13 @@ var QuestionView = React.createClass({
 					<ModalView.ModalBoxHeader onClose={this.handleClose}>
 						<h4 className="modal-box__title">Добавьте вопрос</h4>
 					</ModalView.ModalBoxHeader>
-					<ModalView.ModalBoxBody className="answers">
-						<QuestionImage />
+					<ModalView.ModalBoxBody>
 				        <QuestionText text={this.state.text} />
-				        <Menu />
-				        <SelectQuestionType type={this.state.type}/>
-				        {answers}
+				        <QuestionImage />
+				        <Menu type={this.state.type}/>
+				        <div className="answers">
+				        	{answers}
+				        </div>
 					</ModalView.ModalBoxBody>
 					<ModalView.ModalBoxFooter onSave={this.handleSaveQuestion} />
 				</ModalView.ModalBoxContent>

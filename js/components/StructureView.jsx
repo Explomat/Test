@@ -242,7 +242,7 @@ var StructureView = React.createClass({
 							<div className="col-lg-4">
 								<div className="structure__sections">
 									<div className="structure__sections-header">
-										<button title="Добавить раздел" type="button" className="btn btn-default btn-sm" onClick={this.handleAddNewSection}>
+										<button title="Добавить раздел" type="button" className="btn btn-primary btn-sm" onClick={this.handleAddNewSection}>
 											<span className="glyphicon glyphicon-plus"></span>
 											<span>&nbsp;Добавить раздел</span>
 										</button>
@@ -257,7 +257,7 @@ var StructureView = React.createClass({
 							<div className="col-lg-8">
 								<div className="structure__questions">
 									<div className="structure__questions-header">
-										<button title="Добавить вопрос" type="button" className="btn btn-default btn-sm" onClick={this.handleAddNewQuestion}>
+										<button title="Добавить вопрос" type="button" className="btn btn-primary btn-sm" onClick={this.handleAddNewQuestion}>
 											<span className="glyphicon glyphicon-plus"></span>
 											<span>&nbsp;Добавить вопрос</span>
 										</button>
