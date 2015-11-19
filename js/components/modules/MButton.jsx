@@ -31,8 +31,9 @@ var MButton = {
 	handleMouseDown: function (e, _element) {
 		var element = _element || e.target || e.srcElement;
 		this.show(e, element);
-		element.addEventListener("mouseup", this.hide);
-		element.addEventListener("mouseleave", this.hide);
+        this.hide(e);
+		//element.addEventListener("mouseup", this.hide);
+		//element.addEventListener("mouseleave", this.hide);
 	},
 
 	isWindow: function (obj) {
@@ -110,7 +111,7 @@ var MButton = {
         relativeX = relativeX >= 0 ? relativeX : 0;
         relativeY = relativeY >= 0 ? relativeY : 0;
 
-        var scale     = 'scale(' + ((element.clientWidth / 100) * 3) + ')';
+        var scale     = 'scale(36)';//'scale(' + ((element.clientWidth / 100) * 3) + ')';
         var translate = 'translate(0,0)';
 
         if (velocity) {
