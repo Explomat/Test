@@ -25,8 +25,7 @@
 .question__content {
 	display: table-cell;
 	cursor: pointer;
-	padding: 5px 10px;
-	width: 100%;
+	padding: 8px;
 }
 
 .question__content:hover {
@@ -38,9 +37,8 @@
 	margin-bottom: 0px;
 	margin-top: 0px;
 	display: block;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
+	width: 539px;
+	word-wrap: break-word;
 }
 
 .question__description {
