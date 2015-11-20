@@ -6,7 +6,7 @@ var QuestionActions = require('../actions/QuestionActions');
 var AnswerActions = require('../actions/AnswerActions');
 var QuestionTypes = require('../utils/QuestionTypes');
 var Answer = require('./AnswersView');
-var Txt = require('./modules/Text');
+var Txt = require('./modules/TextLabel');
 var ImageSelect = require('./modules/ImageSelect');
 var ModalView = require('./modules/ModalView');
 
@@ -63,8 +63,7 @@ var QuestionText = React.createClass({
 
 	render:function() {
 		return (
-			<div className="form-group all">
-				<label>Вопрос : *</label>
+			<div className="form-group">
 				<Txt.TextAreaView value={this.props.text} onBlur={this.handleChange} placeholder='Введите вопрос' />
 			</div>
 		);

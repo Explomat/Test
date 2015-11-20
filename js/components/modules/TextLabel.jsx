@@ -1,8 +1,9 @@
 var React = require('react');
+var extend = require('extend');
 
 var TextBase = {
 
-	componentDidMount: function() {
+	componentWillMount: function() {
 		this.validClass = 'not-valid';
 	},
 
@@ -72,16 +73,51 @@ var TextView = React.createClass({
 	}
 });
 
-var TextAreaView = React.createClass({
+var TextAreaView = React.createClass(extend(true, {}, TextBase, {
 
-	mixins: [TextBase],
+	handleChange: function(e){
+		TextBase.handleChange.call(this, e);
+		var hiddenBlock = this.refs.hiddenBlock;
+		hiddenBlock.innerHTML = e.target.value;
+		this.setState({height: hiddenBlock.offsetHeight});
+	},
 
-	render:function() {
+	handleAddtranslate: function(e){
+		if (!e.target.classList.contains('textarea-box__label_translate')){
+			e.target.classList.add('textarea-box__label_translate');
+			this.refs.inpt.focus();
+		}
+	},
+
+	handleDetranslate: function(e){
+		this.refs.lbl.classList.remove('textarea-box__label_translate');
+		this.refs.lbl.classList.add('textarea-box__label_detranslate');
+	},
+
+	componentDidMount: function(){
+		this.setState({height: this.refs.hiddenBlock.offsetHeight});
+	},
+
+	getInitialState: function(){
+		var baseObject = TextBase.getInitialState.call(this);
+		baseObject.height = 0;
+		return baseObject;
+	},
+
+	render: function() {
+		var isNotEmptyClass = this.state.value === '' ? '' : 'textarea-box__input_not-empty';
+		var isValidClass = !this.props.isValid(this.state.value) ? this.validClass : '';
+		var textAreaStyle = { height: this.state.height + 'px' };
 		return (
-			<textarea className="form-control" rows={this.props.rows || 2} value={this.state.value} onChange={this.handleChange} onBlur={this.handleBlur} placeholder={this.props.placeholder}></textarea>
+			<div className="textarea-box" tabIndex={1} onBlur={this.handleDetranslate}>
+				<textarea style={textAreaStyle} className={"textarea-box__input " + isNotEmptyClass + " " + isValidClass} rows={this.props.rows || 2} value={this.state.value} onChange={this.handleChange} onBlur={this.handleBlur}></textarea>
+                <label ref="lbl" onClick={this.handleAddtranslate} className="textarea-box__label">{this.props.placeholder}</label>
+				<div ref="hiddenBlock" className="textarea-box__hidden-block">{this.state.value}</div>
+			</div>
+			
 		);
 	}
-});
+}));
 
 module.exports = {
 	TextView: TextView,
