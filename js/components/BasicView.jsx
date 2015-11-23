@@ -2,6 +2,7 @@ var React = require('react');
 var Config = require('../config');
 var MenuView = require('./modules/MenuView');
 var UI = require('../utils/UI');
+var Hasher = require('../utils/Hasher');
 
 function getHashRoot(hash){
 	var isChainHash = hash.indexOf('/');
@@ -9,6 +10,16 @@ function getHashRoot(hash){
 }
 
 var BasicView = React.createClass({
+
+	getInitialState: function(){
+		return {
+			hash: getHashRoot(window.location.hash)
+		}
+	},
+
+	componentWillMount: function(){
+		Hasher.changed.add(this._setHash);
+	},
 
 	componentDidMount: function() {
 		window.addEventListener('scroll', this.handleScroll);
@@ -18,6 +29,13 @@ var BasicView = React.createClass({
 	componentWillUnmount: function() {
 		window.removeEventListener('scroll', this.handleScroll);
 		//MappingStore.removeChangeListener(this._onChange);
+	},
+
+	_setHash: function(newHash){
+		setTimeout(function(){
+			this.setState({hash: getHashRoot('#' + newHash)});
+		}.bind(this), 250);
+		
 	},
 
 	_onChange: function() {
@@ -40,7 +58,7 @@ var BasicView = React.createClass({
 				<div ref="testsHeader" className="tests__header">
 					<div ref="headerFixed" className="tests__header-fixed">
 						<div className="tests__header-wrapper clearfix">
-							<MenuView defaultRoute={getHashRoot(window.location.hash)} routes={[{route: '#settings', title: 'Общие сведения'}, {route: '#structure', title: 'Структура'}, {route: '#view', title: 'Отображение'}]}/>
+							<MenuView defaultRoute={this.state.hash} routes={[{route: '#settings', title: 'Общие сведения'}, {route: '#structure', title: 'Структура'}, {route: '#view', title: 'Отображение'}]}/>
 						</div>
 					</div>
 				</div>

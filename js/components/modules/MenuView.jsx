@@ -46,7 +46,14 @@ var MenuView = React.createClass({
     propTypes: {
         defaultRoute: React.PropTypes.string.isRequired,
         routes: React.PropTypes.array.isRequired, //[{route: '#settings', title: 'test'}, {...}, {..}]
-        onChange: React.PropTypes.func
+        onChange: React.PropTypes.func,
+        delay: React.PropTypes.number
+    },
+
+    getDefaultProps: function(){
+        return {
+            delay: 250
+        }
     },
 
     getInitialState: function(){
@@ -58,8 +65,8 @@ var MenuView = React.createClass({
         }
     },
 
-    componentDidMount: function() {
-        var curHashIndex = getHashIndex(this.props.defaultRoute, this.props.routes);
+    _setDefaultRoute: function(route){
+        var curHashIndex = getHashIndex(route, this.props.routes);
         curHashIndex = curHashIndex === -1 ? this.state.curHashIndex : curHashIndex;
 
         var borderShift = this.getBorderShift(curHashIndex);
@@ -69,6 +76,14 @@ var MenuView = React.createClass({
             borderShift: borderShift,
             borderWidth: borderWidth
         });
+    },
+
+    componentDidMount: function() {
+        this._setDefaultRoute(this.props.defaultRoute);
+    },
+
+    componentWillReceiveProps: function(nextProps){
+        this._setDefaultRoute(nextProps.defaultRoute);
     },
 
     getBorderShift: function(indexCurElem){
@@ -124,7 +139,7 @@ var MenuView = React.createClass({
             if (this.props.onChange) {
                 this.props.onChange(e, getRoute(curHashIndex, this.props.routes));
             }
-        }.bind(this), 250);
+        }.bind(this), this.props.delay);
 	},
 
 	render: function () {
