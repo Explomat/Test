@@ -1,11 +1,13 @@
 var React = require('react');
 var Hasher = require('../utils/Hasher');
+var ArrayUtils = require('../utils/Array');
 var QuestionStore = require('../stores/QuestionStore');
 var AnswersStore = require('../stores/AnswersStore');
 var QuestionActions = require('../actions/QuestionActions');
 var AnswerActions = require('../actions/AnswerActions');
 var QuestionTypes = require('../utils/QuestionTypes');
 var Answer = require('./AnswersView');
+var DropDown = require('./modules/DropDown');
 var Txt = require('./modules/TextLabel');
 var ImageSelect = require('./modules/ImageSelect');
 var ModalView = require('./modules/ModalView');
@@ -25,14 +27,29 @@ var Menu = React.createClass({
 		AnswerActions.addAnswer();
 	},
 
+	handleChange: function(e, payload, text){
+		QuestionActions.selectType(payload);
+	},
+
 	render: function() {
+		var qTypeValues = ArrayUtils.objectToArray(QuestionTypes.values);
+		qTypeValues = qTypeValues.map(function(qType){
+			var types = Object.keys(qType).map(function(q){
+				return { 'payload': q, 'text': qType[q] }
+			});
+			return types[0];
+		});
 		return (
-			<div>
-				<button type="button" className="btn btn-default btn-sm" onClick={this.handleAddAnswer}>
-					<span className="glyphicon glyphicon-plus"></span>
-					<span>&nbsp;Добавить ответ</span>
-				</button>
-				<SelectQuestionType type={this.props.type}/>
+			<div className="menu-question-box col-lg-12">
+				<div className="col-lg-6">
+					<button type="button" className="btn btn-default btn-sm" onClick={this.handleAddAnswer}>
+						<span className="glyphicon glyphicon-plus"></span>
+						<span>&nbsp;Добавить ответ</span>
+					</button>
+				</div>
+				<div className="col-lg-6">
+					<DropDown items={qTypeValues} deviders={[2, 5]} selectedPayload={this.props.type} onChange={this.handleChange}/>
+				</div>
 			</div>
 		);
 	}
@@ -70,80 +87,6 @@ var QuestionText = React.createClass({
 	}
 });
 
-var QuestionType = React.createClass({
-
-	handleSelectType: function() {
-		if (this.props.handleSelectType)
-			this.props.handleSelectType(this.props.id);
-	},
-
-	render: function() {
-		return (
-			<li onClick={this.handleSelectType}>
-				<span>{this.props.type}</span>
-			</li>
-		);
-	}
-});
-
-var SelectQuestionType = React.createClass({
-
-	componentWillUnmount: function() {
-		document.removeEventListener('click', this.handleBlurTypes);
-	},
-
-	componentDidMount: function() {
-		document.addEventListener('click', this.handleBlurTypes);
-	},
-
-	getInitialState: function() {
-		return {
-			display: false
-		}
-	},
-
-	handleSelectType: function(key) {
-		QuestionActions.selectType(key);
-	},
-
-	handleBlurTypes: function() {
-		if (this.state.display === true)
-			this.setState({display: false});
-	},
-
-	handleDisplayTypes: function(e) {
-		if (e){
-			e.stopPropagation();
-    		e.nativeEvent.stopImmediatePropagation();
-		}
-		this.setState({display: !this.state.display});
-		/*e.stopPropagation();
-    	e.nativeEvent.stopImmediatePropagation();
-    	QuestionActions.displayTypes(!QuestionStore.isDisplayTypes());*/
-	},
-
-	render: function() {
-		var isTypeDisplayStyle = { display: this.state.display ? "block" : "none" };
-		var list = [];
-		Object.keys(QuestionTypes.values).forEach(function(k, count){
-			if (count % 2 == 0 && count != 0)
-				list.push(<li key={"divider"+k + count} className="divider"></li>);
-			list.push(<QuestionType key={k + count} id={k} type={QuestionTypes.values[k]} handleSelectType={this.handleSelectType}/>);
-		}.bind(this));
-		
-		return (
-			<div className="btn-group btn-group-sm">
-				<button className="btn btn-default dropdown-toggle" type="button" onClick={this.handleDisplayTypes}>
-					<span>{QuestionTypes.values[this.props.type]}&nbsp;&nbsp;</span>
-					<span className="caret"></span>
-				</button>
-				<ul className="dropdown-menu" style={isTypeDisplayStyle}>
-					{list}
-				</ul>
-			</div>
-		);
-	}
-});
 
 var QuestionView = React.createClass({
 

@@ -90,7 +90,12 @@
 
 .input-box__input:focus + .input-box__label,
 .input-box__input_not-empty + .input-box__label,
-.input-box__label_translate,
+.input-box__label_translate {
+    color: $darkPrimaryColor;
+    font-size: 14px;
+    transform: translateY(-25px);
+}
+
 .textarea-box__input:focus + .textarea-box__label,
 .textarea-box__input_not-empty + .textarea-box__label,
 .textarea-box__label_translate {

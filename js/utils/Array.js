@@ -16,6 +16,25 @@ function shift(arr, k) {
 	}
 }
 
+function objectToArray(obj){
+	if (!obj) {
+		throw new TypeError('objectToArray requires an object - not null or undefined');
+	}
+
+	var arr = [];
+	Object.keys(obj).forEach(function(key){
+		var a = Object.defineProperty({}, key, { 
+			value: obj[key],
+			writable: true,
+			configurable: true,
+			enumerable: true
+		});
+		arr.push(a);
+	});
+	return arr;
+}
+
 module.exports = {
-	shift: shift
+	shift: shift,
+	objectToArray: objectToArray
 }
