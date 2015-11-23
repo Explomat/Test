@@ -16,7 +16,8 @@
 
 .textarea-box__input{
     overflow-y: hidden;
-    padding: 1.6rem 0;
+    padding: 1.6rem 0 0;
+    padding-bottom: 0px;
     resize: none;
     min-height: 3rem;
     background-color: transparent;
@@ -27,12 +28,12 @@
     height: 3rem;
     width: 100%;
     margin: 0 0 15px 0;
-    padding: 0;
     box-shadow: none;
     -webkit-box-sizing: content-box;
     -moz-box-sizing: content-box;
     box-sizing: content-box;
     transition: all .3s;
+    color: $primaryTextColor;
 }
 
 .input-box, .textarea-box {
@@ -40,7 +41,7 @@
     outline: 0;
 }
 
-.input-box__input, .textarea-box__input {
+.input-box__input {
     padding: 5px;
     box-sizing: border-box;
     border: none;
@@ -50,10 +51,6 @@
     height: 35px;
     width: 100%;
     color: $primaryTextColor;
-}
-
-.textarea-box__input {
-    padding: 0px;
 }
 
 .input-box__input:focus, .textarea-box__input:focus {
@@ -85,6 +82,12 @@
     cursor: text;
 }
 
+.textarea-box__input:focus,
+.textarea-box__input_not-empty,
+.textarea-box__label_translate {
+    padding: 2.6rem 0;
+}
+
 .input-box__input:focus + .input-box__label,
 .input-box__input_not-empty + .input-box__label,
 .input-box__label_translate,
@@ -93,5 +96,5 @@
 .textarea-box__label_translate {
     color: $darkPrimaryColor;
     font-size: 14px;
-    transform: translateY(-25px);
+    transform: translateY(-140%);
 }

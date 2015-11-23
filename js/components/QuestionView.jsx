@@ -72,12 +72,12 @@ var QuestionText = React.createClass({
 
 var QuestionType = React.createClass({
 
-	handleSelectType:function() {
+	handleSelectType: function() {
 		if (this.props.handleSelectType)
 			this.props.handleSelectType(this.props.id);
 	},
 
-	render:function() {
+	render: function() {
 		return (
 			<li onClick={this.handleSelectType}>
 				<span>{this.props.type}</span>
@@ -102,16 +102,16 @@ var SelectQuestionType = React.createClass({
 		}
 	},
 
-	handleSelectType:function(key) {
+	handleSelectType: function(key) {
 		QuestionActions.selectType(key);
 	},
 
-	handleBlurTypes:function() {
+	handleBlurTypes: function() {
 		if (this.state.display === true)
 			this.setState({display: false});
 	},
 
-	handleDisplayTypes:function(e) {
+	handleDisplayTypes: function(e) {
 		if (e){
 			e.stopPropagation();
     		e.nativeEvent.stopImmediatePropagation();

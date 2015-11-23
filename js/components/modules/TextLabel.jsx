@@ -77,9 +77,9 @@ var TextAreaView = React.createClass(extend(true, {}, TextBase, {
 
 	handleChange: function(e){
 		TextBase.handleChange.call(this, e);
-		var hiddenBlock = this.refs.hiddenBlock;
-		hiddenBlock.innerHTML = e.target.value;
-		this.setState({height: hiddenBlock.offsetHeight});
+		setTimeout(function(){
+			this.setState({height: this.refs.hiddenBlock.offsetHeight});
+		}.bind(this), 0)
 	},
 
 	handleAddtranslate: function(e){
@@ -110,7 +110,7 @@ var TextAreaView = React.createClass(extend(true, {}, TextBase, {
 		var textAreaStyle = { height: this.state.height + 'px' };
 		return (
 			<div className="textarea-box" tabIndex={1} onBlur={this.handleDetranslate}>
-				<textarea style={textAreaStyle} className={"textarea-box__input " + isNotEmptyClass + " " + isValidClass} rows={this.props.rows || 2} value={this.state.value} onChange={this.handleChange} onBlur={this.handleBlur}></textarea>
+				<textarea style={textAreaStyle} className={"textarea-box__input " + isNotEmptyClass + " " + isValidClass} rows={this.props.rows || 1} value={this.state.value} onChange={this.handleChange} onKeyDown={this.handleKeyDown} onBlur={this.handleBlur}></textarea>
                 <label ref="lbl" onClick={this.handleAddtranslate} className="textarea-box__label">{this.props.placeholder}</label>
 				<div ref="hiddenBlock" className="textarea-box__hidden-block">{this.state.value}</div>
 			</div>
