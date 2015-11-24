@@ -81,7 +81,7 @@ var ModalBoxBody = React.createClass({
 
 	render: function(){
 		return (
-			<div className={"modal-box__body " + this.props.className}>
+			<div className={"modal-box__body clearfix" + this.props.className}>
 				{this.props.children}
 			</div>
 		);

@@ -17,21 +17,6 @@ function getSectionState() {
 	};
 }
 
-var SelectedUl = React.createClass({
-
-	handleSelect: function(){
-		if (this.props.handleSelect) {
-			this.props.handleSelect(this.props.type);
-		}
-	},
-
-	render: function() {
-		return (
-			<li onClick={this.handleSelect}><span>{this.props.value}</span></li>
-		);
-	}
-});
-
 var Fields = React.createClass({
 	
 	getInitialState: function(){
@@ -125,13 +110,21 @@ var Fields = React.createClass({
 			return types[0];
 		});
 		return (
-			<div className="panel panel-default">
+			<div className="section-modal panel panel-default">
 				<div className="panel-body">
 		            <Txt.TextView value={this.props.title} onBlur={this.handleChangeTitle} placeholder='Название раздела'/>
 		            <Txt.TextView value={this.props.passingScore} onBlur={this.handleChangePassingScore} isValid={SectionValidation.isValidPassingScore} placeholder='Проходной балл'/>
 		            <Txt.TextView value={this.props.duration} onBlur={this.handleChangeDuration} isValid={SectionValidation.isValidDuration} placeholder='Длительность (минут)'/>
-		        	<DropDown items={qTypeValues} selectedPayload={this.props.order} onChange={this.handleSelectOrder} />
-		        	<DropDown items={qTypeValues2} selectedPayload={this.props.selection} onChange={this.handleSelectSelection} />
+		        	<div className="section-modal__dropdowns all">
+		        		<div className="section-modal__dropdown-first">
+		        			<QuestionTooltip.QuestionTooltipLeft text={"Test"} />
+			        		<DropDown items={qTypeValues} selectedPayload={this.props.order} onChange={this.handleSelectOrder} />
+			        	</div>
+			        	<div className="section-modal__dropdown-second">
+		        			<QuestionTooltip.QuestionTooltipLeft text={"Test"} />
+			        		<DropDown items={qTypeValues2} selectedPayload={this.props.selection} onChange={this.handleSelectSelection} />
+			        	</div>
+			        </div>
 				</div>
 	        </div>
 		);
