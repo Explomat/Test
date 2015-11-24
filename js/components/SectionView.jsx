@@ -3,10 +3,13 @@ var SectionStore = require('../stores/SectionStore');
 var SectionActions = require('../actions/SectionActions');
 var StructureActions = require('../actions/StructureActions');
 var Hasher = require('../utils/Hasher');
+var ArrayUtils = require('../utils/Array');
 var Txt = require('./modules/TextLabel');
 var SectionKeys = require('../utils/SectionKeys');
 var SectionValidation = require('../utils/validation/SectionValidation');
 var ModalView = require('./modules/ModalView');
+var QuestionTooltip = require('./modules/QuestionTooltip');
+var DropDown = require('./modules/DropDown');
 
 function getSectionState() {
 	return {
@@ -92,47 +95,43 @@ var Fields = React.createClass({
 		SectionActions.changeDuration(val);
 	},
 
-	handleSelectOrder: function(type){
+	handleSelectOrder: function(e, payload){
 		this.handleBlurOrder();
-		SectionActions.selectOrder(type);
+		SectionActions.selectOrder(payload);
 	},
 
-	handleSelectSelection: function(type){
+	handleSelectSelection: function(e, payload){
 		this.handleBlurSelection();
-		SectionActions.selectSelection(type);
+		SectionActions.selectSelection(payload);
 	},
 
 	render:function() {
 		var isDisplayOrder = { display: this.state.isDisplayOrder ? 'block' : 'none' };
 		var isDisplaySelection = { display: this.state.isDisplaySelection ? 'block' : 'none' };
+
+		var qTypeValues = ArrayUtils.objectToArray(SectionKeys.order.values);
+		qTypeValues = qTypeValues.map(function(qType){
+			var types = Object.keys(qType).map(function(q){
+				return { 'payload': q, 'text': qType[q] }
+			});
+			return types[0];
+		});
+
+		var qTypeValues2 = ArrayUtils.objectToArray(SectionKeys.selection.values);
+		qTypeValues2 = qTypeValues2.map(function(qType){
+			var types = Object.keys(qType).map(function(q){
+				return { 'payload': q, 'text': qType[q] }
+			});
+			return types[0];
+		});
 		return (
 			<div className="panel panel-default">
 				<div className="panel-body">
 		            <Txt.TextView value={this.props.title} onBlur={this.handleChangeTitle} placeholder='Название раздела'/>
 		            <Txt.TextView value={this.props.passingScore} onBlur={this.handleChangePassingScore} isValid={SectionValidation.isValidPassingScore} placeholder='Проходной балл'/>
 		            <Txt.TextView value={this.props.duration} onBlur={this.handleChangeDuration} isValid={SectionValidation.isValidDuration} placeholder='Длительность (минут)'/>
-		        	<div className="input-group all">
-						<button className="btn btn-default dropdown-toggle" type="button" onClick={this.handleToogleDisplayOrder}>
-							<span>{SectionKeys.order.values[this.props.order]}&nbsp;&nbsp;</span>
-							<span className="caret"></span>
-						</button>
-						<ul className="dropdown-menu" style={isDisplayOrder}>
-							{Object.keys(SectionKeys.order.keys).map(function(o, index){
-								return <SelectedUl key={index} handleSelect={this.handleSelectOrder} value={SectionKeys.order.values[o]} type={o}/>
-							}.bind(this))}
-						</ul>
-					</div>
-					<div className="input-group all">
-						<button className="btn btn-default dropdown-toggle" type="button" onClick={this.handleToogleDisplaySelection}>
-							<span>{SectionKeys.selection.values[this.props.selection]}&nbsp;&nbsp;</span>
-							<span className="caret"></span>
-						</button>
-						<ul className="dropdown-menu" style={isDisplaySelection}>
-							{Object.keys(SectionKeys.selection.keys).map(function(s, index){
-								return <SelectedUl key={index} handleSelect={this.handleSelectSelection} value={SectionKeys.selection.values[s]} type={s}/>
-							}.bind(this))}
-						</ul>
-					</div>
+		        	<DropDown items={qTypeValues} selectedPayload={this.props.order} onChange={this.handleSelectOrder} />
+		        	<DropDown items={qTypeValues2} selectedPayload={this.props.selection} onChange={this.handleSelectSelection} />
 				</div>
 	        </div>
 		);

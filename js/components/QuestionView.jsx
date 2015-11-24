@@ -9,7 +9,6 @@ var QuestionTypes = require('../utils/QuestionTypes');
 var Answer = require('./AnswersView');
 var DropDown = require('./modules/DropDown');
 var Txt = require('./modules/TextLabel');
-var QuestionTooltip = require('./modules/QuestionTooltip');
 var ImageSelect = require('./modules/ImageSelect');
 var ModalView = require('./modules/ModalView');
 
@@ -50,7 +49,6 @@ var Menu = React.createClass({
 				</div>
 				<div className="col-lg-6">
 					<DropDown items={qTypeValues} deviders={[2, 5]} selectedPayload={this.props.type} onChange={this.handleChange} />
-					<QuestionTooltip.QuestionTooltipRight text={"Test"} />
 				</div>
 			</div>
 		);
