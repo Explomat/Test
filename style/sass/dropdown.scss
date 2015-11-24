@@ -30,6 +30,10 @@
 	width: 100%;
 }
 
+.dropdown-box .dropdown-list__item_description{
+    color: $deviderColor;
+}
+
 .dropdown-box .dropdown-list {
 	position: absolute;
     top: 0;
@@ -53,7 +57,7 @@
 }
 
 .dropdown-box .dropdown-list__item{
-	padding: 5px;
+	padding: 3px 20px;
 	cursor: pointer;
 }
 

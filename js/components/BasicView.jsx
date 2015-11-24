@@ -18,6 +18,7 @@ var BasicView = React.createClass({
 	},
 
 	componentWillMount: function(){
+		this.delay = 250;
 		Hasher.changed.add(this._setHash);
 	},
 
@@ -25,7 +26,7 @@ var BasicView = React.createClass({
 		window.addEventListener('scroll', this.handleScroll);
 		//MappingStore.addChangeListener(this._onChange);
 	},
-
+ 
 	componentWillUnmount: function() {
 		window.removeEventListener('scroll', this.handleScroll);
 		//MappingStore.removeChangeListener(this._onChange);
@@ -34,7 +35,7 @@ var BasicView = React.createClass({
 	_setHash: function(newHash){
 		setTimeout(function(){
 			this.setState({hash: getHashRoot('#' + newHash)});
-		}.bind(this), 250);
+		}.bind(this), this.delay);
 		
 	},
 
@@ -58,7 +59,7 @@ var BasicView = React.createClass({
 				<div ref="testsHeader" className="tests__header">
 					<div ref="headerFixed" className="tests__header-fixed">
 						<div className="tests__header-wrapper clearfix">
-							<MenuView defaultRoute={this.state.hash} routes={[{route: '#settings', title: 'Общие сведения'}, {route: '#structure', title: 'Структура'}, {route: '#view', title: 'Отображение'}]}/>
+							<MenuView delay={this.delay} defaultRoute={this.state.hash} routes={[{route: '#settings', title: 'Общие сведения'}, {route: '#structure', title: 'Структура'}, {route: '#view', title: 'Отображение'}]}/>
 						</div>
 					</div>
 				</div>

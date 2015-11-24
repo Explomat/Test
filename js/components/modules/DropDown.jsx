@@ -1,5 +1,15 @@
 var React = require('react');
 
+var ItemDescription = React.createClass({
+	render: function() {
+		return (
+			<li className="dropdown-list__item dropdown-list__item_description">
+				<span>{this.props.text}</span>
+			</li>
+		);
+	}
+});
+
 var Item = React.createClass({
 
 	handleChange: function(e) {
@@ -28,8 +38,7 @@ var DropDown = React.createClass({
 	getDefaultProps: function(){
 		return {
 			items: [],
-			deviders: [],
-			selectedPayload: ''
+			deviders: []
 		}
 	},
 
@@ -85,12 +94,15 @@ var DropDown = React.createClass({
 	render: function() {
 		var isTypeDisplayStyle = { display: this.state.display ? "block" : "none" };
 		var list = [];
+		if (this.props.description && !this.props.selectedPayload) {
+			list.push(<ItemDescription key={0} text={this.props.description} />);
+		}
 		this.props.items.forEach(function(item, index){
 			if (index % 2 == 0 && index !== 0 && this.props.deviders.indexOf(index !== -1)){
-				list.push(<li key={"divider"+ index} className="dropdown-list__devider"></li>);
+				list.push(<li key={"divider"+ index + 1} className="dropdown-list__devider"></li>);
 			}
 			var selected = this.props.selectedPayload === item.payload ? true : false;
-			list.push(<Item key={index} selected={selected} text={item.text} payload={item.payload} onChange={this.handleChange} index={index}/>);
+			list.push(<Item key={index + 1} selected={selected} text={item.text} payload={item.payload} onChange={this.handleChange} index={index}/>);
 		}.bind(this))
 		return (
 			<div className="dropdown-box">
