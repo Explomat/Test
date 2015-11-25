@@ -2,6 +2,7 @@ var React = require('react');
 var TextView = require('./modules/Text').TextView;
 var TextAreaView = require('./modules/Text').TextAreaView;
 var ImageSelect = require('./modules/ImageSelect');
+var DropInfo = require('./modules/DropInfo');
 var AnswerActions = require('../actions/AnswerActions');
 var AnswersStore = require('../stores/AnswersStore');
 var AnswerValidation = require('../utils/validation/AnswerValidation');
@@ -19,7 +20,7 @@ var Answer = {
 		AnswerActions.removeImage(this.props.uuid, img);
 	},
 
-	getIcons: function(){
+	/*getIcons: function(){
 		var answersCount = AnswersStore.getAnswersCount();
 		var answerIndex = AnswersStore.getAnswerIndex(this.props.uuid);
 		var isShowArrowUp = { display: answerIndex === 0 ? 'none' : 'block' };
@@ -38,14 +39,15 @@ var Answer = {
 				</button>
 			</div>
 		);
-	},
+	},*/
 
 	getBasicFields: function(){
+		/*<ImageSelect img={AnswersStore.getAnswerImg(this.props.uuid)} uploadImage={this.uploadImage} removeImage={this.removeImage}/>*/
 		return (
 			<div className="form-group">
 				<label>Ответ : *</label>
 				<TextAreaView rows="1" value={this.props.text} onBlur={this.changeText} />
-				<ImageSelect img={AnswersStore.getAnswerImg(this.props.uuid)} uploadImage={this.uploadImage} removeImage={this.removeImage}/>
+				
 				<label>
 					<span>Вес :</span>
 					<TextView value={this.props.weight} onBlur={this.changeWeight} isValid={AnswerValidation.isValidWeight}/>
@@ -89,7 +91,6 @@ var FillAnswer = {
 	getMark: function(conditions){
 		return(
 			<div className="all">
-				{this.getIcons()}
 				<label>
 					<span>{this.props.number}&nbsp;</span>
 				</label>
@@ -143,7 +144,6 @@ var ConformityAnswer = React.createClass({
 	render: function() {
 		return (
 			<div className="all">
-				{this.getIcons()}
 				<label>
 					<span>{this.props.number}&nbsp;</span>
 				</label>
@@ -165,15 +165,16 @@ var ChoiceAnswer = React.createClass({
 		AnswerActions.selectAnswer(this.props.uuid, e.target.checked);
 	},
 
-	render:function() {
+	render: function() {
 		return(
 			<div className="all">
-				{this.getIcons()}
-				<label>
-					<span>{this.props.number}&nbsp;</span>
-					<input type="checkbox" checked={this.props.selected} onChange={this.handleSelect}/>
-				</label>
-				{this.getBasicFields()}
+				<DropInfo descriptionMarkup={<span>Test</span>}>
+					<label>
+						<span>{this.props.number}&nbsp;</span>
+						<input type="checkbox" checked={this.props.selected} onChange={this.handleSelect}/>
+					</label>
+					{this.getBasicFields()}
+				</DropInfo>
 			</div>
 		);
 	}
@@ -187,7 +188,6 @@ var OrderAnswer = React.createClass({
 	render:function() {
 		return(
 			<div className="all">
-				{this.getIcons()}
 				<label>
 					<span>{this.props.number}&nbsp;</span>
 				</label>

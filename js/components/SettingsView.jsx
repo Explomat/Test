@@ -2,7 +2,6 @@ var React = require('react');
 var SettingsStore = require('../stores/SettingsStore');
 var SettingsActions = require('../actions/SettingsActions');
 var Txt = require('./modules/TextLabel');
-var ReactCSSTransitionGroup = require('react/lib/ReactCSSTransitionGroup');
 var CheckBox = require('./modules/CheckBox');
 var QuestionTooltipField = require('./modules/tooltip/QuestionTooltipField');
 var SettingsValidation = require('../utils/validation/SettingsValidation');

@@ -22,6 +22,10 @@ function setText(txt) {
 	_question.text = txt;
 }
 
+function setWeight(weight) {
+	_question.weight = weight;
+}
+
 function selectType(type){
 	if (type == QuestionTypes.keys.multiple_choice){
 		AnswersStore.resetSelected();
@@ -99,6 +103,10 @@ QuestionStore.dispatchToken = AppDispatcher.register(function(payload) {
 			break;
 		case QuestionConstants.SET_TEXT:
 			setText(action.text);
+			isEmit = true;
+			break;
+		case QuestionConstants.SET_WEIGHT:
+			setWeight(action.weight);
 			isEmit = true;
 			break;
 		case ServerConstants.UPLOADED_QUESTION_IMAGE:

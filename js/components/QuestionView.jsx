@@ -1,6 +1,7 @@
 var React = require('react');
 var Hasher = require('../utils/Hasher');
 var ArrayUtils = require('../utils/Array');
+var QuestionValidation = require('../utils/validation/QuestionValidation');
 var QuestionStore = require('../stores/QuestionStore');
 var AnswersStore = require('../stores/AnswersStore');
 var QuestionActions = require('../actions/QuestionActions');
@@ -13,49 +14,27 @@ var ImageSelect = require('./modules/ImageSelect');
 var ModalView = require('./modules/ModalView');
 
 function getQuestionState() {
-	return {
-		title: QuestionStore.getTitle(),
-		text: QuestionStore.getText(),
-		answers: AnswersStore.getAnswers(),
-		type: QuestionStore.getTypeSelected()
-	};
+	return QuestionStore.getQuestion();
 }
 
-var Menu = React.createClass({
+var AddAnswerButton = React.createClass({
 
 	handleAddAnswer: function() {
 		AnswerActions.addAnswer();
 	},
 
-	handleChange: function(e, payload, text){
-		QuestionActions.selectType(payload);
-	},
-
 	render: function() {
-		var qTypeValues = ArrayUtils.objectToArray(QuestionTypes.values);
-		qTypeValues = qTypeValues.map(function(qType){
-			var types = Object.keys(qType).map(function(q){
-				return { 'payload': q, 'text': qType[q] }
-			});
-			return types[0];
-		});
+		
 		return (
-			<div className="menu-question-box col-lg-12">
-				<div className="col-lg-6">
-					<button type="button" className="btn btn-default btn-sm" onClick={this.handleAddAnswer}>
-						<span className="glyphicon glyphicon-plus"></span>
-						<span>&nbsp;Добавить ответ</span>
-					</button>
-				</div>
-				<div className="col-lg-6">
-					<DropDown items={qTypeValues} deviders={[2, 5]} selectedPayload={this.props.type} onChange={this.handleChange} />
-				</div>
-			</div>
+			<button type="button" className="question-modal__add-answer btn btn-primary btn-sm" onClick={this.handleAddAnswer}>
+				<span className="glyphicon glyphicon-plus"></span>
+				<span>&nbsp;Добавить ответ</span>
+			</button>
 		);
 	}
 });
 
-var QuestionImage = React.createClass({
+/*var QuestionImage = React.createClass({
 
 	uploadImage: function(eventTarget) {
 		QuestionActions.uploadImage(eventTarget);
@@ -70,7 +49,7 @@ var QuestionImage = React.createClass({
 			<ImageSelect img={QuestionStore.getImg()} uploadImage={this.uploadImage} removeImage={this.removeImage}/>
 		);
 	}
-});
+});*/
 
 var QuestionText = React.createClass({
 
@@ -78,10 +57,47 @@ var QuestionText = React.createClass({
 		QuestionActions.changeText(val);
 	},
 
-	render:function() {
+	render: function() {
 		return (
-			<div className="form-group">
+			<div className="question-modal__text">
 				<Txt.TextAreaView value={this.props.text} onBlur={this.handleChange} placeholder='Введите вопрос' />
+			</div>
+		);
+	}
+});
+
+var QuestionWeight = React.createClass({
+
+	handleChange: function(val) {
+		QuestionActions.changeWeight(val);
+	},
+
+	render: function() {
+		return (
+			<div className="question-modal__weight">
+				<Txt.TextView value={this.props.weight} onBlur={this.handleChange} isValid={QuestionValidation.isValidWeight} placeholder='Вес' />
+			</div>
+		);
+	}
+});
+
+var QuestionType = React.createClass({
+
+	handleChange: function(e, payload, text){
+		QuestionActions.selectType(payload);
+	},
+
+	render: function() {
+		var qTypeValues = ArrayUtils.objectToArray(QuestionTypes.values);
+		qTypeValues = qTypeValues.map(function(qType){
+			var types = Object.keys(qType).map(function(q){
+				return { 'payload': q, 'text': qType[q] }
+			});
+			return types[0];
+		});
+		return (
+			<div className="question-modal__type">
+				<DropDown items={qTypeValues} deviders={[2, 4]} selectedPayload={this.props.type} onChange={this.handleChange} />
 			</div>
 		);
 	}
@@ -146,12 +162,15 @@ var QuestionView = React.createClass({
 			<ModalView.ModalBox positionX={this.props.positionX} positionY={this.props.positionY}>
 				<ModalView.ModalBoxContent>
 					<ModalView.ModalBoxHeader onClose={this.handleClose}>
-						<h4 className="modal-box__title">Добавьте вопрос</h4>
+						<h4 className="modal-box__title">Добавление/Редактирование вопроса</h4>
 					</ModalView.ModalBoxHeader>
 					<ModalView.ModalBoxBody>
-				        <QuestionText text={this.state.text} />
-				        <QuestionImage />
-				        <Menu type={this.state.type}/>
+						<div className="question-modal__controls">
+							<QuestionText text={this.state.text} />
+							<QuestionType type={this.state.type} />
+							<QuestionWeight weight={this.state.weight}/>
+							<AddAnswerButton />
+						</div>
 				        <div className="answers">
 				        	{answers}
 				        </div>

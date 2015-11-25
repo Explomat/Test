@@ -29,6 +29,13 @@ var QuestionActions = {
 		});
 	},
 
+	changeWeight: function(weight) {
+		AppDispatcher.handleAction({
+			actionType: QuestionConstants.SET_WEIGHT,
+			weight: weight
+		});
+	},
+
 	selectType: function(type) {
 		AppDispatcher.handleAction({
 			actionType: QuestionConstants.SET_TYPE_SELECTED,
