@@ -98,7 +98,7 @@ var DropDown = React.createClass({
 			list.push(<ItemDescription key={0} text={this.props.description} />);
 		}
 		this.props.items.forEach(function(item, index){
-			if (index % 2 == 0 && index !== 0 && this.props.deviders.indexOf(index !== -1)){
+			if (index % 2 == 0 && index !== 0 && this.props.deviders.indexOf(index) !== -1){
 				list.push(<li key={"divider"+ index + 1} className="dropdown-list__devider"></li>);
 			}
 			var selected = this.props.selectedPayload === item.payload ? true : false;

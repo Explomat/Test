@@ -8,7 +8,7 @@ var Txt = require('./modules/TextLabel');
 var SectionKeys = require('../utils/SectionKeys');
 var SectionValidation = require('../utils/validation/SectionValidation');
 var ModalView = require('./modules/ModalView');
-var QuestionTooltip = require('./modules/QuestionTooltip');
+var QuestionTooltipField = require('./modules/tooltip/QuestionTooltipField');
 var DropDown = require('./modules/DropDown');
 
 function getSectionState() {
@@ -90,25 +90,31 @@ var Fields = React.createClass({
 		SectionActions.selectSelection(payload);
 	},
 
-	render:function() {
+	getDataForSelectOrder: function(){
+		var selectOrder = ArrayUtils.objectToArray(SectionKeys.order.values).map(function(so){
+			var types = Object.keys(so).map(function(q){
+				return { 'payload': q, 'text': so[q] }
+			});
+			return types[0];
+		});
+		return selectOrder;
+	},
+
+	getDataForSelectSelection: function(){
+		var selectSelection = ArrayUtils.objectToArray(SectionKeys.selection.values).map(function(ss){
+			var types = Object.keys(ss).map(function(q){
+				return { 'payload': q, 'text': ss[q] }
+			});
+			return types[0];
+		});
+		return selectSelection;
+	},
+
+	render: function() {
 		var isDisplayOrder = { display: this.state.isDisplayOrder ? 'block' : 'none' };
 		var isDisplaySelection = { display: this.state.isDisplaySelection ? 'block' : 'none' };
-
-		var qTypeValues = ArrayUtils.objectToArray(SectionKeys.order.values);
-		qTypeValues = qTypeValues.map(function(qType){
-			var types = Object.keys(qType).map(function(q){
-				return { 'payload': q, 'text': qType[q] }
-			});
-			return types[0];
-		});
-
-		var qTypeValues2 = ArrayUtils.objectToArray(SectionKeys.selection.values);
-		qTypeValues2 = qTypeValues2.map(function(qType){
-			var types = Object.keys(qType).map(function(q){
-				return { 'payload': q, 'text': qType[q] }
-			});
-			return types[0];
-		});
+		var selectOrderData = this.getDataForSelectOrder();
+		var selectSelectionData = this.getDataForSelectSelection();
 		return (
 			<div className="section-modal panel panel-default">
 				<div className="panel-body">
@@ -117,12 +123,14 @@ var Fields = React.createClass({
 		            <Txt.TextView value={this.props.duration} onBlur={this.handleChangeDuration} isValid={SectionValidation.isValidDuration} placeholder='Длительность (минут)'/>
 		        	<div className="section-modal__dropdowns all">
 		        		<div className="section-modal__dropdown-first">
-		        			<QuestionTooltip.QuestionTooltipLeft text={"Test"} />
-			        		<DropDown items={qTypeValues} selectedPayload={this.props.order} onChange={this.handleSelectOrder} />
+		        			<QuestionTooltipField.QuestionTooltipFieldRight text={"Порядок следования вопросов"}>
+		        				<DropDown items={selectOrderData} selectedPayload={this.props.order} onChange={this.handleSelectOrder} />
+		        			</QuestionTooltipField.QuestionTooltipFieldRight>
 			        	</div>
 			        	<div className="section-modal__dropdown-second">
-		        			<QuestionTooltip.QuestionTooltipLeft text={"Test"} />
-			        		<DropDown items={qTypeValues2} selectedPayload={this.props.selection} onChange={this.handleSelectSelection} />
+			        		<QuestionTooltipField.QuestionTooltipFieldRight text={"Выборка"}>
+			        			<DropDown items={selectSelectionData} selectedPayload={this.props.selection} onChange={this.handleSelectSelection} />
+			        		</QuestionTooltipField.QuestionTooltipFieldRight>
 			        	</div>
 			        </div>
 				</div>

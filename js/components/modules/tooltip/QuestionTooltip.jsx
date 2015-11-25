@@ -30,7 +30,7 @@ var QuestionTooltipLeft = React.createClass({
 	render: function() {
 		return (
 			<div className="question-tooltip-box">
-				<div onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut} className="question-tooltip glyphicon glyphicon-question-sign">
+				<div onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut} className="question-tooltip question-tooltip_left glyphicon glyphicon-question-sign">
 					<TooltipLeft text={this.props.text} show={this.state.show} childStyle={{position: 'absolute', top: '50%', right: '100%', transform: 'translateY(-50%)', margin: '0px'}}/>
 				</div>
 			</div>
@@ -45,7 +45,7 @@ var QuestionTooltipRight = React.createClass({
 	render: function() {
 		return (
 			<div className="question-tooltip-box">
-				<div onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut} className="question-tooltip glyphicon glyphicon-question-sign">
+				<div onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut} className="question-tooltip question-tooltip_right glyphicon glyphicon-question-sign">
 					<TooltipRight text={this.props.text} show={this.state.show} childStyle={{position: 'absolute', top: '50%', left: '100%', transform: 'translateY(-50%)', margin: '0px'}}/>
 				</div>
 			</div>
