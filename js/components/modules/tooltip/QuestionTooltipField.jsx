@@ -12,9 +12,9 @@ var QuestionTooltipFieldLeft = React.createClass({
 
 	render: function() {
 		return (
-			<div className="question-tooltip-field question-tooltip-field_left">
+			<div className="question-tooltip-field">
 				<QuestionTooltipLeft text={this.props.text} />
-				<div className="question-tooltip-field__content">
+				<div className="question-tooltip-field__content question-tooltip-field__content_left">
 					{this.props.children}
 				</div>
 			</div>
@@ -32,8 +32,8 @@ var QuestionTooltipFieldRight = React.createClass({
 
 	render: function() {
 		return (
-			<div className="question-tooltip-field question-tooltip-field_right">
-				<div className="question-tooltip-field__content">
+			<div className="question-tooltip-field">
+				<div className="question-tooltip-field__content question-tooltip-field__content_right">
 					{this.props.children}
 				</div>
 				<QuestionTooltipRight text={this.props.text} />

@@ -4,6 +4,7 @@ var SettingsActions = require('../actions/SettingsActions');
 var Txt = require('./modules/TextLabel');
 var ReactCSSTransitionGroup = require('react/lib/ReactCSSTransitionGroup');
 var CheckBox = require('./modules/CheckBox');
+var QuestionTooltipField = require('./modules/tooltip/QuestionTooltipField');
 var SettingsValidation = require('../utils/validation/SettingsValidation');
 
 function getSettingsState() {
@@ -28,18 +29,6 @@ var SelectedUl = React.createClass({
 });
 
 var SettingsView= React.createClass({
-
-	/*componentWillAppear: function(callback) {
-		console.log(callback);
-	},
-	  
-	componentWillEnter: function(callback) {
-		console.log(callback);
-	},
-	  
-	componentWillLeave: function(callback) {
-		console.log(callback);
-	},*/
 
 	toggle: function() {
         this.setState({isMounted: !this.state.isMounted});
@@ -131,16 +120,28 @@ var SettingsView= React.createClass({
 					</div>
 					<div className="group__elem">
 						<div className="group__content">
-							<CheckBox label={"Не передавать проигрывателю информацию о правильных ответах на вопросы"} checked={this.state.settings.notSentCorrectAnswer} onChangeChecked={this.handleChangeNotSentCorrectAnswer}/>
-							<CheckBox label={"Показывать результаты теста (резюме по тесту)"} checked={this.state.settings.displayResult} onChangeChecked={this.handleChangeDisplayResult}/>
-				        	<CheckBox label={"Не показывать сообщение об исчерпании попыток ответа"} checked={this.state.settings.notDisplayLastAttempt} onChangeChecked={this.handleChangeNotDisplayLastAttempt}/>
+							<QuestionTooltipField.QuestionTooltipFieldRight text={"Порядок следования вопросов"}>
+								<CheckBox label={"Не передавать проигрывателю информацию о правильных ответах на вопросы"} checked={this.state.settings.notSentCorrectAnswer} onChangeChecked={this.handleChangeNotSentCorrectAnswer}/>
+							</QuestionTooltipField.QuestionTooltipFieldRight>
+							<QuestionTooltipField.QuestionTooltipFieldRight text={"Порядок следования вопросов"}>
+								<CheckBox label={"Показывать результаты теста (резюме по тесту)"} checked={this.state.settings.displayResult} onChangeChecked={this.handleChangeDisplayResult}/>
+				        	</QuestionTooltipField.QuestionTooltipFieldRight>
+				        	<QuestionTooltipField.QuestionTooltipFieldRight text={"Порядок следования вопросов"}>
+				        		<CheckBox label={"Не показывать сообщение об исчерпании попыток ответа"} checked={this.state.settings.notDisplayLastAttempt} onChangeChecked={this.handleChangeNotDisplayLastAttempt}/>
+							</QuestionTooltipField.QuestionTooltipFieldRight>
 						</div>
 					</div>
 					<div className="group__elem">
 						<div className="group__content">
-				        	<CheckBox label={"Показывать варианты ответов в отчете по тестированию"} checked={this.state.settings.displayAnswersInReport} onChangeChecked={this.handleChangeDisplayAnswersInReport}/>
-				        	<CheckBox label={"Показывать правильный ответ в отчете по тестированию"} checked={this.state.settings.displayCorrectAnswerInReport} onChangeChecked={this.handleChangeDisplayCorrectAnswerInReport}/>
-				        	<CheckBox label={"Не показывать набранных балл для незавершенных тестов"} checked={this.state.settings.notDisplayUnfinishedScore} onChangeChecked={this.handleChangeNotDisplayUnfinishedScore}/>
+							<QuestionTooltipField.QuestionTooltipFieldRight text={"Порядок следования вопросов"}>
+				        		<CheckBox label={"Показывать варианты ответов в отчете по тестированию"} checked={this.state.settings.displayAnswersInReport} onChangeChecked={this.handleChangeDisplayAnswersInReport}/>
+				        	</QuestionTooltipField.QuestionTooltipFieldRight>
+				        	<QuestionTooltipField.QuestionTooltipFieldRight text={"Порядок следования вопросов"}>
+				        		<CheckBox label={"Показывать правильный ответ в отчете по тестированию"} checked={this.state.settings.displayCorrectAnswerInReport} onChangeChecked={this.handleChangeDisplayCorrectAnswerInReport}/>
+				        	</QuestionTooltipField.QuestionTooltipFieldRight>
+				        	<QuestionTooltipField.QuestionTooltipFieldRight text={"Порядок следования вопросов"}>
+				        		<CheckBox label={"Не показывать набранных балл для незавершенных тестов"} checked={this.state.settings.notDisplayUnfinishedScore} onChangeChecked={this.handleChangeNotDisplayUnfinishedScore}/>
+							</QuestionTooltipField.QuestionTooltipFieldRight>
 						</div>
 					</div>
 				</div>
