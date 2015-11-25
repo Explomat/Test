@@ -36,7 +36,9 @@ var DropDown = React.createClass({
 					{this.props.descriptionMarkup}
 					<span className={"dropinfo__glyphicon glyphicon " + glyphiconClass}></span>
 				</div>
-				{this.props.children}
+				<div style={display} className="dropinfo__hideblock">
+					{this.props.children}
+				</div>
 			</div>
 		);
 	}
