@@ -90,31 +90,21 @@ var Fields = React.createClass({
 		SectionActions.selectSelection(payload);
 	},
 
-	getDataForSelectOrder: function(){
-		var selectOrder = ArrayUtils.objectToArray(SectionKeys.order.values).map(function(so){
-			var types = Object.keys(so).map(function(q){
+	getDataForSelect: function(selectObj){
+		var select = ArrayUtils.objectToArray(selectObj).map(function(so){
+			var arr = Object.keys(so).map(function(q){
 				return { 'payload': q, 'text': so[q] }
 			});
-			return types[0];
+			return arr[0];
 		});
-		return selectOrder;
-	},
-
-	getDataForSelectSelection: function(){
-		var selectSelection = ArrayUtils.objectToArray(SectionKeys.selection.values).map(function(ss){
-			var types = Object.keys(ss).map(function(q){
-				return { 'payload': q, 'text': ss[q] }
-			});
-			return types[0];
-		});
-		return selectSelection;
+		return select;
 	},
 
 	render: function() {
 		var isDisplayOrder = { display: this.state.isDisplayOrder ? 'block' : 'none' };
 		var isDisplaySelection = { display: this.state.isDisplaySelection ? 'block' : 'none' };
-		var selectOrderData = this.getDataForSelectOrder();
-		var selectSelectionData = this.getDataForSelectSelection();
+		var selectOrderData = this.getDataForSelect(SectionKeys.order.values);
+		var selectSelectionData = this.getDataForSelect(SectionKeys.selection.values);
 		return (
 			<div className="section-modal panel panel-default">
 				<div className="panel-body">
