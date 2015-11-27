@@ -3,7 +3,7 @@ var React = require('react');
 var DropInfoHeader = React.createClass({
 	render: function() {
 		return (
-			<div className="dropinfo__header">
+			<div className="dropinfo__content-header">
 				{this.props.children}
 			</div>
 		);
@@ -13,7 +13,7 @@ var DropInfoHeader = React.createClass({
 var DropInfoBody = React.createClass({
 	render: function() {
 		return (
-			<div className="dropinfo__body">
+			<div className="dropinfo__content-body">
 				{this.props.children}
 			</div>
 		);
@@ -23,7 +23,7 @@ var DropInfoBody = React.createClass({
 var DropInfoFooter = React.createClass({
 	render: function() {
 		return (
-			<div className="dropinfo__footer">
+			<div className="dropinfo__content-footer">
 				{this.props.children}
 			</div>
 		);
@@ -33,6 +33,7 @@ var DropInfoFooter = React.createClass({
 var DropInfo = React.createClass({
 
 	propTypes: {
+		children: React.PropTypes.oneOfType([React.PropTypes.element, React.PropTypes.array]),
 		show: React.PropTypes.bool,
 		descriptionMarkup: React.PropTypes.node,
 		children: React.PropTypes.oneOfType([React.PropTypes.element, React.PropTypes.array]),
@@ -76,4 +77,9 @@ var DropInfo = React.createClass({
 	}
 });
 
-module.exports = DropInfo;
+module.exports = {
+	DropInfo: DropInfo,
+	DropInfoHeader: DropInfoHeader,
+	DropInfoBody: DropInfoBody,
+	DropInfoFooter: DropInfoFooter
+}

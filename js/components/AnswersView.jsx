@@ -3,7 +3,7 @@ var TextView = require('./modules/TextLabel').TextView;
 var TextAreaView = require('./modules/TextLabel').TextAreaView;
 var CheckBox = require('./modules/CheckBox');
 var ImageSelect = require('./modules/ImageSelect');
-var DropInfo = require('./modules/DropInfo');
+var Drop = require('./modules/DropInfo');
 var AnswerActions = require('../actions/AnswerActions');
 var AnswersStore = require('../stores/AnswersStore');
 var AnswerValidation = require('../utils/validation/AnswerValidation');
@@ -169,12 +169,16 @@ var ChoiceAnswer = React.createClass({
 			<div className="answer all clearfix">
 				<span className="answer__number">{this.props.number}</span>
 				<div className="answer__content">
-					<DropInfo descriptionMarkup={<span>{this.props.text}</span>} classNameBlock={isSelectedClass}>
-						<CheckBox className={"answer__checkbox"} label={"Правильный ответ"} checked={this.props.selected} onChangeChecked={this.handleSelect}/>
-						<TextView className={"answer__weight"} value={this.props.weight} onBlur={this.changeWeight} isValid={AnswerValidation.isValidWeight} placeholder="Вес"/>
-						<TextView className={"answer__text"} value={this.props.text} onBlur={this.changeText} placeholder="Ответ"/>
-						{this.getIcons()}
-					</DropInfo>
+					<Drop.DropInfo descriptionMarkup={<span>{this.props.text}</span>} classNameBlock={isSelectedClass}>
+						<Drop.DropInfoHeader>
+							<CheckBox className={"answer__checkbox"} label={"Правильный ответ"} checked={this.props.selected} onChangeChecked={this.handleSelect}/>
+							{this.getIcons()}
+						</Drop.DropInfoHeader>
+						<Drop.DropInfoBody>
+							<TextView className={"answer__weight"} value={this.props.weight} onBlur={this.changeWeight} isValid={AnswerValidation.isValidWeight} placeholder="Вес"/>
+							<TextView className={"answer__text"} value={this.props.text} onBlur={this.changeText} placeholder="Ответ"/>
+						</Drop.DropInfoBody>
+					</Drop.DropInfo>
 				</div>
 			</div>
 		);
