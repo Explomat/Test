@@ -3,6 +3,26 @@ var extend = require('extend');
 
 var TextBase = {
 
+	propTypes: {
+		className: React.PropTypes.string
+	},
+
+	getDefaultProps: function() {
+		return {
+			value: '',
+			placeholder: '',
+			isValid: function() {
+				return true;
+			}
+		}
+	},
+
+	getInitialState: function() {
+		return {
+			value: this.props.value
+		}
+	},
+
 	componentWillMount: function() {
 		this.validClass = 'not-valid';
 	},
@@ -25,23 +45,7 @@ var TextBase = {
 
 		if (this.props.onBlur)
 			this.props.onBlur(val);
-	},
-
-	getDefaultProps: function() {
-		return {
-			value: '',
-			placeholder: '',
-			isValid: function() {
-				return true;
-			}
-		}
-	},
-
-	getInitialState: function() {
-		return {
-			value: this.props.value
-		}
-	},
+	}
 }
 
 var TextView = React.createClass({
@@ -60,12 +64,12 @@ var TextView = React.createClass({
 		this.refs.lbl.classList.add('input-box__label_detranslate');
 	},
 
-	render:function() {
+	render: function() {
 		var isNotEmptyClass = this.state.value === '' ? '' : 'input-box__input_not-empty';
 		var isValidClass = !this.props.isValid(this.state.value) ? this.validClass : '';
-		
+		var className = this.props.className ? this.props.className : '';
 		return (
-			<div className="input-box" tabIndex={1} onBlur={this.handleDetranslate}>
+			<div className={"input-box " + className} tabIndex={1} onBlur={this.handleDetranslate}>
 				<input ref="inpt" className={"input-box__input " + isNotEmptyClass + " " + isValidClass} type="text" value={this.state.value} onChange={this.handleChange} onBlur={this.handleBlur}/>
                 <label ref="lbl" onClick={this.handleAddtranslate} className="input-box__label">{this.props.placeholder}</label>
 			</div>
@@ -108,8 +112,9 @@ var TextAreaView = React.createClass(extend(true, {}, TextBase, {
 		var isNotEmptyClass = this.state.value === '' ? '' : 'textarea-box__input_not-empty';
 		var isValidClass = !this.props.isValid(this.state.value) ? this.validClass : '';
 		var textAreaStyle = { height: this.state.height + 'px' };
+		var className = this.props.className ? this.props.className : '';
 		return (
-			<div className="textarea-box" tabIndex={1} onBlur={this.handleDetranslate}>
+			<div className={"textarea-box " + className} tabIndex={1} onBlur={this.handleDetranslate}>
 				<textarea style={textAreaStyle} className={"textarea-box__input " + isNotEmptyClass + " " + isValidClass} rows={this.props.rows || 1} value={this.state.value} onChange={this.handleChange} onKeyDown={this.handleKeyDown} onBlur={this.handleBlur}></textarea>
                 <label ref="lbl" onClick={this.handleAddtranslate} className="textarea-box__label">{this.props.placeholder}</label>
 				<div ref="hiddenBlock" className="textarea-box__hidden-block">{this.state.value}</div>

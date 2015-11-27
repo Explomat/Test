@@ -5,7 +5,8 @@ var CheckBoxView = React.createClass({
 	propsTypes: {
 		checked: React.PropTypes.bool,
 		label: React.PropTypes.string,
-		onChangeChecked: React.PropTypes.func
+		onChangeChecked: React.PropTypes.func,
+		className: React.PropTypes.string
 	},
 
 	componentWillReceiveProps: function(nextProps){
@@ -26,8 +27,9 @@ var CheckBoxView = React.createClass({
 	},
 
 	render: function() {
+		var className = this.props.className ? this.props.className : '';
 		return (
-			<div className="checkbox-box" onClick={this.handleToggleChecked}>
+			<div className={"checkbox-box " + className} onClick={this.handleToggleChecked}>
 				<input className="checkbox-box__input" type="checkbox" checked={this.state.checked} onChange={function(){}}/>
     			<label className="checkbox-box__label">{this.props.label}</label>
 			</div>

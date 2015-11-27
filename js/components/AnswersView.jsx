@@ -1,6 +1,7 @@
 var React = require('react');
-var TextView = require('./modules/Text').TextView;
-var TextAreaView = require('./modules/Text').TextAreaView;
+var TextView = require('./modules/TextLabel').TextView;
+var TextAreaView = require('./modules/TextLabel').TextAreaView;
+var CheckBox = require('./modules/CheckBox');
 var ImageSelect = require('./modules/ImageSelect');
 var DropInfo = require('./modules/DropInfo');
 var AnswerActions = require('../actions/AnswerActions');
@@ -18,6 +19,16 @@ var Answer = {
 
 	removeImage: function (img) {
 		AnswerActions.removeImage(this.props.uuid, img);
+	},
+
+	getIcons: function(){
+		var answersCount = AnswersStore.getAnswersCount();
+		var isShowRemove = { display: answersCount === 1 ? 'none' : 'block' }
+		return (
+			<div className="answer__icons">
+				<span onClick={this.remove} style={isShowRemove} className="glyphicon glyphicon-trash"></span>
+			</div>
+		);
 	},
 
 	/*getIcons: function(){
@@ -44,14 +55,9 @@ var Answer = {
 	getBasicFields: function(){
 		/*<ImageSelect img={AnswersStore.getAnswerImg(this.props.uuid)} uploadImage={this.uploadImage} removeImage={this.removeImage}/>*/
 		return (
-			<div className="form-group">
-				<label>Ответ : *</label>
-				<TextAreaView rows="1" value={this.props.text} onBlur={this.changeText} />
-				
-				<label>
-					<span>Вес :</span>
-					<TextView value={this.props.weight} onBlur={this.changeWeight} isValid={AnswerValidation.isValidWeight}/>
-				</label>
+			<div className="answer__base-fields">
+				<TextView value={this.props.weight} onBlur={this.changeWeight} isValid={AnswerValidation.isValidWeight} placeholder="Вес"/>
+				<TextView value={this.props.text} onBlur={this.changeText} placeholder="Ответ"/>
 			</div>
 		);
 	},
@@ -90,19 +96,12 @@ var FillAnswer = {
 
 	getMark: function(conditions){
 		return(
-			<div className="all">
-				<label>
-					<span>{this.props.number}&nbsp;</span>
-				</label>
-				{this.getBasicFields()}
-				<label>
-					<span>Высота</span>
-					<TextView value={this.props.height} onBlur={this.changeHeight} isValid={AnswerValidation.isValidHeight}/>
-				</label>
-				<label>
-					<span>Ширина</span>
-					<TextView value={this.props.width} onBlur={this.changeWidth} isValid={AnswerValidation.isValidWidth}/>
-				</label>
+			<div className="answer all clearfix">
+				<span className="answer__number">{this.props.number}</span>
+				<TextView className={"answer__weight"} value={this.props.weight} onBlur={this.changeWeight} isValid={AnswerValidation.isValidWeight} placeholder="Вес"/>
+				<TextView className={"answer__text"} value={this.props.text} onBlur={this.changeText} placeholder="Ответ"/>
+				<TextView value={this.props.height} onBlur={this.changeHeight} isValid={AnswerValidation.isValidHeight} placeholder="Высота"/>
+				<TextView value={this.props.width} onBlur={this.changeWidth} isValid={AnswerValidation.isValidWidth} placeholder="Ширина"/>
 				<div className="a-conditions">
 					{conditions}
 				</div>
@@ -143,11 +142,10 @@ var ConformityAnswer = React.createClass({
 
 	render: function() {
 		return (
-			<div className="all">
-				<label>
-					<span>{this.props.number}&nbsp;</span>
-				</label>
-				{this.getBasicFields()}
+			<div className="answer all clearfix">
+				<span className="answer__number">{this.props.number}&nbsp;</span>
+				<TextView className={"answer__weight"} value={this.props.weight} onBlur={this.changeWeight} isValid={AnswerValidation.isValidWeight} placeholder="Вес"/>
+				<TextView className={"answer__text"} value={this.props.text} onBlur={this.changeText} placeholder="Ответ"/>
 				<div className="a-conditions">
 					<Conformities uuid={this.props.uuid} conformities={AnswersStore.getConformities(this.props.uuid)} />
 				</div>
@@ -161,20 +159,23 @@ var ChoiceAnswer = React.createClass({
 
 	mixins:[Answer],
 
-	handleSelect: function(e){
-		AnswerActions.selectAnswer(this.props.uuid, e.target.checked);
+	handleSelect: function(checked){
+		AnswerActions.selectAnswer(this.props.uuid, checked);
 	},
 
 	render: function() {
+		var isSelectedClass = this.props.selected ? 'dropinfo__block_selected': '';
 		return(
-			<div className="all">
-				<DropInfo descriptionMarkup={<span>Test</span>}>
-					<label>
-						<span>{this.props.number}&nbsp;</span>
-						<input type="checkbox" checked={this.props.selected} onChange={this.handleSelect}/>
-					</label>
-					{this.getBasicFields()}
-				</DropInfo>
+			<div className="answer all clearfix">
+				<span className="answer__number">{this.props.number}</span>
+				<div className="answer__content">
+					<DropInfo descriptionMarkup={<span>{this.props.text}</span>} classNameBlock={isSelectedClass}>
+						<CheckBox className={"answer__checkbox"} label={"Правильный ответ"} checked={this.props.selected} onChangeChecked={this.handleSelect}/>
+						<TextView className={"answer__weight"} value={this.props.weight} onBlur={this.changeWeight} isValid={AnswerValidation.isValidWeight} placeholder="Вес"/>
+						<TextView className={"answer__text"} value={this.props.text} onBlur={this.changeText} placeholder="Ответ"/>
+						{this.getIcons()}
+					</DropInfo>
+				</div>
 			</div>
 		);
 	}
@@ -187,11 +188,10 @@ var OrderAnswer = React.createClass({
 
 	render:function() {
 		return(
-			<div className="all">
-				<label>
-					<span>{this.props.number}&nbsp;</span>
-				</label>
-				{this.getBasicFields()}
+			<div className="answer all clearfix">
+				<span className="answer__number">{this.props.number}</span>
+				<TextView className={"answer__weight"} value={this.props.weight} onBlur={this.changeWeight} isValid={AnswerValidation.isValidWeight} placeholder="Вес"/>
+				<TextView className={"answer__text"} value={this.props.text} onBlur={this.changeText} placeholder="Ответ"/>
 			</div>
 		);
 	}

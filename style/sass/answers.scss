@@ -1,0 +1,33 @@
+@import 'variables';
+
+.answers{
+	& .answer {
+		& .answer__base-fields {
+			display: inline-block;
+		}
+		& .answer__icons{
+			display: inline-block;
+			position: absolute;
+			top: 15px;
+			right: 32px;
+		}
+		& .answer__number{
+			width: 5%;
+		    line-height: 35px;
+		    font-size: $fontSizeXLarge;
+		    font-weight: 500;
+		}
+		& .answer__content{
+			width: 95%;
+			float: right;
+		}
+		& .answer__checkbox {
+			vertical-align: top;
+			display: inline-block;
+		}
+		& .answer__weight {
+			display: inline-block;
+		}
+	}
+}
+
