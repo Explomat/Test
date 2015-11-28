@@ -37,7 +37,14 @@ var DropInfo = React.createClass({
 		show: React.PropTypes.bool,
 		descriptionMarkup: React.PropTypes.node,
 		children: React.PropTypes.oneOfType([React.PropTypes.element, React.PropTypes.array]),
-		classNameBlock: React.PropTypes.string
+		classNameBlock: React.PropTypes.string,
+		additionalHeight: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string])
+	},
+
+	getDefaultProps: function(){
+		return {
+			additionalHeight: 20
+		}
 	},
 
 	getInitialState: function() {
@@ -48,7 +55,7 @@ var DropInfo = React.createClass({
 	},
 
 	handleToogelDisplay: function() {
-		var height = !this.state.show ? this.refs.dropinfoContent.offsetHeight : 0;
+		var height = !this.state.show ? this.refs.dropinfoContent.offsetHeight + this.props.additionalHeight : 0;
 		this.setState({
 			show: !this.state.show,
 			height: height
@@ -57,12 +64,12 @@ var DropInfo = React.createClass({
 
 	render: function() {
 		var displayContentClassName = this.state.show ? "dropinfo__content-box_show" : "dropinfo__content-box_hide";
-		var displayBlock = { display : !this.state.show ? "block": "none" };
+		var displayBlockClassName = !this.state.show ? "dropinfo__block_show": "dropinfo__block_hide";
 		var glyphiconClass = this.state.show ? "glyphicon-menu-up" : "glyphicon-menu-down";
 		var classNameBlock = this.props.classNameBlock ? this.props.classNameBlock : '';
 		return (
 			<div className="dropinfo">
-				<div onClick={this.handleToogelDisplay} style={displayBlock} className={"dropinfo__block clearfix " + classNameBlock}>
+				<div onClick={this.handleToogelDisplay} className={"dropinfo__block clearfix " + displayBlockClassName + " " + classNameBlock}>
 					{this.props.descriptionMarkup}
 					<span className={"dropinfo__glyphicon-block glyphicon " + glyphiconClass}></span>
 				</div>

@@ -3,13 +3,34 @@
 .dropinfo {
 	width: 100%;
 	position: relative;
+	border: 1px solid $deviderColor;
+    border-radius: $borderRadius;
 
 	& .dropinfo__block {
 		width: 100%;
 		padding: 8px;
+		transition: all .2s linear;
+		border-radius: $borderRadius;
 
 		&.dropinfo__block_selected {
 			background-color: #8ad875;
+		}
+		&.dropinfo__block_show {
+			height: 40px;
+			opacity: 1;
+			visibility: visible;
+			cursor: pointer;
+		}
+		&.dropinfo__block_hide {
+			border-top-style: none;
+		    padding-bottom: 0px;
+		    padding-top: 0px;
+		    border-bottom-style: none;
+		    overflow: hidden;
+		    visibility: hidden;
+		    zoom: 1;
+		    opacity: 0;
+		    height: 0px;
 		}
 	}
 
@@ -36,16 +57,25 @@
 		    opacity: 0;
 		    height: 0px;
 		}
+		& .dropinfo__content-header {
+			background-color: antiquewhite;
+			border-radius: $borderRadius $borderRadius 0px 0px;
+			height: 40px;
+		}
+		& .dropinfo__content-body {
+			padding: 8px;
+		}
+		& .dropinfo__content-footer {
+			
+		}
 	}
 
-	& .dropinfo__glyphicon-block {
-		float: right;
-		line-height: 20px;
-	}
-
-	& .dropinfo__glyphicon-content {
+	& .dropinfo__glyphicon-block, & .dropinfo__glyphicon-content{
 		position: absolute;
+		cursor: pointer;
     	right: 0px;
-    	top: 15px;
+    	top: 10px;
+    	right: 8px;
+    	font-size: $fontSizeXXLarge;
 	}
 }

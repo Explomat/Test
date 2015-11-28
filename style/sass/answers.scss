@@ -6,10 +6,10 @@
 			display: inline-block;
 		}
 		& .answer__icons{
-			display: inline-block;
 			position: absolute;
-			top: 15px;
-			right: 32px;
+			cursor: pointer;
+			top: 13px;
+			right: 40px;
 		}
 		& .answer__number{
 			width: 5%;
@@ -22,8 +22,11 @@
 			float: right;
 		}
 		& .answer__checkbox {
-			vertical-align: top;
 			display: inline-block;
+
+			&:hover {
+				background-color: transparent;
+			}
 		}
 		& .answer__weight {
 			display: inline-block;
