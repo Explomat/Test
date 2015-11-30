@@ -1,7 +1,6 @@
 var UUID = require('../utils/UUID');
 var Condition = require('./Condition');
 var ConditionText = require('./ConditionText');
-var Conformity = require('./Conformity');
 
 module.exports = function(args){
 	var args = args || {};
@@ -11,8 +10,8 @@ module.exports = function(args){
 	this.height = args.height || 20;
 	this.width = args.width || 1;
 	this.img = args.img || null;
-	this.conditions = args.conditions || [new Condition()];
-	this.conditionsText = args.conditionsText || [new ConditionText()];
-	this.conformities = args.conformities || [new Conformity()];
+	this.condition = args.condition || new Condition();
+	this.conditionText = args.conditionText || new ConditionText();
+	this.conformity = args.conformity || '';
 	this.expanded = args.expanded || false;
 }

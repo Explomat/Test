@@ -2,14 +2,12 @@ var React = require('react');
 var TextView = require('./modules/TextLabel').TextView;
 var TextAreaView = require('./modules/TextLabel').TextAreaView;
 var CheckBox = require('./modules/CheckBox');
-var ImageSelect = require('./modules/ImageSelect');
 var Drop = require('./modules/DropInfo');
 var AnswerActions = require('../actions/AnswerActions');
 var AnswersStore = require('../stores/AnswersStore');
 var AnswerValidation = require('../utils/validation/AnswerValidation');
 var Conditions = require('./modules/Conditions').Conditions;
 var ConditionsText = require('./modules/Conditions').ConditionsText;
-var Conformities = require('./modules/Conformities');
 
 var Answer = {
 
@@ -96,24 +94,32 @@ var Answer = {
 
 var FillAnswer = {
 
-	changeHeight: function(val){
-		AnswerActions.changeAnswerSize(this.props.uuid, null, val);
+	getDescriptionMarkup: function(){
+		var text = this.props.text === '' ? 'Не указано пояснение' : this.props.text;
+		var textClassName = this.props.text === '' ? 'dropinfo__block-markup_empty': '';
+		return (
+			<div title={text} className={"dropinfo__block-markup " + textClassName}>
+				{text}
+			</div>
+		);
 	},
 
-	changeWidth: function(val){
-		AnswerActions.changeAnswerSize(this.props.uuid, val, null);
-	},
-
-	getMark: function(conditions){
+	getMark: function(condition){
+		var descriptionMarkup = this.getDescriptionMarkup();
 		return(
 			<div className="answer all clearfix">
 				<span className="answer__number">{this.props.number}</span>
-				<TextView className={"answer__weight"} value={this.props.weight} onBlur={this.changeWeight} isValid={AnswerValidation.isValidWeight} placeholder="Вес"/>
-				<TextView className={"answer__text"} value={this.props.text} onBlur={this.changeText} placeholder="Ответ"/>
-				<TextView value={this.props.height} onBlur={this.changeHeight} isValid={AnswerValidation.isValidHeight} placeholder="Высота"/>
-				<TextView value={this.props.width} onBlur={this.changeWidth} isValid={AnswerValidation.isValidWidth} placeholder="Ширина"/>
-				<div className="a-conditions">
-					{conditions}
+				<div className="answer__content">
+					<Drop.DropInfo onExpand={this.handleExpand} descriptionMarkup={descriptionMarkup} expanded={this.props.expanded}>
+						<Drop.DropInfoHeader>
+							{this.getIcons()}
+						</Drop.DropInfoHeader>
+						<Drop.DropInfoBody>
+							<TextView className={"answer__weight"} value={this.props.weight} onBlur={this.changeWeight} isValid={AnswerValidation.isValidWeight} placeholder="Вес"/>
+							<TextView className={"answer__text"} value={this.props.text} onBlur={this.changeText} placeholder="Пояснение"/>
+							<div className="answer__condition">{condition}</div>
+						</Drop.DropInfoBody>
+					</Drop.DropInfo>
 				</div>
 			</div>
 		);
@@ -127,7 +133,7 @@ var NumericalFillAnswer = React.createClass({
 
 	render: function() {
 		return(
-			this.getMark(<ConditionsText uuid={this.props.uuid} conditions={AnswersStore.getConditionsText(this.props.uuid)} />)
+			this.getMark(<ConditionsText uuid={this.props.uuid} condition={this.props.conditionText} />)
 		);
 	}
 });
@@ -140,7 +146,7 @@ var MatchItemAnswer = React.createClass({
 
 	render: function() { 
 		return(
-			this.getMark(<Conditions uuid={this.props.uuid} conditions={AnswersStore.getConditions(this.props.uuid)} />)
+			this.getMark(<Conditions uuid={this.props.uuid} condition={this.props.condition} />)
 		);
 	}
 });
@@ -153,8 +159,18 @@ var ConformityAnswer = React.createClass({
 	getDescriptionMarkup: function(){
 		var text = this.props.text === '' ? 'Не указан текст ответа' : this.props.text;
 		var textClassName = this.props.text === '' ? 'dropinfo__block-markup_empty': '';
-		return (<span title={text} className={"dropinfo__block-markup " + textClassName}>{text}</span>);
+		return (
+			<div title={text} className={"dropinfo__block-markup " + textClassName}>
+				<span>{text}</span>
+				<span className="glyphicon glyphicon-arrow-right"></span>
+				<span>{this.props.conformity}</span>
+			</div>
+		);
 	},
+
+	handleChangeConformity: function(val){
+		AnswerActions.changeAnswerConformity(this.props.uuid, val);
+	},	
 
 	render: function() {
 		var descriptionMarkup = this.getDescriptionMarkup();
@@ -169,9 +185,7 @@ var ConformityAnswer = React.createClass({
 						<Drop.DropInfoBody>
 							<TextView className={"answer__weight"} value={this.props.weight} onBlur={this.changeWeight} isValid={AnswerValidation.isValidWeight} placeholder="Вес"/>
 							<TextView className={"answer__text"} value={this.props.text} onBlur={this.changeText} placeholder="Ответ"/>
-							<div className="a-conditions">
-								<Conformities uuid={this.props.uuid} conformities={AnswersStore.getConformities(this.props.uuid)} />
-							</div>
+							<TextView className={"answer__conformity"} value={this.props.conformity} onBlur={this.handleChangeConformity} placeholder="Соответствие"/>
 						</Drop.DropInfoBody>
 					</Drop.DropInfo>
 				</div>
@@ -192,7 +206,7 @@ var ChoiceAnswer = React.createClass({
 	getDescriptionMarkup: function(){
 		var text = this.props.text === '' ? 'Не указан текст ответа' : this.props.text;
 		var textClassName = this.props.text === '' ? 'dropinfo__block-markup_empty': '';
-		return <span title={text} className={"dropinfo__block-markup " + textClassName}>{text}</span>
+		return <div title={text} className={"dropinfo__block-markup " + textClassName}>{text}</div>
 	},	
 
 	render: function() {
@@ -227,7 +241,7 @@ var OrderAnswer = React.createClass({
 	getDescriptionMarkup: function(){
 		var text = this.props.text === '' ? 'Не указан текст ответа' : this.props.text;
 		var textClassName = this.props.text === '' ? 'dropinfo__block-markup_empty': '';
-		return <span title={text} className={"dropinfo__block-markup " + textClassName}>{text}</span>
+		return <div title={text} className={"dropinfo__block-markup " + textClassName}>{text}</div>
 	},
 
 	render: function() {

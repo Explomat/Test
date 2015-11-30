@@ -1,6 +1,8 @@
 @import 'variables';
 
 .answers{
+	margin-top: 50px;
+
 	& .answer {
 		& .answer__base-fields {
 			display: inline-block;
@@ -29,6 +31,10 @@
 			}
 		}
 		& .answer__weight {
+			display: inline-block;
+		}
+
+		& .answer__conformity {
 			display: inline-block;
 		}
 	}

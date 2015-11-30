@@ -32,7 +32,8 @@ var DropDown = React.createClass({
 	propTypes: {
 		items: React.PropTypes.array.isRequired, //[{ payload: 1, text: 'Test' },{...}]
 		deviders: React.PropTypes.array, //указать индексы элементов после которых вставлять разделители
-		selectedPayload: React.PropTypes.string
+		selectedPayload: React.PropTypes.string,
+		className: React.PropTypes.string
 	},
 
 	getDefaultProps: function(){
@@ -92,6 +93,7 @@ var DropDown = React.createClass({
 	},
 
 	render: function() {
+		var className = this.props.className ? this.props.className : '';
 		var isTypeDisplayStyle = { display: this.state.display ? "block" : "none" };
 		var list = [];
 		if (this.props.description && !this.props.selectedPayload) {
@@ -105,7 +107,7 @@ var DropDown = React.createClass({
 			list.push(<Item key={index + 1} selected={selected} text={item.text} payload={item.payload} onChange={this.handleChange} index={index}/>);
 		}.bind(this))
 		return (
-			<div className="dropdown-box">
+			<div className={"dropdown-box " + className}>
 				<button className="dropdown-box__default-item" type="button" onClick={this.handleToogelDisplay}>
 					<span className="dropdown-box__title">{this._getSelectedItemText(this.props.items, this.props.selectedPayload)}</span>
 					<span className="dropdown-box__caret caret"></span>

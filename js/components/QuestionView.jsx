@@ -149,11 +149,11 @@ var QuestionView = React.createClass({
 			else if (qType == QuestionTypes.keys.order)
 				answer = <Answer.OrderAnswer uuid={ans.uuid} key={ans.uuid} number={i+1} text={ans.text} weight={ans.weight} expanded={ans.expanded}/>;
 			else if (qType == QuestionTypes.keys.match_item)
-				answer = <Answer.MatchItemAnswer uuid={ans.uuid} key={ans.uuid} number={i+1} text={ans.text} weight={ans.weight} height={ans.height} width={ans.width} expanded={ans.expanded}/>;
+				answer = <Answer.MatchItemAnswer uuid={ans.uuid} key={ans.uuid} number={i+1} text={ans.text} weight={ans.weight} height={ans.height} width={ans.width} condition={ans.condition} expanded={ans.expanded}/>;
 			else if (qType == QuestionTypes.keys.numerical_fill_in_blank)
-				answer = <Answer.NumericalFillAnswer uuid={ans.uuid} key={ans.uuid} number={i+1} text={ans.text} weight={ans.weight} height={ans.height} width={ans.width} expanded={ans.expanded}/>;
+				answer = <Answer.NumericalFillAnswer uuid={ans.uuid} key={ans.uuid} number={i+1} text={ans.text} weight={ans.weight} height={ans.height} width={ans.width} conditionText={ans.conditionText} expanded={ans.expanded}/>;
 			else if (qType == QuestionTypes.keys.gap_fill)
-				answer = <Answer.ConformityAnswer uuid={ans.uuid} key={ans.uuid} number={i+1} text={ans.text} weight={ans.weight} expanded={ans.expanded}/>;
+				answer = <Answer.ConformityAnswer uuid={ans.uuid} key={ans.uuid} number={i+1} text={ans.text} weight={ans.weight} conformity={ans.conformity} expanded={ans.expanded}/>;
 			if (answer)
 				answers.push(answer);
 		});

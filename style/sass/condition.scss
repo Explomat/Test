@@ -1,0 +1,12 @@
+.condition{
+
+	& .condition__dropdown {
+		width: 15%;
+		margin-right: 5%;
+	}
+
+	& .condition__text {
+		width: 80%;
+		display: inline-block;
+	}
+}

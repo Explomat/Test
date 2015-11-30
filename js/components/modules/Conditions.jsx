@@ -1,68 +1,15 @@
 var React = require('react');
 var AnswerActions = require('../../actions/AnswerActions');
 var SubAnswer = require('../../utils/SubAnswer');
-var TextView = require('./Text').TextView;
+var TextView = require('./TextLabel').TextView;
 var AnswerValidation = require('../../utils/validation/AnswerValidation');
-
-var ConditionTypeText = React.createClass({
-	
-	handleSelect: function() {
-		if (this.props.handleSelect)
-			this.props.handleSelect(this.props.type);
-	},
-
-	render: function() {
-		return(
-			<li onClick={this.handleSelect}><span>{SubAnswer.conditionsText.values[this.props.type]}</span></li>
-		);
-	}
-});
-
-var ConditionType = React.createClass({
-	
-	handleSelect: function() {
-		if (this.props.handleSelect)
-			this.props.handleSelect(this.props.type);
-	},
-
-	render: function() {
-		return(
-			<li onClick={this.handleSelect}><span>{SubAnswer.conditions.values[this.props.type]}</span></li>
-		);
-	}
-});
+var DropDown = require('./DropDown');
 
 var Condition = {
 
-	componentWillUnmount: function() {
-		document.removeEventListener('click', this.handleBlur);
-	},
-
-	componentDidMount: function() {
-		document.addEventListener('click', this.handleBlur);
-	},
-
-	handleBlur: function () {
-		if (this.state.display === true)
-			this.setState({display: false});
-	},
-
-	handleDisplay: function(e) {
-		if (e){
-			e.stopPropagation();
-    		e.nativeEvent.stopImmediatePropagation();
-		}
-		this.setState({display: !this.state.display});
-	},
-
-	handleSelect:function (type) {
+	handleSelect:function (e, type) {
 		if (this.props.handleSelect)
-			this.props.handleSelect(this.props.uuid, type);
-	},
-
-	handleRemove: function(){
-		if (this.props.handleRemove)
-			this.props.handleRemove(this.props.uuid);
+			this.props.handleSelect(type);
 	},
 
 	handleChangeText: function(val) {
@@ -71,49 +18,24 @@ var Condition = {
 	},
 
 	getConditionsType: function(){
-		var list = [];
-		Object.keys(SubAnswer.conditions.keys).forEach(function(c){
-			list.push(<ConditionType key={this.props.uuid + c} type={c} handleSelect={this.handleSelect}/>);
-		}.bind(this));
-		return list;
+		return Object.keys(SubAnswer.conditions.keys).map(function(c){
+			return {payload: c, text: SubAnswer.conditions.values[c]};
+		});
 	},
 
 	getConditionsTypeText: function(){
-		var list = [];
-		Object.keys(SubAnswer.conditionsText.keys).forEach(function(c){
-			list.push(<ConditionTypeText key={this.props.uuid + c} type={c} handleSelect={this.handleSelect}/>);
-		}.bind(this));
-		return list;
+		return Object.keys(SubAnswer.conditionsText.keys).map(function(c){
+			return {payload: c, text: SubAnswer.conditionsText.values[c]};
+		});
 	},
 
 	getMark: function(conditions, type, validate){
-		var isDisplayStyle = { display: this.state.display ? "block" : "none" };
 		return(
-			<div className="input-group input-group-sm">
-				<div className="input-group-btn">
-					<button className="btn btn-default dropdown-toggle c-btn" type="button" onClick={this.handleDisplay}>
-						<span>{type}&nbsp;&nbsp;</span>
-						<span className="caret"></span>
-					</button>
-					<ul className="dropdown-menu" style={isDisplayStyle}>
-						{conditions}
-					</ul>
-				</div>
-				<TextView value={this.props.text} onBlur={this.handleChangeText} isValid={validate}/>
-				
-				<div className="input-group-btn">
-					<button type="button" className="btn btn-default" onClick={this.handleRemove}>
-					  <span className="glyphicon glyphicon-remove"></span>
-					</button>
-				</div>
+			<div className="condition">
+				<DropDown className={"condition__dropdown"} items={conditions} selectedPayload={type} onChange={this.handleSelect} />
+				<TextView className={"condition__text"} value={this.props.text} onBlur={this.handleChangeText} isValid={validate} placeholder={"Условие"}/>
 			</div>
 		);
-	},
-
-	getInitialState: function() {
-		return {
-			display: false
-		}
 	}
 }
 
@@ -123,7 +45,7 @@ var ConditionText = React.createClass({
 
 	render: function() {
 		return(
-			this.getMark(this.getConditionsTypeText(), SubAnswer.conditionsText.values[this.props.type])
+			this.getMark(this.getConditionsTypeText(), this.props.type)
 		);
 	}
 });
@@ -134,35 +56,25 @@ var ConditionNumber = React.createClass({
 
 	render: function() {
 		return(
-			this.getMark(this.getConditionsType(), SubAnswer.conditions.values[this.props.type], AnswerValidation.isValidCondition)
+			this.getMark(this.getConditionsType(), this.props.type, AnswerValidation.isValidCondition)
 		);
 	}
 });
 
 var BaseConditions = {
 
-	getConditions: function() {
-		return this.props.conditions.map(function(c){
-			return <ConditionNumber key={c.uuid} uuid={c.uuid} type={c.condition} text={c.text} handleSelect={this.handleSelect} handleRemove={this.handleRemove} handleChangeText={this.handleChangeText}/>;
-		}.bind(this));
+	getCondition: function() {
+		var condition = this.props.condition;
+		return <ConditionNumber key={condition.uuid} uuid={condition.uuid} type={condition.condition} text={condition.text} handleSelect={this.handleSelect} handleChangeText={this.handleChangeText}/>;
 	},
 
-	getConditionsText: function() {
-		return this.props.conditions.map(function(c){
-			return <ConditionText key={c.uuid} uuid={c.uuid} type={c.condition} text={c.text} handleSelect={this.handleSelect} handleRemove={this.handleRemove} handleChangeText={this.handleChangeText}/>;
-		}.bind(this));
+	getConditionText: function() {
+		var conditionText = this.props.condition;
+		return <ConditionText key={conditionText.uuid} uuid={conditionText.uuid} type={conditionText.condition} text={conditionText.text} handleSelect={this.handleSelect} handleChangeText={this.handleChangeText}/>;
 	},
 
-	getMark: function(conditions, descr) {
-		return (
-			<div className="conditions">
-				<button type="button" className="btn btn-default btn-sm" onClick={this.handleAdd}>
-					<span className="glyphicon glyphicon-plus"></span>
-					<span>&nbsp;Добавить условие</span>
-				</button>
-				{conditions}
-			</div>
-		);
+	getMark: function(condition) {
+		return condition;
 	}
 }
 
@@ -170,25 +82,17 @@ var ConditionsText = React.createClass({
 
 	mixins: [BaseConditions],
 
-	handleSelect: function(conditionUuid, type) {
-		AnswerActions.changeAnswerConditionText(this.props.uuid, conditionUuid, null, type);
+	handleSelect: function(type) {
+		AnswerActions.changeAnswerConditionText(this.props.uuid, null, type);
 	},
 
-	handleAdd: function () {
-		AnswerActions.addAnswerConditionText(this.props.uuid);
-	},
-
-	handleRemove: function(conditionUuid) {
-		AnswerActions.removeAnswerConditionText(this.props.uuid, conditionUuid);
-	},
-
-	handleChangeText: function(conditionUuid, text) {
-		AnswerActions.changeAnswerConditionText(this.props.uuid, conditionUuid, text);
+	handleChangeText: function(text) {
+		AnswerActions.changeAnswerConditionText(this.props.uuid, text);
 	},
 
 	render: function() {
 		return (
-			this.getMark(this.getConditionsText())
+			this.getMark(this.getConditionText())
 		);
 	}
 });
@@ -197,25 +101,17 @@ var Conditions = React.createClass({
 
 	mixins: [BaseConditions],
 
-	handleSelect: function(uuid, type) {
-		AnswerActions.changeAnswerCondition(this.props.uuid, uuid, null, type);
+	handleSelect: function(type) {
+		AnswerActions.changeAnswerCondition(this.props.uuid, null, type);
 	},
 
-	handleAdd: function () {
-		AnswerActions.addAnswerCondition(this.props.uuid);
-	},
-
-	handleRemove: function(conditionUuid){
-		AnswerActions.removeAnswerCondition(this.props.uuid, conditionUuid);
-	},
-
-	handleChangeText: function(conditionUuid, text){
-		AnswerActions.changeAnswerCondition(this.props.uuid, conditionUuid, text);
+	handleChangeText: function(text){
+		AnswerActions.changeAnswerCondition(this.props.uuid, text);
 	},
 
 	render: function() {
 		return (
-			this.getMark(this.getConditions())
+			this.getMark(this.getCondition())
 		);
 	}
 });

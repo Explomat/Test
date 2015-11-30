@@ -32,86 +32,29 @@ var AnswerActions = {
 		});
 	},
 
-	addAnswerCondition: function(uuid) {
-		AppDispatcher.handleAction({
-			actionType: AnswerConstants.ANSWER_ADD_CONDITION,
-			uuid: uuid
-		});
-	},
-
-	removeAnswerCondition: function(uuid, conditionUuid) {
-		AppDispatcher.handleAction({
-			actionType: AnswerConstants.ANSWER_REMOVE_CONDITION,
-			uuid: uuid,
-			conditionUuid: conditionUuid
-		});
-	},
-
-	changeAnswerCondition: function(uuid, conditionUuid, text, type) {
+	changeAnswerCondition: function(uuid, text, type) {
 		AppDispatcher.handleAction({
 			actionType: AnswerConstants.ANSWER_CHANGE_CONDITION,
 			uuid: uuid,
-			conditionUuid: conditionUuid,
 			text: text, 
 			type: type
 		})
 	},
 
-	addAnswerConditionText: function(uuid) {
-		AppDispatcher.handleAction({
-			actionType: AnswerConstants.ANSWER_ADD_CONDITIONTEXT,
-			uuid: uuid
-		});
-	},
-
-	removeAnswerConditionText: function(uuid, conditionUuid) {
-		AppDispatcher.handleAction({
-			actionType: AnswerConstants.ANSWER_REMOVE_CONDITIONTEXT,
-			uuid: uuid,
-			conditionUuid: conditionUuid
-		});
-	},
-
-	changeAnswerConditionText: function(uuid, conditionUuid, text, type) {
+	changeAnswerConditionText: function(uuid, text, type) {
 		AppDispatcher.handleAction({
 			actionType: AnswerConstants.ANSWER_CHANGE_CONDITIONTEXT,
 			uuid: uuid,
-			conditionUuid: conditionUuid,
 			text: text,
 			type: type
 		})
 	},
 	
-	addAnswerConformity: function(uuid) {
-		AppDispatcher.handleAction({
-			actionType: AnswerConstants.ANSWER_ADD_CONFORMITY,
-			uuid: uuid
-		});
-	},
-
-	removeAnswerConformity: function(uuid, conformityUuid) {
-		AppDispatcher.handleAction({
-			actionType: AnswerConstants.ANSWER_REMOVE_CONFORMITY,
-			uuid: uuid,
-			conformityUuid: conformityUuid
-		});
-	},
-
-	changeAnswerConformity: function(uuid, conformityUuid, text) {
+	changeAnswerConformity: function(uuid, text) {
 		AppDispatcher.handleAction({
 			actionType: AnswerConstants.ANSWER_CHANGE_CONFORMITY,
 			uuid: uuid,
-			conformityUuid: conformityUuid,
 			text: text
-		});
-	},
-
-	changeAnswerSize: function(uuid, width, height) {
-		AppDispatcher.handleAction({
-			actionType: AnswerConstants.ANSWER_CHANGE_SIZE,
-			uuid: uuid,
-			width: width,
-			height: height
 		});
 	},
 
