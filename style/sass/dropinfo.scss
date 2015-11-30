@@ -36,6 +36,11 @@ $selectedColor: #8ad875;
 		}
 
 		& .dropinfo__block-markup {
+		    overflow: hidden;
+		    text-overflow: ellipsis;
+		    white-space: nowrap;
+		    display: block;
+		    width: 95%;
 			&.dropinfo__block-markup_empty {
 				color: red;
 			}

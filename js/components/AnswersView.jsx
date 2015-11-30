@@ -13,6 +13,12 @@ var Conformities = require('./modules/Conformities');
 
 var Answer = {
 
+	getDefaultProps: function(){
+		return {
+			expanded: false
+		}
+	},
+
 	uploadImage: function(eventTarget) {
 		AnswerActions.uploadImage(this.props.uuid, eventTarget);
 	},
@@ -29,6 +35,10 @@ var Answer = {
 				<span onClick={this.remove} style={isShowRemove} className="glyphicon glyphicon-trash"></span>
 			</div>
 		);
+	},
+
+	handleExpand: function(isExpanded){
+		AnswerActions.toogleExpand(this.props.uuid, isExpanded);
 	},
 
 	/*getIcons: function(){
@@ -138,16 +148,32 @@ var MatchItemAnswer = React.createClass({
 //соответствие
 var ConformityAnswer = React.createClass({
 
-	mixins:[Answer],
+	mixins: [Answer],
+
+	getDescriptionMarkup: function(){
+		var text = this.props.text === '' ? 'Не указан текст ответа' : this.props.text;
+		var textClassName = this.props.text === '' ? 'dropinfo__block-markup_empty': '';
+		return (<span title={text} className={"dropinfo__block-markup " + textClassName}>{text}</span>);
+	},
 
 	render: function() {
+		var descriptionMarkup = this.getDescriptionMarkup();
 		return (
 			<div className="answer all clearfix">
-				<span className="answer__number">{this.props.number}&nbsp;</span>
-				<TextView className={"answer__weight"} value={this.props.weight} onBlur={this.changeWeight} isValid={AnswerValidation.isValidWeight} placeholder="Вес"/>
-				<TextView className={"answer__text"} value={this.props.text} onBlur={this.changeText} placeholder="Ответ"/>
-				<div className="a-conditions">
-					<Conformities uuid={this.props.uuid} conformities={AnswersStore.getConformities(this.props.uuid)} />
+				<span className="answer__number">{this.props.number}</span>
+				<div className="answer__content">
+					<Drop.DropInfo onExpand={this.handleExpand} descriptionMarkup={descriptionMarkup} expanded={this.props.expanded}>
+						<Drop.DropInfoHeader>
+							{this.getIcons()}
+						</Drop.DropInfoHeader>
+						<Drop.DropInfoBody>
+							<TextView className={"answer__weight"} value={this.props.weight} onBlur={this.changeWeight} isValid={AnswerValidation.isValidWeight} placeholder="Вес"/>
+							<TextView className={"answer__text"} value={this.props.text} onBlur={this.changeText} placeholder="Ответ"/>
+							<div className="a-conditions">
+								<Conformities uuid={this.props.uuid} conformities={AnswersStore.getConformities(this.props.uuid)} />
+							</div>
+						</Drop.DropInfoBody>
+					</Drop.DropInfo>
 				</div>
 			</div>
 		);
@@ -159,24 +185,14 @@ var ChoiceAnswer = React.createClass({
 
 	mixins:[Answer],
 
-	getDefaultProps: function(){
-		return {
-			expanded: false
-		}
-	},
-
 	handleSelect: function(checked){
 		AnswerActions.selectAnswer(this.props.uuid, checked);
-	},
-
-	handleExpand: function(isExpanded){
-		AnswerActions.toogleExpand(this.props.uuid, isExpanded);
 	},
 
 	getDescriptionMarkup: function(){
 		var text = this.props.text === '' ? 'Не указан текст ответа' : this.props.text;
 		var textClassName = this.props.text === '' ? 'dropinfo__block-markup_empty': '';
-		return <span className={"dropinfo__block-markup " + textClassName}>{text}</span>
+		return <span title={text} className={"dropinfo__block-markup " + textClassName}>{text}</span>
 	},	
 
 	render: function() {
@@ -208,12 +224,28 @@ var OrderAnswer = React.createClass({
 
 	mixins:[Answer],
 
-	render:function() {
+	getDescriptionMarkup: function(){
+		var text = this.props.text === '' ? 'Не указан текст ответа' : this.props.text;
+		var textClassName = this.props.text === '' ? 'dropinfo__block-markup_empty': '';
+		return <span title={text} className={"dropinfo__block-markup " + textClassName}>{text}</span>
+	},
+
+	render: function() {
+		var descriptionMarkup = this.getDescriptionMarkup();
 		return(
 			<div className="answer all clearfix">
 				<span className="answer__number">{this.props.number}</span>
-				<TextView className={"answer__weight"} value={this.props.weight} onBlur={this.changeWeight} isValid={AnswerValidation.isValidWeight} placeholder="Вес"/>
-				<TextView className={"answer__text"} value={this.props.text} onBlur={this.changeText} placeholder="Ответ"/>
+				<div className="answer__content">
+					<Drop.DropInfo onExpand={this.handleExpand} descriptionMarkup={descriptionMarkup} expanded={this.props.expanded}>
+						<Drop.DropInfoHeader>
+							{this.getIcons()}
+						</Drop.DropInfoHeader>
+						<Drop.DropInfoBody>
+							<TextView className={"answer__weight"} value={this.props.weight} onBlur={this.changeWeight} isValid={AnswerValidation.isValidWeight} placeholder="Вес"/>
+							<TextView className={"answer__text"} value={this.props.text} onBlur={this.changeText} placeholder="Ответ"/>
+						</Drop.DropInfoBody>
+					</Drop.DropInfo>
+				</div>
 			</div>
 		);
 	}
