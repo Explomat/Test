@@ -1,5 +1,7 @@
 @import 'variables';
 
+$selectedColor: #8ad875;
+
 .dropinfo {
 	width: 100%;
 	position: relative;
@@ -13,7 +15,7 @@
 		border-radius: $borderRadius;
 
 		&.dropinfo__block_selected {
-			background-color: #8ad875;
+			background-color: $selectedColor;
 		}
 		&.dropinfo__block_show {
 			height: 40px;
@@ -31,6 +33,12 @@
 		    zoom: 1;
 		    opacity: 0;
 		    height: 0px;
+		}
+
+		& .dropinfo__block-markup {
+			&.dropinfo__block-markup_empty {
+				color: red;
+			}
 		}
 	}
 
@@ -61,6 +69,10 @@
 			background-color: antiquewhite;
 			border-radius: $borderRadius $borderRadius 0px 0px;
 			height: 40px;
+
+			&.dropinfo__content-header_selected {
+				background-color: $selectedColor;
+			}
 		}
 		& .dropinfo__content-body {
 			padding: 8px;

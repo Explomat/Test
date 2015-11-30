@@ -14,4 +14,5 @@ module.exports = function(args){
 	this.conditions = args.conditions || [new Condition()];
 	this.conditionsText = args.conditionsText || [new ConditionText()];
 	this.conformities = args.conformities || [new Conformity()];
+	this.expanded = args.expanded || false;
 }

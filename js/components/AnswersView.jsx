@@ -159,18 +159,36 @@ var ChoiceAnswer = React.createClass({
 
 	mixins:[Answer],
 
+	getDefaultProps: function(){
+		return {
+			expanded: false
+		}
+	},
+
 	handleSelect: function(checked){
 		AnswerActions.selectAnswer(this.props.uuid, checked);
 	},
 
+	handleExpand: function(isExpanded){
+		AnswerActions.toogleExpand(this.props.uuid, isExpanded);
+	},
+
+	getDescriptionMarkup: function(){
+		var text = this.props.text === '' ? 'Не указан текст ответа' : this.props.text;
+		var textClassName = this.props.text === '' ? 'dropinfo__block-markup_empty': '';
+		return <span className={"dropinfo__block-markup " + textClassName}>{text}</span>
+	},	
+
 	render: function() {
-		var isSelectedClass = this.props.selected ? 'dropinfo__block_selected': '';
+		var isSelectedClass = this.props.selected ? 'dropinfo__block_selected' : '';
+		var isSelectedClassHeader = this.props.selected ? 'dropinfo__content-header_selected': '';
+		var descriptionMarkup = this.getDescriptionMarkup();
 		return(
 			<div className="answer all clearfix">
 				<span className="answer__number">{this.props.number}</span>
 				<div className="answer__content">
-					<Drop.DropInfo descriptionMarkup={<span>{this.props.text}</span>} classNameBlock={isSelectedClass}>
-						<Drop.DropInfoHeader>
+					<Drop.DropInfo onExpand={this.handleExpand} descriptionMarkup={descriptionMarkup} classNameBlock={isSelectedClass} expanded={this.props.expanded}>
+						<Drop.DropInfoHeader className={isSelectedClassHeader}>
 							<CheckBox className={"answer__checkbox"} label={"Правильный ответ"} checked={this.props.selected} onChangeChecked={this.handleSelect}/>
 							{this.getIcons()}
 						</Drop.DropInfoHeader>

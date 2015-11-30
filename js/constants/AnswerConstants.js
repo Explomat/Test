@@ -17,5 +17,6 @@ module.exports = keyMirror({
 	ANSWER_CHANGE_SIZE: null,
 	ANSWER_SELECTED: null,
 	ANSWER_CHANGE_TEXT: null,
-	ANSWER_CHANGE_WEIGHT: null
+	ANSWER_CHANGE_WEIGHT: null,
+	ANSWER_TOOGLE_EXPAND: null
 });

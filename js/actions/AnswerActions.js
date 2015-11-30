@@ -178,6 +178,14 @@ var AnswerActions = {
 				err: err
 			});
 		});
+	},
+
+	toogleExpand: function(uuid, isExpanded){
+		AppDispatcher.handleAction({
+			actionType: AnswerConstants.ANSWER_TOOGLE_EXPAND,
+			uuid: uuid,
+			isExpanded: isExpanded
+		});
 	}
 }
 

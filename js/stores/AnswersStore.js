@@ -24,7 +24,10 @@ function getAnswerWithIndex(uuid){
 }
 
 function addAnswer(){
-	_answers.push(new Answer());
+	_answers.forEach(function(ans){
+		ans.expanded = false
+	})
+	_answers.push(new Answer({expanded: true}));
 }
 
 function removeAnswer(uuid) {
@@ -248,6 +251,15 @@ function changeAnswerWeight(uuid, weight) {
 		ans.weight = weight;
 }
 
+function toogleExpand(uuid, isExpanded){
+	var ans = _answers.find(function(item){
+		return item.uuid == uuid;
+	});
+	if (ans) {
+		ans.expanded = isExpanded;
+	}
+}
+
 
 var AnswersStore = extend({}, EventEmitter.prototype, {
 
@@ -398,6 +410,10 @@ AnswersStore.dispatchToken = AppDispatcher.register(function(payload) {
 			break;
 		case ServerConstants.REMOVE_ANSWER_ERROR_IMAGE:
 			errorAnswerImg(action.uuid, action.err);
+			break;
+
+		case AnswerConstants.ANSWER_TOOGLE_EXPAND:
+			toogleExpand(action.uuid, action.isExpanded);
 			break;
 		default:
 			return true;
