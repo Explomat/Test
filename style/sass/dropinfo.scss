@@ -1,6 +1,6 @@
 @import 'variables';
 
-$selectedColor: #8ad875;
+$rightColor: #8ad875;
 
 .dropinfo {
 	width: 100%;
@@ -15,7 +15,7 @@ $selectedColor: #8ad875;
 		border-radius: $borderRadius;
 
 		&.dropinfo__block_selected {
-			background-color: $selectedColor;
+			background-color: $rightColor;
 		}
 		&.dropinfo__block_show {
 			height: 40px;
@@ -41,6 +41,7 @@ $selectedColor: #8ad875;
 		    white-space: nowrap;
 		    display: block;
 		    width: 95%;
+
 			&.dropinfo__block-markup_empty {
 				color: red;
 			}
@@ -71,12 +72,12 @@ $selectedColor: #8ad875;
 		    height: 0px;
 		}
 		& .dropinfo__content-header {
-			background-color: antiquewhite;
+			background-color: $selectedColor;
 			border-radius: $borderRadius $borderRadius 0px 0px;
 			height: 40px;
 
 			&.dropinfo__content-header_selected {
-				background-color: $selectedColor;
+				background-color: $rightColor;
 			}
 		}
 		& .dropinfo__content-body {
