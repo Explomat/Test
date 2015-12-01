@@ -67,7 +67,11 @@ var QuestionStore = extend({}, EventEmitter.prototype, {
 		return _question.text;
 	},
 
-	getTypeSelected: function() {
+	isEmptyText: function(){
+		return _question.text === '';
+	},
+
+	getType: function() {
 		return _question.type;
 	},
 

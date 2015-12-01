@@ -60,7 +60,7 @@ function changeAnswerCondition(uuid, text, condition){
 		return item.uuid == uuid;
 	});
 	if (ans){
-		ans.condition.text = text || ans.condition.text;
+		ans.condition.text = (text === undefined || text === null) ? ans.condition.text : text;
 		ans.condition.condition = condition || ans.condition.condition;
 	}
 }
@@ -70,8 +70,8 @@ function changeAnswerConditionText(uuid, text, condition){
 		return item.uuid == uuid;
 	});
 	if (ans){
-		ans.conditionsText.text = text || ans.conditionsText.text;
-		ans.conditionsText.condition = condition || ans.conditionsText.condition;
+		ans.conditionText.text = (text === undefined || text === null) ? ans.conditionText.text : text;
+		ans.conditionText.condition = condition || ans.conditionText.condition;
 	}
 }
 
@@ -189,6 +189,34 @@ var AnswersStore = extend({}, EventEmitter.prototype, {
 		});
 		if (ans)
 			return ans.img;
+	},
+
+	isAnswersFilled: function(){
+		for (var i = _answers.length - 1; i >= 0; i--) {
+			if(_answers[i].text === '') return false;
+		};
+		return true;
+	},
+
+	isConformitiesFilled: function(){
+		for (var i = _answers.length - 1; i >= 0; i--) {
+			if(_answers[i].conformity === '') return false;
+		};
+		return true;
+	},
+
+	isConditionsTextFilled: function(){
+		for (var i = _answers.length - 1; i >= 0; i--) {
+			if(_answers[i].conditionText.text === '') return false;
+		};
+		return true;
+	},
+
+	isConditionsFilled: function(){
+		for (var i = _answers.length - 1; i >= 0; i--) {
+			if(_answers[i].condition.text === '') return false;
+		};
+		return true;
 	},
 
 	emitChange: function() {

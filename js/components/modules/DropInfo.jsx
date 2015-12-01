@@ -2,10 +2,18 @@ var React = require('react');
 
 var DropInfoHeader = React.createClass({
 
+	contextTypes: {
+        parent: React.PropTypes.any
+    },
+
+    handleClick: function(){
+    	this.context.parent.handleToogleExpand();
+    },
+
 	render: function() {
 		var className = this.props.className ? this.props.className : '';
 		return (
-			<div className={"dropinfo__content-header " + className}>
+			<div onClick={this.handleClick} className={"dropinfo__content-header " + className}>
 				{this.props.children}
 			</div>
 		);
@@ -47,6 +55,16 @@ var DropInfo = React.createClass({
 		classNameBlock: React.PropTypes.string,
 		additionalHeight: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string])
 	},
+
+	childContextTypes: {
+		parent: React.PropTypes.any
+	},
+
+	getChildContext: function() {
+        return { 
+        	parent: this
+        };
+    },
 
 	getDefaultProps: function(){
 		return {

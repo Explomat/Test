@@ -23,6 +23,6 @@ module.exports = {
 	isValidCondition: function (_val) {
 		var val = Number(_val);
 		if (isNaN(val)) return false;
-		return Validation.isNumber(_val);
+		return Validation.isNumber(_val) || _val.toString().trim() === '';
 	}
 }

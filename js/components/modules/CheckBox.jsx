@@ -19,7 +19,10 @@ var CheckBoxView = React.createClass({
 		}
 	},
 
-	handleToggleChecked: function(){
+	handleToggleChecked: function(e){
+		e.stopPropagation();
+    	e.nativeEvent.stopImmediatePropagation();
+
 		this.setState({checked: !this.state.checked});
 		if (this.props.onChangeChecked){
 			this.props.onChangeChecked(!this.state.checked);

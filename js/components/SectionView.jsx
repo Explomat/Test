@@ -163,7 +163,7 @@ var SectionView = React.createClass({
 			<ModalView.ModalBox positionX={this.props.positionX} positionY={this.props.positionY}>
 				<ModalView.ModalBoxContent>
 					<ModalView.ModalBoxHeader onClose={this.handleClose}>
-						<h4 className="modal-box__title">Добавьте раздел</h4>
+						<h4 className="modal-box__title">Добавление/редактирование раздела</h4>
 					</ModalView.ModalBoxHeader>
 					<ModalView.ModalBoxBody>
 						<Fields {...this.state.section}/>

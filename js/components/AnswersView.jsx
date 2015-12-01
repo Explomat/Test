@@ -96,9 +96,9 @@ var FillAnswer = {
 
 	getDescriptionMarkup: function(){
 		var text = this.props.text === '' ? 'Не указано пояснение' : this.props.text;
-		var textClassName = this.props.text === '' ? 'dropinfo__block-markup_empty': '';
+		var textClassName = this.props.text === '' ? 'markup-block_empty': '';
 		return (
-			<div title={text} className={"dropinfo__block-markup " + textClassName}>
+			<div title={text} className={"markup-block " + textClassName}>
 				{text}
 			</div>
 		);
@@ -158,12 +158,15 @@ var ConformityAnswer = React.createClass({
 
 	getDescriptionMarkup: function(){
 		var text = this.props.text === '' ? 'Не указан текст ответа' : this.props.text;
-		var textClassName = this.props.text === '' ? 'dropinfo__block-markup_empty': '';
+		var textClassName = this.props.text === '' ? 'markup-block_empty': '';
+		var showStyles = { display : this.props.text !== '' ? 'inline-block' : 'none' };
 		return (
-			<div title={text} className={"dropinfo__block-markup " + textClassName}>
-				<span>{text}</span>
-				<span className="glyphicon glyphicon-arrow-right"></span>
-				<span>{this.props.conformity}</span>
+			<div title={text} className={"markup-block " + textClassName}>
+				<span className="markup-block__text">{text}</span>
+				<div style={showStyles} className="markup-block__hide-block">
+					<span className="markup-block__arrow glyphicon glyphicon-arrow-right"></span>
+					<span className="markup-block__conformity">{this.props.conformity}</span>
+				</div>
 			</div>
 		);
 	},
@@ -205,8 +208,8 @@ var ChoiceAnswer = React.createClass({
 
 	getDescriptionMarkup: function(){
 		var text = this.props.text === '' ? 'Не указан текст ответа' : this.props.text;
-		var textClassName = this.props.text === '' ? 'dropinfo__block-markup_empty': '';
-		return <div title={text} className={"dropinfo__block-markup " + textClassName}>{text}</div>
+		var textClassName = this.props.text === '' ? 'markup-block_empty': '';
+		return <div title={text} className={"markup-block " + textClassName}>{text}</div>
 	},	
 
 	render: function() {
@@ -240,8 +243,8 @@ var OrderAnswer = React.createClass({
 
 	getDescriptionMarkup: function(){
 		var text = this.props.text === '' ? 'Не указан текст ответа' : this.props.text;
-		var textClassName = this.props.text === '' ? 'dropinfo__block-markup_empty': '';
-		return <div title={text} className={"dropinfo__block-markup " + textClassName}>{text}</div>
+		var textClassName = this.props.text === '' ? 'markup-block_empty': '';
+		return <div title={text} className={"markup-block " + textClassName}>{text}</div>
 	},
 
 	render: function() {

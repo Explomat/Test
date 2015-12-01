@@ -14,7 +14,10 @@ var ImageSelect = require('./modules/ImageSelect');
 var ModalView = require('./modules/ModalView');
 
 function getQuestionState() {
-	return QuestionStore.getQuestion();
+	return {
+		question: QuestionStore.getQuestion(),
+		answers: AnswersStore.getAnswers()
+	}
 }
 
 var AddAnswerButton = React.createClass({
@@ -124,6 +127,21 @@ var QuestionView = React.createClass({
 		this.setState(getQuestionState());
 	},
 
+	isDisableSave: function(){
+		var qType = QuestionStore.getType();
+		var isAddFieldFilled = true;
+		if (qType === QuestionTypes.keys.gap_fill) {
+			isAddFieldFilled = AnswersStore.isConformitiesFilled();
+		}
+		else if (qType === QuestionTypes.keys.numerical_fill_in_blank) {
+			isAddFieldFilled = AnswersStore.isConditionsTextFilled();
+		}
+		else if (qType === QuestionTypes.keys.match_item){
+			isAddFieldFilled = AnswersStore.isConditionsFilled();
+		}
+		return !AnswersStore.isAnswersFilled() || QuestionStore.isEmptyText() || !isAddFieldFilled;
+	},
+
 	handleClose: function(){
 		QuestionStore.removeChangeListener(this._onChange);
 		AnswersStore.removeChangeListener(this._onChange);
@@ -141,23 +159,26 @@ var QuestionView = React.createClass({
 
 	render: function () {
 		var answers = [];
-		var qType = QuestionStore.getTypeSelected();
+		var qType = QuestionStore.getType();
 		this.state.answers.forEach(function(ans, i){
 			var answer = null;
-			if (qType == QuestionTypes.keys.multiple_choice || qType == QuestionTypes.keys.multiple_response)
+			if (qType === QuestionTypes.keys.multiple_choice || qType === QuestionTypes.keys.multiple_response)
 				answer = <Answer.ChoiceAnswer uuid={ans.uuid} key={ans.uuid} selected={ans.selected} number={i+1} text={ans.text} weight={ans.weight} expanded={ans.expanded}/>;
-			else if (qType == QuestionTypes.keys.order)
+			else if (qType === QuestionTypes.keys.order)
 				answer = <Answer.OrderAnswer uuid={ans.uuid} key={ans.uuid} number={i+1} text={ans.text} weight={ans.weight} expanded={ans.expanded}/>;
-			else if (qType == QuestionTypes.keys.match_item)
-				answer = <Answer.MatchItemAnswer uuid={ans.uuid} key={ans.uuid} number={i+1} text={ans.text} weight={ans.weight} height={ans.height} width={ans.width} condition={ans.condition} expanded={ans.expanded}/>;
-			else if (qType == QuestionTypes.keys.numerical_fill_in_blank)
-				answer = <Answer.NumericalFillAnswer uuid={ans.uuid} key={ans.uuid} number={i+1} text={ans.text} weight={ans.weight} height={ans.height} width={ans.width} conditionText={ans.conditionText} expanded={ans.expanded}/>;
-			else if (qType == QuestionTypes.keys.gap_fill)
+			else if (qType === QuestionTypes.keys.gap_fill)
 				answer = <Answer.ConformityAnswer uuid={ans.uuid} key={ans.uuid} number={i+1} text={ans.text} weight={ans.weight} conformity={ans.conformity} expanded={ans.expanded}/>;
+			else if (qType === QuestionTypes.keys.numerical_fill_in_blank)
+				answer = <Answer.NumericalFillAnswer uuid={ans.uuid} key={ans.uuid} number={i+1} text={ans.text} weight={ans.weight} height={ans.height} width={ans.width} conditionText={ans.conditionText} expanded={ans.expanded}/>;
+			else if (qType === QuestionTypes.keys.match_item)
+				answer = <Answer.MatchItemAnswer uuid={ans.uuid} key={ans.uuid} number={i+1} text={ans.text} weight={ans.weight} height={ans.height} width={ans.width} condition={ans.condition} expanded={ans.expanded}/>;
+			
 			if (answer)
 				answers.push(answer);
 		});
-
+		
+		var isDisableSave = this.isDisableSave();
+		var warningStyles = { display : qType === QuestionTypes.keys.order ? 'block' : 'none' };
 		return (
 			<ModalView.ModalBox positionX={this.props.positionX} positionY={this.props.positionY}>
 				<ModalView.ModalBoxContent>
@@ -166,16 +187,20 @@ var QuestionView = React.createClass({
 					</ModalView.ModalBoxHeader>
 					<ModalView.ModalBoxBody>
 						<div className="question-modal__controls">
-							<QuestionText text={this.state.text} />
-							<QuestionType type={this.state.type} />
-							<QuestionWeight weight={this.state.weight}/>
+							<QuestionText text={this.state.question.text} />
+							<QuestionType type={this.state.question.type} />
+							<QuestionWeight weight={this.state.question.weight}/>
 							<AddAnswerButton />
 						</div>
 				        <div className="answers">
+				        	<div style={warningStyles} className="answers__warning">
+					        	<span className="answers__warning-icon glyphicon glyphicon-warning-sign"></span>
+					        	<span className="answers__warning-text">Обратите внимание, что ответы на вопрос данного типа, необходимо распологать в правильном порядке, при проведении тестирования ответы будут перемешанны!</span>
+				        	</div>
 				        	{answers}
 				        </div>
 					</ModalView.ModalBoxBody>
-					<ModalView.ModalBoxFooter onSave={this.handleSaveQuestion} />
+					<ModalView.ModalBoxFooter onSave={this.handleSaveQuestion} disabled={isDisableSave}/>
 				</ModalView.ModalBoxContent>
 			</ModalView.ModalBox>
 		);

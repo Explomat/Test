@@ -3,6 +3,24 @@
 .answers{
 	margin-top: 50px;
 
+	& .answers__warning {
+		color: orange;
+		width: 90%;
+    	margin: 0 auto;
+
+    	& .answers__warning-icon {
+    		vertical-align: top;
+		    margin-right: 10px;
+		    padding: 12px;
+		    font-size: 32px;
+    	}
+
+    	& .answers__warning-text {
+    		display: inline-block;
+    		width: 85%;
+    	}
+	}
+
 	& .answer {
 		& .answer__base-fields {
 			display: inline-block;

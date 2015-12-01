@@ -14,7 +14,7 @@ var Condition = {
 
 	handleChangeText: function(val) {
 		if (this.props.handleChangeText)
-			this.props.handleChangeText(this.props.uuid, val);
+			this.props.handleChangeText(val);
 	},
 
 	getConditionsType: function(){
@@ -32,7 +32,7 @@ var Condition = {
 	getMark: function(conditions, type, validate){
 		return(
 			<div className="condition">
-				<DropDown className={"condition__dropdown"} items={conditions} selectedPayload={type} onChange={this.handleSelect} />
+				<DropDown classNameChild={"dropdown-list_up"} className={"condition__dropdown"} items={conditions} selectedPayload={type} onChange={this.handleSelect} />
 				<TextView className={"condition__text"} value={this.props.text} onBlur={this.handleChangeText} isValid={validate} placeholder={"Условие"}/>
 			</div>
 		);

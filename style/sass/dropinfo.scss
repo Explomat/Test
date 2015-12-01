@@ -35,14 +35,30 @@ $rightColor: #8ad875;
 		    height: 0px;
 		}
 
-		& .dropinfo__block-markup {
+		& .markup-block {
 		    overflow: hidden;
 		    text-overflow: ellipsis;
 		    white-space: nowrap;
 		    width: 95%;
 
-			&.dropinfo__block-markup_empty {
+			&.markup-block_empty {
 				color: red;
+			}
+
+			& .markup-block__text {
+				margin-right: 16px;
+			}
+
+			& .markup-block__hide-block {
+
+			}
+
+			& .markup-block__arrow {
+				margin-right: 16px;
+			}
+
+			& .markup-block__conformity {
+
 			}
 		}
 	}
@@ -74,6 +90,7 @@ $rightColor: #8ad875;
 			background-color: $selectedColor;
 			border-radius: $borderRadius $borderRadius 0px 0px;
 			height: 40px;
+			cursor: pointer;
 
 			&.dropinfo__content-header_selected {
 				background-color: $rightColor;
