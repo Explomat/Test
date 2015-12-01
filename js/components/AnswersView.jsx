@@ -9,6 +9,8 @@ var AnswerValidation = require('../utils/validation/AnswerValidation');
 var Conditions = require('./modules/Conditions').Conditions;
 var ConditionsText = require('./modules/Conditions').ConditionsText;
 
+var DRAG_EFFECT = 'move';
+
 var Answer = {
 
 	getDefaultProps: function(){
@@ -91,6 +93,58 @@ var Answer = {
 	}
 }
 
+var currentDndAnswerUuid = null;
+
+var BaseAnswerView = React.createClass({
+
+	propTypes: {
+		uuid: React.PropTypes.string.isRequired,
+		number: React.PropTypes.number,
+		children: React.PropTypes.oneOfType([React.PropTypes.element, React.PropTypes.array])
+	},
+
+	handleDragEnter: function(e){
+		e.preventDefault();
+		var sourceUuid = currentDndAnswerUuid;
+		var destUuid = e.currentTarget.id;
+		if (sourceUuid === destUuid) return;
+		AnswerActions.replaceAnswers(sourceUuid, destUuid);
+	},
+
+	handleDragStart: function(e){
+		e.dataTransfer.effectAllowed = DRAG_EFFECT;
+
+		//this code is not needed, but FF not working without this
+		e.dataTransfer.setData('text', 'some text');
+		//
+		currentDndAnswerUuid = this.props.uuid;
+		e.target.classList.add('question__dnd-start');
+	},
+
+	handleDragEnd: function(e){
+		e.preventDefault();
+		e.target.classList.remove('question__dnd-start');
+	},
+
+	handleAllowDrop: function(e){
+		e.preventDefault();
+	},
+
+	handleDrop: function(e){
+		e.preventDefault();
+		currentDndAnswerUuid = null;
+	},
+
+	render: function() {
+		return (
+			<div id={this.props.uuid} className="answer all clearfix" draggable="true" onDragStart={this.handleDragStart} onDragEnd={this.handleDragEnd} onDrop={this.handleDrop} onDragOver={this.handleAllowDrop} onDragEnter={this.handleDragEnter}>
+				<span className="answer__number">{this.props.number}</span>
+				{this.props.children}
+			</div>
+		);
+	}
+});
+
 
 var FillAnswer = {
 
@@ -107,8 +161,7 @@ var FillAnswer = {
 	getMark: function(condition){
 		var descriptionMarkup = this.getDescriptionMarkup();
 		return(
-			<div className="answer all clearfix">
-				<span className="answer__number">{this.props.number}</span>
+			<BaseAnswerView uuid={this.props.uuid} number={this.props.number}>
 				<div className="answer__content">
 					<Drop.DropInfo onExpand={this.handleExpand} descriptionMarkup={descriptionMarkup} expanded={this.props.expanded}>
 						<Drop.DropInfoHeader>
@@ -121,7 +174,7 @@ var FillAnswer = {
 						</Drop.DropInfoBody>
 					</Drop.DropInfo>
 				</div>
-			</div>
+			</BaseAnswerView>
 		);
 	}
 }
@@ -178,8 +231,7 @@ var ConformityAnswer = React.createClass({
 	render: function() {
 		var descriptionMarkup = this.getDescriptionMarkup();
 		return (
-			<div className="answer all clearfix">
-				<span className="answer__number">{this.props.number}</span>
+			<BaseAnswerView uuid={this.props.uuid} number={this.props.number}>
 				<div className="answer__content">
 					<Drop.DropInfo onExpand={this.handleExpand} descriptionMarkup={descriptionMarkup} expanded={this.props.expanded}>
 						<Drop.DropInfoHeader>
@@ -192,7 +244,7 @@ var ConformityAnswer = React.createClass({
 						</Drop.DropInfoBody>
 					</Drop.DropInfo>
 				</div>
-			</div>
+			</BaseAnswerView>
 		);
 	}
 });
@@ -217,8 +269,7 @@ var ChoiceAnswer = React.createClass({
 		var isSelectedClassHeader = this.props.selected ? 'dropinfo__content-header_selected': '';
 		var descriptionMarkup = this.getDescriptionMarkup();
 		return(
-			<div className="answer all clearfix">
-				<span className="answer__number">{this.props.number}</span>
+			<BaseAnswerView uuid={this.props.uuid} number={this.props.number}>
 				<div className="answer__content">
 					<Drop.DropInfo onExpand={this.handleExpand} descriptionMarkup={descriptionMarkup} classNameBlock={isSelectedClass} expanded={this.props.expanded}>
 						<Drop.DropInfoHeader className={isSelectedClassHeader}>
@@ -231,7 +282,7 @@ var ChoiceAnswer = React.createClass({
 						</Drop.DropInfoBody>
 					</Drop.DropInfo>
 				</div>
-			</div>
+			</BaseAnswerView>
 		);
 	}
 });
@@ -250,8 +301,7 @@ var OrderAnswer = React.createClass({
 	render: function() {
 		var descriptionMarkup = this.getDescriptionMarkup();
 		return(
-			<div className="answer all clearfix">
-				<span className="answer__number">{this.props.number}</span>
+			<BaseAnswerView uuid={this.props.uuid} number={this.props.number}>
 				<div className="answer__content">
 					<Drop.DropInfo onExpand={this.handleExpand} descriptionMarkup={descriptionMarkup} expanded={this.props.expanded}>
 						<Drop.DropInfoHeader>
@@ -263,7 +313,7 @@ var OrderAnswer = React.createClass({
 						</Drop.DropInfoBody>
 					</Drop.DropInfo>
 				</div>
-			</div>
+			</BaseAnswerView>
 		);
 	}
 });

@@ -3,6 +3,7 @@ var keyMirror = require('keyMirror');
 module.exports = keyMirror({
 	ANSWER_ADD: null,
 	ANSWER_REMOVE: null,
+	ANSWER_REPLACE_ANSWERS: null,
 	ANSWER_SHIFT_UP: null,
 	ANSWER_SHIFT_DOWN: null,
 	ANSWER_CHANGE_CONDITION: null,

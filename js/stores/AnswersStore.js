@@ -33,8 +33,17 @@ function removeAnswer(uuid) {
 	var ansIndex = _answers.findIndex(function(ans){
 		return ans.uuid == uuid;
 	});
-	if (ansIndex != -1 && _answers.length > 1)
+	if (ansIndex !== -1 && _answers.length > 1)
 		_answers.splice(ansIndex, 1);
+}
+
+function replaceAnswers(sourceUuid, destUuid){
+	var sourceAnswer = getAnswerWithIndex(sourceUuid);
+	var destAnswer = getAnswerWithIndex(destUuid);
+	if (sourceAnswer && destAnswer) {
+		_answers.splice(sourceAnswer.index, 1);
+		_answers.splice(destAnswer.index, 0, sourceAnswer.answer);
+	}
 }
 
 function shiftUp(uuid) {
@@ -242,6 +251,9 @@ AnswersStore.dispatchToken = AppDispatcher.register(function(payload) {
 			break;
 		case AnswerConstants.ANSWER_REMOVE:
 			removeAnswer(action.uuid);
+			break;
+		case AnswerConstants.ANSWER_REPLACE_ANSWERS:
+			replaceAnswers(action.sourceUuid, action.destUuid);
 			break;
 
 		case AnswerConstants.ANSWER_SHIFT_UP:

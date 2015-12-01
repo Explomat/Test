@@ -18,6 +18,14 @@ var AnswerActions = {
 		});
 	},
 
+	replaceAnswers: function(sourceUuid, destUuid){
+		AppDispatcher.handleAction({
+			actionType: AnswerConstants.ANSWER_REPLACE_ANSWERS,
+			sourceUuid: sourceUuid,
+			destUuid: destUuid
+		});
+	},
+
 	shiftUpAnswer: function(uuid) {
 		AppDispatcher.handleAction({
 			actionType: AnswerConstants.ANSWER_SHIFT_UP,
