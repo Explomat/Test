@@ -2,47 +2,48 @@
 
 .checkbox-box {
     padding: 5px;
+
+    &:hover {
+         background-color: #F2EDF1;
+    }
+
+    & .checkbox-box__label {
+        position: relative;
+        cursor: pointer;
+        width: 100%;
+        font-weight: 400;
+        color: $primaryTextColor;
+        font-size: 14px;
+        margin-bottom: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        padding-right: 25px;
+
+        &:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0px;
+            width: 18px;
+            height: 18px;
+            z-index: 0;
+            border: 2px solid #5a5a5a;
+            border-radius: 1px;
+            margin-top: 2px;
+            -webkit-transition: 0.2s;
+            -moz-transition: 0.2s;
+            -o-transition: 0.2s;
+            -ms-transition: 0.2s;
+            transition: 0.2s;
+        }
+    }
+
+    & .checkbox-box__input {
+        display: none;
+    }
 }
 
-.checkbox-box:hover {
-    background-color: #F2EDF1;
-}
-
-.checkbox-box__label {
-    position: relative;
-    cursor: pointer;
-    width: 100%;
-    font-weight: 400;
-    color: $primaryTextColor;
-    font-size: 14px;
-    margin-bottom: 0;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    padding-right: 25px;
-}
-
-.checkbox-box__label:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0px;
-    width: 18px;
-    height: 18px;
-    z-index: 0;
-    border: 2px solid #5a5a5a;
-    border-radius: 1px;
-    margin-top: 2px;
-    -webkit-transition: 0.2s;
-    -moz-transition: 0.2s;
-    -o-transition: 0.2s;
-    -ms-transition: 0.2s;
-    transition: 0.2s;
-}
-
-.checkbox-box__input {
-    display: none;
-}
 
 .checkbox-box__input:checked ~ .checkbox-box__label:before {
     top: -4px;
@@ -64,11 +65,4 @@
     -ms-transform-origin: 100% 100%;
     -o-transform-origin: 100% 100%;
     transform-origin: 100% 100%;
-    /*width: 21px;
-    height: 10px;
-    border: 2px solid #009688;
-    border-top: none;
-    border-right: none;
-    border-radius: 0px;
-    transform: rotate(-45deg);*/
 }
