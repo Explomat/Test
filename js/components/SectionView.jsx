@@ -18,51 +18,6 @@ function getSectionState() {
 }
 
 var Fields = React.createClass({
-	
-	getInitialState: function(){
-		return {
-			isDisplayOrder: false,
-			isDisplaySelection: false
-		}
-	},
-
-	componentWillUnmount: function() {
-		document.removeEventListener('click', this.handleBlurOrder);
-		document.removeEventListener('click', this.handleBlurSelection);
-	},
-
-	componentDidMount: function() {
-		document.addEventListener('click', this.handleBlurOrder);
-		document.addEventListener('click', this.handleBlurSelection);
-	},
-
-	handleBlurOrder: function(){
-		if (this.state.isDisplayOrder) {
-			this.setState({isDisplayOrder: false});
-		}
-	},
-
-	handleBlurSelection: function(){
-		if (this.state.isDisplaySelection) {
-			this.setState({isDisplaySelection: false});
-		}
-	},
-
-	handleToogleDisplayOrder: function(e){
-		if (e){
-			e.stopPropagation();
-    		e.nativeEvent.stopImmediatePropagation();
-		}
-		this.setState({isDisplayOrder : !this.state.isDisplayOrder});
-	},
-
-	handleToogleDisplaySelection: function(e){
-		if (e){
-			e.stopPropagation();
-    		e.nativeEvent.stopImmediatePropagation();
-		}
-		this.setState({isDisplaySelection : !this.state.isDisplaySelection});
-	},
 
 	handleChangeTitle: function(val) {
 		SectionActions.changeTitle(val);
@@ -81,12 +36,10 @@ var Fields = React.createClass({
 	},
 
 	handleSelectOrder: function(e, payload){
-		this.handleBlurOrder();
 		SectionActions.selectOrder(payload);
 	},
 
 	handleSelectSelection: function(e, payload){
-		this.handleBlurSelection();
 		SectionActions.selectSelection(payload);
 	},
 
@@ -101,14 +54,12 @@ var Fields = React.createClass({
 	},
 
 	render: function() {
-		var isDisplayOrder = { display: this.state.isDisplayOrder ? 'block' : 'none' };
-		var isDisplaySelection = { display: this.state.isDisplaySelection ? 'block' : 'none' };
 		var selectOrderData = this.getDataForSelect(SectionKeys.order.values);
 		var selectSelectionData = this.getDataForSelect(SectionKeys.selection.values);
 		return (
 			<div className="section-modal panel panel-default">
 				<div className="panel-body">
-		            <Txt.TextView value={this.props.title} onBlur={this.handleChangeTitle} placeholder='Название раздела'/>
+		            <Txt.TextView value={this.props.title} onBlur={this.handleChangeTitle} placeholder='Название раздела *'/>
 		            <Txt.TextView value={this.props.passingScore} onBlur={this.handleChangePassingScore} isValid={SectionValidation.isValidPassingScore} placeholder='Проходной балл'/>
 		            <Txt.TextView value={this.props.duration} onBlur={this.handleChangeDuration} isValid={SectionValidation.isValidDuration} placeholder='Длительность (минут)'/>
 		        	<div className="section-modal__dropdowns all">
@@ -158,7 +109,12 @@ var SectionView = React.createClass({
 		Hasher.setHash('structure/false');
 	},
 
+	isDisableSave: function(){
+		return SectionStore.getTitle() === '';
+	},
+
 	render: function(){
+		var isDisableSave = this.isDisableSave();
 		return(
 			<ModalView.ModalBox positionX={this.props.positionX} positionY={this.props.positionY}>
 				<ModalView.ModalBoxContent>
@@ -168,7 +124,7 @@ var SectionView = React.createClass({
 					<ModalView.ModalBoxBody>
 						<Fields {...this.state.section}/>
 					</ModalView.ModalBoxBody>
-					<ModalView.ModalBoxFooter onSave={this.handleSaveSection} />
+					<ModalView.ModalBoxFooter onSave={this.handleSaveSection} disabled={isDisableSave}/>
 				</ModalView.ModalBoxContent>
 			</ModalView.ModalBox>
 		);

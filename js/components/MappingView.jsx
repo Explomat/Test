@@ -57,14 +57,13 @@ var OrderAnswerView = React.createClass({
 var MatchAnswerView = React.createClass({
 
 	render: function(){
-		var condition = this.props.conditions[0];
 		return(
 			<div className="mquestion__answer">
 				<span>{this.props.text}</span>
 				<span className="mquestion__answer-weight">{this.props.weight}</span>
 				<div className="mquestion__answer-description">
-					<span className="mquestion__answer-condition">{SubAnswer.conditions.values[condition.condition]}</span>
-					<span>  {condition.text}</span>
+					<span className="mquestion__answer-condition">{SubAnswer.conditions.values[this.props.condition.condition]}</span>
+					<span>  {this.props.condition.text}</span>
 				</div>
 			</div>
 		);
@@ -75,14 +74,13 @@ var MatchAnswerView = React.createClass({
 var NumericalFillAnswerView = React.createClass({
 
 	render: function(){
-		var conditionText = this.props.conditionsText[0];
 		return(
 			<div className="mquestion__answer">
 				<span>{this.props.text}</span>
 				<span className="mquestion__answer-weight">{this.props.weight}</span>
 				<div className="mquestion__answer-description">
-					<span className="mquestion__answer-condition">{SubAnswer.conditionsText.values[conditionText.condition]}</span>
-					<span>  {conditionText.text}</span>
+					<span className="mquestion__answer-condition">{SubAnswer.conditionsText.values[this.props.conditionText.condition]}</span>
+					<span>  {this.props.conditionText.text}</span>
 				</div>
 			</div>
 		);
@@ -93,11 +91,10 @@ var NumericalFillAnswerView = React.createClass({
 var GapFillAnswerView = React.createClass({
 
 	render: function(){
-		var conformity = this.props.conformities[0];
 		return(
 			<div className="mquestion__answer">
 				<div className="mquestion__parallel mquestion__parallel_first">{this.props.text}</div>
-				<div className="mquestion__parallel mquestion__parallel_second">{conformity.text}</div>
+				<div className="mquestion__parallel mquestion__parallel_second">{this.props.conformity}</div>
 			</div>
 		);
 	}

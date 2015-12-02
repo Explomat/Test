@@ -1,5 +1,8 @@
 @import 'variables';
 
+$zIndexLess: 900;
+$zIndexMore: 901;
+
 .answers{
 	margin-top: 50px;
 
@@ -34,7 +37,7 @@
 		    right: 0;
 		    height: 40px;
 		    width: 95%;
-		    z-index: 1000;
+		    z-index: $zIndexLess;
 		}
 
 		& .answer__base-fields {
@@ -45,7 +48,7 @@
 			cursor: pointer;
 			top: 13px;
 			right: 40px;
-			z-index: 1001;
+			z-index: $zIndexMore;
 		}
 		& .answer__number{
 			width: 5%;
@@ -58,7 +61,7 @@
 			float: right;
 		}
 		& .answer__checkbox {
-			z-index: 1001;
+			z-index: $zIndexMore;
 			display: inline-block;
 
 			&:hover {

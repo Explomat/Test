@@ -87,15 +87,17 @@ function replaceQuestionInSection(sourceQuestionUuid, sourceSectionUuid, destQue
 	var sourceQuestion = getQuestion(sourceQuestionUuid);
 	var destQuestion = getQuestion(destQuestionUuid);
 
-	sourceSection.section.questions.splice(sourceQuestion.index, 1);
-	sourceSection.section.questions.splice(destQuestion.index, 0, sourceQuestion.question);
+	if (sourceSection && destQuestion) {
+		sourceSection.section.questions.splice(sourceQuestion.index, 1);
+		sourceSection.section.questions.splice(destQuestion.index, 0, sourceQuestion.question);
+	}
 }
 
 function replaceQuestionInNewSection(sourceQuestionUuid, sourceSectionUuid, destSectionUuid){
 	var sourceSection = getSection(sourceSectionUuid);
 	var destSection = getSection(destSectionUuid);
 	var sourceQuestion = getQuestion(sourceQuestionUuid);
-
+	
 	if (sourceSection && destSection){
 		sourceSection.section.questions.splice(sourceQuestion.index, 1);
 		destSection.section.questions.push(sourceQuestion.question);

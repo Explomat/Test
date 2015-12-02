@@ -35,6 +35,10 @@ var SectionStore = extend({}, EventEmitter.prototype, {
 		return _section;
 	},
 
+	getTitle: function(){
+		return _section.title;
+	},
+
 	emitChange: function() {
 		this.emit('change');
 	},
