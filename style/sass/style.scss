@@ -1,11 +1,5 @@
-h1,tr,td,th,span,label,div {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    -o-user-select: none;
+div {
+    user-select:none;
 }
 
 /*::selection { background-color: transparent; };*/

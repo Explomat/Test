@@ -79,7 +79,7 @@ var QuestionShortView = React.createClass({
 				<div className="question__content">
 					<p className="question__title">{this.props.text}</p>
 					<div className="question__description">
-						<span className="question__type">Тип: {QuestionTypes.values[this.props.type]}</span>
+						<span className="question__type">{QuestionTypes.values[this.props.type]}</span>
 					</div>
 					<div className="pull-right question__buttons">
 						<div className="btn-group btn-group-xs question__sort-group">

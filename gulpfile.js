@@ -14,7 +14,7 @@ var autoprefixer = require('gulp-autoprefixer');
 gulp.task('build-scss', function() {
   gulp.src(['./style/css/*.css', './style/sass/*.scss'])
     .pipe(sass().on('error', sass.logError))
-    .pipe(autoprefixer({ browsers: 'IE 9' }))
+    .pipe(autoprefixer({ browsers: ['IE 9', 'last 2 versions'] }))
     .pipe(cleanss({keepBreaks: false}))
     .pipe(concat('style.min.css'))
     .pipe(gulp.dest('./build/style'));
