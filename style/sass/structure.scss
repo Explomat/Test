@@ -1,36 +1,38 @@
 @import 'variables';
 
 .structure {
+	& .structure__sections, & .structure__questions {
+		background-color: #fff;
+	    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16),0 2px 5px 0 rgba(0,0,0,.23);
+	    padding: 16px;
+	    border-radius: $borderRadius;
+	    min-height: 680px;
+	}
 
+	& .structure__sections-header {
+		padding-bottom: 8px;
+		border-bottom: 1px solid $deviderColor;
+	}
+
+	& .structure__sections-body {
+		margin-top: 8px;
+	}
+
+	& .structure__questions-header {
+		padding-bottom: 10px;
+		border-bottom: 1px solid $deviderColor;
+	}
+
+	& .structure__questions-body {
+		margin-top: 8px;
+		display: table;
+	}
 }
 
-.structure__content {
 
-}
 
-.structure__sections, .structure__questions {
-	background-color: #fff;
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16),0 2px 5px 0 rgba(0,0,0,.23);
-    padding: 16px;
-    border-radius: $borderRadius;
-    min-height: 680px;
-}
 
-.structure__sections-header {
-	padding-bottom: 8px;
-	border-bottom: 1px solid $deviderColor;
-}
 
-.structure__sections-body {
-	margin-top: 8px;
-}
 
-.structure__questions-header {
-	padding-bottom: 10px;
-	border-bottom: 1px solid $deviderColor;
-}
 
-.structure__questions-body {
-	margin-top: 8px;
-	display: table;
-}
+

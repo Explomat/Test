@@ -4,70 +4,67 @@
 	padding: 8px 8px;
 	margin-bottom: 5px;
 	cursor: pointer;
+
+	&:hover .section__buttons {
+		display: inline-block;
+	}
+
+	&.section_selected {
+		background-color: $selectedColor;
+	}
+
+	&:hover:not(.section_selected){
+		background-color: $hoverColor;
+	}
+
+	& .section__title {
+		color: $primaryTextColor;
+		margin-bottom: 0px;
+		margin-top: 0px;
+		display: block;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	& .section__description {
+		display: inline-block;
+		font-size: $fontSizeXs;
+	}
+
+	& .section__questions-count {
+		color: $secondaryTextColor;
+	}
+
+	& .section__buttons {
+		display: none;
+	}
+
+	& .section__edit-group {
+		margin-left: 5px;
+	}
+
+	& .section__button-edit{
+		opacity: 0.4;
+		display: inline-block;
+		margin-left: 6px;
+
+		&:hover {
+			opacity: 1;
+			color: $accentColor;
+		}
+	}
+
+	& .section__button-edit_margin {
+		margin-left: 3px;
+	}
+
+	& .section__dnd-start {
+		opacity: 0.5;
+	}
 }
 
-.section_selected {
-	background-color: $selectedColor;
-}
 
-.section:hover:not(.section_selected){
-	background-color: $hoverColor;
-}
 
-.section__content {
-	
-}
 
-.section__title {
-	color: $primaryTextColor;
-	margin-bottom: 0px;
-	margin-top: 0px;
-	display: block;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
 
-.section__description {
-	display: inline-block;
-	font-size: $fontSizeXs;
-}
-
-.section__questions-count {
-	color: $secondaryTextColor;
-}
-
-.section__buttons {
-	display: none;
-}
-
-.section:hover .section__buttons{
-	display: inline-block;
-}
-
-.section__sort-group {
-
-}
-
-.section__edit-group {
-	margin-left: 5px;
-}
-
-.section__button-edit{
-	opacity: 0.4;
-	display: inline-block;
-	margin-left: 6px;
-}
-
-.section__button-edit:hover{
-	opacity: 1;
-	color: $accentColor;
-}
-
-.section__button-edit_margin {
-	margin-left: 3px;
-}
-
-.section__dnd-start {
-	opacity: 0.5;
-}

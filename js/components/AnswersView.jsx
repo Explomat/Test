@@ -166,6 +166,7 @@ var FillAnswer = {
 					<Drop.DropInfo onExpand={this.handleExpand} descriptionMarkup={descriptionMarkup} expanded={this.props.expanded}>
 						<Drop.DropInfoHeader>
 							{this.getIcons()}
+							<div style={{visibility: 'hidden', position: 'absolute', top: '0px', height: '40px', width: '100%'}}></div>
 						</Drop.DropInfoHeader>
 						<Drop.DropInfoBody>
 							<TextView className={"answer__weight"} value={this.props.weight} onBlur={this.changeWeight} isValid={AnswerValidation.isValidWeight} placeholder="Вес"/>
@@ -236,6 +237,7 @@ var ConformityAnswer = React.createClass({
 					<Drop.DropInfo onExpand={this.handleExpand} descriptionMarkup={descriptionMarkup} expanded={this.props.expanded}>
 						<Drop.DropInfoHeader>
 							{this.getIcons()}
+							<div style={{visibility: 'hidden', position: 'absolute', top: '0px', height: '40px', width: '100%'}}></div>
 						</Drop.DropInfoHeader>
 						<Drop.DropInfoBody>
 							<TextView className={"answer__weight"} value={this.props.weight} onBlur={this.changeWeight} isValid={AnswerValidation.isValidWeight} placeholder="Вес"/>
@@ -275,6 +277,7 @@ var ChoiceAnswer = React.createClass({
 						<Drop.DropInfoHeader className={isSelectedClassHeader}>
 							<CheckBox className={"answer__checkbox"} label={"Правильный ответ"} checked={this.props.selected} onChangeChecked={this.handleSelect}/>
 							{this.getIcons()}
+							<div style={{visibility: 'hidden', position: 'absolute', top: '0px', height: '40px', width: '100%'}}></div>
 						</Drop.DropInfoHeader>
 						<Drop.DropInfoBody>
 							<TextView className={"answer__weight"} value={this.props.weight} onBlur={this.changeWeight} isValid={AnswerValidation.isValidWeight} placeholder="Вес"/>
@@ -306,6 +309,7 @@ var OrderAnswer = React.createClass({
 					<Drop.DropInfo onExpand={this.handleExpand} descriptionMarkup={descriptionMarkup} expanded={this.props.expanded}>
 						<Drop.DropInfoHeader>
 							{this.getIcons()}
+							<div style={{visibility: 'hidden', position: 'absolute', top: '0px', height: '40px', width: '100%'}}></div>
 						</Drop.DropInfoHeader>
 						<Drop.DropInfoBody>
 							<TextView className={"answer__weight"} value={this.props.weight} onBlur={this.changeWeight} isValid={AnswerValidation.isValidWeight} placeholder="Вес"/>

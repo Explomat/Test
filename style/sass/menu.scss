@@ -2,61 +2,58 @@
 
 .menu-box {
 
-}
+    & .menu {
+        position: relative;
+        right: 10px;
+        height: 50px;
+        float: right;
+        display: inline-block;
 
-.menu {
-    position: relative;
-    right: 10px;
-    height: 50px;
-    float: right;
-    display: inline-block;
-}
-/*background: rgba(255,255,255,0.36)*/
-.menu__item {
-    position: relative;
-    float: left;
-    text-align: center;
-    height: 100%;
-    display: table;
-}
+        & .menu__item {
+            position: relative;
+            float: left;
+            text-align: center;
+            height: 100%;
+            display: table;
+        }
 
-.menu__border{
-	height: 2px;
-	background-color: #fff;
-	/*transition: all .3s ease-in-out;*/
-	position: absolute;
-    top: 50px;
-}
+        & .menu__border{
+            height: 2px;
+            background-color: #fff;
+            /*transition: all .3s ease-in-out;*/
+            position: absolute;
+            top: 50px;
 
-.menu__border_expand {
-	transition-duration: 0.15s;
-    transition-timing-function: cubic-bezier(0.4, 0.0, 1, 1);
-}
+            &.menu__border_expand {
+                transition-duration: 0.15s;
+                transition-timing-function: cubic-bezier(0.4, 0.0, 1, 1);
+            }
 
-.menu__border_contract {
-	transition-duration: 0.18s;
-    transition-timing-function: cubic-bezier(0.0, 0.0, 0.2, 1);
-}
+            &.menu__border_contract {
+                transition-duration: 0.18s;
+                transition-timing-function: cubic-bezier(0.0, 0.0, 0.2, 1);
+            }
+        }
 
-.menu__button {
-	font-size: $fontSizeLarge;
-    text-transform: uppercase;
-    color: #004446;
-    display: block;
-    padding: 0px 12px;
-	text-decoration: none;
-    display: table-cell;
-    vertical-align: middle;
-}
+        & .menu__button {
+            font-size: $fontSizeLarge;
+            text-transform: uppercase;
+            color: #004446;
+            display: block;
+            padding: 0px 12px;
+            text-decoration: none;
+            display: table-cell;
+            vertical-align: middle;
 
-.menu__button:active {
-    transition: all .15s ease-in-out;
-    background-color: #5BD4E3;
-}
+            &:active {
+                transition: all .15s ease-in-out;
+                background-color: #5BD4E3;
+            }
 
-.menu__button:hover, .menu__button:active, .menu__button:visited, .menu__button:link {
-	text-decoration: none;
-	color: #004446;
-	/*background-color: #388E3C;*/
+            &:hover, &:active, &:visited, &:link {
+                text-decoration: none;
+                color: #004446;
+            }
+        }
+    }
 }
-

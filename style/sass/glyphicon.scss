@@ -2,17 +2,21 @@
 
 .glyphicon-box {
     transition: all .1s ease;
+
+    &.glyphicon-box_lg {
+		font-size: $fontSizeLarge;
+	}
+
+	&.glyphicon-box_sm {
+		font-size: $fontSizeSm;
+	}
+
+	&.glyphicon-box_xs {
+		font-size: $fontSizeXs;
+	}
 }
 
-.glyphicon-box_lg {
-	font-size: $fontSizeLarge;
-}
 
-.glyphicon-box_sm {
-	font-size: $fontSizeSm;
-}
 
-.glyphicon-box_xs {
-	font-size: $fontSizeXs;
-}
+
 

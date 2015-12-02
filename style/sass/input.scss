@@ -55,10 +55,6 @@
         &:hover {
             cursor: text;
         }
-
-        &.textarea-box__label_detranslate {
-            transform: translateY(0px);
-        }
     }
 }
 
@@ -98,10 +94,15 @@
             cursor: text;
         }
 
-        &.input-box__label_detranslate {
-            transform: translateY(0px);
-        }
     }
+}
+
+.textarea-box__label_detranslate {
+    transform: translateY(0px);
+}
+
+.input-box__label_detranslate{
+    transform: translateY(0px);
 }
 
 .textarea-box__input:focus,

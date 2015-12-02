@@ -15,70 +15,76 @@
     font-weight: 400;
     line-height: 24px;
     letter-spacing: -0.01em;
+
+    & .tests__header-wrapper {
+    	padding: 15px;
+		width:1200px;
+	    margin: auto;
+    }
+
+	& .tests__header {
+		height: 200px;
+		background-color: $primaryColor;
+		margin-bottom: -110px;
+		border-top-right-radius: $borderRadius;
+		border-top-left-radius: $borderRadius;
+		/*background-image: url('/build/img/banner3.jpg');
+	    background-size: cover;
+	    background-position: center;*/
+	}
+
+	& .tests__header-fixed{
+		background: $primaryColor;
+	    left:0;
+	    right: 0;
+	    z-index: 10;
+	    width: 1200px;
+	    margin: auto;
+
+	    &.tests__header-fixed_stop {
+			position: fixed;
+			top: 0px;
+			box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.26);
+		}
+	}
+
+	& .tests__body {
+		min-height: 720px;
+		width: 1200px;
+		margin: auto;
+		overflow-y: hidden;
+		padding: 15px;
+		width:1200px;
+	    margin: auto;
+	}
+
+	& .tests__body-content {
+		border:none;
+		border-top-left-radius: 0px;
+		border-top-right-radius: 0px;
+		margin-bottom: 0px;
+		background: none;
+		height: 100%;
+
+		&.tests__body-content_translate {
+			transform: translateY(780px);
+		}
+
+		&.tests__body-content_show {
+			transition: all .5s ease-in-out;
+			transform: translateY(0px);
+		}
+	}
+
+	& .tests__name {
+		font-size: 30px;
+	    font-family: serif;
+	    color: #C8E6C9;
+	    font-weight: 700;
+	    margin-left: 20px;
+	    float: left;
+	}    
 }
 
-.tests__header {
-	height: 200px;
-	background-color: $primaryColor;
-	margin-bottom: -110px;
-	border-top-right-radius: $borderRadius;
-	border-top-left-radius: $borderRadius;
-	/*background-image: url('/build/img/banner3.jpg');
-    background-size: cover;
-    background-position: center;*/
-}
 
-.tests__header-fixed{
-	background: $primaryColor;
-    left:0;
-    right: 0;
-    z-index: 10;
-    width: 1200px;
-    margin: auto;
-}
 
-.tests__header-fixed_stop {
-	position: fixed;
-	top: 0px;
-	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.26);
-}
-
-.tests__body {
-	min-height: 720px;
-	width: 1200px;
-	margin: auto;
-	overflow-y: hidden;
-}
-
-.tests__body, .tests__header-wrapper {
-	padding: 15px;
-	width:1200px;
-    margin: auto;
-}
-
-.tests__name {
-	font-size: 30px;
-    font-family: serif;
-    color: #C8E6C9;
-    font-weight: 700;
-    margin-left: 20px;
-    float: left;
-}
-
-.tests__body-content {
-	border:none;
-	border-top-left-radius: 0px;
-	border-top-right-radius: 0px;
-	margin-bottom: 0px;
-	background: none;
-	height: 100%;
-}
-
-.tests__body-content_translate {
-	transform: translateY(780px);
-}
-
-.tests__body-content_show {
-	transition: all .5s ease-in-out;
-	transform: translateY(0px);
-}
