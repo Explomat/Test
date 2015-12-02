@@ -62,6 +62,9 @@ var BasicView = React.createClass({
 							<MenuView delay={this.delay} defaultRoute={this.state.hash} routes={[{route: '#settings', title: 'Общие сведения'}, {route: '#structure', title: 'Структура'}, {route: '#view', title: 'Отображение'}]}/>
 						</div>
 					</div>
+					<div title="Сохранить тест" className="floating-button">
+						<span className="floating-button__icon glyphicon glyphicon-floppy-disk"></span>
+					</div>
 				</div>
 			    <div id={Config.dom.appId} className="tests__body"></div>
 			</div>

@@ -195,7 +195,7 @@ var MappingView = React.createClass({
         var questionsCount = MappingStore.getQuestionsCount();
         var maxAttemptsCount = MappingStore.getMaxPassingScore();
 		return (
-			<div className={"mapping group tests__body-content tests__body-content_translate" + classes}>
+			<div className={"mapping group tests__body-content tests__body-content_translate " + classes}>
 				<div className="mapping__header group__elem">
 					<h2 className="mapping__header-title">{this.state.settings.title}</h2>
 					<p>

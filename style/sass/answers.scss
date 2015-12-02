@@ -61,6 +61,8 @@ $zIndexMore: 901;
 			float: right;
 		}
 		& .answer__checkbox {
+			position: relative;
+			padding: 7.5px 5px;
 			z-index: $zIndexMore;
 			display: inline-block;
 
