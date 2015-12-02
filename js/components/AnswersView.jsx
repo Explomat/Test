@@ -9,7 +9,7 @@ var AnswerValidation = require('../utils/validation/AnswerValidation');
 var Conditions = require('./modules/Conditions').Conditions;
 var ConditionsText = require('./modules/Conditions').ConditionsText;
 
-var DRAG_EFFECT = 'move';
+var currentDndAnswerUuid = null, DRAG_EFFECT = 'move';
 
 var Answer = {
 
@@ -93,14 +93,13 @@ var Answer = {
 	}
 }
 
-var currentDndAnswerUuid = null;
-
 var BaseAnswerView = React.createClass({
 
 	propTypes: {
 		uuid: React.PropTypes.string.isRequired,
 		number: React.PropTypes.number,
-		children: React.PropTypes.oneOfType([React.PropTypes.element, React.PropTypes.array])
+		children: React.PropTypes.oneOfType([React.PropTypes.element, React.PropTypes.array]),
+		expanded: React.PropTypes.bool.isRequired
 	},
 
 	handleDragEnter: function(e){
@@ -112,18 +111,19 @@ var BaseAnswerView = React.createClass({
 	},
 
 	handleDragStart: function(e){
+		this.refs.answer.classList.add('answer_dnd-start');
 		e.dataTransfer.effectAllowed = DRAG_EFFECT;
 
 		//this code is not needed, but FF not working without this
 		e.dataTransfer.setData('text', 'some text');
 		//
 		currentDndAnswerUuid = this.props.uuid;
-		e.target.classList.add('question__dnd-start');
+		//e.target.classList.add('question__dnd-start');
 	},
 
 	handleDragEnd: function(e){
 		e.preventDefault();
-		e.target.classList.remove('question__dnd-start');
+		this.refs.answer.classList.remove('answer_dnd-start');
 	},
 
 	handleAllowDrop: function(e){
@@ -135,9 +135,15 @@ var BaseAnswerView = React.createClass({
 		currentDndAnswerUuid = null;
 	},
 
+	handleToogleExpand: function(){
+		this.props.handleToogleExpand();
+	},
+
 	render: function() {
+		var dndClassName = this.props.expanded ? '' : 'answer__dnd_width';
 		return (
-			<div id={this.props.uuid} className="answer all clearfix" draggable="true" onDragStart={this.handleDragStart} onDragEnd={this.handleDragEnd} onDrop={this.handleDrop} onDragOver={this.handleAllowDrop} onDragEnter={this.handleDragEnter}>
+			<div ref="answer" className="answer all clearfix">
+				<div id={this.props.uuid} className={"answer__dnd " + dndClassName} onClick={this.handleToogleExpand} draggable="true" onDragStart={this.handleDragStart} onDragEnd={this.handleDragEnd} onDrop={this.handleDrop} onDragOver={this.handleAllowDrop} onDragEnter={this.handleDragEnter}></div>
 				<span className="answer__number">{this.props.number}</span>
 				{this.props.children}
 			</div>
@@ -158,12 +164,16 @@ var FillAnswer = {
 		);
 	},
 
+	handleToogleExpand: function(){
+		this.refs.dropInfo.handleToogleExpand();
+	},
+
 	getMark: function(condition){
 		var descriptionMarkup = this.getDescriptionMarkup();
 		return(
-			<BaseAnswerView uuid={this.props.uuid} number={this.props.number}>
+			<BaseAnswerView uuid={this.props.uuid} number={this.props.number} handleToogleExpand={this.handleToogleExpand} expanded={this.props.expanded}>
 				<div className="answer__content">
-					<Drop.DropInfo onExpand={this.handleExpand} descriptionMarkup={descriptionMarkup} expanded={this.props.expanded}>
+					<Drop.DropInfo ref="dropInfo" onExpand={this.handleExpand} descriptionMarkup={descriptionMarkup} expanded={this.props.expanded}>
 						<Drop.DropInfoHeader>
 							{this.getIcons()}
 							<div style={{visibility: 'hidden', position: 'absolute', top: '0px', height: '40px', width: '100%'}}></div>
@@ -227,14 +237,18 @@ var ConformityAnswer = React.createClass({
 
 	handleChangeConformity: function(val){
 		AnswerActions.changeAnswerConformity(this.props.uuid, val);
+	},
+
+	handleToogleExpand: function(){
+		this.refs.dropInfo.handleToogleExpand();
 	},	
 
 	render: function() {
 		var descriptionMarkup = this.getDescriptionMarkup();
 		return (
-			<BaseAnswerView uuid={this.props.uuid} number={this.props.number}>
+			<BaseAnswerView uuid={this.props.uuid} number={this.props.number} handleToogleExpand={this.handleToogleExpand} expanded={this.props.expanded}>
 				<div className="answer__content">
-					<Drop.DropInfo onExpand={this.handleExpand} descriptionMarkup={descriptionMarkup} expanded={this.props.expanded}>
+					<Drop.DropInfo ref="dropInfo" onExpand={this.handleExpand} descriptionMarkup={descriptionMarkup} expanded={this.props.expanded}>
 						<Drop.DropInfoHeader>
 							{this.getIcons()}
 							<div style={{visibility: 'hidden', position: 'absolute', top: '0px', height: '40px', width: '100%'}}></div>
@@ -264,20 +278,23 @@ var ChoiceAnswer = React.createClass({
 		var text = this.props.text === '' ? 'Не указан текст ответа' : this.props.text;
 		var textClassName = this.props.text === '' ? 'markup-block_empty': '';
 		return <div title={text} className={"markup-block " + textClassName}>{text}</div>
-	},	
+	},
+
+	handleToogleExpand: function(){
+		this.refs.dropInfo.handleToogleExpand();
+	},
 
 	render: function() {
 		var isSelectedClass = this.props.selected ? 'dropinfo__block_selected' : '';
 		var isSelectedClassHeader = this.props.selected ? 'dropinfo__content-header_selected': '';
 		var descriptionMarkup = this.getDescriptionMarkup();
 		return(
-			<BaseAnswerView uuid={this.props.uuid} number={this.props.number}>
+			<BaseAnswerView uuid={this.props.uuid} number={this.props.number} handleToogleExpand={this.handleToogleExpand} expanded={this.props.expanded}>
 				<div className="answer__content">
-					<Drop.DropInfo onExpand={this.handleExpand} descriptionMarkup={descriptionMarkup} classNameBlock={isSelectedClass} expanded={this.props.expanded}>
+					<Drop.DropInfo ref="dropInfo" onExpand={this.handleExpand} descriptionMarkup={descriptionMarkup} classNameBlock={isSelectedClass} expanded={this.props.expanded}>
 						<Drop.DropInfoHeader className={isSelectedClassHeader}>
 							<CheckBox className={"answer__checkbox"} label={"Правильный ответ"} checked={this.props.selected} onChangeChecked={this.handleSelect}/>
 							{this.getIcons()}
-							<div style={{visibility: 'hidden', position: 'absolute', top: '0px', height: '40px', width: '100%'}}></div>
 						</Drop.DropInfoHeader>
 						<Drop.DropInfoBody>
 							<TextView className={"answer__weight"} value={this.props.weight} onBlur={this.changeWeight} isValid={AnswerValidation.isValidWeight} placeholder="Вес"/>
@@ -301,12 +318,16 @@ var OrderAnswer = React.createClass({
 		return <div title={text} className={"markup-block " + textClassName}>{text}</div>
 	},
 
+	handleToogleExpand: function(){
+		this.refs.dropInfo.handleToogleExpand();
+	},
+
 	render: function() {
 		var descriptionMarkup = this.getDescriptionMarkup();
 		return(
-			<BaseAnswerView uuid={this.props.uuid} number={this.props.number}>
+			<BaseAnswerView uuid={this.props.uuid} number={this.props.number} handleToogleExpand={this.handleToogleExpand} expanded={this.props.expanded}>
 				<div className="answer__content">
-					<Drop.DropInfo onExpand={this.handleExpand} descriptionMarkup={descriptionMarkup} expanded={this.props.expanded}>
+					<Drop.DropInfo ref="dropInfo" onExpand={this.handleExpand} descriptionMarkup={descriptionMarkup} expanded={this.props.expanded}>
 						<Drop.DropInfoHeader>
 							{this.getIcons()}
 							<div style={{visibility: 'hidden', position: 'absolute', top: '0px', height: '40px', width: '100%'}}></div>

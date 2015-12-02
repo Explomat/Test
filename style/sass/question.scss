@@ -3,6 +3,10 @@
 .question {
 	display: table-row;
 
+	&.question_dnd-start {
+		opacity: 0.5;
+	}
+
 	& .question__number-box {
 		display: table-cell;
 	    vertical-align: middle;
@@ -70,10 +74,6 @@
 
 	& .question__edit-group {
 		margin-left: 5px;
-	}
-
-	& .question__dnd-start {
-		opacity: 0.5;
 	}
 }
 

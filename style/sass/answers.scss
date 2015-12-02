@@ -22,6 +22,21 @@
 	}
 
 	& .answer {
+		position: relative;
+
+		&.answer_dnd-start {
+			opacity: 0.5;
+		}
+
+		& .answer__dnd {
+		    cursor: pointer;
+		    position: absolute;
+		    right: 0;
+		    height: 40px;
+		    width: 95%;
+		    z-index: 1000;
+		}
+
 		& .answer__base-fields {
 			display: inline-block;
 		}
@@ -30,6 +45,7 @@
 			cursor: pointer;
 			top: 13px;
 			right: 40px;
+			z-index: 1001;
 		}
 		& .answer__number{
 			width: 5%;
@@ -42,6 +58,7 @@
 			float: right;
 		}
 		& .answer__checkbox {
+			z-index: 1001;
 			display: inline-block;
 
 			&:hover {

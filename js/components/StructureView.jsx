@@ -29,12 +29,12 @@ var QuestionShortView = React.createClass({
 		e.dataTransfer.setData("text", "some text");
 		//
 		curDragQuestion = { node: e.target, sectionUuid: this.props.sectionUuid };
-		curDragQuestion.node.classList.add('question__dnd-start');
+		curDragQuestion.node.classList.add('question_dnd-start');
 	},
 
 	handleDragEnd: function(e){
 		e.preventDefault();
-		e.target.classList.remove('question__dnd-start');
+		e.target.classList.remove('question_dnd-start');
 	},
 
 	handleAllowDrop: function(e){
