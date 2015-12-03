@@ -25,23 +25,18 @@ var BasicView = React.createClass({
 	componentDidMount: function() {
 		window.addEventListener('scroll', this.handleScroll);
 		setTimeout(this._positionFloatingButton, 0);
-		//MappingStore.addChangeListener(this._onChange);
 	},
  
 	componentWillUnmount: function() {
 		window.removeEventListener('scroll', this.handleScroll);
-		//MappingStore.removeChangeListener(this._onChange);
 	},
 
 	_setHash: function(newHash){
 		setTimeout(function(){
 			this.setState({hash: getHashRoot('#' + newHash)});
 		}.bind(this), this.delay);
+		window.scrollTo(0, 0);
 		this._positionFloatingButton();
-	},
-
-	_onChange: function() {
-		//this.setState(getMappingState());
 	},
 
 	_positionFloatingButton: function(){
@@ -55,9 +50,7 @@ var BasicView = React.createClass({
 			var visibleTestsHeight = testsHeight - hiddentTestsHeight;
 			btn.style.top = (visibleTestsHeight - btn.offsetHeight - scrollTop) + 'px';
 		}
-		else {
-			btn.style.top = null;
-		}
+		else btn.style.top = null;
 	},
 
 	handleScroll: function(e){
