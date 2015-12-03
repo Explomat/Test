@@ -8,7 +8,7 @@ $rightColor: #8ad875;
 	border: 1px solid $deviderColor;
     border-radius: $borderRadius;
 
-	& .dropinfo__block {
+	.dropinfo__block {
 		width: 100%;
 		padding: 8px;
 		transition: all .2s linear;
@@ -35,7 +35,7 @@ $rightColor: #8ad875;
 		    height: 0px;
 		}
 
-		& .markup-block {
+		.markup-block {
 		    overflow: hidden;
 		    text-overflow: ellipsis;
 		    white-space: nowrap;
@@ -45,29 +45,29 @@ $rightColor: #8ad875;
 				color: red;
 			}
 
-			& .markup-block__text {
+			.markup-block__text {
 				margin-right: 16px;
 			}
 
-			& .markup-block__hide-block {
+			.markup-block__hide-block {
 
 			}
 
-			& .markup-block__arrow {
+			.markup-block__arrow {
 				margin-right: 16px;
 			}
 
-			& .markup-block__conformity {
+			.markup-block__conformity {
 
 			}
 		}
 	}
 
-	& .dropinfo__content-box {
+	.dropinfo__content-box {
 		transition: all .2s linear;
 		overflow: hidden;
 
-		& .dropinfo__content {
+		.dropinfo__content {
 			
 		}
 
@@ -86,7 +86,7 @@ $rightColor: #8ad875;
 		    opacity: 0;
 		    height: 0px;
 		}
-		& .dropinfo__content-header {
+		.dropinfo__content-header {
 			background-color: $selectedColor;
 			border-radius: $borderRadius $borderRadius 0px 0px;
 			height: 40px;
@@ -96,15 +96,15 @@ $rightColor: #8ad875;
 				background-color: $rightColor;
 			}
 		}
-		& .dropinfo__content-body {
+		.dropinfo__content-body {
 			padding: 8px;
 		}
-		& .dropinfo__content-footer {
+		.dropinfo__content-footer {
 			
 		}
 	}
 
-	& .dropinfo__glyphicon-block, & .dropinfo__glyphicon-content{
+	.dropinfo__glyphicon-block, & .dropinfo__glyphicon-content{
 		position: absolute;
 		cursor: pointer;
     	right: 0px;

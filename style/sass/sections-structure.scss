@@ -17,7 +17,7 @@
 		background-color: $hoverColor;
 	}
 
-	& .section__title {
+	.section__title {
 		color: $primaryTextColor;
 		margin-bottom: 0px;
 		margin-top: 0px;
@@ -27,24 +27,24 @@
 		text-overflow: ellipsis;
 	}
 
-	& .section__description {
+	.section__description {
 		display: inline-block;
 		font-size: $fontSizeXs;
 	}
 
-	& .section__questions-count {
+	.section__questions-count {
 		color: $secondaryTextColor;
 	}
 
-	& .section__buttons {
+	.section__buttons {
 		display: none;
 	}
 
-	& .section__edit-group {
+	.section__edit-group {
 		margin-left: 5px;
 	}
 
-	& .section__button-edit{
+	.section__button-edit{
 		opacity: 0.4;
 		display: inline-block;
 		margin-left: 6px;
@@ -55,11 +55,11 @@
 		}
 	}
 
-	& .section__button-edit_margin {
+	.section__button-edit_margin {
 		margin-left: 3px;
 	}
 
-	& .section__dnd-start {
+	.section__dnd-start {
 		opacity: 0.5;
 	}
 }

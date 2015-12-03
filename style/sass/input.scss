@@ -4,7 +4,7 @@
     position: relative;
     outline: 0;
 
-    & .textarea-box__hidden-block {
+    .textarea-box__hidden-block {
         white-space: pre-wrap;
         word-wrap: break-word;
         overflow-wrap: break-word;
@@ -14,7 +14,7 @@
         min-height: 30px;
     }
 
-    & .textarea-box__input {
+    .textarea-box__input {
         overflow-y: hidden;
         padding: 1.6rem 0 0;
         padding-bottom: 0px;
@@ -41,7 +41,7 @@
         }
     }
 
-    & .textarea-box__label {
+    .textarea-box__label {
         font-family: sans-serif;
         margin-top: 20px;
         position: absolute;
@@ -62,7 +62,7 @@
     position: relative;
     outline: 0;
 
-    & .input-box__input {
+    .input-box__input {
         padding: 5px;
         box-sizing: border-box;
         border: none;
@@ -79,7 +79,7 @@
         }
     }
 
-    & .input-box__label {
+    .input-box__label {
         font-family: sans-serif;
         margin-top: 30px;
         position: absolute;

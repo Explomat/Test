@@ -1,17 +1,16 @@
 .section-modal {
+	.section-modal__dropdowns {
 
+	}
+
+	.section-modal__dropdown-first {
+		width: 45%;
+		float: left;
+	}
+
+	.section-modal__dropdown-second{
+		width: 45%;
+		float: right;
+	}
 }
 
-.section-modal__dropdowns {
-
-}
-
-.section-modal__dropdown-first {
-	width: 45%;
-	float: left;
-}
-
-.section-modal__dropdown-second{
-	width: 45%;
-	float: right;
-}

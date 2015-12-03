@@ -2,7 +2,7 @@
 
 .mapping{
 
-    & .mapping__header-title{
+    .mapping__header-title{
         text-align: center;
         margin-top: 0px;
     }
@@ -17,12 +17,12 @@
         padding-bottom: 0px;
     }
 
-    & .mquestion__title{
+    .mquestion__title{
         line-height: 32px;
         margin-bottom: 0px;
     }
 
-    & .mquestion__title-number{
+    .mquestion__title-number{
         font-size: 16px;
         float: left;
         width: 32px;
@@ -34,11 +34,11 @@
         color: #fff;
     }
 
-    & .mquestion__answers-box{
+    .mquestion__answers-box{
         margin-left: 40px;
     }
 
-    & .mquestion__answer{
+    .mquestion__answer{
         position: relative;
         padding: 0 8px;
         line-height: 32px;
@@ -54,7 +54,7 @@
         }
     }
 
-    & .mquestion__answer-weight{
+    .mquestion__answer-weight{
         position: absolute;
         width: 48px;
         text-align: center;
@@ -65,24 +65,24 @@
         background: rgb(104, 205, 76);
     }
 
-    & .mquestion__answer-description{
+    .mquestion__answer-description{
         color: $secondaryTextColor;
         font-size: $fontSizeXLarge;
     }
 
-    & .mquestion__answer-condition{
+    .mquestion__answer-condition{
         color: red;
     }
 
-    & .mquestion__answer-type-control{
+    .mquestion__answer-type-control{
         margin-right: 10px !important;
     }
     
-    & .mquestion__info-title{
+    .mquestion__info-title{
         font-weight: bold;
     }
 
-    & .mquestion__parallel{
+    .mquestion__parallel{
         text-align: center;
         border: 2px solid #8AD875;
         display: inline-block;

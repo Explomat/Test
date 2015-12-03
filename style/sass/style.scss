@@ -32,27 +32,6 @@ input {
     margin-top: 20px;
 }
 
-.dropdown-menu-xs {
-    font-size: 12px;
-}
-
-.dropdown-menu > li > span:focus, .dropdown-menu > li > span:hover {
-    color: #262626;
-    text-decoration: none;
-    background-color: #F5F5F5;
-}
-
-.dropdown-menu > li > span {
-    cursor: pointer;
-    display: block;
-    padding: 3px 20px;
-    clear: both;
-    font-weight: 400;
-    line-height: 1.42857;
-    color: #333;
-    white-space: nowrap;
-}
-
 .not-valid {
     border-bottom: 2px solid #EE6666 !important;
     outline: 0px none !important;
@@ -72,8 +51,4 @@ input {
 .loading-icon {
     width: 17px;
     height: 17px;
-}
-
-.modal {
-	overflow: auto;
 }

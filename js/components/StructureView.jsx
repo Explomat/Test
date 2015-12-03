@@ -54,7 +54,9 @@ var QuestionShortView = React.createClass({
 	},
 
 	handleRemoveQuestion: function(){
-		StructureActions.removeQuestion(this.props.sectionUuid, this.props.uuid);
+		if (confirm('Вы действительно хотите удалить вопрос под номером '+ this.props.number +' ?')){
+			StructureActions.removeQuestion(this.props.sectionUuid, this.props.uuid);
+		}
 	},
 
 	handleShiftUp: function(){
@@ -143,7 +145,9 @@ var SectionView = React.createClass({
 
 	handleRemoveSection: function(e){
 		this.stopPropagation(e);
-		StructureActions.removeSection(this.props.uuid);
+		if (confirm('Вы действительно хотите удалить раздел ?')){
+			StructureActions.removeSection(this.props.uuid);
+		}
 	},
 
 	handleShiftUp: function(e){

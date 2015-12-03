@@ -2,7 +2,7 @@ var SettingsKeys = require('../utils/SettingsKeys');
 
 function Settings(_args) {
 	var args = _args || {};
-	this.title = args.title || 'Default name';
+	this.title = args.title || '';
 	this.passingScore = args.passingScore || '';
 	this.durationMinutes = args.durationMinutes || ''; 
 	this.durationDays = args.durationDays || '';

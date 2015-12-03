@@ -4,18 +4,11 @@
 	width: 83.33333333%;
     margin: 0 auto;
 
-    & .group__elem {
+    .group__elem {
 		margin-bottom: 30px;
 		background-color: #fff;
 	    padding: 18px;
 	    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.16),0px 2px 5px 0px rgba(0,0,0,0.23);
 	    border-radius: $borderRadius;
-
-	    .group__elem_disabled {
-			&:before {
-				background-color: red;
-			}
-		}
-
 	}
 }

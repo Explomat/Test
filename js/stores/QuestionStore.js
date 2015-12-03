@@ -68,7 +68,7 @@ var QuestionStore = extend({}, EventEmitter.prototype, {
 	},
 
 	isEmptyText: function(){
-		return _question.text === '';
+		return _question.text.trim() === '';
 	},
 
 	getType: function() {

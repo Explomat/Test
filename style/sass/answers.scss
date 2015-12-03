@@ -6,32 +6,32 @@ $zIndexMore: 901;
 .answers{
 	margin-top: 50px;
 
-	& .answers__warning {
+	.answers__warning {
 		color: orange;
 		width: 90%;
     	margin: 0 auto;
 
-    	& .answers__warning-icon {
+    	.answers__warning-icon {
     		vertical-align: top;
 		    margin-right: 10px;
 		    padding: 12px;
 		    font-size: 32px;
     	}
 
-    	& .answers__warning-text {
+    	.answers__warning-text {
     		display: inline-block;
     		width: 85%;
     	}
 	}
 
-	& .answer {
+	.answer {
 		position: relative;
 
 		&.answer_dnd-start {
 			opacity: 0.5;
 		}
 
-		& .answer__dnd {
+		.answer__dnd {
 		    cursor: pointer;
 		    position: absolute;
 		    right: 0;
@@ -40,27 +40,27 @@ $zIndexMore: 901;
 		    z-index: $zIndexLess;
 		}
 
-		& .answer__base-fields {
+		.answer__base-fields {
 			display: inline-block;
 		}
-		& .answer__icons{
+		.answer__icons{
 			position: absolute;
 			cursor: pointer;
 			top: 13px;
 			right: 40px;
 			z-index: $zIndexMore;
 		}
-		& .answer__number{
+		.answer__number{
 			width: 5%;
 		    line-height: 35px;
 		    font-size: $fontSizeXLarge;
 		    font-weight: 500;
 		}
-		& .answer__content{
+		.answer__content{
 			width: 95%;
 			float: right;
 		}
-		& .answer__checkbox {
+		.answer__checkbox {
 			position: relative;
 			padding: 7.5px 5px;
 			z-index: $zIndexMore;
@@ -70,11 +70,11 @@ $zIndexMore: 901;
 				background-color: transparent;
 			}
 		}
-		& .answer__weight {
+		.answer__weight {
 			display: inline-block;
 		}
 
-		& .answer__conformity {
+		.answer__conformity {
 			display: inline-block;
 		}
 	}

@@ -7,14 +7,14 @@
 		opacity: 0.5;
 	}
 
-	& .question__number-box {
+	.question__number-box {
 		display: table-cell;
 	    vertical-align: middle;
 	    font-size: $fontSizeXs;
 	    text-align: center;
 	}
 
-	& .question__number {
+	.question__number {
 		display: inline-block;
 	    width: 26px;
 	    height: 26px;
@@ -25,7 +25,7 @@
 	    color: #fff;
 	}
 
-	& .question__content {
+	.question__content {
 		display: table-cell;
 		cursor: pointer;
 		padding: 8px;
@@ -33,9 +33,13 @@
 		&:hover {
 			background-color: $hoverColor;
 		}
+
+		&:hover .question__buttons{
+			display: inline-block;
+		}
 	}
 
-	& .question__title {
+	.question__title {
 		color: $primaryTextColor;
 		margin-bottom: 0px;
 		margin-top: 0px;
@@ -44,20 +48,20 @@
 		word-wrap: break-word;
 	}
 
-	& .question__description {
+	.question__description {
 		display: inline-block;
 		font-size: $fontSizeXs;
 	}
 
-	& .question__type {
+	.question__type {
 		color: $secondaryTextColor;
 	}
 
-	& .question__buttons {
+	.question__buttons {
 		display: none;
 	}
 
-	& .question__edit-button {
+	.question__edit-button {
 		opacity: 0.4;
 		display: inline-block;
 		margin-left: 6px;
@@ -72,12 +76,7 @@
 		}
 	}
 
-	& .question__edit-group {
+	.question__edit-group {
 		margin-left: 5px;
 	}
-}
-
-
-.question__content:hover .question__buttons{
-	display: inline-block;
 }

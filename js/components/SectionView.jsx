@@ -110,7 +110,7 @@ var SectionView = React.createClass({
 	},
 
 	isDisableSave: function(){
-		return SectionStore.getTitle() === '';
+		return SectionStore.isEmptyTitle();
 	},
 
 	render: function(){

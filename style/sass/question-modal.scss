@@ -1,20 +1,23 @@
-.question-modal__text{
-	
+.question-modal {
+	.question-modal__text{
+		
+	}
+
+	.question-modal__type{
+		width: 35%;
+		margin-right: 10%;
+		display: inline-block;
+	}
+
+	.question-modal__weight{
+		width: 20%;
+		margin-right: 10%;
+		display: inline-block;
+	}
+
+	.question-modal__add-answer {
+		width: 25%;
+		display: inline-block;
+	}
 }
 
-.question-modal__type{
-	width: 35%;
-	margin-right: 10%;
-	display: inline-block;
-}
-
-.question-modal__weight{
-	width: 20%;
-	margin-right: 10%;
-	display: inline-block;
-}
-
-.question-modal__add-answer {
-	width: 25%;
-	display: inline-block;
-}

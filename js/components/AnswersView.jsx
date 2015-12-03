@@ -89,7 +89,9 @@ var Answer = {
 	},
 
 	remove: function(){
-		AnswerActions.removeAnswer(this.props.uuid);
+		if (confirm('Вы действительно хотите удалить ответ ?')){
+			AnswerActions.removeAnswer(this.props.uuid);
+		}
 	}
 }
 

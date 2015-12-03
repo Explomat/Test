@@ -186,19 +186,21 @@ var QuestionView = React.createClass({
 						<h4 className="modal-box__title">Добавление/Редактирование вопроса</h4>
 					</ModalView.ModalBoxHeader>
 					<ModalView.ModalBoxBody>
-						<div className="question-modal__controls">
-							<QuestionText text={this.state.question.text} />
-							<QuestionType type={this.state.question.type} />
-							<QuestionWeight weight={this.state.question.weight}/>
-							<AddAnswerButton />
-						</div>
-				        <div className="answers">
-				        	<div style={warningStyles} className="answers__warning">
-					        	<span className="answers__warning-icon glyphicon glyphicon-warning-sign"></span>
-					        	<span className="answers__warning-text">Обратите внимание, что ответы на вопрос данного типа, необходимо распологать в правильном порядке, при проведении тестирования ответы будут перемешанны!</span>
-				        	</div>
-				        	{answers}
-				        </div>
+						<div className="question-modal">
+							<div className="question-modal__controls">
+								<QuestionText text={this.state.question.text} />
+								<QuestionType type={this.state.question.type} />
+								<QuestionWeight weight={this.state.question.weight}/>
+								<AddAnswerButton />
+							</div>
+					        <div className="answers">
+					        	<div style={warningStyles} className="answers__warning">
+						        	<span className="answers__warning-icon glyphicon glyphicon-warning-sign"></span>
+						        	<span className="answers__warning-text">Обратите внимание, что ответы на вопрос данного типа, необходимо распологать в правильном порядке, при проведении тестирования ответы будут перемешанны!</span>
+					        	</div>
+					        	{answers}
+					        </div>
+					    </div>
 					</ModalView.ModalBoxBody>
 					<ModalView.ModalBoxFooter onSave={this.handleSaveQuestion} disabled={isDisableSave}/>
 				</ModalView.ModalBoxContent>

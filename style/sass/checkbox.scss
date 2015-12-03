@@ -7,7 +7,7 @@
         background-color: #F2EDF1;
     }
 
-    & .checkbox-box__label {
+    .checkbox-box__label {
         position: relative;
         cursor: pointer;
         width: 100%;
@@ -39,7 +39,7 @@
         }
     }
 
-    & .checkbox-box__input {
+    .checkbox-box__input {
         display: none;
     }
 }

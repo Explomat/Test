@@ -47,6 +47,8 @@ var BasicView = React.createClass({
 		var coordinates = UI.getElementCoordinates(this.refs.tests);
 		if (coordinates.positionY <= 0){
 			this.refs.headerFixed.classList.add('tests__header-fixed_stop');
+			var scrollTop = this.refs.floatingButton.getBoundingClientRect().top;
+			this.refs.floatingButton.style.top = (scrollTop + 80) + 'px';
 		}
 		else {
 			this.refs.headerFixed.classList.remove('tests__header-fixed_stop');
@@ -62,7 +64,7 @@ var BasicView = React.createClass({
 							<MenuView delay={this.delay} defaultRoute={this.state.hash} routes={[{route: '#settings', title: 'Общие сведения'}, {route: '#structure', title: 'Структура'}, {route: '#view', title: 'Отображение'}]}/>
 						</div>
 					</div>
-					<div title="Сохранить тест" className="floating-button">
+					<div ref="floatingButton" title="Сохранить тест" className="floating-button">
 						<span className="floating-button__icon glyphicon glyphicon-floppy-disk"></span>
 					</div>
 				</div>

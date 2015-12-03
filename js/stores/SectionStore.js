@@ -39,6 +39,10 @@ var SectionStore = extend({}, EventEmitter.prototype, {
 		return _section.title;
 	},
 
+	isEmptyTitle: function(){
+		return _section.title.trim() === '';
+	},
+
 	emitChange: function() {
 		this.emit('change');
 	},

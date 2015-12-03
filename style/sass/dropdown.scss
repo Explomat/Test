@@ -6,7 +6,7 @@
     vertical-align: middle;
     width: 100%;
 
-    & .dropdown-list {
+    .dropdown-list {
         position: absolute;
         top: 0;
         left: 0;
@@ -32,7 +32,7 @@
             margin-bottom: 2px;
         }
 
-        & .dropdown-list__item {
+        .dropdown-list__item {
             padding: 3px 20px;
             cursor: pointer;
             white-space: nowrap;
@@ -50,7 +50,7 @@
             }
         }
 
-        & .dropdown-list__devider {
+        .dropdown-list__devider {
             height: 1px;
             margin: 10px 0;
             overflow: hidden;
@@ -58,18 +58,18 @@
         }
     }
 
-    & .dropdown-box__title {
+    .dropdown-box__title {
         margin-right: 10px;
     }
 
-    & .dropdown-box__caret {
+    .dropdown-box__caret {
         position: absolute;
         right: 0;
         top: calc(50% - 2px);
         color: $deviderColor;
     }
 
-    & .dropdown-box__default-item {
+    .dropdown-box__default-item {
         position: relative;
         border: none;
         background-color: #fff;
