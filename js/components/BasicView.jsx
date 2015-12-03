@@ -24,6 +24,7 @@ var BasicView = React.createClass({
 
 	componentDidMount: function() {
 		window.addEventListener('scroll', this.handleScroll);
+		setTimeout(this._positionFloatingButton, 0);
 		//MappingStore.addChangeListener(this._onChange);
 	},
  
@@ -36,39 +37,51 @@ var BasicView = React.createClass({
 		setTimeout(function(){
 			this.setState({hash: getHashRoot('#' + newHash)});
 		}.bind(this), this.delay);
-		
+		this._positionFloatingButton();
 	},
 
 	_onChange: function() {
 		//this.setState(getMappingState());
 	},
 
-	handleScroll: function(e){
-		var coordinates = UI.getElementCoordinates(this.refs.tests);
-		if (coordinates.positionY <= 0){
-			this.refs.headerFixed.classList.add('tests__header-fixed_stop');
-			var scrollTop = this.refs.floatingButton.getBoundingClientRect().top;
-			this.refs.floatingButton.style.top = (scrollTop + 80) + 'px';
+	_positionFloatingButton: function(){
+		var btn = this.refs.floatingButton;
+		var documentHeight = document.documentElement.clientHeight;
+		var testsHeight = this.refs.tests.clientHeight;
+		var scrollTop = this.refs.testsBody.getBoundingClientRect().top;
+
+		if (testsHeight > documentHeight){
+			var hiddentTestsHeight = testsHeight - documentHeight;
+			var visibleTestsHeight = testsHeight - hiddentTestsHeight;
+			btn.style.top = (visibleTestsHeight - btn.offsetHeight - scrollTop) + 'px';
 		}
 		else {
-			this.refs.headerFixed.classList.remove('tests__header-fixed_stop');
+			btn.style.top = null;
 		}
+	},
+
+	handleScroll: function(e){
+		var coordinates = UI.getElementCoordinates(this.refs.tests);
+		if (coordinates.positionY <= 0) this.refs.headerFixed.classList.add('tests__header-fixed_stop');
+		else this.refs.headerFixed.classList.remove('tests__header-fixed_stop');
+
+		this._positionFloatingButton();
 	},
 
 	render: function () {
 		return (
 			<div ref="tests" className="tests">
-				<div ref="testsHeader" className="tests__header">
+				<div className="tests__header">
 					<div ref="headerFixed" className="tests__header-fixed">
 						<div className="tests__header-wrapper clearfix">
 							<MenuView delay={this.delay} defaultRoute={this.state.hash} routes={[{route: '#settings', title: 'Общие сведения'}, {route: '#structure', title: 'Структура'}, {route: '#view', title: 'Отображение'}]}/>
 						</div>
 					</div>
-					<div ref="floatingButton" title="Сохранить тест" className="floating-button">
-						<span className="floating-button__icon glyphicon glyphicon-floppy-disk"></span>
-					</div>
 				</div>
-			    <div id={Config.dom.appId} className="tests__body"></div>
+				<div ref="floatingButton" title="Сохранить тест" className="floating-button">
+					<span className="floating-button__icon glyphicon glyphicon-floppy-disk"></span>
+				</div>
+			    <div ref="testsBody" id={Config.dom.appId} className="tests__body"></div>
 			</div>
 		);
 	}
