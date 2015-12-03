@@ -51,14 +51,16 @@ function saveStructureData(){
 function saveSection(section){
 	var isEdit = false;
 	for (var i = _sections.length - 1; i >= 0; i--) {
+		_sections[i].selected = false;
 		if (_sections[i].uuid === section.uuid) {
 			_sections[i] = section;
 			isEdit = true;
-			break;
 		}
 	}
-	if (!isEdit)
+	if (!isEdit) {
+		section.selected = true;
 		_sections.push(section);
+	}
 }
 
 function saveQuestion(question, sectionUuid){
@@ -141,7 +143,7 @@ function removeSection(uuid){
 	var secIndex = _sections.findIndex(function(sec){
 		return sec.uuid === uuid;
 	});
-	if (secIndex !== -1 && _sections.length > 1){
+	if (secIndex !== -1){
 		var section = _sections.splice(secIndex, 1)[0];
 		if (section.selected) {
 			secIndex = secIndex === _sections.length ? secIndex - 1 : secIndex;

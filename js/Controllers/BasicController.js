@@ -8,7 +8,7 @@ module.exports = {
 	
 	start: function(){
 		var appElem = document.getElementById(Config.dom.basicAppId) || document.body;
-		BasicAPI.loadData();
+		BasicAPI.createDefaultData();
 		
 		ReactDOM.unmountComponentAtNode(appElem);
 		ReactDOM.render(React.createElement(BasicView), appElem);

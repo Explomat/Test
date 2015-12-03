@@ -200,6 +200,13 @@ var AnswersStore = extend({}, EventEmitter.prototype, {
 			return ans.img;
 	},
 
+	isSomeAnswersSelected: function(){
+		for (var i = _answers.length - 1; i >= 0; i--) {
+			if(_answers[i].selected) return true;
+		};
+		return false;
+	},
+
 	isAnswersFilled: function(){
 		for (var i = _answers.length - 1; i >= 0; i--) {
 			if(_answers[i].text === '') return false;

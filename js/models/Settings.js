@@ -6,7 +6,7 @@ function Settings(_args) {
 	this.passingScore = args.passingScore || '';
 	this.durationMinutes = args.durationMinutes || ''; 
 	this.durationDays = args.durationDays || '';
-	this.attemptsCount = args.attemptsCount || 1;
+	this.attemptsCount = args.attemptsCount || '';
 	this.notSentCorrectAnswer = args.notSentCorrectAnswer || false; //Не передавать проигрывателю информацию о правильных ответах на вопросы
 	this.displayResult = args.displayResult || false; //Показывать результаты теста (резюме по тесту)
 	this.notDisplayLastAttempt = args.notDisplayLastAttempt || false; //Не показывать сообщение об исчерпании попыток ответа

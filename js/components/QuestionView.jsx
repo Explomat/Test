@@ -139,6 +139,9 @@ var QuestionView = React.createClass({
 		else if (qType === QuestionTypes.keys.match_item){
 			isAddFieldFilled = AnswersStore.isConditionsFilled();
 		}
+		else if (qType ===  QuestionTypes.keys.multiple_choice || qType ===  QuestionTypes.keys.multiple_response) {
+			isAddFieldFilled = AnswersStore.isSomeAnswersSelected();
+		}
 		return !AnswersStore.isAnswersFilled() || QuestionStore.isEmptyText() || !isAddFieldFilled;
 	},
 

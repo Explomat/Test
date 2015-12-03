@@ -5,7 +5,7 @@ var Structure = require('../models/Structure');
 
 module.exports = {
 
-	loadData: function() {
+	createDefaultData: function() {
 		var structure = Storage.getItem('structure');
 		var settings = Storage.getItem('settings');
 		if (!structure) Storage.setItem('structure', new Structure(structure));
