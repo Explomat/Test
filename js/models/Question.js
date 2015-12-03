@@ -9,7 +9,7 @@ function Question(args){
 	this.weight = args.weight || 1;
 	this.type = args.type || QuestionTypes.keys.multiple_choice;
 	this.img = args.img || null;
-	this.answers = args.answers || [ new Answer({expanded: true}) ];
+	this.answers = args.answers || [ new Answer({text: 'Ответ', expanded: true}), new Answer({text: 'Ответ1'}),new Answer({text: 'Ответ2'}),new Answer({text: 'Ответ3'}) ];
 }
 
 module.exports = Question;
