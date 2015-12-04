@@ -5,5 +5,6 @@ module.exports = keyMirror({
 	SAVE_QUESTION_DATA: null,
 	SET_TYPE_SELECTED: null,
 	SET_TEXT: null,
-	SET_WEIGHT: null
+	SET_WEIGHT: null,
+	USE_SELF_WEIGHT: null
 });

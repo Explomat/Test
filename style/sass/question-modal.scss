@@ -1,23 +1,44 @@
 .question-modal {
-	.question-modal__text{
-		
-	}
 
-	.question-modal__type{
-		width: 35%;
-		margin-right: 10%;
-		display: inline-block;
-	}
+	.question-modal__controls{
+		.question-modal__controls-input {
+			.question-modal__text{
+				
+			}
 
-	.question-modal__weight{
-		width: 20%;
-		margin-right: 10%;
-		display: inline-block;
-	}
+			.question-modal__type{
+				width: 35%;
+				margin-right: 10%;
+				margin-top: 20px;
+				display: inline-block;
+			}
 
-	.question-modal__add-answer {
-		width: 25%;
-		display: inline-block;
+			.question-modal__weight{
+				width: 20%;
+				margin-right: 10%;
+				display: inline-block;
+
+
+				&.question-modal__weight_hide {
+					display: none;
+				}
+			}
+		}
+
+		.question-modal__controls-edit {
+			margin-top: 32px;
+
+			.question-modal__add-answer {
+				display: inline-block;
+				margin-right: 19%;
+			}
+
+			.question-modal__self-weight {
+				display: inline-block;
+			}
+		}
+
 	}
+	
 }
 

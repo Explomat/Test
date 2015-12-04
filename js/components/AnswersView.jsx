@@ -5,6 +5,7 @@ var CheckBox = require('./modules/CheckBox');
 var Drop = require('./modules/DropInfo');
 var AnswerActions = require('../actions/AnswerActions');
 var AnswersStore = require('../stores/AnswersStore');
+var QuestionStore = require('../stores/QuestionStore');
 var AnswerValidation = require('../utils/validation/AnswerValidation');
 var Conditions = require('./modules/Conditions').Conditions;
 var ConditionsText = require('./modules/Conditions').ConditionsText;
@@ -172,6 +173,7 @@ var FillAnswer = {
 
 	getMark: function(condition){
 		var descriptionMarkup = this.getDescriptionMarkup();
+		var additionalWeightClassName = QuestionStore.isSelfWeight() ? '' : 'answer__weight_hide';
 		return(
 			<BaseAnswerView uuid={this.props.uuid} number={this.props.number} handleToogleExpand={this.handleToogleExpand} expanded={this.props.expanded}>
 				<div className="answer__content">
@@ -181,9 +183,9 @@ var FillAnswer = {
 							<div style={{visibility: 'hidden', position: 'absolute', top: '0px', height: '40px', width: '100%'}}></div>
 						</Drop.DropInfoHeader>
 						<Drop.DropInfoBody>
-							<TextView className={"answer__weight"} value={this.props.weight} onBlur={this.changeWeight} isValid={AnswerValidation.isValidWeight} placeholder="Вес"/>
 							<TextView className={"answer__text"} value={this.props.text} onBlur={this.changeText} placeholder="Пояснение *"/>
 							<div className="answer__condition">{condition}</div>
+							<TextView className={"answer__weight " + additionalWeightClassName} value={this.props.weight} onBlur={this.changeWeight} isValid={AnswerValidation.isValidWeight} placeholder="Вес"/>
 						</Drop.DropInfoBody>
 					</Drop.DropInfo>
 				</div>
@@ -247,6 +249,7 @@ var ConformityAnswer = React.createClass({
 
 	render: function() {
 		var descriptionMarkup = this.getDescriptionMarkup();
+		var additionalWeightClassName = QuestionStore.isSelfWeight() ? '' : 'answer__weight_hide';
 		return (
 			<BaseAnswerView uuid={this.props.uuid} number={this.props.number} handleToogleExpand={this.handleToogleExpand} expanded={this.props.expanded}>
 				<div className="answer__content">
@@ -256,9 +259,9 @@ var ConformityAnswer = React.createClass({
 							<div style={{visibility: 'hidden', position: 'absolute', top: '0px', height: '40px', width: '100%'}}></div>
 						</Drop.DropInfoHeader>
 						<Drop.DropInfoBody>
-							<TextView className={"answer__weight"} value={this.props.weight} onBlur={this.changeWeight} isValid={AnswerValidation.isValidWeight} placeholder="Вес"/>
 							<TextView className={"answer__text"} value={this.props.text} onBlur={this.changeText} placeholder="Ответ *"/>
 							<TextView className={"answer__conformity"} value={this.props.conformity} onBlur={this.handleChangeConformity} placeholder="Соответствие *"/>
+							<TextView className={"answer__weight " + additionalWeightClassName} value={this.props.weight} onBlur={this.changeWeight} isValid={AnswerValidation.isValidWeight} placeholder="Вес"/>
 						</Drop.DropInfoBody>
 					</Drop.DropInfo>
 				</div>
@@ -290,6 +293,7 @@ var ChoiceAnswer = React.createClass({
 		var isSelectedClass = this.props.selected ? 'dropinfo__block_selected' : '';
 		var isSelectedClassHeader = this.props.selected ? 'dropinfo__content-header_selected': '';
 		var descriptionMarkup = this.getDescriptionMarkup();
+		var additionalWeightClassName = QuestionStore.isSelfWeight() ? '' : 'answer__weight_hide';
 		return(
 			<BaseAnswerView uuid={this.props.uuid} number={this.props.number} handleToogleExpand={this.handleToogleExpand} expanded={this.props.expanded}>
 				<div className="answer__content">
@@ -299,8 +303,8 @@ var ChoiceAnswer = React.createClass({
 							{this.getIcons()}
 						</Drop.DropInfoHeader>
 						<Drop.DropInfoBody>
-							<TextView className={"answer__weight"} value={this.props.weight} onBlur={this.changeWeight} isValid={AnswerValidation.isValidWeight} placeholder="Вес"/>
 							<TextView className={"answer__text"} value={this.props.text} onBlur={this.changeText} placeholder="Ответ *"/>
+							<TextView className={"answer__weight " + additionalWeightClassName} value={this.props.weight} onBlur={this.changeWeight} isValid={AnswerValidation.isValidWeight} placeholder="Вес"/>
 						</Drop.DropInfoBody>
 					</Drop.DropInfo>
 				</div>
@@ -326,6 +330,7 @@ var OrderAnswer = React.createClass({
 
 	render: function() {
 		var descriptionMarkup = this.getDescriptionMarkup();
+		var additionalWeightClassName = QuestionStore.isSelfWeight() ? '' : 'answer__weight_hide';
 		return(
 			<BaseAnswerView uuid={this.props.uuid} number={this.props.number} handleToogleExpand={this.handleToogleExpand} expanded={this.props.expanded}>
 				<div className="answer__content">
@@ -335,8 +340,8 @@ var OrderAnswer = React.createClass({
 							<div style={{visibility: 'hidden', position: 'absolute', top: '0px', height: '40px', width: '100%'}}></div>
 						</Drop.DropInfoHeader>
 						<Drop.DropInfoBody>
-							<TextView className={"answer__weight"} value={this.props.weight} onBlur={this.changeWeight} isValid={AnswerValidation.isValidWeight} placeholder="Вес"/>
 							<TextView className={"answer__text"} value={this.props.text} onBlur={this.changeText} placeholder="Ответ *"/>
+							<TextView className={"answer__weight " + additionalWeightClassName} value={this.props.weight} onBlur={this.changeWeight} isValid={AnswerValidation.isValidWeight} placeholder="Вес"/>
 						</Drop.DropInfoBody>
 					</Drop.DropInfo>
 				</div>

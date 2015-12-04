@@ -13,7 +13,7 @@
         left: 0;
         right: 0;
         text-align: center;
-        bottom: 64px;
+        bottom: 74px;
         margin: 0;
         visibility: hidden;
 
@@ -68,11 +68,12 @@
 
         .floating-button__icon {
             line-height: 37px;
+            font-size: 1.6rem;
         }
     }
 
     .floating-button__icon {
-        font-size: 1.6rem;
+        font-size: 2.6rem;
         line-height: 56px;
     }
 }

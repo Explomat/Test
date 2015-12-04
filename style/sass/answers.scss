@@ -4,7 +4,8 @@ $zIndexLess: 900;
 $zIndexMore: 901;
 
 .answers{
-	margin-top: 50px;
+	margin-top: 32px;
+	border-top: 1px solid $deviderColor;
 
 	.answers__warning {
 		color: orange;
@@ -72,6 +73,10 @@ $zIndexMore: 901;
 		}
 		.answer__weight {
 			display: inline-block;
+
+			&.answer__weight_hide {
+				visibility: hidden;
+			}
 		}
 
 		.answer__conformity {

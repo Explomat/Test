@@ -63,9 +63,8 @@ var BasicView = React.createClass({
 		this._positionFloatingButton();
 	},
 
-	handleClick: function(e){
+	handleClick: function(){
 		this.setState({show: !this.state.show});
-		//this.refs.floatingList.classList.add('floating-list_active');
 	},
 
 	render: function () {
@@ -81,18 +80,18 @@ var BasicView = React.createClass({
 					</div>
 				</div>
 				<div ref="floatingButton" className="floating-button-box">
-					<div onClick={this.handleClick} title="Сохранить тест" className="floating-button">
-						<span className="floating-button__icon glyphicon glyphicon-floppy-disk"></span>
+					<div onClick={this.handleClick} className="floating-button">
+						<i className="floating-button__icon fa fa-bars"></i>
 					</div>
 					<ul ref='floatingList' className={"floating-list " + floatingListClassName}>
 						<li className="floating-list__item">
-							<div style={c} title="Сохранить тест" className="item floating-button floating-button_small">
+							<div style={c} title="Уведомить администратора" className="item floating-button floating-button_small button button_blue">
 								<span className="floating-button__icon glyphicon glyphicon-floppy-disk"></span>
 							</div>
 						</li>
 						<li className="floating-list__item">
-							<div style={c} title="Сохранить тест" className="item floating-button floating-button_small">
-								<span className="floating-button__icon glyphicon glyphicon-floppy-disk"></span>
+							<div style={c} title="Сохранить тест" className="item floating-button floating-button_small button button_yellow">
+								<span className="floating-button__icon glyphicon glyphicon-send"></span>
 							</div>
 						</li>
 					</ul>

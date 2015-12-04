@@ -36,6 +36,13 @@ var QuestionActions = {
 		});
 	},
 
+	changeSelfWeight: function(checked){
+		AppDispatcher.handleAction({
+			actionType: QuestionConstants.USE_SELF_WEIGHT,
+			checked: checked
+		});
+	},
+
 	selectType: function(type) {
 		AppDispatcher.handleAction({
 			actionType: QuestionConstants.SET_TYPE_SELECTED,

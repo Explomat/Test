@@ -12,6 +12,7 @@ var DropDown = require('./modules/DropDown');
 var Txt = require('./modules/TextLabel');
 var ImageSelect = require('./modules/ImageSelect');
 var ModalView = require('./modules/ModalView');
+var CheckBox = require('./modules/CheckBox');
 
 function getQuestionState() {
 	return {
@@ -76,9 +77,25 @@ var QuestionWeight = React.createClass({
 	},
 
 	render: function() {
+		var weightClassName = QuestionStore.isSelfWeight() === false ? '' : 'question-modal__weight_hide';
 		return (
-			<div className="question-modal__weight">
+			<div className={"question-modal__weight " + weightClassName}>
 				<Txt.TextView value={this.props.weight} onBlur={this.handleChange} isValid={QuestionValidation.isValidWeight} placeholder='Вес' />
+			</div>
+		);
+	}
+});
+
+var QuestionSelfWeight = React.createClass({
+
+	handleChange: function(checked) {
+		QuestionActions.changeSelfWeight(checked);
+	},
+
+	render: function() {
+		return (
+			<div className="question-modal__self-weight">
+				<CheckBox className={"answer__checkbox"} label={"Использовать собственный вес"} checked={this.props.useSelfWeight} onChangeChecked={this.handleChange}/>
 			</div>
 		);
 	}
@@ -139,7 +156,7 @@ var QuestionView = React.createClass({
 		else if (qType === QuestionTypes.keys.match_item){
 			isAddFieldFilled = AnswersStore.isConditionsFilled();
 		}
-		else if (qType ===  QuestionTypes.keys.multiple_choice || qType ===  QuestionTypes.keys.multiple_response) {
+		else if (qType === QuestionTypes.keys.multiple_choice || qType ===  QuestionTypes.keys.multiple_response) {
 			isAddFieldFilled = AnswersStore.isSomeAnswersSelected();
 		}
 		return !AnswersStore.isAnswersFilled() || QuestionStore.isEmptyText() || !isAddFieldFilled;
@@ -191,10 +208,15 @@ var QuestionView = React.createClass({
 					<ModalView.ModalBoxBody>
 						<div className="question-modal">
 							<div className="question-modal__controls">
-								<QuestionText text={this.state.question.text} />
-								<QuestionType type={this.state.question.type} />
-								<QuestionWeight weight={this.state.question.weight}/>
-								<AddAnswerButton />
+								<div className="question-modal__controls-input">
+									<QuestionText text={this.state.question.text} />
+									<QuestionType type={this.state.question.type} />
+									<QuestionWeight weight={this.state.question.weight}/>
+								</div>
+								<div className="question-modal__controls-edit">
+									<AddAnswerButton />
+									<QuestionSelfWeight useSelfWeight={this.state.question.useSelfWeight} />
+								</div>
 							</div>
 					        <div className="answers">
 					        	<div style={warningStyles} className="answers__warning">

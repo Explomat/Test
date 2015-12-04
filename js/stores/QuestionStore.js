@@ -26,6 +26,10 @@ function setWeight(weight) {
 	_question.weight = weight;
 }
 
+function changeSelfWeight(checked){
+	_question.useSelfWeight = checked;
+}
+
 function selectType(type){
 	if (type == QuestionTypes.keys.multiple_choice){
 		AnswersStore.resetSelected();
@@ -65,6 +69,10 @@ var QuestionStore = extend({}, EventEmitter.prototype, {
 
 	getText: function() {
 		return _question.text;
+	},
+
+	isSelfWeight: function(){
+		return _question.useSelfWeight;
 	},
 
 	isEmptyText: function(){
@@ -111,6 +119,10 @@ QuestionStore.dispatchToken = AppDispatcher.register(function(payload) {
 			break;
 		case QuestionConstants.SET_WEIGHT:
 			setWeight(action.weight);
+			isEmit = true;
+			break;
+		case QuestionConstants.USE_SELF_WEIGHT:
+			changeSelfWeight(action.checked);
 			isEmit = true;
 			break;
 		case ServerConstants.UPLOADED_QUESTION_IMAGE:
