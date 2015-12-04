@@ -1,10 +1,32 @@
-.floating-button {
-	position: absolute;
+
+.floating-button-box {
+    position: absolute;
     bottom: 55.5px;
     right: 27.75px;
     z-index: 1001;
+    width: 55.5px;
+    height: 55.5px;
+    transition: 2s cubic-bezier(0.18, 0.89, 0.32, 1.28), box-shadow .3s;
 
+    .floating-list {
+        position: absolute;
+        left: 0;
+        right: 0;
+        text-align: center;
+        bottom: 64px;
+        margin: 0;
+        visibility: hidden;
+
+        &.floating-list_active {
+            visibility: visible;
+        }
+    }
+}
+
+.floating-button {
+    position: relative;
     display: inline-block;
+    z-index: 1;
     cursor: pointer;
     width: 55.5px;
     height: 55.5px;
@@ -22,8 +44,17 @@
     	box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
     }
 
+    &.floating-button_absolute {
+        position: absolute;
+        bottom: 55.5px;
+        right: 27.75px;
+        z-index: 1001;
+    }
+
     .floating-button__icon {
     	line-height: 55.5px;
     	font-size: 2rem;
     }
 }
+
+

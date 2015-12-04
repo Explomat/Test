@@ -25,6 +25,7 @@ var BasicView = React.createClass({
 	componentDidMount: function() {
 		window.addEventListener('scroll', this.handleScroll);
 		setTimeout(this._positionFloatingButton, 0);
+		this.appTop = this.refs.tests.getBoundingClientRect().top;
 	},
  
 	componentWillUnmount: function() {
@@ -35,7 +36,7 @@ var BasicView = React.createClass({
 		setTimeout(function(){
 			this.setState({hash: getHashRoot('#' + newHash)});
 		}.bind(this), this.delay);
-		window.scrollTo(0, 0);
+		window.scrollTo(0, this.appTop);
 		this._positionFloatingButton();
 	},
 
@@ -61,7 +62,12 @@ var BasicView = React.createClass({
 		this._positionFloatingButton();
 	},
 
+	handleClick: function(e){
+		this.refs.floatingList.classList.add('floating-list_active');
+	},
+
 	render: function () {
+		var c = { transform: 'scaleY(0.4) scaleX(0.4) translateY(40px) translateX(0px)', opacity: '0' }
 		return (
 			<div ref="tests" className="tests">
 				<div className="tests__header">
@@ -71,8 +77,22 @@ var BasicView = React.createClass({
 						</div>
 					</div>
 				</div>
-				<div ref="floatingButton" title="Сохранить тест" className="floating-button">
-					<span className="floating-button__icon glyphicon glyphicon-floppy-disk"></span>
+				<div ref="floatingButton" className="floating-button-box">
+					<div onClick={this.handleClick} title="Сохранить тест" className="floating-button">
+						<span className="floating-button__icon glyphicon glyphicon-floppy-disk"></span>
+					</div>
+					<ul ref='floatingList' className="floating-list">
+						<li style={c}>
+							<div title="Сохранить тест" className="floating-button">
+								<span className="floating-button__icon glyphicon glyphicon-floppy-disk"></span>
+							</div>
+						</li>
+						<li style={c}>
+							<div title="Сохранить тест" className="floating-button">
+								<span className="floating-button__icon glyphicon glyphicon-floppy-disk"></span>
+							</div>
+						</li>
+					</ul>
 				</div>
 			    <div ref="testsBody" id={Config.dom.appId} className="tests__body"></div>
 			</div>
