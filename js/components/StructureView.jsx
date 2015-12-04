@@ -59,20 +59,7 @@ var QuestionShortView = React.createClass({
 		}
 	},
 
-	handleShiftUp: function(){
-		StructureActions.shiftUpQuestion(this.props.uuid, this.props.sectionUuid);
-	},
-
-	handleShiftDown: function () {
-		StructureActions.shiftDownQuestion(this.props.uuid, this.props.sectionUuid);
-	},
-
 	render: function(){
-		var questionIndex = StructureStore.getQuestionIndex(this.props.uuid);
-		var sectionIndex = StructureStore.getSectionIndex(this.props.sectionUuid);
-
-		var isShowArrowUp = { display : sectionIndex === 0 && questionIndex === 0 ? 'none' : 'inline-block' };
-		var isShowArrowDown = { display : sectionIndex === StructureStore.getSectionsCount() - 1 && questionIndex === StructureStore.getQuestionsCountInSection(this.props.sectionUuid) - 1 ? 'none' : 'inline-block' };
 		return(
 			<div id={this.props.uuid} className="question" draggable="true" onDragStart={this.handleDragStart} onDragEnd={this.handleDragEnd} onDrop={this.handleDrop} onDragOver={this.handleAllowDrop} onDragEnter={this.handleDragEnter}>
 				<div className="question__number-box">
@@ -84,10 +71,6 @@ var QuestionShortView = React.createClass({
 						<span className="question__type">{QuestionTypes.values[this.props.type]}</span>
 					</div>
 					<div className="pull-right question__buttons">
-						<div className="btn-group btn-group-xs question__sort-group">
-							<span onClick={this.handleShiftUp} style={isShowArrowUp} className="question__edit-button question__edit-button_margin glyphicon glyphicon-arrow-up glyphicon-box_lg"></span>
-							<span onClick={this.handleShiftDown} style={isShowArrowDown} className="question__edit-button question__edit-button_margin glyphicon glyphicon-arrow-down glyphicon-box_lg"></span>
-						</div>
 						<div className="btn-group btn-group-xs question__edit-group">
 							<span title="Редактировать вопрос" onClick={this.handleEditQuestion} className="question__edit-button glyphicon glyphicon-pencil glyphicon-box_lg"></span>
 							<span title="Удалить вопрос"  onClick={this.handleRemoveQuestion} className="question__edit-button glyphicon glyphicon-trash glyphicon-box_lg"></span>
@@ -150,27 +133,12 @@ var SectionView = React.createClass({
 		}
 	},
 
-	handleShiftUp: function(e){
-		this.stopPropagation(e);
-		StructureActions.shiftUpSection(this.props.uuid);
-	},
-
-	handleShiftDown: function (e) {
-		this.stopPropagation(e);
-		StructureActions.shiftDownSection(this.props.uuid);
-	},
-
 	handleToggleSelectSection: function(e){
 		StructureActions.toggleSelectSection(this.props.uuid);
 	},
 
 	render: function() {
-		var sectionsCount = StructureStore.getSectionsCount();
-		var sectionIndex = StructureStore.getSectionIndex(this.props.uuid);
-		var isShowArrowUp = { display : sectionIndex === 0 ? 'none' : 'inline-block' };
-		var isShowArrowDown = { display : sectionIndex === sectionsCount - 1 ? 'none' : 'inline-block' };
 		var selectedClass = StructureStore.isSectionSelected(this.props.uuid) ? 'section_selected': '';
-		
 		return (
 			<div className={"section " + selectedClass} onDrop={this.handleDrop} onDragOver={this.handleAllowDrop} onClick={this.handleToggleSelectSection}>
 				<div className="section__content" draggable="true" onDragStart={this.handleDragStart} onDragEnd={this.handleDragEnd} onDragEnter={this.handleDragEnter}>
@@ -179,10 +147,6 @@ var SectionView = React.createClass({
 						<span className="section__questions-count">Вопросов: {this.props.questions.length}</span>
 					</div>
 					<div className="pull-right section__buttons">
-						<div className="btn-group btn-group-xs section__sort-group">
-							<span onClick={this.handleShiftUp} style={isShowArrowUp} className="section__button-edit section__button-edit_margin glyphicon glyphicon-arrow-up glyphicon-box_lg"></span>
-							<span onClick={this.handleShiftDown} style={isShowArrowDown} className="section__button-edit section__button-edit_margin glyphicon glyphicon-arrow-down glyphicon-box_lg"></span>
-						</div>
 						<div className="btn-group btn-group-xs section__edit-group">
 							<span title="Редактировать раздел" onClick={this.handleEditSection} className="section__button-edit glyphicon glyphicon-pencil glyphicon-box_lg"></span>
 							<span title="Удалить раздел" onClick={this.handleRemoveSection} className="section__button-edit glyphicon glyphicon-trash glyphicon-box_lg"></span>

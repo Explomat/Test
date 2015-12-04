@@ -45,23 +45,6 @@ var StructureActions = {
 		});
 	},
 
-
-	shiftUpQuestion: function(questionUuid, sectionUuid){
-		AppDispatcher.handleData({
-			actionType: StructureConstants.SHIFT_UP_QUESTION,
-			questionUuid: questionUuid,
-			sectionUuid: sectionUuid
-		});
-	},
-
-	shiftDownQuestion: function(questionUuid, sectionUuid){
-		AppDispatcher.handleData({
-			actionType: StructureConstants.SHIFT_DOWN_QUESTION,
-			questionUuid: questionUuid,
-			sectionUuid: sectionUuid
-		});
-	},
-
 	saveSection: function(section){
 		AppDispatcher.handleData({
 			actionType: StructureConstants.SAVE_SECTION,
@@ -81,20 +64,6 @@ var StructureActions = {
 			actionType: StructureConstants.REPLACE_SECTION,
 			sectionUuid: sectionUuid,
 			destSectionUuid: destSectionUuid
-		});
-	},
-
-	shiftUpSection: function(sectionUuid){
-		AppDispatcher.handleData({
-			actionType: StructureConstants.SHIFT_UP_SECTION,
-			sectionUuid: sectionUuid
-		});
-	},
-
-	shiftDownSection: function(sectionUuid){
-		AppDispatcher.handleData({
-			actionType: StructureConstants.SHIFT_DOWN_SECTION,
-			sectionUuid: sectionUuid
 		});
 	},
 

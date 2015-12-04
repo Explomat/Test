@@ -106,38 +106,6 @@ function replaceQuestionInNewSection(sourceQuestionUuid, sourceSectionUuid, dest
 	}
 }
 
-function shiftUpQuestion(questionUuid, sectionUuid) {
-	var sourceQuestion = getQuestion(questionUuid);
-	var sourceSection = getSection(sectionUuid);
-	if (!sourceQuestion || !sourceSection) return;
-	if (sourceQuestion.index === 0 && sourceSection.index === 0) return;
-
-	if (sourceQuestion.index === 0 && sourceSection.index > 0) {
-		sourceSection.section.questions.splice(sourceQuestion.index, 1);
-		_sections[sourceSection.index - 1].questions.push(sourceQuestion.question);
-	}
-	else if (sourceQuestion.index > 0) {
-		sourceSection.section.questions.splice(sourceQuestion.index, 1);
-		sourceSection.section.questions.splice(sourceQuestion.index - 1, 0, sourceQuestion.question);
-	}
-}
-
-function shiftDownQuestion(questionUuid, sectionUuid){
-	var sourceQuestion = getQuestion(questionUuid);
-	var sourceSection = getSection(sectionUuid);
-	if (!sourceQuestion || !sourceSection) return;
-	var lastQuestionIndexInSection = sourceSection.section.questions.length - 1;
-	if (sourceQuestion.index === lastQuestionIndexInSection && sourceSection.index === _sections.length - 1) return;
-
-	if (sourceQuestion.index === lastQuestionIndexInSection && sourceSection.index < _sections.length - 1) {
-		sourceSection.section.questions.splice(sourceQuestion.index, 1);
-		_sections[sourceSection.index + 1].questions.splice(0, 0, sourceQuestion.question);
-	}
-	else if (sourceQuestion.index < lastQuestionIndexInSection) {
-		sourceSection.section.questions.splice(sourceQuestion.index, 1);
-		sourceSection.section.questions.splice(sourceQuestion.index + 1, 0, sourceQuestion.question);
-	}
-}
 
 function removeSection(uuid){
 	var secIndex = _sections.findIndex(function(sec){
@@ -163,24 +131,6 @@ function replaceSection(sectionUuid, destSectionUuid){
 		_sections.splice(sourceSection.index, 1);
 		_sections.splice(destSection.index, 0, sourceSection.section);
 	}
-}
-
-function shiftUpSection(sectionUuid){
-	var sourceSection = getSection(sectionUuid);
-	if (sourceSection && sourceSection.index === 0) return;
-
-	var destSection = _sections[sourceSection.index - 1];
-	_sections.splice(sourceSection.index, 1);
-	_sections.splice(sourceSection.index - 1, 0, sourceSection.section);
-}
-
-function shiftDownSection(sectionUuid){
-	var sourceSection = getSection(sectionUuid);
-	if (sourceSection && sourceSection.index === _sections.length - 1) return;
-
-	var destSection = _sections[sourceSection.index + 1];
-	_sections.splice(sourceSection.index, 1);
-	_sections.splice(sourceSection.index + 1, 0, sourceSection.section);
 }
 
 function toggleSelectSection(sectionUuid){
