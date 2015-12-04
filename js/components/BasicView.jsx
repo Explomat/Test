@@ -13,7 +13,8 @@ var BasicView = React.createClass({
 
 	getInitialState: function(){
 		return {
-			hash: getHashRoot(window.location.hash)
+			hash: getHashRoot(window.location.hash),
+			show: false
 		}
 	},
 
@@ -63,11 +64,13 @@ var BasicView = React.createClass({
 	},
 
 	handleClick: function(e){
-		this.refs.floatingList.classList.add('floating-list_active');
+		this.setState({show: !this.state.show});
+		//this.refs.floatingList.classList.add('floating-list_active');
 	},
 
 	render: function () {
-		var c = { transform: 'scaleY(0.4) scaleX(0.4) translateY(40px) translateX(0px)', opacity: '0' }
+		var c = { transform: this.state.show ? 'scaleY(1) scaleX(1) translateY(0px) translateX(0px)' : 'scaleY(0.4) scaleX(0.4) translateY(40px) translateX(0px)', opacity: this.state.show ? 1 : 0 };
+		var floatingListClassName = this.state.show ? 'floating-list_active' : '';
 		return (
 			<div ref="tests" className="tests">
 				<div className="tests__header">
@@ -81,14 +84,14 @@ var BasicView = React.createClass({
 					<div onClick={this.handleClick} title="Сохранить тест" className="floating-button">
 						<span className="floating-button__icon glyphicon glyphicon-floppy-disk"></span>
 					</div>
-					<ul ref='floatingList' className="floating-list">
-						<li style={c}>
-							<div title="Сохранить тест" className="floating-button">
+					<ul ref='floatingList' className={"floating-list " + floatingListClassName}>
+						<li className="floating-list__item">
+							<div style={c} title="Сохранить тест" className="item floating-button floating-button_small">
 								<span className="floating-button__icon glyphicon glyphicon-floppy-disk"></span>
 							</div>
 						</li>
-						<li style={c}>
-							<div title="Сохранить тест" className="floating-button">
+						<li className="floating-list__item">
+							<div style={c} title="Сохранить тест" className="item floating-button floating-button_small">
 								<span className="floating-button__icon glyphicon glyphicon-floppy-disk"></span>
 							</div>
 						</li>

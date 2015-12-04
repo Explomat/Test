@@ -20,6 +20,15 @@
         &.floating-list_active {
             visibility: visible;
         }
+
+        .floating-list__item {
+            display: inline-block;
+            margin: 15px 0 0 0;
+
+            .item {
+                transition: .3s;
+            }
+        }
     }
 }
 
@@ -30,6 +39,7 @@
     cursor: pointer;
     width: 55.5px;
     height: 55.5px;
+    line-height: 56px;
     padding: 0;
     overflow: hidden;
     color: #fff;
@@ -51,9 +61,19 @@
         z-index: 1001;
     }
 
+    &.floating-button_small {
+        width: 37px;
+        height: 37px;
+        line-height: 37px;
+
+        .floating-button__icon {
+            line-height: 37px;
+        }
+    }
+
     .floating-button__icon {
-    	line-height: 55.5px;
-    	font-size: 2rem;
+        font-size: 1.6rem;
+        line-height: 56px;
     }
 }
 
