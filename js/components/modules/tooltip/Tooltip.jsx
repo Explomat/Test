@@ -4,17 +4,10 @@ var TooltipBase = {
 
 	propTypes: {
 		text: React.PropTypes.string.isRequired,
-		show: React.PropTypes.bool,
 		rootStyle: React.PropTypes.object,
 		childStyle: React.PropTypes.object,
 		rootClassName: React.PropTypes.string,
 		childClassName: React.PropTypes.string
-	},
-
-	getDefaultProps: function(){
-		return {
-			show: false
-		}
 	},
 
 	_getRootClassName: function(){
@@ -23,10 +16,6 @@ var TooltipBase = {
 
 	_getChildClassName: function(){
 		return this.props.childClassName ? this.props.childClassName : '';
-	},
-
-	_getShowClass: function(){
-		return this.props.show ? "tooltip_show" : '';
 	},
 
 	_getInnerMark: function(){
@@ -41,7 +30,7 @@ var TooltipBase = {
 		return (
 			<div className={"tooltip-box " + this._getRootClassName()} style={this.props.rootStyle}>
 				{this.props.children}
-				<div className={"tooltip tooltip_left " + this._getShowClass() + " " + this._getChildClassName()} style={this.props.childStyle}>
+				<div className={"tooltip tooltip_left " + this._getChildClassName()} style={this.props.childStyle}>
 			    	<div className="tooltip__arrow tooltip__arrow_left"></div>
 			    	{this._getInnerMark()}
 			    </div>
@@ -53,7 +42,7 @@ var TooltipBase = {
 		return (
 			<div className={"tooltip-box " + this._getRootClassName()} style={this.props.rootStyle}>
 				{this.props.children}
-				<div className={"tooltip tooltip_top " + this._getShowClass() + " " + this._getChildClassName()} style={this.props.childStyle}>
+				<div className={"tooltip tooltip_top " + this._getChildClassName()} style={this.props.childStyle}>
 			    	<div className="tooltip__arrow tooltip__arrow_top"></div>
 			    	{this._getInnerMark()}
 			    </div>
@@ -65,7 +54,7 @@ var TooltipBase = {
 		return (
 			<div className={"tooltip-box " + this._getRootClassName()} style={this.props.rootStyle}>
 				{this.props.children}
-				<div className={"tooltip tooltip_bottom " + this._getShowClass() + " " + this._getChildClassName()} style={this.props.childStyle}>
+				<div className={"tooltip tooltip_bottom " + this._getChildClassName()} style={this.props.childStyle}>
 			    	<div className="tooltip__arrow tooltip__arrow_bottom"></div>
 			    	{this._getInnerMark()}
 			    </div>
@@ -77,7 +66,7 @@ var TooltipBase = {
 		return (
 			<div className={"tooltip-box " + this._getRootClassName()} style={this.props.rootStyle}>
 				{this.props.children}
-				<div className={"tooltip tooltip_right " + this._getShowClass() + " " + this._getChildClassName()} style={this.props.childStyle}>
+				<div className={"tooltip tooltip_right " + this._getChildClassName()} style={this.props.childStyle}>
 			    	<div className="tooltip__arrow tooltip__arrow_right"></div>
 			    	{this._getInnerMark()}
 			    </div>

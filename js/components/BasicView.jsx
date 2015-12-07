@@ -64,20 +64,14 @@ var BasicView = React.createClass({
 	},
 
 	handleMouseLeave: function(e){
-		if (e.relatedTarget && e.relatedTarget.isSameNode) {
-			var isSameNode = e.relatedTarget.isSameNode(this.refs.floatingList);
-			if (!isSameNode) {
-				this.setState({show: false});
-			}
+		if (e.relatedTarget && e.relatedTarget !== this.refs.floatingList) {
+			this.setState({show: false});
 		}
 	},
 
 	handleListMouseLeave: function(e){
-		if (e.relatedTarget && e.relatedTarget.isSameNode) {
-			var isSameNode = e.relatedTarget.isSameNode(this.refs.floatingList);
-			if (!isSameNode) {
-				this.setState({show: false});
-			}
+		if (e.relatedTarget && e.relatedTarget !== this.refs.floatingList) {
+			this.setState({show: false});
 		}
 	},
 
@@ -103,12 +97,12 @@ var BasicView = React.createClass({
 					</div>
 					<ul onMouseLeave={this.handleListMouseLeave} ref='floatingList' className={"floating-list " + floatingListClassName}>
 						<li className="floating-list__item">
-							<div style={c} title="Уведомить администратора" className="item floating-button floating-button_small button button_blue">
+							<div style={c} title="Сохранить тест" className="item floating-button floating-button_small button button_blue">
 								<span className="floating-button__icon glyphicon glyphicon-floppy-disk"></span>
 							</div>
 						</li>
 						<li className="floating-list__item">
-							<div style={c} title="Сохранить тест" className="item floating-button floating-button_small button button_yellow">
+							<div style={c} title="Уведомить администратора" className="item floating-button floating-button_small button button_yellow">
 								<span className="floating-button__icon glyphicon glyphicon-send"></span>
 							</div>
 						</li>
