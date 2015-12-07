@@ -128,8 +128,8 @@ var ModalBoxFooter = React.createClass({
 	render: function(){
 		return (
 			<div className={"modal-box__footer " + this.props.className}>
-				<button type="button" className="btn btn-primary" onClick={this.handleSave} disabled={this.props.disabled}>Сохранить</button>
 				{this.props.children}
+				<button type="button" className="btn btn-primary" onClick={this.handleSave} disabled={this.props.disabled}>Сохранить</button>
 			</div>
 		);
 	}

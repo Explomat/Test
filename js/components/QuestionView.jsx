@@ -144,9 +144,14 @@ var QuestionView = React.createClass({
 		this.setState(getQuestionState());
 	},
 
+	getErrorWeight: function(){
+		return AnswersStore.getAnswersSummWeight() < 0 ? 'Веса ответов должны быть больше или равны нулю!' : '';
+	},
+
 	isDisableSave: function(){
 		var qType = QuestionStore.getType();
 		var isAddFieldFilled = true;
+		var isNegativeWeight = AnswersStore.getAnswersSummWeight() >= 0 ? false : true;
 		if (qType === QuestionTypes.keys.gap_fill) {
 			isAddFieldFilled = AnswersStore.isConformitiesFilled();
 		}
@@ -159,7 +164,7 @@ var QuestionView = React.createClass({
 		else if (qType === QuestionTypes.keys.multiple_choice || qType ===  QuestionTypes.keys.multiple_response) {
 			isAddFieldFilled = AnswersStore.isSomeAnswersSelected();
 		}
-		return !AnswersStore.isAnswersFilled() || QuestionStore.isEmptyText() || !isAddFieldFilled;
+		return !AnswersStore.isAnswersFilled() || QuestionStore.isEmptyText() || !isAddFieldFilled || isNegativeWeight;
 	},
 
 	handleClose: function(){
@@ -199,6 +204,7 @@ var QuestionView = React.createClass({
 		
 		var isDisableSave = this.isDisableSave();
 		var warningStyles = { display : qType === QuestionTypes.keys.order ? 'block' : 'none' };
+		var error = this.getErrorWeight();
 		return (
 			<ModalView.ModalBox positionX={this.props.positionX} positionY={this.props.positionY}>
 				<ModalView.ModalBoxContent>
@@ -227,7 +233,11 @@ var QuestionView = React.createClass({
 					        </div>
 					    </div>
 					</ModalView.ModalBoxBody>
-					<ModalView.ModalBoxFooter onSave={this.handleSaveQuestion} disabled={isDisableSave}/>
+					<ModalView.ModalBoxFooter onSave={this.handleSaveQuestion} disabled={isDisableSave}>
+						<div className="question-modal-footer">
+							<span className="question-modal-footer__error">{error}</span>
+						</div>
+					</ModalView.ModalBoxFooter>
 				</ModalView.ModalBoxContent>
 			</ModalView.ModalBox>
 		);

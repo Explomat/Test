@@ -185,7 +185,7 @@ var FillAnswer = {
 						<Drop.DropInfoBody>
 							<TextView className={"answer__text"} value={this.props.text} onBlur={this.changeText} onChange={this.changeText} placeholder="Пояснение *" focused={this.props.focused}/>
 							<div className="answer__condition">{condition}</div>
-							<TextView className={"answer__weight " + additionalWeightClassName} value={this.props.weight} onBlur={this.changeWeight} isValid={AnswerValidation.isValidWeight} placeholder="Вес"/>
+							<TextView className={"answer__weight " + additionalWeightClassName} value={this.props.weight} onBlur={this.changeWeight} onChange={this.changeWeight} isValid={AnswerValidation.isValidWeight} placeholder="Вес"/>
 						</Drop.DropInfoBody>
 					</Drop.DropInfo>
 				</div>
@@ -261,7 +261,7 @@ var ConformityAnswer = React.createClass({
 						<Drop.DropInfoBody>
 							<TextView className={"answer__text"} value={this.props.text} onBlur={this.changeText} onChange={this.changeText} placeholder="Ответ *" focused={this.props.focused}/>
 							<TextView className={"answer__conformity"} value={this.props.conformity} onBlur={this.handleChangeConformity} onChange={this.handleChangeConformity} placeholder="Соответствие *"/>
-							<TextView className={"answer__weight " + additionalWeightClassName} value={this.props.weight} onBlur={this.changeWeight} isValid={AnswerValidation.isValidWeight} placeholder="Вес"/>
+							<TextView className={"answer__weight " + additionalWeightClassName} value={this.props.weight} onBlur={this.changeWeight} onChange={this.changeWeight} isValid={AnswerValidation.isValidWeight} placeholder="Вес"/>
 						</Drop.DropInfoBody>
 					</Drop.DropInfo>
 				</div>
@@ -304,7 +304,7 @@ var ChoiceAnswer = React.createClass({
 						</Drop.DropInfoHeader>
 						<Drop.DropInfoBody>
 							<TextView className={"answer__text"} value={this.props.text} onBlur={this.changeText} onChange={this.changeText} placeholder="Ответ *" focused={this.props.focused}/>
-							<TextView className={"answer__weight " + additionalWeightClassName} value={this.props.weight} onBlur={this.changeWeight} isValid={AnswerValidation.isValidWeight} placeholder="Вес"/>
+							<TextView className={"answer__weight " + additionalWeightClassName} value={this.props.weight} onBlur={this.changeWeight} onChange={this.changeWeight} isValid={AnswerValidation.isValidWeight} placeholder="Вес"/>
 						</Drop.DropInfoBody>
 					</Drop.DropInfo>
 				</div>
@@ -341,7 +341,7 @@ var OrderAnswer = React.createClass({
 						</Drop.DropInfoHeader>
 						<Drop.DropInfoBody>
 							<TextView className={"answer__text"} value={this.props.text} onBlur={this.changeText} onChange={this.changeText} placeholder="Ответ *" focused={this.props.focused}/>
-							<TextView className={"answer__weight " + additionalWeightClassName} value={this.props.weight} onBlur={this.changeWeight} isValid={AnswerValidation.isValidWeight} placeholder="Вес"/>
+							<TextView className={"answer__weight " + additionalWeightClassName} value={this.props.weight} onBlur={this.changeWeight} onChange={this.changeWeight} isValid={AnswerValidation.isValidWeight} placeholder="Вес"/>
 						</Drop.DropInfoBody>
 					</Drop.DropInfo>
 				</div>

@@ -37,8 +37,16 @@
 				display: inline-block;
 			}
 		}
-
 	}
-	
+}
+
+.question-modal-footer {
+	text-align: center;
+	display: inline-block;
+	float: left;
+
+	.question-modal-footer__error {
+		color: red;
+	}
 }
 

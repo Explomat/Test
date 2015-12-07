@@ -18,5 +18,9 @@ module.exports = {
 
 	isNumberOrReal: function(val){
 		return /^([0-9]{1,}(\d+)?|[0-9]{1,}\.(\d+))$/.test(val);
+	},
+
+	isNegativeNumberOrReal: function(val){
+		return /^-?([0-9]{1,}(\d+)?|[0-9]{1,}\.(\d+))$/.test(val);
 	}
 }

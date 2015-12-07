@@ -200,6 +200,14 @@ var AnswersStore = extend({}, EventEmitter.prototype, {
 			return ans.img;
 	},
 
+	getAnswersSummWeight: function(){
+		var weight = 0;
+		for (var i = _answers.length - 1; i >= 0; i--) {
+			weight += Number(_answers[i].weight);
+		};
+		return weight;
+	},
+
 	isSomeAnswersSelected: function(){
 		for (var i = _answers.length - 1; i >= 0; i--) {
 			if(_answers[i].selected) return true;
