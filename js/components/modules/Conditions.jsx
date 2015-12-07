@@ -33,7 +33,7 @@ var Condition = {
 		return(
 			<div className="condition">
 				<DropDown classNameChild={"dropdown-list_up"} className={"condition__dropdown"} items={conditions} selectedPayload={type} onChange={this.handleSelect} />
-				<TextView className={"condition__text"} value={this.props.text} onBlur={this.handleChangeText} isValid={validate} placeholder={"Условие *"}/>
+				<TextView className={"condition__text"} value={this.props.text} onBlur={this.handleChangeText} isValid={validate} placeholder={"Ответ *"}/>
 			</div>
 		);
 	}

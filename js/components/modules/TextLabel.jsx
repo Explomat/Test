@@ -4,7 +4,8 @@ var extend = require('extend');
 var TextBase = {
 
 	propTypes: {
-		className: React.PropTypes.string
+		className: React.PropTypes.string,
+		focused: React.PropTypes.bool
 	},
 
 	getDefaultProps: function() {
@@ -25,6 +26,14 @@ var TextBase = {
 
 	componentWillMount: function() {
 		this.validClass = 'not-valid';
+	},
+
+	componentDidMount: function(){
+		if (this.props.focused){
+			var inpt = this.refs.inpt;
+			inpt.selectionStart = inpt.selectionEnd = inpt.value.length;
+			inpt.focus();
+		}
 	},
 
 	handleChange: function(e) {
@@ -89,7 +98,6 @@ var TextAreaView = React.createClass(extend(true, {}, TextBase, {
 	handleAddtranslate: function(e){
 		if (!e.target.classList.contains('textarea-box__label_translate')){
 			e.target.classList.add('textarea-box__label_translate');
-			this.refs.inpt.focus();
 		}
 	},
 
@@ -99,6 +107,7 @@ var TextAreaView = React.createClass(extend(true, {}, TextBase, {
 	},
 
 	componentDidMount: function(){
+		TextBase.componentDidMount.call(this);
 		this.setState({height: this.refs.hiddenBlock.offsetHeight});
 	},
 
@@ -115,7 +124,7 @@ var TextAreaView = React.createClass(extend(true, {}, TextBase, {
 		var className = this.props.className ? this.props.className : '';
 		return (
 			<div className={"textarea-box " + className} tabIndex={1} onBlur={this.handleDetranslate}>
-				<textarea style={textAreaStyle} className={"textarea-box__input " + isNotEmptyClass + " " + isValidClass} rows={this.props.rows || 1} value={this.state.value} onChange={this.handleChange} onKeyDown={this.handleKeyDown} onBlur={this.handleBlur}></textarea>
+				<textarea ref="inpt" style={textAreaStyle} className={"textarea-box__input " + isNotEmptyClass + " " + isValidClass} rows={this.props.rows || 1} value={this.state.value} onChange={this.handleChange} onKeyDown={this.handleKeyDown} onBlur={this.handleBlur}></textarea>
                 <label ref="lbl" onClick={this.handleAddtranslate} className="textarea-box__label">{this.props.placeholder}</label>
 				<div ref="hiddenBlock" className="textarea-box__hidden-block">{this.state.value}</div>
 			</div>

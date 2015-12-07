@@ -59,7 +59,7 @@ var Fields = React.createClass({
 		return (
 			<div className="section-modal panel panel-default">
 				<div className="panel-body">
-		            <Txt.TextView value={this.props.title} onBlur={this.handleChangeTitle} placeholder='Название раздела *'/>
+		            <Txt.TextView value={this.props.title} onBlur={this.handleChangeTitle} placeholder='Название раздела *' focused={true}/>
 		            <Txt.TextView value={this.props.passingScore} onBlur={this.handleChangePassingScore} isValid={SectionValidation.isValidPassingScore} placeholder='Проходной балл'/>
 		            <Txt.TextView value={this.props.duration} onBlur={this.handleChangeDuration} isValid={SectionValidation.isValidDuration} placeholder='Длительность (минут)'/>
 		        	<div className="section-modal__dropdowns all">

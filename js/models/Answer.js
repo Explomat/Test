@@ -13,5 +13,8 @@ module.exports = function(args){
 	this.condition = args.condition || new Condition();
 	this.conditionText = args.conditionText || new ConditionText();
 	this.conformity = args.conformity || '';
+
+	/* additional properties for view */
 	this.expanded = args.expanded || false;
+	this.focused = args.focused || false;
 }

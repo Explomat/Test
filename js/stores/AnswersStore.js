@@ -24,14 +24,14 @@ function getAnswerWithIndex(uuid){
 
 function addAnswer(){
 	_answers.forEach(function(ans){
-		ans.expanded = false
+		ans.expanded = false;
 	})
-	_answers.push(new Answer({expanded: true}));
+	_answers.push(new Answer({expanded: true, focused: true}));
 }
 
 function removeAnswer(uuid) {
 	var ansIndex = _answers.findIndex(function(ans){
-		return ans.uuid == uuid;
+		return ans.uuid === uuid;
 	});
 	if (ansIndex !== -1 && _answers.length > 1)
 		_answers.splice(ansIndex, 1);
@@ -66,7 +66,7 @@ function shiftDown(uuid) {
 
 function changeAnswerCondition(uuid, text, condition){
 	var ans = _answers.find(function(item){
-		return item.uuid == uuid;
+		return item.uuid === uuid;
 	});
 	if (ans){
 		ans.condition.text = (text === undefined || text === null) ? ans.condition.text : text;
@@ -76,7 +76,7 @@ function changeAnswerCondition(uuid, text, condition){
 
 function changeAnswerConditionText(uuid, text, condition){
 	var ans = _answers.find(function(item){
-		return item.uuid == uuid;
+		return item.uuid === uuid;
 	});
 	if (ans){
 		ans.conditionText.text = (text === undefined || text === null) ? ans.conditionText.text : text;
@@ -86,7 +86,7 @@ function changeAnswerConditionText(uuid, text, condition){
 
 function changeAnswerConformity(uuid, conformity) {
 	var ans = _answers.find(function(item){
-		return item.uuid == uuid;
+		return item.uuid === uuid;
 	});
 	if (ans){
 		ans.conformity = conformity;
@@ -95,7 +95,7 @@ function changeAnswerConformity(uuid, conformity) {
 
 function uploadedAnswerImg(uuid, img) {
 	var ans = _answers.find(function(item){
-		return item.uuid == uuid;
+		return item.uuid === uuid;
 	});
 	if (ans){
 		ans.img = img;
@@ -104,7 +104,7 @@ function uploadedAnswerImg(uuid, img) {
 
 function errorAnswerImg(uuid, err) {
 	var ans = _answers.find(function(item){
-		return item.uuid == uuid;
+		return item.uuid === uuid;
 	});
 	if (ans){
 		ans.img = ans.img || {};
@@ -116,7 +116,7 @@ function errorAnswerImg(uuid, err) {
 
 function removeAnswerImg(uuid){
 	var ans = _answers.find(function(item){
-		return item.uuid == uuid;
+		return item.uuid === uuid;
 	});
 	if (ans){
 		ans.img = null;
@@ -125,10 +125,10 @@ function removeAnswerImg(uuid){
 
 function selectAnswer(uuid, selected){
 	var ans = _answers.find(function(item){
-		return item.uuid == uuid;
+		return item.uuid === uuid;
 	});
 	if (ans){
-		if (_questionType == QuestionTypes.keys.multiple_choice){
+		if (_questionType === QuestionTypes.keys.multiple_choice){
 			_answers.forEach(function(item){
 				item.selected = false;
 			});		
@@ -139,7 +139,7 @@ function selectAnswer(uuid, selected){
 
 function changeAnswerText(uuid, text) {
 	var ans = _answers.find(function(item){
-		return item.uuid == uuid;
+		return item.uuid === uuid;
 	});
 	if (ans)
 		ans.text = text;
@@ -147,7 +147,7 @@ function changeAnswerText(uuid, text) {
 
 function changeAnswerWeight(uuid, weight) {
 	var ans = _answers.find(function(item){
-		return item.uuid == uuid;
+		return item.uuid === uuid;
 	});
 	if (ans)
 		ans.weight = weight;
@@ -155,7 +155,7 @@ function changeAnswerWeight(uuid, weight) {
 
 function toogleExpand(uuid, isExpanded){
 	var ans = _answers.find(function(item){
-		return item.uuid == uuid;
+		return item.uuid === uuid;
 	});
 	if (ans) {
 		ans.expanded = isExpanded;
