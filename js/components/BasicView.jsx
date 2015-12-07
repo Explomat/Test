@@ -63,8 +63,26 @@ var BasicView = React.createClass({
 		this._positionFloatingButton();
 	},
 
-	handleClick: function(){
-		this.setState({show: !this.state.show});
+	handleMouseLeave: function(e){
+		if (e.relatedTarget && e.relatedTarget.isSameNode) {
+			var isSameNode = e.relatedTarget.isSameNode(this.refs.floatingList);
+			if (!isSameNode) {
+				this.setState({show: false});
+			}
+		}
+	},
+
+	handleListMouseLeave: function(e){
+		if (e.relatedTarget && e.relatedTarget.isSameNode) {
+			var isSameNode = e.relatedTarget.isSameNode(this.refs.floatingList);
+			if (!isSameNode) {
+				this.setState({show: false});
+			}
+		}
+	},
+
+	handleMouseEnter: function(e){
+		this.setState({show: true});
 	},
 
 	render: function () {
@@ -80,10 +98,10 @@ var BasicView = React.createClass({
 					</div>
 				</div>
 				<div ref="floatingButton" className="floating-button-box">
-					<div onClick={this.handleClick} className="floating-button">
+					<div onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} className="floating-button">
 						<i className="floating-button__icon fa fa-bars"></i>
 					</div>
-					<ul ref='floatingList' className={"floating-list " + floatingListClassName}>
+					<ul onMouseLeave={this.handleListMouseLeave} ref='floatingList' className={"floating-list " + floatingListClassName}>
 						<li className="floating-list__item">
 							<div style={c} title="Уведомить администратора" className="item floating-button floating-button_small button button_blue">
 								<span className="floating-button__icon glyphicon glyphicon-floppy-disk"></span>
