@@ -64,7 +64,7 @@ var QuestionText = React.createClass({
 	render: function() {
 		return (
 			<div className="question-modal__text">
-				<Txt.TextAreaView value={this.props.text} onBlur={this.handleChange} placeholder='Вопрос *' focused={true}/>
+				<Txt.TextAreaView value={this.props.text} onChange={this.handleChange} onBlur={this.handleChange} placeholder='Вопрос *' focused={true}/>
 			</div>
 		);
 	}

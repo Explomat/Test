@@ -41,7 +41,11 @@ var TextBase = {
 			e.target.classList.add(this.validClass);
 		else
 			e.target.classList.remove(this.validClass);*/
+		var val = e.target.value;
 		this.setState({value: e.target.value});
+		if (this.props.onChange && this.props.isValid(val)) {
+			this.props.onChange(val);
+		}
 	},
 
 	handleBlur: function(e){
