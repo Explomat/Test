@@ -2,6 +2,7 @@
 
 .tests {
 	position: relative;
+	overflow-y: hidden;
 	font-family: Calibri, Helvetica, serif;
 	width: 1200px;
 	margin: 10px auto auto;
@@ -39,7 +40,7 @@
 		background: $primaryColor;
 	    left:0;
 	    right: 0;
-	    z-index: 10;
+	    z-index: 1004;
 	    width: 1200px;
 	    margin: auto;
 
@@ -52,12 +53,12 @@
 
 	.tests__body {
 		min-height: 720px;
-		width: 1200px;
 		margin: auto;
-		overflow-y: hidden;
 		padding: 15px;
-		width:1200px;
-	    margin: auto;
+		width: 83.3333333%;
+	    margin: 0 auto;
+	    position: relative;
+	    z-index: 1003;
 	}
 
 	.tests__body-content {

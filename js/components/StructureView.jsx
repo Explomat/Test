@@ -205,36 +205,34 @@ var StructureView = React.createClass({
 		return (
 			<div className={"tests__body-content" + classes}>
 				<div className="row clearfix">
-					<div className="structure col-lg-10 col-lg-offset-1">
-						<div className="structure__content">
-							<div className="col-lg-4">
-								<div className="structure__sections">
-									<div className="structure__sections-header">
-										<button title="Добавить раздел" type="button" className="btn btn-primary btn-sm" onClick={this.handleAddNewSection}>
-											<span className="glyphicon glyphicon-plus"></span>
-											<span>&nbsp;Добавить раздел</span>
-										</button>
-									</div>
-									<div className="structure__sections-body">
-										{this.state.sections.map(function(sec){
-											return <SectionView key={sec.uuid} {...sec} />;
-										})}
-									</div>
+					<div className="structure">
+						<div className="col-lg-4">
+							<div className="structure__sections">
+								<div className="structure__sections-header">
+									<button title="Добавить раздел" type="button" className="btn btn-primary btn-sm" onClick={this.handleAddNewSection}>
+										<span className="glyphicon glyphicon-plus"></span>
+										<span>&nbsp;Добавить раздел</span>
+									</button>
+								</div>
+								<div className="structure__sections-body">
+									{this.state.sections.map(function(sec){
+										return <SectionView key={sec.uuid} {...sec} />;
+									})}
 								</div>
 							</div>
-							<div className="col-lg-8">
-								<div className="structure__questions">
-									<div className="structure__questions-header">
-										<button title="Добавить вопрос" type="button" className="btn btn-primary btn-sm" onClick={this.handleAddNewQuestion} disabled={isDisabledAddQuestionButton}>
-											<span className="glyphicon glyphicon-plus"></span>
-											<span>&nbsp;Добавить вопрос</span>
-										</button>
-									</div>
-									<div className="structure__questions-body">
-										{questions.map(function(q, index){
-											return <QuestionShortView key={q.uuid} uuid={q.uuid} sectionUuid={sectionSelected.uuid} {...q} number={index + 1}/>;
-										}.bind(this))}
-									</div>
+						</div>
+						<div className="col-lg-8">
+							<div className="structure__questions">
+								<div className="structure__questions-header">
+									<button title="Добавить вопрос" type="button" className="btn btn-primary btn-sm" onClick={this.handleAddNewQuestion} disabled={isDisabledAddQuestionButton}>
+										<span className="glyphicon glyphicon-plus"></span>
+										<span>&nbsp;Добавить вопрос</span>
+									</button>
+								</div>
+								<div className="structure__questions-body">
+									{questions.map(function(q, index){
+										return <QuestionShortView key={q.uuid} uuid={q.uuid} sectionUuid={sectionSelected.uuid} {...q} number={index + 1}/>;
+									}.bind(this))}
 								</div>
 							</div>
 						</div>

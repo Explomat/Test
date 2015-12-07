@@ -4,18 +4,12 @@ var TooltipBase = {
 
 	propTypes: {
 		text: React.PropTypes.string.isRequired,
-		rootStyle: React.PropTypes.object,
-		childStyle: React.PropTypes.object,
-		rootClassName: React.PropTypes.string,
-		childClassName: React.PropTypes.string
+		style: React.PropTypes.object,
+		className: React.PropTypes.string
 	},
 
-	_getRootClassName: function(){
+	_getClassName: function(){
 		return this.props.rootClassName ? this.props.rootClassName : '';
-	},
-
-	_getChildClassName: function(){
-		return this.props.childClassName ? this.props.childClassName : '';
 	},
 
 	_getInnerMark: function(){
@@ -28,49 +22,37 @@ var TooltipBase = {
 
 	getLeftDirectionMark: function(){
 		return (
-			<div className={"tooltip-box " + this._getRootClassName()} style={this.props.rootStyle}>
-				{this.props.children}
-				<div className={"tooltip tooltip_left " + this._getChildClassName()} style={this.props.childStyle}>
-			    	<div className="tooltip__arrow tooltip__arrow_left"></div>
-			    	{this._getInnerMark()}
-			    </div>
-			</div>
+			<div className={"tooltip tooltip_left " + this._getClassName()} style={this.props.style}>
+		    	<div className="tooltip__arrow tooltip__arrow_left"></div>
+		    	{this._getInnerMark()}
+		    </div>
 		);
 	},
 
 	getTopDirectionMark: function(){
 		return (
-			<div className={"tooltip-box " + this._getRootClassName()} style={this.props.rootStyle}>
-				{this.props.children}
-				<div className={"tooltip tooltip_top " + this._getChildClassName()} style={this.props.childStyle}>
-			    	<div className="tooltip__arrow tooltip__arrow_top"></div>
-			    	{this._getInnerMark()}
-			    </div>
-			</div>
+			<div className={"tooltip tooltip_top " + this._getClassName()} style={this.props.style}>
+		    	<div className="tooltip__arrow tooltip__arrow_top"></div>
+		    	{this._getInnerMark()}
+		    </div>
 		);
 	},
 
 	getBottomDirectionMark: function(){
 		return (
-			<div className={"tooltip-box " + this._getRootClassName()} style={this.props.rootStyle}>
-				{this.props.children}
-				<div className={"tooltip tooltip_bottom " + this._getChildClassName()} style={this.props.childStyle}>
-			    	<div className="tooltip__arrow tooltip__arrow_bottom"></div>
-			    	{this._getInnerMark()}
-			    </div>
-			</div>
+			<div className={"tooltip tooltip_bottom " + this._getClassName()} style={this.props.style}>
+		    	<div className="tooltip__arrow tooltip__arrow_bottom"></div>
+		    	{this._getInnerMark()}
+		    </div>
 		);
 	},
 
 	getRightDirectionMark: function(){
 		return (
-			<div className={"tooltip-box " + this._getRootClassName()} style={this.props.rootStyle}>
-				{this.props.children}
-				<div className={"tooltip tooltip_right " + this._getChildClassName()} style={this.props.childStyle}>
-			    	<div className="tooltip__arrow tooltip__arrow_right"></div>
-			    	{this._getInnerMark()}
-			    </div>
-			</div>
+			<div className={"tooltip tooltip_right " + this._getClassName()} style={this.props.style}>
+		    	<div className="tooltip__arrow tooltip__arrow_right"></div>
+		    	{this._getInnerMark()}
+		    </div>
 		);
 	}
 }
