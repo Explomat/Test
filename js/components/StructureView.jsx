@@ -59,7 +59,15 @@ var QuestionShortView = React.createClass({
 		}
 	},
 
+	getQuestionWeight: function(){
+		/*var questionWeight = StructureStore.getQuestionWeight(this.props.uuid);
+		var summAnswersWeight = StructureStore.getSummAnswersWeight(this.props.uuid);
+		return questionWeight === -1 ? summAnswersWeight : questionWeight;*/
+		return StructureStore.getQuestionWeight(this.props.uuid);
+	},
+
 	render: function(){
+		var weight = this.getQuestionWeight();
 		return(
 			<div id={this.props.uuid} className="question" draggable="true" onDragStart={this.handleDragStart} onDragEnd={this.handleDragEnd} onDrop={this.handleDrop} onDragOver={this.handleAllowDrop} onDragEnter={this.handleDragEnter}>
 				<div className="question__number-box">
@@ -68,7 +76,8 @@ var QuestionShortView = React.createClass({
 				<div className="question__content">
 					<p className="question__title">{this.props.text}</p>
 					<div className="question__description">
-						<span className="question__type">{QuestionTypes.values[this.props.type]}</span>
+						<span className="question__type">Тип: {QuestionTypes.values[this.props.type]}</span>
+						<span className="question__weight">Вес: {weight}</span>
 					</div>
 					<div className="pull-right question__buttons">
 						<div className="btn-group btn-group-xs question__edit-group">

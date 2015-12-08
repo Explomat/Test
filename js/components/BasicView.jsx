@@ -87,7 +87,7 @@ var BasicView = React.createClass({
 				<div className="tests__header">
 					<div ref="headerFixed" className="tests__header-fixed">
 						<div className="tests__header-wrapper clearfix">
-							<MenuView delay={this.delay} defaultRoute={this.state.hash} routes={[{route: '#settings', title: 'Общие сведения'}, {route: '#structure', title: 'Структура'}, {route: '#view', title: 'Отображение'}]}/>
+							<MenuView delay={this.delay} defaultRoute={this.state.hash} routes={[{route: '#settings', title: 'Общие сведения'}, {route: '#structure', title: 'Структура'}, {route: '#view', title: 'Результаты'}]}/>
 						</div>
 					</div>
 				</div>

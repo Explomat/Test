@@ -6,6 +6,14 @@
         text-align: center;
         margin-top: 0px;
     }
+
+    .mapping__header-description{
+        margin: 16px 0px;
+    }
+
+    .mapping__section-title{
+        margin-top: 0;
+    }
 }
 
 .mquestion {
@@ -19,7 +27,7 @@
 
     .mquestion__title{
         line-height: 32px;
-        margin-bottom: 0px;
+        margin: 20px 0 0 0;
     }
 
     .mquestion__title-number{
@@ -62,7 +70,10 @@
         right: 0;
         line-height: 32px;
         border-radius: 2px;
-        background: rgb(104, 205, 76);
+
+        &.mquestion__answer-weight_correct {
+            background: rgb(104, 205, 76);
+        }
     }
 
     .mquestion__answer-description{
@@ -77,9 +88,19 @@
     .mquestion__answer-type-control{
         margin-right: 10px !important;
     }
-    
-    .mquestion__info-title{
-        font-weight: bold;
+
+    .mquestion__info {
+        .mquestion__info-title{
+            
+        }
+
+        .mquestion__info-type {
+
+        }
+
+        .mquestion__info-score{
+            margin-left: 16px;
+        }
     }
 
     .mquestion__parallel{

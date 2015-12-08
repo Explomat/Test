@@ -14,11 +14,12 @@ var MultipleChoiceAnswerView = React.createClass({
 
 	render: function(){
 		var isCorrectClass = this.props.selected ? 'mquestion__answer_correct' : '';
+		var isCorrectWeightClass = this.props.selected ? 'mquestion__answer-weight_correct' : '';
 		return(
 			<div className={isCorrectClass + " mquestion__answer"}>
 				<input className="mquestion__answer-type-control" type="radio" checked={this.props.selected} disabled />
 				<span>{this.props.text}</span>
-				<span className="mquestion__answer-weight">{this.props.weight}</span>
+				<span className={"mquestion__answer-weight " + isCorrectWeightClass}>{this.props.weight}</span>
 			</div>
 		);
 	}
@@ -29,11 +30,12 @@ var MultipleResponceAnswerView = React.createClass({
 
 	render: function(){
 		var isCorrectClass = this.props.selected ? 'mquestion__answer_correct' : '';
+		var isCorrectWeightClass = this.props.selected ? 'mquestion__answer-weight_correct' : '';
 		return(
 			<div className={isCorrectClass + " mquestion__answer"}>
 				<input className="mquestion__answer-type-control" type="checkbox" checked={this.props.selected} disabled />
 				<span>{this.props.text}</span>
-				<span className="mquestion__answer-weight">{this.props.weight}</span>
+				<span className={"mquestion__answer-weight " + isCorrectWeightClass}>{this.props.weight}</span>
 			</div>
 		);
 	}
@@ -102,21 +104,17 @@ var GapFillAnswerView = React.createClass({
 
 var QuestionView = React.createClass({
 
-	getWeight: function(){
-		var weight = 0;
-		for (var i = this.props.answers.length - 1; i >= 0; i--) {
-			weight += Number(this.props.answers[i].weight);
-		};
-		return weight;
+	getQuestionWeight: function(){
+		return MappingStore.getQuestionWeight(this.props.uuid);
 	},
 
 	render: function(){
 		return(
 			<section className="mquestion">
-				<h3 className="mquestion__title">
+				<h4 className="mquestion__title">
 					<span className="mquestion__title-number">{this.props.number}</span> 
 					<span>{this.props.text}</span>
-				</h3>
+				</h4>
 				<main className="mquestion__answers-box">
 					{this.props.answers.map(function(a, index){
 						switch(this.props.type){
@@ -137,10 +135,14 @@ var QuestionView = React.createClass({
 				</main>
 				<footer className="mquestion__footer">
 					<p className="mquestion__info">
-						<span className="mquestion__info-title">Тип вопроса: </span>
-						<span className="mquestion__info-type">{QuestionTypes.values[this.props.type]}</span>
-						<span className="mquestion__info-title">Вес вопроса: </span>
-						<span className="mquestion__info-score">{this.getWeight()}</span>
+						<span  className="mquestion__info-type">
+							<span className="mquestion__info-title">Тип: </span>
+							<span>{QuestionTypes.values[this.props.type]}</span>
+						</span>
+						<span className="mquestion__info-score">
+							<span className="mquestion__info-title">Вес: </span>
+							<span>{this.getQuestionWeight()}</span>
+						</span>
 					</p>
 				</footer>
 			</section>
@@ -153,7 +155,7 @@ var SectionView = React.createClass({
 	render: function(){
 		return(
 			<div className="group__elem mapping__section">
-				<span className="mapping__section-title">{this.props.title}</span>
+				<h3 className="mapping__section-title">{this.props.title}</h3>
 				{this.props.questions.map(function(q, index){
 					return <QuestionView key={q.uuid} {...q} number={index + 1}/>
 				})}
@@ -198,19 +200,19 @@ var MappingView = React.createClass({
 			<div className={"mapping group tests__body-content tests__body-content_translate " + classes}>
 				<div className="mapping__header group__elem">
 					<h2 className="mapping__header-title">{this.state.settings.title}</h2>
-					<p>
+					<p className="mapping__header-description">
 						<span>Количество вопросов: </span>
 						<span>{questionsCount}</span>
 					</p>
-					<p>
+					<p className="mapping__header-description">
 						<span>Время тестирования(мин): </span>
 						<span>{this.state.settings.durationMinutes}</span>
 					</p>
-					<p>
+					<p className="mapping__header-description">
 						<span>Максимально возможный балл: </span>
 						<span>{maxAttemptsCount}</span>
 					</p>
-					<p>
+					<p className="mapping__header-description">
 						<span>Проходной балл: </span>
 						<span>{this.state.settings.passingScore}</span>
 					</p>
