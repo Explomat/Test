@@ -119,7 +119,7 @@ var SettingsView= React.createClass({
 					</div>
 					<div className="group__elem">
 						<div className="group__content">
-							<QuestionTooltipField.QuestionTooltipFieldRight text={"Порядок следования вопросов"}>
+							<QuestionTooltipField.QuestionTooltipFieldRight text={"Во время прохождения теста пользователю не будет доступна информация о правильности его ответа на вопрос"}>
 								<CheckBox label={"Не передавать проигрывателю информацию о правильных ответах на вопросы"} checked={this.state.settings.notSentCorrectAnswer} onChangeChecked={this.handleChangeNotSentCorrectAnswer}/>
 							</QuestionTooltipField.QuestionTooltipFieldRight>
 							<QuestionTooltipField.QuestionTooltipFieldRight text={"Порядок следования вопросов"}>

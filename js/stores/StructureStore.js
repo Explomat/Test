@@ -17,7 +17,7 @@ function _getMaxAnswerWeight(question){
 			weight = Number(answers[i].weight);
 		}
 	};
-	return weight;
+	return weight === 0 ? 1 : weight;
 }
 
 function _getMultipleResponseWeight(question){
@@ -38,7 +38,6 @@ function _getSummAnswersWeight(question){
 		weight += Number(answers[i].weight);
 	};
 	return weight === 0 ? 1 : weight;
-	return 1;
 }
 
 function getQuestion(questionUuid){
@@ -91,9 +90,9 @@ function saveSection(section){
 		}
 	}
 	if (!isEdit) {
-		section.selected = true;
 		_sections.push(section);
 	}
+	section.selected = true;
 }
 
 function saveQuestion(question, sectionUuid){

@@ -14,7 +14,7 @@ function _getMaxAnswerWeight(question){
 			weight = Number(answers[i].weight);
 		}
 	};
-	return weight;
+	return weight === 0 ? 1 : weight;
 }
 
 function _getMultipleResponseWeight(question){
@@ -35,7 +35,6 @@ function _getSummAnswersWeight(question){
 		weight += Number(answers[i].weight);
 	};
 	return weight === 0 ? 1 : weight;
-	return 1;
 }
 
 function loadMappingData(data){
