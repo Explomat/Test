@@ -154,7 +154,7 @@ var SectionView = React.createClass({
 
 	render: function(){
 		return(
-			<div className="group__elem mapping__section">
+			<div className="mapping__section">
 				<h3 className="mapping__section-title">{this.props.title}</h3>
 				{this.props.questions.map(function(q, index){
 					return <QuestionView key={q.uuid} {...q} number={index + 1}/>
@@ -197,8 +197,8 @@ var MappingView = React.createClass({
         var questionsCount = MappingStore.getQuestionsCount();
         var maxAttemptsCount = MappingStore.getMaxPassingScore();
 		return (
-			<div className={"mapping group tests__body-content tests__body-content_translate " + classes}>
-				<div className="mapping__header group__elem">
+			<div className={"mapping tests__body-content tests__body-content_translate " + classes}>
+				<div className="mapping__header">
 					<h2 className="mapping__header-title">{this.state.settings.title}</h2>
 					<p className="mapping__header-description">
 						<span>Количество вопросов: </span>

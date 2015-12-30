@@ -107,42 +107,20 @@ var SettingsView= React.createClass({
         }
 		return(
 			<div className={"tests__body-content tests__body-content_translate" + classes}>
-				<div className="group">
-					<div className="group__elem">
-						<div className="group__content">
-				            <Txt.TextView value={this.state.settings.title} onBlur={this.handleChangeTitle} placeholder='Название теста'/>
-				            <Txt.TextView value={this.state.settings.passingScore} onBlur={this.handleChangePassingScore} isValid={SettingsValidation.isValidPassingScore} placeholder='Проходной балл'/>
-				            <Txt.TextView value={this.state.settings.durationMinutes} onBlur={this.handleChangeDurationMinutes} isValid={SettingsValidation.isValidDuration} placeholder='Длительность в минутах'/>
-				            <Txt.TextView value={this.state.settings.durationDays} onBlur={this.handleChangeDurationDays} isValid={SettingsValidation.isValidDuration} placeholder='Продолжительность в днях'/>
-				        	<Txt.TextView value={this.state.settings.attemptsCount} onBlur={this.handleChangeAttemptsCount} isValid={SettingsValidation.isValidAttemptsCount} placeholder='Количество попыток'/>
-						</div>
-					</div>
-					<div className="group__elem">
-						<div className="group__content">
-							<QuestionTooltipField.QuestionTooltipFieldRight text={"Во время прохождения теста пользователю не будет доступна информация о правильности его ответа на вопрос"}>
-								<CheckBox label={"Не передавать проигрывателю информацию о правильных ответах на вопросы"} checked={this.state.settings.notSentCorrectAnswer} onChangeChecked={this.handleChangeNotSentCorrectAnswer}/>
-							</QuestionTooltipField.QuestionTooltipFieldRight>
-							<QuestionTooltipField.QuestionTooltipFieldRight text={"Порядок следования вопросов"}>
-								<CheckBox label={"Показывать результаты теста (резюме по тесту)"} checked={this.state.settings.displayResult} onChangeChecked={this.handleChangeDisplayResult}/>
-				        	</QuestionTooltipField.QuestionTooltipFieldRight>
-				        	<QuestionTooltipField.QuestionTooltipFieldRight text={"Порядок следования вопросов"}>
-				        		<CheckBox label={"Не показывать сообщение об исчерпании попыток ответа"} checked={this.state.settings.notDisplayLastAttempt} onChangeChecked={this.handleChangeNotDisplayLastAttempt}/>
-							</QuestionTooltipField.QuestionTooltipFieldRight>
-						</div>
-					</div>
-					<div className="group__elem">
-						<div className="group__content">
-							<QuestionTooltipField.QuestionTooltipFieldRight text={"Порядок следования вопросов"}>
-				        		<CheckBox label={"Показывать варианты ответов в отчете по тестированию"} checked={this.state.settings.displayAnswersInReport} onChangeChecked={this.handleChangeDisplayAnswersInReport}/>
-				        	</QuestionTooltipField.QuestionTooltipFieldRight>
-				        	<QuestionTooltipField.QuestionTooltipFieldRight text={"Порядок следования вопросов"}>
-				        		<CheckBox label={"Показывать правильный ответ в отчете по тестированию"} checked={this.state.settings.displayCorrectAnswerInReport} onChangeChecked={this.handleChangeDisplayCorrectAnswerInReport}/>
-				        	</QuestionTooltipField.QuestionTooltipFieldRight>
-				        	<QuestionTooltipField.QuestionTooltipFieldRight text={"Порядок следования вопросов"}>
-				        		<CheckBox label={"Не показывать набранных балл для незавершенных тестов"} checked={this.state.settings.notDisplayUnfinishedScore} onChangeChecked={this.handleChangeNotDisplayUnfinishedScore}/>
-							</QuestionTooltipField.QuestionTooltipFieldRight>
-						</div>
-					</div>
+				<div>
+		            <Txt.TextView value={this.state.settings.title} onBlur={this.handleChangeTitle} placeholder='Название теста'/>
+		            <Txt.TextView value={this.state.settings.passingScore} onBlur={this.handleChangePassingScore} isValid={SettingsValidation.isValidPassingScore} placeholder='Проходной балл'/>
+		            <Txt.TextView value={this.state.settings.durationMinutes} onBlur={this.handleChangeDurationMinutes} isValid={SettingsValidation.isValidDuration} placeholder='Длительность в минутах'/>
+		            <Txt.TextView value={this.state.settings.durationDays} onBlur={this.handleChangeDurationDays} isValid={SettingsValidation.isValidDuration} placeholder='Продолжительность в днях'/>
+		        	<Txt.TextView value={this.state.settings.attemptsCount} onBlur={this.handleChangeAttemptsCount} isValid={SettingsValidation.isValidAttemptsCount} placeholder='Количество попыток'/>
+		        </div>
+		        <div className="checkbox-fileds">
+			        <CheckBox label={"Не передавать проигрывателю информацию о правильных ответах на вопросы"} checked={this.state.settings.notSentCorrectAnswer} onChangeChecked={this.handleChangeNotSentCorrectAnswer}/>
+					<CheckBox label={"Показывать результаты теста (резюме по тесту)"} checked={this.state.settings.displayResult} onChangeChecked={this.handleChangeDisplayResult}/>	
+					<CheckBox label={"Не показывать сообщение об исчерпании попыток ответа"} checked={this.state.settings.notDisplayLastAttempt} onChangeChecked={this.handleChangeNotDisplayLastAttempt}/>
+		        	<CheckBox label={"Показывать варианты ответов в отчете по тестированию"} checked={this.state.settings.displayAnswersInReport} onChangeChecked={this.handleChangeDisplayAnswersInReport}/>
+		        	<CheckBox label={"Показывать правильный ответ в отчете по тестированию"} checked={this.state.settings.displayCorrectAnswerInReport} onChangeChecked={this.handleChangeDisplayCorrectAnswerInReport}/>
+		        	<CheckBox label={"Не показывать набранных балл для незавершенных тестов"} checked={this.state.settings.notDisplayUnfinishedScore} onChangeChecked={this.handleChangeNotDisplayUnfinishedScore}/>
 				</div>
 	        </div>
 		);

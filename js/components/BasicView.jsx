@@ -1,7 +1,6 @@
 var React = require('react');
 var Config = require('../config');
-var MenuView = require('./modules/MenuView');
-var UI = require('../utils/UI');
+var MenuSimple = require('./modules/MenuSimple');
 var Hasher = require('../utils/Hasher');
 
 function getHashRoot(hash){
@@ -23,44 +22,10 @@ var BasicView = React.createClass({
 		Hasher.changed.add(this._setHash);
 	},
 
-	componentDidMount: function() {
-		window.addEventListener('scroll', this.handleScroll);
-		setTimeout(this._positionFloatingButton, 0);
-		this.appTop = this.refs.tests.getBoundingClientRect().top;
-	},
- 
-	componentWillUnmount: function() {
-		window.removeEventListener('scroll', this.handleScroll);
-	},
-
 	_setHash: function(newHash){
 		setTimeout(function(){
 			this.setState({hash: getHashRoot('#' + newHash)});
 		}.bind(this), this.delay);
-		window.scrollTo(0, this.appTop);
-		this._positionFloatingButton();
-	},
-
-	_positionFloatingButton: function(){
-		var btn = this.refs.floatingButton;
-		var documentHeight = document.documentElement.clientHeight;
-		var testsHeight = this.refs.tests.clientHeight;
-		var scrollTop = this.refs.testsBody.getBoundingClientRect().top;
-
-		if (testsHeight > documentHeight){
-			var hiddentTestsHeight = testsHeight - documentHeight;
-			var visibleTestsHeight = testsHeight - hiddentTestsHeight;
-			btn.style.top = (visibleTestsHeight - btn.offsetHeight - scrollTop) + 'px';
-		}
-		else btn.style.top = null;
-	},
-
-	handleScroll: function(e){
-		var coordinates = UI.getElementCoordinates(this.refs.tests);
-		if (coordinates.positionY <= 0) this.refs.headerFixed.classList.add('tests__header-fixed_stop');
-		else this.refs.headerFixed.classList.remove('tests__header-fixed_stop');
-
-		this._positionFloatingButton();
 	},
 
 	handleMouseLeave: function(e){
@@ -85,11 +50,7 @@ var BasicView = React.createClass({
 		return (
 			<div ref="tests" className="tests">
 				<div className="tests__header">
-					<div ref="headerFixed" className="tests__header-fixed">
-						<div className="tests__header-wrapper clearfix">
-							<MenuView delay={this.delay} defaultRoute={this.state.hash} routes={[{route: '#settings', title: 'Общие сведения'}, {route: '#structure', title: 'Структура'}, {route: '#view', title: 'Результаты'}]}/>
-						</div>
-					</div>
+					<MenuSimple defaultRoute={this.state.hash} routes={[{route: '#settings', iconClass: 'glyphicon glyphicon-cog'}, {route: '#structure', iconClass: 'glyphicon glyphicon-list'}, {route: '#view', iconClass: 'glyphicon glyphicon-ok'}]}/>
 				</div>
 				<div ref="floatingButton" className="floating-button-box">
 					<div onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} className="floating-button">

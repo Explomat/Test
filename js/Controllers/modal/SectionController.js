@@ -8,16 +8,16 @@ var Config = require('../../config');
 
 module.exports = {
 
-	start: function(sectionUuid, x, y) {
+	start: function(sectionUuid) {
 		var section = sectionUuid ? SectionAPI.getSection(sectionUuid) : SectionAPI.createSection();
 		if (!section){
 			Hasher.setHash('structure');
 			return;
 		}
 
-		var app = document.getElementById(Config.dom.modalId) || document.body;
+		var app = document.getElementById(Config.dom.appId) || document.body;
 		ReactDOM.unmountComponentAtNode(app);
 		SectionActions.receiveSection(section);
-		ReactDOM.render(React.createElement(SectionView, {positionX: x, positionY: y}), app);
+		ReactDOM.render(React.createElement(SectionView), app);
 	}
 }

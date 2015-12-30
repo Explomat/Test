@@ -1,0 +1,30 @@
+.menu-simple {
+	position: absolute;
+    bottom: 0;
+    width: 100%;
+
+	.menu-simple__item  {
+		height: 50px;
+	    box-sizing: border-box;
+	    float: left;
+	    text-align: center;
+
+		&.menu-simple__item_active {
+			border-bottom: 5px solid #fff;
+		}
+
+		.menu-simple__button {
+			display: block;
+    		height: 100%;
+
+    		.menu-simple__button-icon {
+    			font-size: 1.5em;
+    			color: rgba(33,33,33,.7);
+
+    			&.menu-simple__button-icon_active {
+	    			color: #fff;
+	    		}
+    		}
+		}
+	}
+}

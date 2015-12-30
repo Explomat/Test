@@ -2,14 +2,11 @@
 
 .tests {
 	position: relative;
-	overflow-y: hidden;
 	font-family: Calibri, Helvetica, serif;
-	width: 1200px;
-	margin: 10px auto auto;
-	box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.16),0px 2px 5px 0px rgba(0,0,0,0.23);
+	width: 100%;
+	height: 100%;
 	padding-right: 0px;
 	padding-left: 0px;	
-	background-color: #f5f5f5;
 	border-radius: $borderRadius;
 
 	font-family: Roboto, sans-serif;
@@ -18,17 +15,60 @@
     line-height: 24px;
     letter-spacing: -0.01em;
 
-    .tests__header-wrapper {
-    	padding: 15px;
-		width:1200px;
-	    margin: auto;
-    }
+    div {
+    user-select:none;
+	}
+
+	h1, nav {
+	    text-align: center;
+	}
+
+	textarea {
+	    resize: none;
+	}
+
+	input {
+	    outline: 0;
+	}
+
+	a {
+	    text-decoration: none;
+	}
+
+	ul {
+	    list-style-type: none;
+	    padding: 0;
+	}
+
+	.all {
+	    margin-top: 20px;
+	}
+
+	.not-valid {
+	    border-bottom: 2px solid #EE6666 !important;
+	    outline: 0px none !important;
+	    /*box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(238, 102, 102, 0.6) !important;*/
+	}
+
+	.error-glyphicon {
+	    color: red;
+	    cursor: default;
+	}
+
+	.error-block {
+	    font-size: 12px;
+	    word-spacing: -7px;
+	}
+
+	.loading-icon {
+	    width: 17px;
+	    height: 17px;
+	}
 
 	.tests__header {
 		position: relative;
-		height: 200px;
+		height: 120px;
 		background-color: $primaryColor;
-		margin-bottom: -110px;
 		border-top-right-radius: $borderRadius;
 		border-top-left-radius: $borderRadius;
 		/*background-image: url('/build/img/banner3.jpg');
@@ -36,29 +76,9 @@
 	    background-position: center;*/
 	}
 
-	.tests__header-fixed{
-		background: $primaryColor;
-	    left:0;
-	    right: 0;
-	    z-index: 1004;
-	    width: 1200px;
-	    margin: auto;
-
-	    &.tests__header-fixed_stop {
-			position: fixed;
-			top: 0px;
-			box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.26);
-		}
-	}
-
 	.tests__body {
-		min-height: 720px;
-		margin: auto;
+		height: 100%;
 		padding: 15px;
-		width: 83.3333333%;
-	    margin: 0 auto;
-	    position: relative;
-	    z-index: 1003;
 	}
 
 	.tests__body-content {
@@ -76,6 +96,14 @@
 		&.tests__body-content_show {
 			transition: all .5s ease-in-out;
 			transform: translateY(0px);
+		}
+
+		.checkbox-fileds {
+			margin-top: 50px;
+		}
+
+		.checkbox-fileds > * {
+			margin-top: 16px;
 		}
 	}
 

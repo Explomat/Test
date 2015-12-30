@@ -1,12 +1,9 @@
 
 .floating-button-box {
-    position: absolute;
-    bottom: 55.5px;
-    right: 27.75px;
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
     z-index: 1001;
-    width: 55.5px;
-    height: 55.5px;
-    transition: 2s cubic-bezier(0.18, 0.89, 0.32, 1.28), box-shadow .3s;
 
     .floating-list {
         position: absolute;

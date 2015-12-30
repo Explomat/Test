@@ -2,8 +2,6 @@ var React = require('react');
 var StructureStore = require('../stores/StructureStore');
 var StructureActions = require('../actions/StructureActions');
 var Hasher = require('../utils/Hasher');
-var UI = require('../utils/UI');
-var Config = require('../config');
 var QuestionTypes = require('../utils/QuestionTypes');
 
 var curDragQuestion = null, curDragSection = null, DRAG_EFFECT = 'move';
@@ -49,8 +47,7 @@ var QuestionShortView = React.createClass({
 	},
 
 	handleEditQuestion: function(e){
-		var coordinates = UI.getElementCoordinates(e.target);
-		Hasher.setHash('structure/question/'+ (coordinates.positionX + (coordinates.width / 2))  +'/' + (coordinates.positionY - (coordinates.height / 2)) + '/' + this.props.sectionUuid +'/'+this.props.uuid);
+		Hasher.setHash('structure/question/'+ this.props.sectionUuid +'/'+this.props.uuid);
 	},
 
 	handleRemoveQuestion: function(){
@@ -131,8 +128,7 @@ var SectionView = React.createClass({
 
 	handleEditSection: function(e){
 		this.stopPropagation(e);
-		var coordinates = UI.getElementCoordinates(e.target);
-		Hasher.setHash('structure/section/' + (coordinates.positionX + (coordinates.width / 2)) + '/' + (coordinates.positionY - (coordinates.height / 2)) + '/' + this.props.uuid);
+		Hasher.setHash('structure/section/' + this.props.uuid);
 	},
 
 	handleRemoveSection: function(e){
@@ -188,14 +184,12 @@ var StructureView = React.createClass({
 	},
 
 	handleAddNewSection: function(e){
-		var coordinates = UI.getElementCoordinates(e.target);
-		Hasher.setHash('structure/section/' + (coordinates.positionX + (coordinates.width / 2)) + '/' + (coordinates.positionY - (coordinates.height / 2)));
+		Hasher.setHash('structure/section');
 	},
 
 	handleAddNewQuestion: function(e){
-		var coordinates = UI.getElementCoordinates(e.target);
 		var sectionSelected = StructureStore.getSectionSelected();
-		Hasher.setHash('structure/question/'+ (coordinates.positionX + (coordinates.width / 2)) + '/' + (coordinates.positionY - (coordinates.height / 2)) + '/' + sectionSelected.uuid);
+		Hasher.setHash('structure/question/' + sectionSelected.uuid);
 	},
 
 	getInitialState: function () {
@@ -247,7 +241,6 @@ var StructureView = React.createClass({
 						</div>
 					</div>
 				</div>
-				<div id={Config.dom.modalId}></div>
 			</div>
 		);
 	}

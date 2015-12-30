@@ -11,7 +11,6 @@ var Answer = require('./AnswersView');
 var DropDown = require('./modules/DropDown');
 var Txt = require('./modules/TextLabel');
 var ImageSelect = require('./modules/ImageSelect');
-var ModalView = require('./modules/ModalView');
 var CheckBox = require('./modules/CheckBox');
 
 function getQuestionState() {
@@ -206,40 +205,29 @@ var QuestionView = React.createClass({
 		var warningStyles = { display : qType === QuestionTypes.keys.order ? 'block' : 'none' };
 		var error = this.getErrorWeight();
 		return (
-			<ModalView.ModalBox positionX={this.props.positionX} positionY={this.props.positionY}>
-				<ModalView.ModalBoxContent>
-					<ModalView.ModalBoxHeader onClose={this.handleClose}>
-						<h4 className="modal-box__title">Добавление/Редактирование вопроса</h4>
-					</ModalView.ModalBoxHeader>
-					<ModalView.ModalBoxBody>
-						<div className="question-modal">
-							<div className="question-modal__controls">
-								<div className="question-modal__controls-input">
-									<QuestionText text={this.state.question.text} />
-									<QuestionType type={this.state.question.type} />
-									<QuestionWeight weight={this.state.question.weight}/>
-								</div>
-								<div className="question-modal__controls-edit">
-									<AddAnswerButton />
-									<QuestionSelfWeight useSelfWeight={this.state.question.useSelfWeight} />
-								</div>
-							</div>
-					        <div className="answers">
-					        	<div style={warningStyles} className="answers__warning">
-						        	<span className="answers__warning-icon glyphicon glyphicon-warning-sign"></span>
-						        	<span className="answers__warning-text">Обратите внимание, что ответы на вопрос данного типа, необходимо распологать в правильном порядке, при проведении тестирования ответы будут перемешанны!</span>
-					        	</div>
-					        	{answers}
-					        </div>
-					    </div>
-					</ModalView.ModalBoxBody>
-					<ModalView.ModalBoxFooter onSave={this.handleSaveQuestion} disabled={isDisableSave}>
-						<div className="question-modal-footer">
-							<span className="question-modal-footer__error">{error}</span>
-						</div>
-					</ModalView.ModalBoxFooter>
-				</ModalView.ModalBoxContent>
-			</ModalView.ModalBox>
+			<div className="question-modal">
+				<div className="question-modal__controls">
+					<div className="question-modal__controls-input">
+						<QuestionText text={this.state.question.text} />
+						<QuestionType type={this.state.question.type} />
+						<QuestionWeight weight={this.state.question.weight}/>
+					</div>
+					<div className="question-modal__controls-edit">
+						<AddAnswerButton />
+						<QuestionSelfWeight useSelfWeight={this.state.question.useSelfWeight} />
+					</div>
+				</div>
+		        <div className="answers">
+		        	<div style={warningStyles} className="answers__warning">
+			        	<span className="answers__warning-icon glyphicon glyphicon-warning-sign"></span>
+			        	<span className="answers__warning-text">Обратите внимание, что ответы на вопрос данного типа, необходимо распологать в правильном порядке, при проведении тестирования ответы будут перемешанны!</span>
+		        	</div>
+		        	{answers}
+		        </div>
+		        <div className="question-modal-footer">
+					<span className="question-modal-footer__error">{error}</span>
+				</div>
+		    </div>
 		);
 	}	
 });

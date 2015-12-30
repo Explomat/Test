@@ -7,7 +7,6 @@ var ArrayUtils = require('../utils/Array');
 var Txt = require('./modules/TextLabel');
 var SectionKeys = require('../utils/SectionKeys');
 var SectionValidation = require('../utils/validation/SectionValidation');
-var ModalView = require('./modules/ModalView');
 var QuestionTooltipField = require('./modules/tooltip/QuestionTooltipField');
 var DropDown = require('./modules/DropDown');
 
@@ -116,17 +115,7 @@ var SectionView = React.createClass({
 	render: function(){
 		var isDisableSave = this.isDisableSave();
 		return(
-			<ModalView.ModalBox positionX={this.props.positionX} positionY={this.props.positionY}>
-				<ModalView.ModalBoxContent>
-					<ModalView.ModalBoxHeader onClose={this.handleClose}>
-						<h4 className="modal-box__title">Добавление/редактирование раздела</h4>
-					</ModalView.ModalBoxHeader>
-					<ModalView.ModalBoxBody>
-						<Fields {...this.state.section}/>
-					</ModalView.ModalBoxBody>
-					<ModalView.ModalBoxFooter onSave={this.handleSaveSection} disabled={isDisableSave}/>
-				</ModalView.ModalBoxContent>
-			</ModalView.ModalBox>
+			<Fields {...this.state.section}/>
 		);
 	}
 });
